@@ -19,6 +19,8 @@
 </a>
 </p>
 
+[中文](./README.CN.md)
+
 ---
 
 **Documentation**: <a href="https://sqlmodel.tiangolo.com" target="_blank">https://sqlmodel.tiangolo.com</a>
