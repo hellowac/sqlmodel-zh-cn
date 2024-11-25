@@ -1,0 +1,4654 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="SQLModel, Python 中的 SQL 数据库，设计简洁、兼容、稳健。">
+      
+      
+      
+        <link rel="canonical" href="https://hellowac.github.io/sqlmodel-zh-cn/release-notes/">
+      
+      
+        <link rel="prev" href="../management/">
+      
+      
+      
+      <link rel="icon" href="../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Release Notes - SQLModel</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/termynal.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-J8HVTT936W"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-J8HVTT936W",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-J8HVTT936W",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Release Notes - SQLModel" >
+      
+        <meta  property="og:description"  content="SQLModel, Python 中的 SQL 数据库，设计简洁、兼容、稳健。" >
+      
+        <meta  property="og:image"  content="https://hellowac.github.io/sqlmodel-zh-cn/assets/images/social/release-notes.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://hellowac.github.io/sqlmodel-zh-cn/release-notes/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Release Notes - SQLModel" >
+      
+        <meta  name="twitter:description"  content="SQLModel, Python 中的 SQL 数据库，设计简洁、兼容、稳健。" >
+      
+        <meta  name="twitter:image"  content="https://hellowac.github.io/sqlmodel-zh-cn/assets/images/social/release-notes.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#release-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="SQLModel" class="md-header__button md-logo" aria-label="SQLModel" data-md-component="logo">
+      
+  <img src="../img/icon-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SQLModel
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Release Notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2C5.13 2 2 5.13 2 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7M6 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H6v1m13-8h-2l-3.2 9h1.9l.7-2h3.2l.7 2h1.9L19 13m-2.15 5.65L18 15l1.15 3.65h-2.3Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/sqlmodel-zh-cn" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hellowac/sqlmodel-zh-cn
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  SQLModel
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../features/" class="md-tabs__link">
+        
+  
+    
+  
+  特性
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../learn/" class="md-tabs__link">
+          
+  
+    
+  
+  学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../resources/" class="md-tabs__link">
+          
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../about/" class="md-tabs__link">
+          
+  
+    
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Release Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SQLModel" class="md-nav__button md-logo" aria-label="SQLModel" data-md-component="logo">
+      
+  <img src="../img/icon-white.svg" alt="logo">
+
+    </a>
+    SQLModel
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/sqlmodel-zh-cn" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hellowac/sqlmodel-zh-cn
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQLModel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    特性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../learn/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    学习
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据库简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../db-to-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据库与代码（ORM）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment-variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境变量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtual-environments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚拟环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安装 **SQLModel**
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../tutorial/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    教程 - 用户指南
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            教程 - 用户指南
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/create-db-and-table-with-db-browser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 SQL 创建表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/create-db-and-table/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create a Table with SQLModel - Use the Engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/insert/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create Rows - Use the Session - INSERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/automatic-id-none-refresh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automatic IDs, None Defaults, and Refreshing Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/select/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Data - SELECT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/where/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Filter Data - WHERE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/indexes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexes - Optimize Queries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/one/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read One Row
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/limit-and-offset/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read a Range of Data - LIMIT and OFFSET
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/update/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update Data - UPDATE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/delete/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Delete Data - DELETE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_13" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../tutorial/connect/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Connect Tables - JOIN - Intro
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7_13" id="__nav_3_7_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_13">
+            <span class="md-nav__icon md-icon"></span>
+            Connect Tables - JOIN - Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/connect/create-connected-tables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create Connected Tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/connect/create-connected-rows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create and Connect Rows
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/connect/read-connected-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Connected Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/connect/update-data-connections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update Data Connections
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/connect/remove-data-connections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remove Data Connections
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_14" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../tutorial/relationship-attributes/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Relationship Attributes - Intro
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7_14" id="__nav_3_7_14_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_14">
+            <span class="md-nav__icon md-icon"></span>
+            Relationship Attributes - Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/relationship-attributes/define-relationships-attributes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Define Relationships Attributes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/relationship-attributes/create-and-update-relationships/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create and Update Relationships
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/relationship-attributes/read-relationships/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Relationships
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/relationship-attributes/remove-relationships/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remove Relationships
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/relationship-attributes/back-populates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Relationship back_populates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/relationship-attributes/cascade-delete-relationships/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cascade Delete Relationships
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/relationship-attributes/type-annotation-strings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Type annotation strings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_15" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../tutorial/many-to-many/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Many to Many - Intro
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7_15" id="__nav_3_7_15_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_15">
+            <span class="md-nav__icon md-icon"></span>
+            Many to Many - Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/many-to-many/create-models-with-link/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create Models with a Many-to-Many Link
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/many-to-many/create-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create Data with Many-to-Many Relationships
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/many-to-many/update-remove-relationships/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update and Remove Many-to-Many Relationships
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/many-to-many/link-with-extra-fields/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Link Model with Extra Fields
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/code-structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Structure and Multiple Files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_17" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../tutorial/fastapi/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    FastAPI and Pydantic - Intro
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7_17" id="__nav_3_7_17_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_17">
+            <span class="md-nav__icon md-icon"></span>
+            FastAPI and Pydantic - Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/simple-hero-api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simple Hero API with FastAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/response-model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FastAPI Response Model with SQLModel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/multiple-models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multiple Models with FastAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/read-one/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read One Model with FastAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/limit-and-offset/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Heroes with Limit and Offset with FastAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/update/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update Data with FastAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/update-extra-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update with Extra Data (Hashed Passwords) with FastAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/delete/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Delete Data with FastAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/session-with-dependency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Session with FastAPI Dependency
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/teams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FastAPI Path Operations for Teams - Other Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/relationships/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Models with Relationships in FastAPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/fastapi/tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Test Applications with FastAPI and SQLModel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../advanced/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Advanced User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/decimal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Decimal Numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/uuid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UUID (Universally Unique Identifiers)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../resources/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Resources
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help SQLModel - Get Help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management-tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Repository Management Tasks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../about/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alternatives/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Alternatives, Inspiration and Comparisons
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Repository Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Release Notes
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#latest-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Latest Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Latest Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#refactors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0022" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.22
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.22">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0021" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.21
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0020" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.20
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.20">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0019" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.19
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.19">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactors_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0018" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.18
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.18">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0017" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.17
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.17">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#refactors_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0016" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.16
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.16">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0015" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.15
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0014" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.14
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0013" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.13
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.13">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactors_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrades_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0012" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.12
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.12">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0011" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.11
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0010" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.10
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#009" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.9
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.9">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Breaking Changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrades_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#008" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.8
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.8">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#007" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.7
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.7">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#006" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.6
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Breaking Changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#005" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#004" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.4
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#003" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#002" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#001" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.1
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#latest-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Latest Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Latest Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#refactors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0022" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.22
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.22">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0021" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.21
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0020" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.20
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.20">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0019" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.19
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.19">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactors_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0018" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.18
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.18">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0017" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.17
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.17">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#refactors_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0016" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.16
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.16">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0015" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.15
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0014" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.14
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0013" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.13
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.13">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactors_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrades_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0012" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.12
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.12">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0011" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.11
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0010" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.10
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#009" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.9
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.9">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Breaking Changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrades_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#008" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.8
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.8">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#007" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.7
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.7">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#006" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.6
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Breaking Changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#005" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.0.5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#004" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.4
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#003" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#002" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#001" class="md-nav__link">
+    <span class="md-ellipsis">
+      0.0.1
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="release-notes">Release Notes<a class="headerlink" href="#release-notes" title="Permanent link">&para;</a></h1>
+<h2 id="latest-changes">Latest Changes<a class="headerlink" href="#latest-changes" title="Permanent link">&para;</a></h2>
+<h3 id="refactors">Refactors<a class="headerlink" href="#refactors" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🚨 Fix types for new Pydantic. PR <a href="https://github.com/fastapi/sqlmodel/pull/1131">#1131</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="docs">Docs<a class="headerlink" href="#docs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✏️ Fix typo in the release notes of v0.0.22. PR <a href="https://github.com/fastapi/sqlmodel/pull/1195">#1195</a> by <a href="https://github.com/PipeKnight">@PipeKnight</a>.</li>
+<li>📝 Update includes for <code>docs/advanced/uuid.md</code>. PR <a href="https://github.com/fastapi/sqlmodel/pull/1151">#1151</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Update includes for <code>docs/tutorial/create-db-and-table.md</code>. PR <a href="https://github.com/fastapi/sqlmodel/pull/1149">#1149</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Fix internal links in docs. PR <a href="https://github.com/fastapi/sqlmodel/pull/1148">#1148</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>✏️ Fix typo in documentation. PR <a href="https://github.com/fastapi/sqlmodel/pull/1106">#1106</a> by <a href="https://github.com/Solipsistmonkey">@Solipsistmonkey</a>.</li>
+<li>📝 Remove highlights in <code>indexes.md</code> . PR <a href="https://github.com/fastapi/sqlmodel/pull/1100">#1100</a> by <a href="https://github.com/alejsdev">@alejsdev</a>.</li>
+</ul>
+<h3 id="internal">Internal<a class="headerlink" href="#internal" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆️ Upgrade markdown-include-variants to version 0.0.3. PR <a href="https://github.com/fastapi/sqlmodel/pull/1152">#1152</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update issue manager workflow. PR <a href="https://github.com/fastapi/sqlmodel/pull/1137">#1137</a> by <a href="https://github.com/alejsdev">@alejsdev</a>.</li>
+<li>👷 Fix smokeshow, checkout files on CI. PR <a href="https://github.com/fastapi/sqlmodel/pull/1136">#1136</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Use uv in CI. PR <a href="https://github.com/fastapi/sqlmodel/pull/1135">#1135</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>➕ Add docs dependency markdown-include-variants. PR <a href="https://github.com/fastapi/sqlmodel/pull/1129">#1129</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔨 Update script to standardize format. PR <a href="https://github.com/fastapi/sqlmodel/pull/1130">#1130</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update <code>labeler.yml</code>. PR <a href="https://github.com/fastapi/sqlmodel/pull/1128">#1128</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update worfkow deploy-docs-notify URL. PR <a href="https://github.com/fastapi/sqlmodel/pull/1126">#1126</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Upgrade Cloudflare GitHub Action. PR <a href="https://github.com/fastapi/sqlmodel/pull/1124">#1124</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ [pre-commit.ci] pre-commit autoupdate. PR <a href="https://github.com/fastapi/sqlmodel/pull/1097">#1097</a> by <a href="https://github.com/apps/pre-commit-ci">@pre-commit-ci[bot]</a>.</li>
+<li>⬆ Bump tiangolo/issue-manager from 0.5.0 to 0.5.1. PR <a href="https://github.com/fastapi/sqlmodel/pull/1107">#1107</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>👷 Update <code>issue-manager.yml</code>. PR <a href="https://github.com/fastapi/sqlmodel/pull/1103">#1103</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Fix coverage processing in CI, one name per matrix run. PR <a href="https://github.com/fastapi/sqlmodel/pull/1104">#1104</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>💚 Set <code>include-hidden-files</code> to <code>True</code> when using the <code>upload-artifact</code> GH action. PR <a href="https://github.com/fastapi/sqlmodel/pull/1098">#1098</a> by <a href="https://github.com/svlandeg">@svlandeg</a>.</li>
+<li>⬆ [pre-commit.ci] pre-commit autoupdate. PR <a href="https://github.com/fastapi/sqlmodel/pull/1088">#1088</a> by <a href="https://github.com/apps/pre-commit-ci">@pre-commit-ci[bot]</a>.</li>
+</ul>
+<h2 id="0022">0.0.22<a class="headerlink" href="#0022" title="Permanent link">&para;</a></h2>
+<h3 id="fixes">Fixes<a class="headerlink" href="#fixes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🐛 Fix support for types with <code>Optional[Annotated[x, f()]]</code>, e.g. <code>id: Optional[pydantic.UUID4]</code>. PR <a href="https://github.com/fastapi/sqlmodel/pull/1093">#1093</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="docs_1">Docs<a class="headerlink" href="#docs_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✏️ Fix a typo in <code>docs/virtual-environments.md</code>. PR <a href="https://github.com/fastapi/sqlmodel/pull/1085">#1085</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Add docs for virtual environments and environment variables, update contributing. PR <a href="https://github.com/fastapi/sqlmodel/pull/1082">#1082</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Add docs about repo management and team. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1059">#1059</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>✏️ Fix typo in <code>cascade_delete</code> docs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1030">#1030</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="internal_1">Internal<a class="headerlink" href="#internal_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Refactor test_enums to make them independent of previous imports. PR <a href="https://github.com/fastapi/sqlmodel/pull/1095">#1095</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update <code>latest-changes</code> GitHub Action. PR <a href="https://github.com/fastapi/sqlmodel/pull/1087">#1087</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ [pre-commit.ci] pre-commit autoupdate. PR <a href="https://github.com/fastapi/sqlmodel/pull/1028">#1028</a> by <a href="https://github.com/apps/pre-commit-ci">@pre-commit-ci[bot]</a>.</li>
+<li>⬆ Bump ruff from 0.4.7 to 0.6.2. PR <a href="https://github.com/fastapi/sqlmodel/pull/1081">#1081</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>🔧 Update lint script. PR <a href="https://github.com/fastapi/sqlmodel/pull/1084">#1084</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update Python version for coverage. PR <a href="https://github.com/fastapi/sqlmodel/pull/1083">#1083</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Update coverage config files. PR <a href="https://github.com/fastapi/sqlmodel/pull/1077">#1077</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Add URLs to <code>pyproject.toml</code>, show up in PyPI. PR <a href="https://github.com/fastapi/sqlmodel/pull/1074">#1074</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Do not sync labels as it overrides manually added labels. PR <a href="https://github.com/fastapi/sqlmodel/pull/1073">#1073</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update configs for GitHub Action labeler, to add only one label. PR <a href="https://github.com/fastapi/sqlmodel/pull/1072">#1072</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update labeler GitHub Actions permissions and dependencies. PR <a href="https://github.com/fastapi/sqlmodel/pull/1071">#1071</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Add GitHub Action label-checker. PR <a href="https://github.com/fastapi/sqlmodel/pull/1069">#1069</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Add GitHub Action labeler. PR <a href="https://github.com/fastapi/sqlmodel/pull/1068">#1068</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update GitHub Action add-to-project. PR <a href="https://github.com/fastapi/sqlmodel/pull/1067">#1067</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Add GitHub Action add-to-project. PR <a href="https://github.com/fastapi/sqlmodel/pull/1066">#1066</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Update admonitions in annotations. PR <a href="https://github.com/fastapi/sqlmodel/pull/1065">#1065</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Update links from github.com/tiangolo/sqlmodel to github.com/fastapi/sqlmodel. PR <a href="https://github.com/fastapi/sqlmodel/pull/1064">#1064</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Update members. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1063">#1063</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>💄 Add dark-mode logo. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1061">#1061</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔨 Update docs.py script to enable dirty reload conditionally. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1060">#1060</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Update MkDocs previews. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1058">#1058</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>💄 Update Termynal line-height. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1057">#1057</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Upgrade build docs configs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1047">#1047</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Add alls-green for test-redistribute. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1055">#1055</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update docs-previews to handle no docs changes. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1056">#1056</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷🏻 Show docs deployment status and preview URLs in comment. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1054">#1054</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Enable auto dark mode. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1046">#1046</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update issue-manager. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1045">#1045</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update issue-manager.yml GitHub Action permissions. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1040">#1040</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>♻️ Refactor Deploy Docs GitHub Action to be a script and update token preparing for org. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1039">#1039</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0021">0.0.21<a class="headerlink" href="#0021" title="Permanent link">&para;</a></h2>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Add support for cascade delete relationships: <code>cascade_delete</code>, <code>ondelete</code>, and <code>passive_deletes</code>. Initial PR <a href="https://github.com/tiangolo/sqlmodel/pull/983">#983</a> by <a href="https://github.com/estebanx64">@estebanx64</a>.</li>
+<li>New docs at: <a href="https://sqlmodel.tiangolo.com/tutorial/relationship-attributes/cascade-delete-relationships/">Cascade Delete Relationships</a>.</li>
+</ul>
+<h3 id="docs_2">Docs<a class="headerlink" href="#docs_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>📝 Update docs . PR <a href="https://github.com/tiangolo/sqlmodel/pull/1003">#1003</a> by <a href="https://github.com/alejsdev">@alejsdev</a>.</li>
+</ul>
+<h3 id="internal_2">Internal<a class="headerlink" href="#internal_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆ Bump actions/cache from 3 to 4. PR <a href="https://github.com/tiangolo/sqlmodel/pull/783">#783</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump cairosvg from 2.7.0 to 2.7.1. PR <a href="https://github.com/tiangolo/sqlmodel/pull/919">#919</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump jinja2 from 3.1.3 to 3.1.4. PR <a href="https://github.com/tiangolo/sqlmodel/pull/974">#974</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump pypa/gh-action-pypi-publish from 1.8.11 to 1.9.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/987">#987</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump mkdocstrings[python] from 0.23.0 to 0.25.1. PR <a href="https://github.com/tiangolo/sqlmodel/pull/927">#927</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump dorny/paths-filter from 2 to 3. PR <a href="https://github.com/tiangolo/sqlmodel/pull/972">#972</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+</ul>
+<h2 id="0020">0.0.20<a class="headerlink" href="#0020" title="Permanent link">&para;</a></h2>
+<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Add official UUID support, docs and tests, internally using new SQLAlchemy 2.0 types. Initial PR <a href="https://github.com/tiangolo/sqlmodel/pull/992">#992</a> by <a href="https://github.com/estebanx64">@estebanx64</a>.</li>
+<li>New docs in the <a href="https://sqlmodel.tiangolo.com/advanced/uuid/">Advanced User Guide: UUID (Universally Unique Identifiers)</a>.</li>
+</ul>
+<h3 id="docs_3">Docs<a class="headerlink" href="#docs_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✏️ Fix internal link in <code>docs/tutorial/create-db-and-table.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/911">#911</a> by <a href="https://github.com/tfpgh">@tfpgh</a>.</li>
+<li>✏️ Add missing step in <code>create-db-and-table-with-db-browser.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/976">#976</a> by <a href="https://github.com/alejsdev">@alejsdev</a>.</li>
+<li>✏️ Fix typo in <code>docs/tutorial</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/943">#943</a> by <a href="https://github.com/luco17">@luco17</a>.</li>
+<li>✏️ Fix typo in <code>sqlmodel/_compat.py</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/950">#950</a> by <a href="https://github.com/Highfire1">@Highfire1</a>.</li>
+<li>✏️ Update pip installation command in tutorial. PR <a href="https://github.com/tiangolo/sqlmodel/pull/975">#975</a> by <a href="https://github.com/alejsdev">@alejsdev</a>.</li>
+<li>✏️ Fix typo in <code>docs/tutorial/relationship-attributes/index.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/880">#880</a> by <a href="https://github.com/UncleGoogle">@UncleGoogle</a>.</li>
+</ul>
+<h3 id="internal_3">Internal<a class="headerlink" href="#internal_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆ [pre-commit.ci] pre-commit autoupdate. PR <a href="https://github.com/tiangolo/sqlmodel/pull/979">#979</a> by <a href="https://github.com/apps/pre-commit-ci">@pre-commit-ci[bot]</a>.</li>
+<li>🔨 Update docs Termynal scripts to not include line nums for local dev. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1018">#1018</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0019">0.0.19<a class="headerlink" href="#0019" title="Permanent link">&para;</a></h2>
+<h3 id="fixes_1">Fixes<a class="headerlink" href="#fixes_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🐛 Fix pydantic <code>EmailStr</code> support and <code>max_length</code> in several String subclasses. PR <a href="https://github.com/tiangolo/sqlmodel/pull/966">#966</a> by <a href="https://github.com/estebanx64">@estebanx64</a>.</li>
+<li>🐛 Fix set varchar limit when <code>max_length</code> is set on Pydantic models using Pydantic v2. PR <a href="https://github.com/tiangolo/sqlmodel/pull/963">#963</a> by <a href="https://github.com/estebanx64">@estebanx64</a>.</li>
+</ul>
+<h3 id="refactors_1">Refactors<a class="headerlink" href="#refactors_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>♻️ Refactor generate select template to isolate templated code to the minimum. PR <a href="https://github.com/tiangolo/sqlmodel/pull/967">#967</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="upgrades">Upgrades<a class="headerlink" href="#upgrades" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆️ Update minimum SQLAlchemy version to 2.0.14 as that one includes <code>TryCast</code> used internally. PR <a href="https://github.com/tiangolo/sqlmodel/pull/964">#964</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="docs_4">Docs<a class="headerlink" href="#docs_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✏️ Fix broken link to <code>@dataclass_transform</code> (now PEP 681) in <code>docs/features.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/753">#753</a> by <a href="https://github.com/soof-golan">@soof-golan</a>.</li>
+</ul>
+<h3 id="internal_4">Internal<a class="headerlink" href="#internal_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆️ Upgrade Ruff and Black. PR <a href="https://github.com/tiangolo/sqlmodel/pull/968">#968</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ Bump tiangolo/issue-manager from 0.4.1 to 0.5.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/922">#922</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>📌 Pin typing-extensions in tests for compatiblity with Python 3.8, dirty-equals, Pydantic. PR <a href="https://github.com/tiangolo/sqlmodel/pull/965">#965</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update GitHub Actions to download and upload artifacts. PR <a href="https://github.com/tiangolo/sqlmodel/pull/936">#936</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Tweak CI for test-redistribute, add needed env vars for slim. PR <a href="https://github.com/tiangolo/sqlmodel/pull/929">#929</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0018">0.0.18<a class="headerlink" href="#0018" title="Permanent link">&para;</a></h2>
+<h3 id="internal_5">Internal<a class="headerlink" href="#internal_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Add <code>sqlmodel-slim</code> setup. PR <a href="https://github.com/tiangolo/sqlmodel/pull/916">#916</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<p>In the future SQLModel will include the standard default recommended packages, and <code>sqlmodel-slim</code> will come without those recommended standard packages and with a group of optional dependencies <code>sqlmodel-slim[standard]</code>, equivalent to <code>sqlmodel</code>, for those that want to opt out of those packages.</p>
+<ul>
+<li>🔧 Re-enable MkDocs Material Social plugin. PR <a href="https://github.com/tiangolo/sqlmodel/pull/915">#915</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0017">0.0.17<a class="headerlink" href="#0017" title="Permanent link">&para;</a></h2>
+<h3 id="refactors_2">Refactors<a class="headerlink" href="#refactors_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>♻️ Refactor types to properly support Pydantic 2.7. PR <a href="https://github.com/tiangolo/sqlmodel/pull/913">#913</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="docs_5">Docs<a class="headerlink" href="#docs_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>📝 Update ModelRead to ModelPublic documentation and examples. PR <a href="https://github.com/tiangolo/sqlmodel/pull/885">#885</a> by <a href="https://github.com/estebanx64">@estebanx64</a>.</li>
+<li>✨ Add source examples for Python 3.10 and 3.9 with updated syntax. PR <a href="https://github.com/tiangolo/sqlmodel/pull/842">#842</a> by <a href="https://github.com/tiangolo">@tiangolo</a> and <a href="https://github.com/estebanx64">@estebanx64</a>.</li>
+</ul>
+<h3 id="internal_6">Internal<a class="headerlink" href="#internal_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆ Bump actions/setup-python from 4 to 5. PR <a href="https://github.com/tiangolo/sqlmodel/pull/733">#733</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>🔨 Update internal scripts and remove unused ones. PR <a href="https://github.com/tiangolo/sqlmodel/pull/914">#914</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Migrate from Poetry to PDM for the internal build config. PR <a href="https://github.com/tiangolo/sqlmodel/pull/912">#912</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Update MkDocs, disable cards while I can upgrade to the latest MkDocs Material, that fixes an issue with social cards. PR <a href="https://github.com/tiangolo/sqlmodel/pull/888">#888</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Add cron to run test once a week on monday. PR <a href="https://github.com/tiangolo/sqlmodel/pull/869">#869</a> by <a href="https://github.com/estebanx64">@estebanx64</a>.</li>
+<li>⬆️ Upgrade Ruff version and configs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/859">#859</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔥 Remove Jina QA Bot as it has been discontinued. PR <a href="https://github.com/tiangolo/sqlmodel/pull/840">#840</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0016">0.0.16<a class="headerlink" href="#0016" title="Permanent link">&para;</a></h2>
+<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Add new method <code>.sqlmodel_update()</code> to update models in place, including an <code>update</code> parameter for extra data. And fix implementation for the (now documented) <code>update</code> parameter for <code>.model_validate()</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/804">#804</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.<ul>
+<li>Updated docs: <a href="https://sqlmodel.tiangolo.com/tutorial/fastapi/update/">Update Data with FastAPI</a>.</li>
+<li>New docs: <a href="https://sqlmodel.tiangolo.com/tutorial/fastapi/update-extra-data/">Update with Extra Data (Hashed Passwords) with FastAPI</a>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="0015">0.0.15<a class="headerlink" href="#0015" title="Permanent link">&para;</a></h2>
+<h3 id="fixes_2">Fixes<a class="headerlink" href="#fixes_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🐛 Fix class initialization compatibility with Pydantic and SQLModel, fixing errors revealed by the latest Pydantic. PR <a href="https://github.com/tiangolo/sqlmodel/pull/807">#807</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="internal_7">Internal<a class="headerlink" href="#internal_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆ Bump tiangolo/issue-manager from 0.4.0 to 0.4.1. PR <a href="https://github.com/tiangolo/sqlmodel/pull/775">#775</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>👷 Fix GitHub Actions build docs filter paths for GitHub workflows. PR <a href="https://github.com/tiangolo/sqlmodel/pull/738">#738</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0014">0.0.14<a class="headerlink" href="#0014" title="Permanent link">&para;</a></h2>
+<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Add support for Pydantic v2 (while keeping support for v1 if v2 is not available). PR <a href="https://github.com/tiangolo/sqlmodel/pull/722">#722</a> by <a href="https://github.com/tiangolo">@tiangolo</a> including initial work in PR <a href="https://github.com/tiangolo/sqlmodel/pull/699">#699</a> by <a href="https://github.com/AntonDeMeester">@AntonDeMeester</a>.</li>
+</ul>
+<h2 id="0013">0.0.13<a class="headerlink" href="#0013" title="Permanent link">&para;</a></h2>
+<h3 id="fixes_3">Fixes<a class="headerlink" href="#fixes_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>♻️ Refactor type generation of selects re-order to prioritize models to optimize editor support. PR <a href="https://github.com/tiangolo/sqlmodel/pull/718">#718</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="refactors_3">Refactors<a class="headerlink" href="#refactors_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🔇 Do not raise deprecation warnings for execute as it's automatically used internally. PR <a href="https://github.com/tiangolo/sqlmodel/pull/716">#716</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>✅ Move OpenAPI tests inline to simplify updating them with Pydantic v2. PR <a href="https://github.com/tiangolo/sqlmodel/pull/709">#709</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="upgrades_1">Upgrades<a class="headerlink" href="#upgrades_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆️ Add support for Python 3.11 and Python 3.12. PR <a href="https://github.com/tiangolo/sqlmodel/pull/710">#710</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="docs_6">Docs<a class="headerlink" href="#docs_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✏️ Fix typo, simplify single quote/apostrophe character in "Sister Margaret's" everywhere in the docs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/721">#721</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Update docs for Decimal, use proper types. PR <a href="https://github.com/tiangolo/sqlmodel/pull/719">#719</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Add source examples for Python 3.9 and 3.10. PR <a href="https://github.com/tiangolo/sqlmodel/pull/715">#715</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="internal_8">Internal<a class="headerlink" href="#internal_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🙈 Update gitignore, include all coverage files. PR <a href="https://github.com/tiangolo/sqlmodel/pull/711">#711</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Update config with new pymdown extensions. PR <a href="https://github.com/tiangolo/sqlmodel/pull/712">#712</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Update docs build setup, add support for sponsors, add sponsor GOVCERT.LU. PR <a href="https://github.com/tiangolo/sqlmodel/pull/720">#720</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ [pre-commit.ci] pre-commit autoupdate. PR <a href="https://github.com/tiangolo/sqlmodel/pull/697">#697</a> by <a href="https://github.com/apps/pre-commit-ci">@pre-commit-ci[bot]</a>.</li>
+<li>🔧 Show line numbers in docs during local development. PR <a href="https://github.com/tiangolo/sqlmodel/pull/714">#714</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Update details syntax with new pymdown extensions format. PR <a href="https://github.com/tiangolo/sqlmodel/pull/713">#713</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0012">0.0.12<a class="headerlink" href="#0012" title="Permanent link">&para;</a></h2>
+<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Upgrade SQLAlchemy to 2.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/700">#700</a> by <a href="https://github.com/tiangolo">@tiangolo</a> including initial work in PR <a href="https://github.com/tiangolo/sqlmodel/pull/563">#563</a> by <a href="https://github.com/farahats9">@farahats9</a>.</li>
+</ul>
+<h3 id="internal_9">Internal<a class="headerlink" href="#internal_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆ [pre-commit.ci] pre-commit autoupdate. PR <a href="https://github.com/tiangolo/sqlmodel/pull/686">#686</a> by <a href="https://github.com/apps/pre-commit-ci">@pre-commit-ci[bot]</a>.</li>
+<li>👷 Upgrade latest-changes GitHub Action. PR <a href="https://github.com/tiangolo/sqlmodel/pull/693">#693</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0011">0.0.11<a class="headerlink" href="#0011" title="Permanent link">&para;</a></h2>
+<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Add support for passing a custom SQLAlchemy type to <code>Field()</code> with <code>sa_type</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/505">#505</a> by <a href="https://github.com/maru0123-2004">@maru0123-2004</a>.<ul>
+<li>You might consider this a breaking change if you were using an incompatible combination of arguments, those arguments were not taking effect and now you will have a type error and runtime error telling you that.</li>
+</ul>
+</li>
+<li>✨ Do not allow invalid combinations of field parameters for columns and relationships, <code>sa_column</code> excludes <code>sa_column_args</code>, <code>primary_key</code>, <code>nullable</code>, etc. PR <a href="https://github.com/tiangolo/sqlmodel/pull/681">#681</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="docs_7">Docs<a class="headerlink" href="#docs_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🎨 Update inline source examples, hide <code>#</code> in annotations (from MkDocs Material). PR <a href="https://github.com/tiangolo/sqlmodel/pull/677">#677</a> by <a href="https://github.com/Matthieu-LAURENT39">@Matthieu-LAURENT39</a>.</li>
+</ul>
+<h3 id="internal_10">Internal<a class="headerlink" href="#internal_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆ Update coverage requirement from ^6.2 to &gt;=6.2,&lt;8.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/663">#663</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Update mkdocs-material requirement from 9.1.21 to 9.2.7. PR <a href="https://github.com/tiangolo/sqlmodel/pull/675">#675</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆️ Upgrade mypy manually. PR <a href="https://github.com/tiangolo/sqlmodel/pull/684">#684</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ Update black requirement from ^22.10.0 to &gt;=22.10,&lt;24.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/664">#664</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>👷 Update CI to build MkDocs Insiders only when the secrets are available, for Dependabot. PR <a href="https://github.com/tiangolo/sqlmodel/pull/683">#683</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="0010">0.0.10<a class="headerlink" href="#0010" title="Permanent link">&para;</a></h2>
+<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Add support for all <code>Field</code> parameters from Pydantic <code>1.9.0</code> and above, make Pydantic <code>1.9.0</code> the minimum required version. PR <a href="https://github.com/tiangolo/sqlmodel/pull/440">#440</a> by <a href="https://github.com/daniil-berg">@daniil-berg</a>.</li>
+</ul>
+<h3 id="internal_11">Internal<a class="headerlink" href="#internal_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🔧 Adopt Ruff for formatting. PR <a href="https://github.com/tiangolo/sqlmodel/pull/679">#679</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="009">0.0.9<a class="headerlink" href="#009" title="Permanent link">&para;</a></h2>
+<h3 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🗑️ Deprecate Python 3.6 and upgrade Poetry and Poetry Version Plugin. PR <a href="https://github.com/tiangolo/sqlmodel/pull/627">#627</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="features_7">Features<a class="headerlink" href="#features_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Raise a more clear error when a type is not valid. PR <a href="https://github.com/tiangolo/sqlmodel/pull/425">#425</a> by <a href="https://github.com/ddanier">@ddanier</a>.</li>
+</ul>
+<h3 id="fixes_4">Fixes<a class="headerlink" href="#fixes_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🐛 Fix <code>AsyncSession</code> type annotations for <code>exec()</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/58">#58</a> by <a href="https://github.com/Bobronium">@Bobronium</a>.</li>
+<li>🐛 Fix allowing using a <code>ForeignKey</code> directly, remove repeated column construction from <code>SQLModelMetaclass.__init__</code> and upgrade minimum SQLAlchemy to <code>&gt;=1.4.36</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/443">#443</a> by <a href="https://github.com/daniil-berg">@daniil-berg</a>.</li>
+<li>🐛 Fix enum type checks ordering in <code>get_sqlalchemy_type</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/669">#669</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🐛 Fix SQLAlchemy version 1.4.36 breaks SQLModel relationships (#315). PR <a href="https://github.com/tiangolo/sqlmodel/pull/461">#461</a> by <a href="https://github.com/byrman">@byrman</a>.</li>
+</ul>
+<h3 id="upgrades_2">Upgrades<a class="headerlink" href="#upgrades_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆️ Upgrade support for SQLAlchemy 1.4.49, update tests. PR <a href="https://github.com/tiangolo/sqlmodel/pull/519">#519</a> by <a href="https://github.com/sandrotosi">@sandrotosi</a>.</li>
+<li>⬆ Raise SQLAlchemy version requirement to at least <code>1.4.29</code> (related to #434). PR <a href="https://github.com/tiangolo/sqlmodel/pull/439">#439</a> by <a href="https://github.com/daniil-berg">@daniil-berg</a>.</li>
+</ul>
+<h3 id="docs_8">Docs<a class="headerlink" href="#docs_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>📝 Clarify description of in-memory SQLite database in <code>docs/tutorial/create-db-and-table.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/601">#601</a> by <a href="https://github.com/SimonCW">@SimonCW</a>.</li>
+<li>📝 Tweak wording in <code>docs/tutorial/fastapi/multiple-models.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/674">#674</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>✏️ Fix contributing instructions to run tests, update script name. PR <a href="https://github.com/tiangolo/sqlmodel/pull/634">#634</a> by <a href="https://github.com/PookieBuns">@PookieBuns</a>.</li>
+<li>📝 Update link to docs for intro to databases. PR <a href="https://github.com/tiangolo/sqlmodel/pull/593">#593</a> by <a href="https://github.com/abenezerBelachew">@abenezerBelachew</a>.</li>
+<li>📝 Update docs, use <code>offset</code> in example with <code>limit</code> and <code>where</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/273">#273</a> by <a href="https://github.com/jbmchuck">@jbmchuck</a>.</li>
+<li>📝 Fix docs for Pydantic's fields using <code>le</code> (<code>lte</code> is invalid, use <code>le</code> ). PR <a href="https://github.com/tiangolo/sqlmodel/pull/207">#207</a> by <a href="https://github.com/jrycw">@jrycw</a>.</li>
+<li>📝 Update outdated link in <code>docs/db-to-code.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/649">#649</a> by <a href="https://github.com/MatveyF">@MatveyF</a>.</li>
+<li>✏️ Fix typos found with codespell. PR <a href="https://github.com/tiangolo/sqlmodel/pull/520">#520</a> by <a href="https://github.com/kianmeng">@kianmeng</a>.</li>
+<li>📝 Fix typos (duplication) in main page. PR <a href="https://github.com/tiangolo/sqlmodel/pull/631">#631</a> by <a href="https://github.com/Mr-DRP">@Mr-DRP</a>.</li>
+<li>📝 Update release notes, add second author to PR. PR <a href="https://github.com/tiangolo/sqlmodel/pull/429">#429</a> by <a href="https://github.com/br-follow">@br-follow</a>.</li>
+<li>📝 Update instructions about how to make a foreign key required in <code>docs/tutorial/relationship-attributes/define-relationships-attributes.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/474">#474</a> by <a href="https://github.com/jalvaradosegura">@jalvaradosegura</a>.</li>
+<li>📝 Update help SQLModel docs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/548">#548</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>✏️ Fix typo in internal function name <code>get_sqlachemy_type()</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/496">#496</a> by <a href="https://github.com/cmarqu">@cmarqu</a>.</li>
+<li>✏️ Fix typo in docs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/446">#446</a> by <a href="https://github.com/davidbrochart">@davidbrochart</a>.</li>
+<li>✏️ Fix typo in <code>docs/tutorial/create-db-and-table.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/477">#477</a> by <a href="https://github.com/FluffyDietEngine">@FluffyDietEngine</a>.</li>
+<li>✏️ Fix small typos in docs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/481">#481</a> by <a href="https://github.com/micuffaro">@micuffaro</a>.</li>
+</ul>
+<h3 id="internal_12">Internal<a class="headerlink" href="#internal_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⬆ [pre-commit.ci] pre-commit autoupdate. PR <a href="https://github.com/tiangolo/sqlmodel/pull/672">#672</a> by <a href="https://github.com/apps/pre-commit-ci">@pre-commit-ci[bot]</a>.</li>
+<li>⬆ Bump dawidd6/action-download-artifact from 2.24.2 to 2.28.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/660">#660</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>✅ Refactor OpenAPI FastAPI tests to simplify updating them later, this moves things around without changes. PR <a href="https://github.com/tiangolo/sqlmodel/pull/671">#671</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ Bump actions/checkout from 3 to 4. PR <a href="https://github.com/tiangolo/sqlmodel/pull/670">#670</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>🔧 Update mypy config, use <code>strict = true</code> instead of manual configs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/428">#428</a> by <a href="https://github.com/michaeloliverx">@michaeloliverx</a>.</li>
+<li>⬆️ Upgrade MkDocs Material. PR <a href="https://github.com/tiangolo/sqlmodel/pull/668">#668</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🎨 Update docs format and references with pre-commit and Ruff. PR <a href="https://github.com/tiangolo/sqlmodel/pull/667">#667</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🎨 Run pre-commit on all files and autoformat. PR <a href="https://github.com/tiangolo/sqlmodel/pull/666">#666</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Move to Ruff and add pre-commit. PR <a href="https://github.com/tiangolo/sqlmodel/pull/661">#661</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🛠️ Add <code>CITATION.cff</code> file for academic citations. PR <a href="https://github.com/tiangolo/sqlmodel/pull/13">#13</a> by <a href="https://github.com/sugatoray">@sugatoray</a>.</li>
+<li>👷 Update docs deployments to Cloudflare. PR <a href="https://github.com/tiangolo/sqlmodel/pull/630">#630</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷‍♂️ Upgrade CI for docs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/628">#628</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update CI debug mode with Tmate. PR <a href="https://github.com/tiangolo/sqlmodel/pull/629">#629</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Update latest changes token. PR <a href="https://github.com/tiangolo/sqlmodel/pull/616">#616</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆️ Upgrade analytics. PR <a href="https://github.com/tiangolo/sqlmodel/pull/558">#558</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Update new issue chooser to point to GitHub Discussions. PR <a href="https://github.com/tiangolo/sqlmodel/pull/546">#546</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Add template for GitHub Discussion questions and update issues template. PR <a href="https://github.com/tiangolo/sqlmodel/pull/544">#544</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Refactor CI artifact upload/download for docs previews. PR <a href="https://github.com/tiangolo/sqlmodel/pull/514">#514</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ Bump actions/cache from 2 to 3. PR <a href="https://github.com/tiangolo/sqlmodel/pull/497">#497</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump dawidd6/action-download-artifact from 2.24.0 to 2.24.2. PR <a href="https://github.com/tiangolo/sqlmodel/pull/493">#493</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>🔧 Update Smokeshow coverage threshold. PR <a href="https://github.com/tiangolo/sqlmodel/pull/487">#487</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Move from Codecov to Smokeshow. PR <a href="https://github.com/tiangolo/sqlmodel/pull/486">#486</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ Bump actions/setup-python from 2 to 4. PR <a href="https://github.com/tiangolo/sqlmodel/pull/411">#411</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Update black requirement from ^21.5-beta.1 to ^22.10.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/460">#460</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>➕ Add extra dev dependencies for MkDocs Material. PR <a href="https://github.com/tiangolo/sqlmodel/pull/485">#485</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ Update mypy requirement from 0.930 to 0.971. PR <a href="https://github.com/tiangolo/sqlmodel/pull/380">#380</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Update coverage requirement from ^5.5 to ^6.2. PR <a href="https://github.com/tiangolo/sqlmodel/pull/171">#171</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump codecov/codecov-action from 2 to 3. PR <a href="https://github.com/tiangolo/sqlmodel/pull/415">#415</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump actions/upload-artifact from 2 to 3. PR <a href="https://github.com/tiangolo/sqlmodel/pull/412">#412</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Update flake8 requirement from ^3.9.2 to ^5.0.4. PR <a href="https://github.com/tiangolo/sqlmodel/pull/396">#396</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Update pytest requirement from ^6.2.4 to ^7.0.1. PR <a href="https://github.com/tiangolo/sqlmodel/pull/242">#242</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump actions/checkout from 2 to 3.1.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/458">#458</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>⬆ Bump dawidd6/action-download-artifact from 2.9.0 to 2.24.0. PR <a href="https://github.com/tiangolo/sqlmodel/pull/470">#470</a> by <a href="https://github.com/apps/dependabot">@dependabot[bot]</a>.</li>
+<li>👷 Update Dependabot config. PR <a href="https://github.com/tiangolo/sqlmodel/pull/484">#484</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="008">0.0.8<a class="headerlink" href="#008" title="Permanent link">&para;</a></h2>
+<h3 id="fixes_5">Fixes<a class="headerlink" href="#fixes_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🐛 Fix auto detecting and setting <code>nullable</code>, allowing overrides in field. PR <a href="https://github.com/tiangolo/sqlmodel/pull/423">#423</a> by <a href="https://github.com/JonasKs">@JonasKs</a> and <a href="https://github.com/br-follow">@br-follow</a>.</li>
+<li>♻️ Update <code>expresion.py</code>, sync from Jinja2 template, implement <code>inherit_cache</code> to solve errors like: <code>SAWarning: Class SelectOfScalar will not make use of SQL compilation caching</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/422">#422</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="docs_9">Docs<a class="headerlink" href="#docs_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>📝 Adjust and clarify docs for <code>docs/tutorial/create-db-and-table.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/426">#426</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/connect/remove-data-connections.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/421">#421</a> by <a href="https://github.com/VerdantFox">@VerdantFox</a>.</li>
+</ul>
+<h2 id="007">0.0.7<a class="headerlink" href="#007" title="Permanent link">&para;</a></h2>
+<h3 id="features_8">Features<a class="headerlink" href="#features_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Allow setting <code>unique</code> in <code>Field()</code> for a column. PR <a href="https://github.com/tiangolo/sqlmodel/pull/83">#83</a> by <a href="https://github.com/raphaelgibson">@raphaelgibson</a>.</li>
+<li>✨ Update GUID handling to use stdlib <code>UUID.hex</code> instead of an <code>int</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/26">#26</a> by <a href="https://github.com/andrewbolster">@andrewbolster</a>.</li>
+<li>✨ Raise an exception when using a Pydantic field type with no matching SQLAlchemy type. PR <a href="https://github.com/tiangolo/sqlmodel/pull/18">#18</a> by <a href="https://github.com/elben10">@elben10</a>.</li>
+<li>⬆ Upgrade constrain for SQLAlchemy = "&gt;=1.4.17,&lt;=1.4.41". PR <a href="https://github.com/tiangolo/sqlmodel/pull/371">#371</a> by <a href="https://github.com/RobertRosca">@RobertRosca</a>.</li>
+<li>✨ Add new <code>Session.get()</code> parameter <code>execution_options</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/302">#302</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="fixes_6">Fixes<a class="headerlink" href="#fixes_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🐛 Fix type annotations for <code>Model.parse_obj()</code>, and <code>Model.validate()</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/321">#321</a> by <a href="https://github.com/phi-friday">@phi-friday</a>.</li>
+<li>🐛 Fix <code>Select</code> and <code>SelectOfScalar</code> to inherit cache to avoid warning: <code>SAWarning: Class SelectOfScalar will not make use of SQL compilation caching</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/234">#234</a> by <a href="https://github.com/rabinadk1">@rabinadk1</a>.</li>
+<li>🐛 Fix handling validators for non-default values. PR <a href="https://github.com/tiangolo/sqlmodel/pull/253">#253</a> by <a href="https://github.com/byrman">@byrman</a>.</li>
+<li>🐛 Fix fields marked as "set" in models. PR <a href="https://github.com/tiangolo/sqlmodel/pull/117">#117</a> by <a href="https://github.com/statt8900">@statt8900</a>.</li>
+<li>🐛 Fix Enum handling in SQLAlchemy. PR <a href="https://github.com/tiangolo/sqlmodel/pull/165">#165</a> by <a href="https://github.com/chriswhite199">@chriswhite199</a>.</li>
+<li>🐛 Fix setting nullable property of Fields that don't accept <code>None</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/79">#79</a> by <a href="https://github.com/van51">@van51</a>.</li>
+<li>🐛 Fix SQLAlchemy version 1.4.36 breaks SQLModel relationships (#315). PR <a href="https://github.com/tiangolo/sqlmodel/pull/322">#322</a> by <a href="https://github.com/byrman">@byrman</a>.</li>
+</ul>
+<h3 id="docs_10">Docs<a class="headerlink" href="#docs_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>📝 Update docs for models for updating, <code>id</code> should not be updatable. PR <a href="https://github.com/tiangolo/sqlmodel/pull/335">#335</a> by <a href="https://github.com/kurtportelli">@kurtportelli</a>.</li>
+<li>✏ Fix broken variable/typo in docs for Read Relationships, <code>hero_spider_boy.id</code> =&gt; <code>hero_spider_boy.team_id</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/106">#106</a> by <a href="https://github.com/yoannmos">@yoannmos</a>.</li>
+<li>🎨 Remove unwanted highlight in the docs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/233">#233</a> by <a href="https://github.com/jalvaradosegura">@jalvaradosegura</a>.</li>
+<li>✏ Fix typos in <code>docs/databases.md</code> and <code>docs/tutorial/index.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/35">#35</a> by <a href="https://github.com/prrao87">@prrao87</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/relationship-attributes/define-relationships-attributes.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/239">#239</a> by <a href="https://github.com/jalvaradosegura">@jalvaradosegura</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/fastapi/simple-hero-api.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/80">#80</a> by <a href="https://github.com/joemudryk">@joemudryk</a>.</li>
+<li>✏ Fix typos in multiple files in the docs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/400">#400</a> by <a href="https://github.com/VictorGambarini">@VictorGambarini</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/code-structure.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/344">#344</a> by <a href="https://github.com/marciomazza">@marciomazza</a>.</li>
+<li>✏ Fix typo in <code>docs/db-to-code.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/155">#155</a> by <a href="https://github.com/gr8jam">@gr8jam</a>.</li>
+<li>✏ Fix typo in <code>docs/contributing.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/323">#323</a> by <a href="https://github.com/Fardad13">@Fardad13</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/fastapi/tests.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/265">#265</a> by <a href="https://github.com/johnhoman">@johnhoman</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/where.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/286">#286</a> by <a href="https://github.com/jalvaradosegura">@jalvaradosegura</a>.</li>
+<li>✏ Fix typos in <code>docs/tutorial/fastapi/update.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/268">#268</a> by <a href="https://github.com/cirrusj">@cirrusj</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/fastapi/simple-hero-api.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/247">#247</a> by <a href="https://github.com/hao-wang">@hao-wang</a>.</li>
+<li>✏ Fix typos in <code>docs/tutorial/automatic-id-none-refresh.md</code>, <code>docs/tutorial/fastapi/update.md</code>, <code>docs/tutorial/select.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/185">#185</a> by <a href="https://github.com/rootux">@rootux</a>.</li>
+<li>✏ Fix typo in <code>docs/databases.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/177">#177</a> by <a href="https://github.com/seandlg">@seandlg</a>.</li>
+<li>✏ Fix typos in <code>docs/tutorial/fastapi/update.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/162">#162</a> by <a href="https://github.com/wmcgee3">@wmcgee3</a>.</li>
+<li>✏ Fix typos in <code>docs/tutorial/code-structure.md</code>, <code>docs/tutorial/fastapi/multiple-models.md</code>, <code>docs/tutorial/fastapi/simple-hero-api.md</code>, <code>docs/tutorial/many-to-many/index.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/116">#116</a> by <a href="https://github.com/moonso">@moonso</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/fastapi/teams.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/154">#154</a> by <a href="https://github.com/chrisgoddard">@chrisgoddard</a>.</li>
+<li>✏ Fix typo variable in example about relationships and <code>back_populates</code>, always use <code>hero</code> instead of <code>owner</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/120">#120</a> by <a href="https://github.com/onionj">@onionj</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/fastapi/tests.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/113">#113</a> by <a href="https://github.com/feanil">@feanil</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/where.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/72">#72</a> by <a href="https://github.com/ZettZet">@ZettZet</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/code-structure.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/91">#91</a> by <a href="https://github.com/dhiraj">@dhiraj</a>.</li>
+<li>✏ Fix broken link to newsletter sign-up in <code>docs/help.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/84">#84</a> by <a href="https://github.com/mborus">@mborus</a>.</li>
+<li>✏ Fix typos in <code>docs/tutorial/many-to-many/create-models-with-link.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/45">#45</a> by <a href="https://github.com/xginn8">@xginn8</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/index.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/398">#398</a> by <a href="https://github.com/ryangrose">@ryangrose</a>.</li>
+</ul>
+<h3 id="internal_13">Internal<a class="headerlink" href="#internal_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li>♻ Refactor internal statements to simplify code. PR <a href="https://github.com/tiangolo/sqlmodel/pull/53">#53</a> by <a href="https://github.com/yezz123">@yezz123</a>.</li>
+<li>♻ Refactor internal imports to reduce redundancy. PR <a href="https://github.com/tiangolo/sqlmodel/pull/272">#272</a> by <a href="https://github.com/aminalaee">@aminalaee</a>.</li>
+<li>⬆ Update development requirement for FastAPI from <code>^0.68.0</code> to <code>^0.68.1</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/48">#48</a> by <a href="https://github.com/alucarddelta">@alucarddelta</a>.</li>
+<li>⏪ Revert upgrade Poetry, to make a release that supports Python 3.6 first. PR <a href="https://github.com/tiangolo/sqlmodel/pull/417">#417</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Add dependabot for GitHub Actions. PR <a href="https://github.com/tiangolo/sqlmodel/pull/410">#410</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆️ Upgrade Poetry to version <code>==1.2.0b1</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/303">#303</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Add CI for Python 3.10. PR <a href="https://github.com/tiangolo/sqlmodel/pull/305">#305</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>📝 Add Jina's QA Bot to the docs to help people that want to ask quick questions. PR <a href="https://github.com/tiangolo/sqlmodel/pull/263">#263</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>👷 Upgrade Codecov GitHub Action. PR <a href="https://github.com/tiangolo/sqlmodel/pull/304">#304</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>💚 Only run CI on push when on master, to avoid duplicate runs on PRs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/244">#244</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🔧 Upgrade MkDocs Material and update configs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/217">#217</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>⬆ Upgrade mypy, fix type annotations. PR <a href="https://github.com/tiangolo/sqlmodel/pull/218">#218</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="006">0.0.6<a class="headerlink" href="#006" title="Permanent link">&para;</a></h2>
+<h3 id="breaking-changes_1">Breaking Changes<a class="headerlink" href="#breaking-changes_1" title="Permanent link">&para;</a></h3>
+<p><strong>SQLModel</strong> no longer creates indexes by default for every column, indexes are now opt-in. You can read more about it in PR <a href="https://github.com/tiangolo/sqlmodel/pull/205">#205</a>.</p>
+<p>Before this change, if you had a model like this:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="__span-0-2">
+</span><span id="__span-0-3"><span class="kn">from</span> <span class="nn">sqlmodel</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">SQLModel</span>
+</span><span id="__span-0-4">
+</span><span id="__span-0-5">
+</span><span id="__span-0-6"><span class="k">class</span> <span class="nc">Hero</span><span class="p">(</span><span class="n">SQLModel</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span id="__span-0-7">    <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-0-8">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-9">    <span class="n">secret_name</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-10">    <span class="n">age</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span></code></pre></div>
+<p>...when creating the tables, SQLModel version <code>0.0.5</code> and below, would also create an index for <code>name</code>, one for <code>secret_name</code>, and one for <code>age</code> (<code>id</code> is the primary key, so it doesn't need an additional index).</p>
+<p>If you depended on having an index for each one of those columns, now you can (and would have to) define them explicitly:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><span class="k">class</span> <span class="nc">Hero</span><span class="p">(</span><span class="n">SQLModel</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span id="__span-1-2">    <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-1-3">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-1-4">    <span class="n">secret_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-1-5">    <span class="n">age</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></code></pre></div>
+<p>There's a high chance you don't need indexes for all the columns. For example, you might only need indexes for <code>name</code> and <code>age</code>, but not for <code>secret_name</code>. In that case, you could define the model as:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><span class="k">class</span> <span class="nc">Hero</span><span class="p">(</span><span class="n">SQLModel</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span id="__span-2-2">    <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-2-3">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-2-4">    <span class="n">secret_name</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-2-5">    <span class="n">age</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></code></pre></div>
+<p>If you already created your database tables with SQLModel using versions <code>0.0.5</code> or below, it would have also created those indexes in the database. In that case, you might want to manually drop (remove) some of those indexes, if they are unnecessary, to avoid the extra cost in performance and space.</p>
+<p>Depending on the database you are using, there will be a different way to find the available indexes.</p>
+<p>For example, let's say you no longer need the index for <code>secret_name</code>. You could check the current indexes in the database and find the one for <code>secret_name</code>, it could be named <code>ix_hero_secret_name</code>. Then you can remove it with SQL:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">ix_hero_secret_name</span>
+</span></code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code><span id="__span-4-1"><span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">ix_hero_secret_name</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">hero</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Here's the new, extensive documentation explaining indexes and how to use them: <a href="https://sqlmodel.tiangolo.com/tutorial/indexes/">Indexes - Optimize Queries</a>.</p>
+<h3 id="docs_11">Docs<a class="headerlink" href="#docs_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Document indexes and make them opt-in. Here's the new documentation: <a href="https://sqlmodel.tiangolo.com/tutorial/indexes/">Indexes - Optimize Queries</a>. This is the same change described above in <strong>Breaking Changes</strong>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/205">#205</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>✏ Fix typo in FastAPI tutorial. PR <a href="https://github.com/tiangolo/sqlmodel/pull/192">#192</a> by <a href="https://github.com/yaquelinehoyos">@yaquelinehoyos</a>.</li>
+<li>📝 Add links to the license file. PR <a href="https://github.com/tiangolo/sqlmodel/pull/29">#29</a> by <a href="https://github.com/sobolevn">@sobolevn</a>.</li>
+<li>✏ Fix typos in docs titles. PR <a href="https://github.com/tiangolo/sqlmodel/pull/28">#28</a> by <a href="https://github.com/Batalex">@Batalex</a>.</li>
+<li>✏ Fix multiple typos and some rewording. PR <a href="https://github.com/tiangolo/sqlmodel/pull/22">#22</a> by <a href="https://github.com/egrim">@egrim</a>.</li>
+<li>✏ Fix typo in <code>docs/tutorial/automatic-id-none-refresh.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/14">#14</a> by <a href="https://github.com/leynier">@leynier</a>.</li>
+<li>✏ Fix typos in <code>docs/tutorial/index.md</code> and <code>docs/databases.md</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/5">#5</a> by <a href="https://github.com/sebastianmarines">@sebastianmarines</a>.</li>
+</ul>
+<h2 id="005">0.0.5<a class="headerlink" href="#005" title="Permanent link">&para;</a></h2>
+<h3 id="features_9">Features<a class="headerlink" href="#features_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Add support for Decimal fields from Pydantic and SQLAlchemy. Original PR <a href="https://github.com/tiangolo/sqlmodel/pull/103">#103</a> by <a href="https://github.com/robcxyz">@robcxyz</a>. New docs: <a href="https://sqlmodel.tiangolo.com/advanced/decimal/">Advanced User Guide - Decimal Numbers</a>.</li>
+</ul>
+<h3 id="docs_12">Docs<a class="headerlink" href="#docs_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✏ Update decimal tutorial source for consistency. PR <a href="https://github.com/tiangolo/sqlmodel/pull/188">#188</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h3 id="internal_14">Internal<a class="headerlink" href="#internal_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🔧 Split MkDocs insiders build in CI to support building from PRs. PR <a href="https://github.com/tiangolo/sqlmodel/pull/186">#186</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🎨 Format <code>expression.py</code> and expression template, currently needed by CI. PR <a href="https://github.com/tiangolo/sqlmodel/pull/187">#187</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>🐛Fix docs light/dark theme switcher. PR <a href="https://github.com/tiangolo/sqlmodel/pull/1">#1</a> by <a href="https://github.com/Lehoczky">@Lehoczky</a>.</li>
+<li>🔧 Add MkDocs Material social cards. PR <a href="https://github.com/tiangolo/sqlmodel/pull/90">#90</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+<li>✨ Update type annotations and upgrade mypy. PR <a href="https://github.com/tiangolo/sqlmodel/pull/173">#173</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="004">0.0.4<a class="headerlink" href="#004" title="Permanent link">&para;</a></h2>
+<ul>
+<li>🎨 Fix type detection of select results in PyCharm. PR <a href="https://github.com/tiangolo/sqlmodel/pull/15">#15</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="003">0.0.3<a class="headerlink" href="#003" title="Permanent link">&para;</a></h2>
+<ul>
+<li>⬆️ Update and relax specification range for <code>sqlalchemy-stubs</code>. PR <a href="https://github.com/tiangolo/sqlmodel/pull/4">#4</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="002">0.0.2<a class="headerlink" href="#002" title="Permanent link">&para;</a></h2>
+<ul>
+<li>This includes several small bug fixes detected during the first CI runs.</li>
+<li>💚 Fix CI installs and tests. PR <a href="https://github.com/tiangolo/sqlmodel/pull/2">#2</a> by <a href="https://github.com/tiangolo">@tiangolo</a>.</li>
+</ul>
+<h2 id="001">0.0.1<a class="headerlink" href="#001" title="Permanent link">&para;</a></h2>
+<ul>
+<li>First release. 🎉</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../management/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Repository Management">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Repository Management
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/fastapi/sqlmodel" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/tiangolo" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/tiangolo" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://dev.to/tiangolo" target="_blank" rel="noopener" title="dev.to" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M120.12 208.29c-3.88-2.9-7.77-4.35-11.65-4.35H91.03v104.47h17.45c3.88 0 7.77-1.45 11.65-4.35 3.88-2.9 5.82-7.25 5.82-13.06v-69.65c-.01-5.8-1.96-10.16-5.83-13.06zM404.1 32H43.9C19.7 32 .06 51.59 0 75.8v360.4C.06 460.41 19.7 480 43.9 480h360.2c24.21 0 43.84-19.59 43.9-43.8V75.8c-.06-24.21-19.7-43.8-43.9-43.8zM154.2 291.19c0 18.81-11.61 47.31-48.36 47.25h-46.4V172.98h47.38c35.44 0 47.36 28.46 47.37 47.28l.01 70.93zm100.68-88.66H201.6v38.42h32.57v29.57H201.6v38.41h53.29v29.57h-62.18c-11.16.29-20.44-8.53-20.72-19.69V193.7c-.27-11.15 8.56-20.41 19.71-20.69h63.19l-.01 29.52zm103.64 115.29c-13.2 30.75-36.85 24.63-47.44 0l-38.53-144.8h32.57l29.71 113.72 29.57-113.72h32.58l-38.46 144.8z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://medium.com/@tiangolo" target="_blank" rel="noopener" title="medium.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M180.5 74.262C80.813 74.262 0 155.633 0 256s80.819 181.738 180.5 181.738S361 356.373 361 256 280.191 74.262 180.5 74.262Zm288.25 10.646c-49.845 0-90.245 76.619-90.245 171.095s40.406 171.1 90.251 171.1 90.251-76.619 90.251-171.1H559c0-94.503-40.4-171.095-90.248-171.095Zm139.506 17.821c-17.526 0-31.735 68.628-31.735 153.274s14.2 153.274 31.735 153.274S640 340.631 640 256c0-84.649-14.215-153.271-31.742-153.271Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://tiangolo.com" target="_blank" rel="noopener" title="tiangolo.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64h185.4c2.2 20.4 3.3 41.8 3.3 64zm28.8-64h123.1c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6 78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7 10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5 11.6 26 20.9 58.2 27 94.7zm-209 0H18.6c30-74.1 93.6-130.9 172-151.6-25.5 34.2-45.3 87.7-55.3 151.6zM8.1 192h123.1c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zm186.6 254.6c-11.6-26-20.9-58.2-27-94.6h176.6c-6.1 36.4-15.5 68.6-27 94.6-10.5 23.6-22.2 40.7-33.5 51.5-11.2 10.7-20.5 13.9-27.8 13.9s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6-78.4-20.7-142-77.5-172-151.6h116.7zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6 25.5-34.2 45.2-87.7 55.3-151.6h116.6z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "content.code.copy", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+        <script src="../js/termynal.js"></script>
+      
+        <script src="../js/custom.js"></script>
+      
+    
+  </body>
+</html>
