@@ -1,83 +1,83 @@
-# Release Notes
+# 发布说明
 
-## Latest Changes
+## 最新更改
 
-### Refactors
+### 重构
 
-* 🚨 Fix types for new Pydantic. PR [#1131](https://github.com/fastapi/sqlmodel/pull/1131) by [@tiangolo](https://github.com/tiangolo).
+* 🚨 修复新 Pydantic 的类型。PR [#1131](https://github.com/fastapi/sqlmodel/pull/1131) 由 [@tiangolo](https://github.com/tiangolo) 提交。
 
-### Docs
+### 文档
 
-* ✏️ Fix typo in the release notes of v0.0.22. PR [#1195](https://github.com/fastapi/sqlmodel/pull/1195) by [@PipeKnight](https://github.com/PipeKnight).
-* 📝 Update includes for `docs/advanced/uuid.md`. PR [#1151](https://github.com/fastapi/sqlmodel/pull/1151) by [@tiangolo](https://github.com/tiangolo).
-* 📝 Update includes for `docs/tutorial/create-db-and-table.md`. PR [#1149](https://github.com/fastapi/sqlmodel/pull/1149) by [@tiangolo](https://github.com/tiangolo).
-* 📝 Fix internal links in docs. PR [#1148](https://github.com/fastapi/sqlmodel/pull/1148) by [@tiangolo](https://github.com/tiangolo).
-* ✏️ Fix typo in documentation. PR [#1106](https://github.com/fastapi/sqlmodel/pull/1106) by [@Solipsistmonkey](https://github.com/Solipsistmonkey).
-* 📝 Remove highlights in `indexes.md` . PR [#1100](https://github.com/fastapi/sqlmodel/pull/1100) by [@alejsdev](https://github.com/alejsdev).
+* ✏️ 修复 v0.0.22 版本说明中的错别字。PR [#1195](https://github.com/fastapi/sqlmodel/pull/1195) 由 [@PipeKnight](https://github.com/PipeKnight) 提交。
+* 📝 更新 `docs/advanced/uuid.md` 的包含内容。PR [#1151](https://github.com/fastapi/sqlmodel/pull/1151) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 📝 更新 `docs/tutorial/create-db-and-table.md` 的包含内容。PR [#1149](https://github.com/fastapi/sqlmodel/pull/1149) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 📝 修复文档中的内部链接。PR [#1148](https://github.com/fastapi/sqlmodel/pull/1148) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* ✏️ 修复文档中的错别字。PR [#1106](https://github.com/fastapi/sqlmodel/pull/1106) 由 [@Solipsistmonkey](https://github.com/Solipsistmonkey) 提交。
+* 📝 删除 `indexes.md` 中的高亮部分。PR [#1100](https://github.com/fastapi/sqlmodel/pull/1100) 由 [@alejsdev](https://github.com/alejsdev) 提交。
 
-### Internal
+### 内部
 
-* ⬆️ Upgrade markdown-include-variants to version 0.0.3. PR [#1152](https://github.com/fastapi/sqlmodel/pull/1152) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update issue manager workflow. PR [#1137](https://github.com/fastapi/sqlmodel/pull/1137) by [@alejsdev](https://github.com/alejsdev).
-* 👷 Fix smokeshow, checkout files on CI. PR [#1136](https://github.com/fastapi/sqlmodel/pull/1136) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Use uv in CI. PR [#1135](https://github.com/fastapi/sqlmodel/pull/1135) by [@tiangolo](https://github.com/tiangolo).
-* ➕ Add docs dependency markdown-include-variants. PR [#1129](https://github.com/fastapi/sqlmodel/pull/1129) by [@tiangolo](https://github.com/tiangolo).
-* 🔨 Update script to standardize format. PR [#1130](https://github.com/fastapi/sqlmodel/pull/1130) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update `labeler.yml`. PR [#1128](https://github.com/fastapi/sqlmodel/pull/1128) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update worfkow deploy-docs-notify URL. PR [#1126](https://github.com/fastapi/sqlmodel/pull/1126) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Upgrade Cloudflare GitHub Action. PR [#1124](https://github.com/fastapi/sqlmodel/pull/1124) by [@tiangolo](https://github.com/tiangolo).
-* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1097](https://github.com/fastapi/sqlmodel/pull/1097) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
-* ⬆ Bump tiangolo/issue-manager from 0.5.0 to 0.5.1. PR [#1107](https://github.com/fastapi/sqlmodel/pull/1107) by [@dependabot[bot]](https://github.com/apps/dependabot).
-* 👷 Update `issue-manager.yml`. PR [#1103](https://github.com/fastapi/sqlmodel/pull/1103) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Fix coverage processing in CI, one name per matrix run. PR [#1104](https://github.com/fastapi/sqlmodel/pull/1104) by [@tiangolo](https://github.com/tiangolo).
-* 💚 Set `include-hidden-files` to `True` when using the `upload-artifact` GH action. PR [#1098](https://github.com/fastapi/sqlmodel/pull/1098) by [@svlandeg](https://github.com/svlandeg).
-* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1088](https://github.com/fastapi/sqlmodel/pull/1088) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆️ 升级 markdown-include-variants 到版本 0.0.3。PR [#1152](https://github.com/fastapi/sqlmodel/pull/1152) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 issue 管理工作流。PR [#1137](https://github.com/fastapi/sqlmodel/pull/1137) 由 [@alejsdev](https://github.com/alejsdev) 提交。
+* 👷 修复 smokeshow，CI 上检查文件。PR [#1136](https://github.com/fastapi/sqlmodel/pull/1136) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 在 CI 中使用 uv。PR [#1135](https://github.com/fastapi/sqlmodel/pull/1135) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* ➕ 添加文档依赖 markdown-include-variants。PR [#1129](https://github.com/fastapi/sqlmodel/pull/1129) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 🔨 更新脚本以标准化格式。PR [#1130](https://github.com/fastapi/sqlmodel/pull/1130) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 `labeler.yml`。PR [#1128](https://github.com/fastapi/sqlmodel/pull/1128) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新工作流 deploy-docs-notify URL。PR [#1126](https://github.com/fastapi/sqlmodel/pull/1126) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 升级 Cloudflare GitHub Action。PR [#1124](https://github.com/fastapi/sqlmodel/pull/1124) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* ⬆ [pre-commit.ci] pre-commit 自动更新。PR [#1097](https://github.com/fastapi/sqlmodel/pull/1097) 由 [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci) 提交。
+* ⬆ 将 tiangolo/issue-manager 从 0.5.0 升级到 0.5.1。PR [#1107](https://github.com/fastapi/sqlmodel/pull/1107) 由 [@dependabot[bot]](https://github.com/apps/dependabot) 提交。
+* 👷 更新 `issue-manager.yml`。PR [#1103](https://github.com/fastapi/sqlmodel/pull/1103) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 修复 CI 中的覆盖处理，每个矩阵运行一个名称。PR [#1104](https://github.com/fastapi/sqlmodel/pull/1104) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 💚 在使用 `upload-artifact` GH Action 时将 `include-hidden-files` 设置为 `True`。PR [#1098](https://github.com/fastapi/sqlmodel/pull/1098) 由 [@svlandeg](https://github.com/svlandeg) 提交。
+* ⬆ [pre-commit.ci] pre-commit 自动更新。PR [#1088](https://github.com/fastapi/sqlmodel/pull/1088) 由 [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci) 提交。
 
 ## 0.0.22
 
-### Fixes
+### 修复
 
-* 🐛 Fix support for types with `Optional[Annotated[x, f()]]`, e.g. `id: Optional[pydantic.UUID4]`. PR [#1093](https://github.com/fastapi/sqlmodel/pull/1093) by [@tiangolo](https://github.com/tiangolo).
+* 🐛 修复对 `Optional[Annotated[x, f()]]` 类型的支持，例如 `id: Optional[pydantic.UUID4]`。PR [#1093](https://github.com/fastapi/sqlmodel/pull/1093) 由 [@tiangolo](https://github.com/tiangolo) 提交。
 
-### Docs
+### 文档
 
-* ✏️ Fix a typo in `docs/virtual-environments.md`. PR [#1085](https://github.com/fastapi/sqlmodel/pull/1085) by [@tiangolo](https://github.com/tiangolo).
-* 📝 Add docs for virtual environments and environment variables, update contributing. PR [#1082](https://github.com/fastapi/sqlmodel/pull/1082) by [@tiangolo](https://github.com/tiangolo).
-* 📝 Add docs about repo management and team. PR [#1059](https://github.com/tiangolo/sqlmodel/pull/1059) by [@tiangolo](https://github.com/tiangolo).
-* ✏️ Fix typo in `cascade_delete` docs. PR [#1030](https://github.com/tiangolo/sqlmodel/pull/1030) by [@tiangolo](https://github.com/tiangolo).
+* ✏️ 修复 `docs/virtual-environments.md` 中的错别字。PR [#1085](https://github.com/fastapi/sqlmodel/pull/1085) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 📝 添加虚拟环境和环境变量的文档，更新贡献指南。PR [#1082](https://github.com/fastapi/sqlmodel/pull/1082) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 📝 添加有关仓库管理和团队的文档。PR [#1059](https://github.com/tiangolo/sqlmodel/pull/1059) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* ✏️ 修复 `cascade_delete` 文档中的错别字。PR [#1030](https://github.com/tiangolo/sqlmodel/pull/1030) 由 [@tiangolo](https://github.com/tiangolo) 提交。
 
-### Internal
+### 内部
 
-* ✅ Refactor test_enums to make them independent of previous imports. PR [#1095](https://github.com/fastapi/sqlmodel/pull/1095) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update `latest-changes` GitHub Action. PR [#1087](https://github.com/fastapi/sqlmodel/pull/1087) by [@tiangolo](https://github.com/tiangolo).
-* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1028](https://github.com/fastapi/sqlmodel/pull/1028) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
-* ⬆ Bump ruff from 0.4.7 to 0.6.2. PR [#1081](https://github.com/fastapi/sqlmodel/pull/1081) by [@dependabot[bot]](https://github.com/apps/dependabot).
-* 🔧 Update lint script. PR [#1084](https://github.com/fastapi/sqlmodel/pull/1084) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update Python version for coverage. PR [#1083](https://github.com/fastapi/sqlmodel/pull/1083) by [@tiangolo](https://github.com/tiangolo).
-* 🔧 Update coverage config files. PR [#1077](https://github.com/fastapi/sqlmodel/pull/1077) by [@tiangolo](https://github.com/tiangolo).
-* 🔧 Add URLs to `pyproject.toml`, show up in PyPI. PR [#1074](https://github.com/fastapi/sqlmodel/pull/1074) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Do not sync labels as it overrides manually added labels. PR [#1073](https://github.com/fastapi/sqlmodel/pull/1073) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update configs for GitHub Action labeler, to add only one label. PR [#1072](https://github.com/fastapi/sqlmodel/pull/1072) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update labeler GitHub Actions permissions and dependencies. PR [#1071](https://github.com/fastapi/sqlmodel/pull/1071) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Add GitHub Action label-checker. PR [#1069](https://github.com/fastapi/sqlmodel/pull/1069) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Add GitHub Action labeler. PR [#1068](https://github.com/fastapi/sqlmodel/pull/1068) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update GitHub Action add-to-project. PR [#1067](https://github.com/fastapi/sqlmodel/pull/1067) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Add GitHub Action add-to-project. PR [#1066](https://github.com/fastapi/sqlmodel/pull/1066) by [@tiangolo](https://github.com/tiangolo).
-* 📝 Update admonitions in annotations. PR [#1065](https://github.com/fastapi/sqlmodel/pull/1065) by [@tiangolo](https://github.com/tiangolo).
-* 📝 Update links from github.com/tiangolo/sqlmodel to github.com/fastapi/sqlmodel. PR [#1064](https://github.com/fastapi/sqlmodel/pull/1064) by [@tiangolo](https://github.com/tiangolo).
-* 🔧 Update members. PR [#1063](https://github.com/tiangolo/sqlmodel/pull/1063) by [@tiangolo](https://github.com/tiangolo).
-* 💄 Add dark-mode logo. PR [#1061](https://github.com/tiangolo/sqlmodel/pull/1061) by [@tiangolo](https://github.com/tiangolo).
-* 🔨 Update docs.py script to enable dirty reload conditionally. PR [#1060](https://github.com/tiangolo/sqlmodel/pull/1060) by [@tiangolo](https://github.com/tiangolo).
-* 🔧 Update MkDocs previews. PR [#1058](https://github.com/tiangolo/sqlmodel/pull/1058) by [@tiangolo](https://github.com/tiangolo).
-* 💄 Update Termynal line-height. PR [#1057](https://github.com/tiangolo/sqlmodel/pull/1057) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Upgrade build docs configs. PR [#1047](https://github.com/tiangolo/sqlmodel/pull/1047) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Add alls-green for test-redistribute. PR [#1055](https://github.com/tiangolo/sqlmodel/pull/1055) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update docs-previews to handle no docs changes. PR [#1056](https://github.com/tiangolo/sqlmodel/pull/1056) by [@tiangolo](https://github.com/tiangolo).
-* 👷🏻 Show docs deployment status and preview URLs in comment. PR [#1054](https://github.com/tiangolo/sqlmodel/pull/1054) by [@tiangolo](https://github.com/tiangolo).
-* 🔧 Enable auto dark mode. PR [#1046](https://github.com/tiangolo/sqlmodel/pull/1046) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update issue-manager. PR [#1045](https://github.com/tiangolo/sqlmodel/pull/1045) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Update issue-manager.yml GitHub Action permissions. PR [#1040](https://github.com/tiangolo/sqlmodel/pull/1040) by [@tiangolo](https://github.com/tiangolo).
-* ♻️ Refactor Deploy Docs GitHub Action to be a script and update token preparing for org. PR [#1039](https://github.com/tiangolo/sqlmodel/pull/1039) by [@tiangolo](https://github.com/tiangolo).
+* ✅ 重构 `test_enums`，使其独立于之前的导入。PR [#1095](https://github.com/fastapi/sqlmodel/pull/1095) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 `latest-changes` GitHub Action。PR [#1087](https://github.com/fastapi/sqlmodel/pull/1087) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* ⬆ [pre-commit.ci] pre-commit 自动更新。PR [#1028](https://github.com/fastapi/sqlmodel/pull/1028) 由 [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci) 提交。
+* ⬆ 将 ruff 从 0.4.7 升级到 0.6.2。PR [#1081](https://github.com/fastapi/sqlmodel/pull/1081) 由 [@dependabot[bot]](https://github.com/apps/dependabot) 提交。
+* 🔧 更新 lint 脚本。PR [#1084](https://github.com/fastapi/sqlmodel/pull/1084) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新覆盖率的 Python 版本。PR [#1083](https://github.com/fastapi/sqlmodel/pull/1083) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 🔧 更新覆盖率配置文件。PR [#1077](https://github.com/fastapi/sqlmodel/pull/1077) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 🔧 在 `pyproject.toml` 中添加 URLs，以便在 PyPI 上显示。PR [#1074](https://github.com/fastapi/sqlmodel/pull/1074) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 不同步标签，以避免覆盖手动添加的标签。PR [#1073](https://github.com/fastapi/sqlmodel/pull/1073) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 GitHub Action labeler 的配置，只添加一个标签。PR [#1072](https://github.com/fastapi/sqlmodel/pull/1072) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 labeler GitHub Actions 的权限和依赖。PR [#1071](https://github.com/fastapi/sqlmodel/pull/1071) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 添加 GitHub Action label-checker。PR [#1069](https://github.com/fastapi/sqlmodel/pull/1069) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 添加 GitHub Action labeler。PR [#1068](https://github.com/fastapi/sqlmodel/pull/1068) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 GitHub Action add-to-project。PR [#1067](https://github.com/fastapi/sqlmodel/pull/1067) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 添加 GitHub Action add-to-project。PR [#1066](https://github.com/fastapi/sqlmodel/pull/1066) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 📝 更新注释中的警告。PR [#1065](https://github.com/fastapi/sqlmodel/pull/1065) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 📝 更新链接，将 `github.com/tiangolo/sqlmodel` 修改为 `github.com/fastapi/sqlmodel`。PR [#1064](https://github.com/fastapi/sqlmodel/pull/1064) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 🔧 更新成员。PR [#1063](https://github.com/tiangolo/sqlmodel/pull/1063) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 💄 添加深色模式徽标。PR [#1061](https://github.com/tiangolo/sqlmodel/pull/1061) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 🔨 更新 docs.py 脚本，以条件性启用脏重载。PR [#1060](https://github.com/tiangolo/sqlmodel/pull/1060) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 🔧 更新 MkDocs 预览。PR [#1058](https://github.com/tiangolo/sqlmodel/pull/1058) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 💄 更新 Termynal 行高。PR [#1057](https://github.com/tiangolo/sqlmodel/pull/1057) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 升级构建文档配置。PR [#1047](https://github.com/tiangolo/sqlmodel/pull/1047) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 添加 alls-green 测试重分配。PR [#1055](https://github.com/tiangolo/sqlmodel/pull/1055) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 docs-previews，以处理无文档更改。PR [#1056](https://github.com/tiangolo/sqlmodel/pull/1056) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷🏻 在评论中显示文档部署状态和预览 URL。PR [#1054](https://github.com/tiangolo/sqlmodel/pull/1054) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 🔧 启用自动深色模式。PR [#1046](https://github.com/tiangolo/sqlmodel/pull/1046) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 issue-manager。PR [#1045](https://github.com/tiangolo/sqlmodel/pull/1045) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* 👷 更新 issue-manager.yml GitHub Action 权限。PR [#1040](https://github.com/tiangolo/sqlmodel/pull/1040) 由 [@tiangolo](https://github.com/tiangolo) 提交。
+* ♻️ 重构 Deploy Docs GitHub Action 为脚本，并更新令牌以为组织做准备。PR [#1039](https://github.com/tiangolo/sqlmodel/pull/1039) 由 [@tiangolo](https://github.com/tiangolo) 提交。
 
 ## 0.0.21
 

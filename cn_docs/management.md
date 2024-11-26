@@ -1,32 +1,32 @@
-# Repository Management
+# 仓库管理
 
-Here's a short description of how the SQLModel repository is managed and maintained.
+这是关于如何管理和维护 SQLModel 仓库的简短描述。
 
-## Owner
+## 所有者
 
-I, <a href="https://github.com/tiangolo" target="_blank">@tiangolo</a>, am the creator and owner of the SQLModel repository. 🤓
+我，<a href="https://github.com/tiangolo" target="_blank">@tiangolo</a>，是 SQLModel 仓库的创建者和所有者。🤓
 
-I normally give the final review to each PR before merging them. I make the final decisions on the project, I'm the <a href="https://en.wikipedia.org/wiki/Benevolent_dictator_for_life" class="external-link" target="_blank"><abbr title="Benevolent Dictator For Life">BDFL</abbr></a>. 😅
+我通常会在合并 PR 之前进行最终审核。我做出项目的最终决定，我是 <a href="https://en.wikipedia.org/wiki/Benevolent_dictator_for_life" class="external-link" target="_blank"><abbr title="终身仁慈独裁者">BDFL</abbr></a>。😅
 
-## Team
+## 团队
 
-There's a team of people that help manage and maintain the project. 😎
+有一支团队帮助管理和维护该项目。😎
 
-They have different levels of permissions and [specific instructions](./management-tasks.md){.internal-link target=_blank}.
+他们有不同级别的权限和 [具体的指令](./management-tasks.md){.internal-link target=_blank}。
 
-Some of the tasks they can perform include:
+他们可以执行的一些任务包括：
 
-* Adding labels to PRs.
-* Editing PR titles.
-* Adding commits on top of PRs to tweak them.
-* Mark answers in GitHub Discussions questions, etc.
-* Merge some specific types of PRs.
+* 为 PR 添加标签。
+* 编辑 PR 标题。
+* 在 PR 上添加提交进行调整。
+* 在 GitHub Discussions 中标记问题的答案等。
+* 合并某些特定类型的 PR。
 
-Joining the team is by invitation only, and I could update or remove permissions, instructions, or membership.
+加入团队需要邀请，我可以更新或移除权限、指令或成员资格。
 
-### Team Members
+### 团队成员
 
-This is the current list of team members. 😎
+以下是当前的团队成员名单。😎
 
 <div class="user-list user-list-center">
 {% for user in members["members"] %}
@@ -36,10 +36,10 @@ This is the current list of team members. 😎
 
 </div>
 
-Additional to them, there's a large community of people helping each other and getting involved in the projects in different ways.
+除了他们之外，还有一个庞大的社区，大家相互帮助，以不同的方式参与项目。
 
-## External Contributions
+## 外部贡献
 
-External contributions are very welcome and appreciated, including answering questions, submitting PRs, etc. 🙇‍♂️
+非常欢迎并感激外部贡献，包括回答问题、提交 PR 等。🙇‍♂️
 
-There are many ways to [help maintain SQLModel](./help.md){.internal-link target=_blank}.
+有许多方式可以 [帮助维护 SQLModel](./help.md){.internal-link target=_blank}。

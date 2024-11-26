@@ -1,35 +1,35 @@
-# Update Data with FastAPI
+# 使用 FastAPI 更新数据
 
-Now let's see how to update data in the database with a **FastAPI** *path operation*.
+现在，让我们来看一下如何使用 **FastAPI** 的 *路径操作* 来更新数据库中的数据。
 
-## `HeroUpdate` Model
+## `HeroUpdate` 模型
 
-We want clients to be able to update the `name`, the `secret_name`, and the `age` of a hero.
+我们希望客户端能够更新英雄的 `name`、`secret_name` 和 `age`。
 
-But we don't want them to have to include all the data again just to **update a single field**.
+但是，我们不希望他们在更新单个字段时必须重新提供所有数据。
 
-So, we need to have all those fields **marked as optional**.
+因此，我们需要将这些字段 **标记为可选**。
 
-And because the `HeroBase` has some of them as *required* and not optional, we will need to **create a new model**.
+由于 `HeroBase` 中的一些字段是 *必需的*，而不是可选的，因此我们将需要 **创建一个新模型**。
 
 /// tip
 
-Here is one of those cases where it probably makes sense to use an **independent model** instead of trying to come up with a complex tree of models inheriting from each other.
+这是一个可能更适合使用 **独立模型** 的情况，而不是试图通过创建复杂的继承模型树来解决问题。
 
-Because each field is **actually different** (we just change it to `Optional`, but that's already making it different), it makes sense to have them in their own model.
+因为每个字段 **实际上是不同的**（我们只是将其更改为 `Optional`，但这已经使它不同），因此将它们放入自己的模型中是合理的。
 
 ///
 
-So, let's create this new `HeroUpdate` model:
+所以，我们来创建这个新的 `HeroUpdate` 模型：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="21-24"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:5-26]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -37,11 +37,11 @@ So, let's create this new `HeroUpdate` model:
 //// tab | Python 3.9+
 
 ```Python hl_lines="21-24"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:7-28]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -49,16 +49,16 @@ So, let's create this new `HeroUpdate` model:
 //// tab | Python 3.7+
 
 ```Python hl_lines="21-24"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:7-28]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -86,22 +86,22 @@ So, let's create this new `HeroUpdate` model:
 
 ///
 
-This is almost the same as `HeroBase`, but all the fields are optional, so we can't simply inherit from `HeroBase`.
+这几乎与 `HeroBase` 相同，但所有字段都是可选的，因此我们不能简单地从 `HeroBase` 继承。
 
-## Create the Update Path Operation
+## 创建更新路径操作
 
-Now let's use this model in the *path operation* to update a hero.
+现在，让我们在 *路径操作* 中使用这个模型来更新英雄。
 
-We will use a `PATCH` HTTP operation. This is used to **partially update data**, which is what we are doing.
+我们将使用 `PATCH` HTTP 操作。这用于 **部分更新数据**，正是我们所做的操作。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-4"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -109,11 +109,11 @@ We will use a `PATCH` HTTP operation. This is used to **partially update data**,
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-4"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -121,16 +121,16 @@ We will use a `PATCH` HTTP operation. This is used to **partially update data**,
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-4"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -158,22 +158,22 @@ We will use a `PATCH` HTTP operation. This is used to **partially update data**,
 
 ///
 
-We also read the `hero_id` from the *path parameter* and the request body, a `HeroUpdate`.
+我们还从 *路径参数* 和请求体中读取 `hero_id` 和 `HeroUpdate`。
 
-### Read the Existing Hero
+### 读取现有的英雄
 
-We take a `hero_id` with the **ID** of the hero **we want to update**.
+我们通过 **hero_id** 获取想要更新的英雄的 **ID**。
 
-So, we need to read the hero from the database, with the **same logic** we used to **read a single hero**, checking if it exists, possibly raising an error for the client if it doesn't exist, etc.
+因此，我们需要使用与 **读取单个英雄** 时相同的逻辑从数据库中读取英雄，检查其是否存在，如果不存在，则可能会抛出错误给客户端，等等。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="6-8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -181,11 +181,11 @@ So, we need to read the hero from the database, with the **same logic** we used 
 //// tab | Python 3.9+
 
 ```Python hl_lines="6-8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -193,16 +193,16 @@ So, we need to read the hero from the database, with the **same logic** we used 
 //// tab | Python 3.7+
 
 ```Python hl_lines="6-8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -230,11 +230,11 @@ So, we need to read the hero from the database, with the **same logic** we used 
 
 ///
 
-### Get the New Data
+### 获取新的数据
 
-The `HeroUpdate` model has all the fields with **default values**, because they all have defaults, they are all optional, which is what we want.
+`HeroUpdate` 模型包含所有具有 **默认值** 的字段，因为它们都是可选的，这正是我们所需要的。
 
-But that also means that if we just call `hero.model_dump()` we will get a dictionary that could potentially have several or all of those values with their defaults, for example:
+但这也意味着，如果我们直接调用 `hero.model_dump()`，我们会得到一个字典，其中可能包含多个或所有默认值字段，例如：
 
 ```Python
 {
@@ -244,25 +244,25 @@ But that also means that if we just call `hero.model_dump()` we will get a dicti
 }
 ```
 
-And then, if we update the hero in the database with this data, we would be removing any existing values, and that's probably **not what the client intended**.
+然后，如果我们使用这些数据更新数据库中的英雄，我们将会删除任何现有的值，而这可能 **不是客户端的意图**。
 
-But fortunately Pydantic models (and so SQLModel models) have a parameter we can pass to the `.model_dump()` method for that: `exclude_unset=True`.
+幸运的是，Pydantic 模型（以及 SQLModel 模型）提供了一个参数，我们可以在 `.model_dump()` 方法中传递：`exclude_unset=True`。
 
-This tells Pydantic to **not include** the values that were **not sent** by the client. Saying it another way, it would **only** include the values that were **sent by the client**.
+这告诉 Pydantic **不包括** 客户端 **没有发送** 的值。换句话说，它只会 **包括** 客户端 **发送的值**。
 
-So, if the client sent a JSON with no values:
+因此，如果客户端发送一个没有值的 JSON：
 
 ```JSON
 {}
 ```
 
-Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=True)` would be:
+那么，使用 `hero.model_dump(exclude_unset=True)` 获取的字典将是：
 
 ```Python
 {}
 ```
 
-But if the client sent a JSON with:
+但如果客户端发送的 JSON 包含：
 
 ```JSON
 {
@@ -270,7 +270,7 @@ But if the client sent a JSON with:
 }
 ```
 
-Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=True)` would be:
+那么，使用 `hero.model_dump(exclude_unset=True)` 获取的字典将是：
 
 ```Python
 {
@@ -278,16 +278,16 @@ Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=
 }
 ```
 
-Then we use that to get the data that was actually sent by the client:
+然后，我们使用这个数据来更新客户端实际发送的数据：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -295,11 +295,11 @@ Then we use that to get the data that was actually sent by the client:
 //// tab | Python 3.9+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -307,88 +307,16 @@ Then we use that to get the data that was actually sent by the client:
 //// tab | Python 3.7+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-////
-
-///
-
-/// tip
-Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
-///
-
-## Update the Hero in the Database
-
-Now that we have a **dictionary with the data sent by the client**, we can use the method `db_hero.sqlmodel_update()` to update the object `db_hero`.
-
-//// tab | Python 3.10+
-
-```Python hl_lines="10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -418,31 +346,105 @@ Now that we have a **dictionary with the data sent by the client**, we can use t
 
 /// tip
 
-The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.16. 🤓
-
-Before that, you would need to manually get the values and set them using `setattr()`.
+在 SQLModel 0.0.14 之前，方法名是 `hero.dict(exclude_unset=True)`，但为了与 Pydantic v2 保持一致，它被重命名为 `hero.model_dump(exclude_unset=True)`。
 
 ///
 
-The method `db_hero.sqlmodel_update()` takes an argument with another model object or a dictionary.
+## 在数据库中更新英雄
 
-For each of the fields in the **original** model object (`db_hero` in this example), it checks if the field is available in the **argument** (`hero_data` in this example) and then updates it with the provided value.
+现在我们已经有了 **客户端发送的数据字典**，我们可以使用 `db_hero.sqlmodel_update()` 方法来更新对象 `db_hero`。
 
-## Remove Fields
+//// tab | Python 3.10+
 
-Here's a bonus. 🎁
+```Python hl_lines="10"
+# 代码省略 👆
 
-When getting the dictionary of data sent by the client, we only include **what the client actually sent**.
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
 
-This sounds simple, but it has some additional nuances that become **nice features**. ✨
+# 代码省略 👇
+```
 
-We are **not simply omitting** the data that has the **default values**.
+////
 
-And we are **not simply omitting** anything that is `None`.
+//// tab | Python 3.9+
 
-This means that if a model in the database **has a value different than the default**, the client could **reset it to the same value as the default**, or even `None`, and we would **still notice it** and **update it accordingly**. 🤯🚀
+```Python hl_lines="10"
+# 代码省略 👆
 
-So, if the client wanted to intentionally remove the `age` of a hero, they could just send a JSON with:
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
+
+# 代码省略 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
+```Python hl_lines="10"
+# 代码省略 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
+
+# 代码省略 👇
+```
+
+////
+
+/// details | 👀 完整文件预览
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
+```
+
+////
+
+///
+
+/// tip
+
+`db_hero.sqlmodel_update()` 方法是在 SQLModel 0.0.16 中新增的。🤓
+
+在那之前，你需要手动获取值并使用 `setattr()` 设置它们。
+
+///
+
+`db_hero.sqlmodel_update()` 方法接受一个模型对象或字典作为参数。
+
+对于 **原始** 模型对象（在此示例中为 `db_hero`）中的每个字段，它会检查该字段是否在 **参数**（在此示例中为 `hero_data`）中存在，然后使用提供的值进行更新。
+
+## 移除字段
+
+这里有一个附加功能。🎁
+
+当获取客户端发送的数据字典时，我们只包含 **客户端实际发送的内容**。
+
+这听起来很简单，但它有一些额外的细节，成为了 **很棒的特性**。✨
+
+我们 **不是简单地省略** 具有 **默认值** 的数据。
+
+我们也 **不是简单地省略** 任何为 `None` 的数据。
+
+这意味着，如果数据库中的模型 **有一个与默认值不同的值**，客户端可以 **将其重置为与默认值相同的值**，甚至是 `None`，我们 **仍然会注意到** 并 **根据需要更新** 它。🤯🚀
+
+因此，如果客户端想有意删除英雄的 `age` 字段，他们只需发送一个包含以下内容的 JSON：
 
 ```JSON
 {
@@ -450,7 +452,7 @@ So, if the client wanted to intentionally remove the `age` of a hero, they could
 }
 ```
 
-And when getting the data with `hero.model_dump(exclude_unset=True)`, we would get:
+然后，当使用 `hero.model_dump(exclude_unset=True)` 获取数据时，我们会得到：
 
 ```Python
 {
@@ -458,14 +460,14 @@ And when getting the data with `hero.model_dump(exclude_unset=True)`, we would g
 }
 ```
 
-So, we would use that value and update the `age` to `None` in the database, **just as the client intended**.
+因此，我们会使用该值并将数据库中的 `age` 更新为 `None`，**正如客户端所希望的那样**。
 
-Notice that `age` here is `None`, and **we still detected it**.
+请注意，`age` 这里是 `None`，并且 **我们仍然检测到了这一点**。
 
-Also, that `name` was not even sent, and we don't *accidentally* set it to `None` or something. We just didn't touch it because the client didn't send it, so we are **perfectly fine**, even in these corner cases. ✨
+另外，`name` 甚至没有发送，我们并没有 *错误地* 将其设置为 `None` 或其他内容。我们只是没有更改它，因为客户端没有发送它，所以我们 **完全没有问题**，即使在这些边缘情况中。✨
 
-These are some of the advantages of Pydantic, that we can use with SQLModel. 🎉
+这些是使用 Pydantic 和 SQLModel 的一些优势。🎉
 
-## Recap
+## 总结
 
-Using `.model_dump(exclude_unset=True)` in SQLModel models (and Pydantic models) we can easily update data **correctly**, even in the **edge cases**. 😎
+通过在 SQLModel 模型（和 Pydantic 模型）中使用 `.model_dump(exclude_unset=True)`，我们可以轻松、**正确地** 更新数据，即使是在 **边缘情况** 下。😎

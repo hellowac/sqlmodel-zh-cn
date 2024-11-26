@@ -1,3 +1,3 @@
-# About
+# 关于
 
-About **SQLModel**, its design, inspiration, and more. 🤓
+关于 **SQLModel**, 它的设计、灵感等等。 🤓

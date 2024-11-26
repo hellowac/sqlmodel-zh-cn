@@ -1,124 +1,124 @@
-# Multiple Models with FastAPI
+# FastAPI 中的多个模型
 
-We have been using the same `Hero` model to declare the schema of the data we receive in the API, the table model in the database, and the schema of the data we send back in responses.
+我们一直在使用相同的 `Hero` 模型来声明我们在 API 中接收的数据的 schema、数据库中的表模型以及我们在响应中发送回的数据的 schema。
 
-But in most of the cases, there are slight differences. Let's use multiple models to solve it.
+但在大多数情况下，这些模型之间会有一些细微的差别。我们将使用多个模型来解决这个问题。
 
-Here you will see the main and biggest feature of **SQLModel**. 😎
+在这里，你将看到 **SQLModel** 的主要和最强大的特性。😎
 
-## Review Creation Schema
+## 审查创建 schema
 
-Let's start by reviewing the automatically generated schemas from the docs UI.
+让我们从审查文档 UI 中自动生成的 schema 开始。
 
-For input, we have:
+对于输入，我们有：
 
-<img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/simple-hero-api/image01.png">
+<img class="shadow" alt="Interactive API docs UI" src="../../../img/tutorial/fastapi/simple-hero-api/image01.png">
 
-If we pay attention, it shows that the client *could* send an `id` in the JSON body of the request.
+如果我们仔细观察，会看到它显示客户端 *可能* 会在请求的 JSON 正文中发送一个 `id` 字段。
 
-This means that the client could try to use the same ID that already exists in the database for another hero.
+这意味着客户端可能会尝试使用数据库中已经存在的另一个英雄的 ID。
 
-That's not what we want.
+这不是我们想要的。
 
-We want the client only to send the data that is needed to create a new hero:
-
-* `name`
-* `secret_name`
-* Optional `age`
-
-And we want the `id` to be generated automatically by the database, so we don't want the client to send it.
-
-We'll see how to fix it in a bit.
-
-## Review Response Schema
-
-Now let's review the schema of the response we send back to the client in the docs UI.
-
-If you click the small tab <kbd>Schema</kbd> instead of the <kbd>Example Value</kbd>, you will see something like this:
-
-<img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/multiple-models/image01.png">
-
-Let's see the details.
-
-The fields with a red asterisk (<span style="color: #ff0000;">*</span>) are "required".
-
-This means that our API application is required to return those fields in the response:
+我们希望客户端只发送创建新英雄所需的数据：
 
 * `name`
 * `secret_name`
+* 可选的 `age`
 
-The `age` is optional, we don't have to return it, or it could be `None` (or `null` in JSON), but the `name` and the `secret_name` are required.
+我们希望 `id` 由数据库自动生成，因此我们不希望客户端发送该字段。
 
-Here's the weird thing, the `id` currently seems also "optional". 🤔
+稍后我们将看到如何解决这个问题。
 
-This is because in our **SQLModel** class we declare the `id` with `Optional[int]`, because it could be `None` in memory until we save it in the database and we finally get the actual ID.
+## 审查响应 schema
 
-But in the responses, we always send a model from the database, so it **always has an ID**. So the `id` in the responses can be declared as required.
+现在让我们审查文档 UI 中我们发送给客户端的响应 schema。
 
-This means that our application is making the promise to the clients that if it sends a hero, it will for sure have an `id` with a value, it will not be `None`.
+如果你点击小标签 <kbd>Schema</kbd>，而不是 <kbd>Example Value</kbd>，你将看到如下内容：
 
-### Why Is it Important to Have a Contract for Responses
+<img class="shadow" alt="Interactive API docs UI" src="../../../img/tutorial/fastapi/multiple-models/image01.png">
 
-The ultimate goal of an API is for some **clients to use it**.
+让我们来看一下详细内容。
 
-The clients could be a frontend application, a command line program, a graphical user interface, a mobile application, another backend application, etc.
+带有红色星号（<span style="color: #ff0000;">*</span>）的字段是“必填项”。
 
-And the code those clients write depends on what our API tells them they **need to send**, and what they can **expect to receive**.
+这意味着我们的 API 应用必须在响应中返回这些字段：
 
-Making both sides very clear will make it much easier to interact with the API.
+* `name`
+* `secret_name`
 
-And in most of the cases, the developer of the client for that API **will also be yourself**, so you are **doing your future self a favor** by declaring those schemas for requests and responses. 😉
+`age` 是可选的，我们不必返回它，或者它可以是 `None`（在 JSON 中是 `null`），但 `name` 和 `secret_name` 是必填的。
 
-### So Why is it Important to Have Required IDs
+这里有个奇怪的地方，`id` 目前似乎也是“可选的”。🤔
 
-Now, what's the matter with having one **`id` field marked as "optional"** in a response when in reality it is always required?
+这是因为在我们的 **SQLModel** 类中，我们声明 `id` 为 `Optional[int]`，因为它在内存中可以是 `None`，直到我们将其保存到数据库中，最终获取实际的 ID。
 
-For example, **automatically generated clients** in other languages (or also in Python) would have some declaration that this field `id` is optional.
+但在响应中，我们始终发送来自数据库的模型，因此它 **总是有一个 ID**。所以响应中的 `id` 应该声明为必填项。
 
-And then the developers using those clients in their languages would have to be checking all the time in all their code if the `id` is not `None` before using it anywhere.
+这意味着我们的应用承诺，如果它发送一个英雄，它肯定会有一个带有值的 `id`，而不会是 `None`。
 
-That's a lot of unnecessary checks and **unnecessary code** that could have been saved by declaring the schema properly. 😔
+### 为什么为响应定义契约很重要
 
-It would be a lot simpler for that code to know that the `id` from a response is required and **will always have a value**.
+API 的最终目标是让一些 **客户端使用它**。
 
-Let's fix that too. 🤓
+这些客户端可以是前端应用、命令行程序、图形用户界面、移动应用、其他后端应用等。
 
-## Multiple Hero Schemas
+这些客户端编写的代码依赖于我们 API 告诉他们他们 **需要发送** 什么，以及他们 **可以期待接收到** 什么。
 
-So, we want to have our `Hero` model that declares the **data in the database**:
+让双方非常清楚，将使与 API 交互变得更加容易。
 
-* `id`, optional on creation, required on database
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+在大多数情况下，开发该 API 客户端的开发者 **也将是你自己**，所以通过声明这些请求和响应的 schema，你是在 **为未来的自己做好准备**。😉
 
-But we also want to have a `HeroCreate` for the data we want to receive when **creating** a new hero, which is almost all the same data as `Hero`, except for the `id`, because that is created automatically by the database:
+### 那么，为什么需要 `id` 字段是必填的呢？
 
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+现在，为什么在响应中将 **`id` 字段标记为“可选”**，而实际上它总是必需的呢？
 
-And we want to have a `HeroPublic` with the `id` field, but this time annotated with `id: int`, instead of `id: Optional[int]`, to make it clear that it is required in responses **read** from the clients:
+例如，**自动生成的客户端**（无论是其他语言还是 Python 中的客户端）会声明该字段 `id` 是可选的。
 
-* `id`, required
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+然后，使用这些客户端的开发者将不得不在他们的代码中随时检查 `id` 是否为 `None`，然后才能在任何地方使用它。
 
-## Multiple Models with Duplicated Fields
+这将导致许多不必要的检查和 **不必要的代码**，这些本可以通过正确声明 schema 来避免。😔
 
-The simplest way to solve it could be to create **multiple models**, each one with all the corresponding fields:
+要让这些代码知道响应中的 `id` 是必需的，并且 **永远有一个值**，会简单得多。
+
+让我们也解决这个问题。🤓
+
+## 多个英雄模型
+
+因此，我们希望拥有一个 `Hero` 模型来声明 **数据库中的数据**：
+
+* `id`，创建时可选，数据库中必填
+* `name`，必填
+* `secret_name`，必填
+* `age`，可选
+
+但我们还希望有一个 `HeroCreate` 模型，用于声明我们在 **创建** 新英雄时希望接收的数据，几乎与 `Hero` 相同，唯一的区别是 `id`，因为 `id` 是由数据库自动生成的：
+
+* `name`，必填
+* `secret_name`，必填
+* `age`，可选
+
+另外，我们还想有一个 `HeroPublic` 模型，包含 `id` 字段，但这次我们将其注解为 `id: int`，而不是 `id: Optional[int]`，以明确表示在从客户端 **读取** 响应时 `id` 字段是必填的：
+
+* `id`，必填
+* `name`，必填
+* `secret_name`，必填
+* `age`，可选
+
+## 具有重复字段的多个模型
+
+解决这个问题的最简单方法可能是创建 **多个模型**，每个模型包含所有相应的字段：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="5-9  12-15  18-22"
-# This would work, but there's a better option below 🚨
+# 这能解决问题，但下面有更好的选择 🚨
 
-# Code above omitted 👆
+# 以上代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:5-22]!}
 
-# Code below omitted 👇
+# 以下代码已省略 👇
 ```
 
 ////
@@ -126,13 +126,13 @@ The simplest way to solve it could be to create **multiple models**, each one wi
 //// tab | Python 3.9+
 
 ```Python hl_lines="5-9  12-15  18-22"
-# This would work, but there's a better option below 🚨
+# 这能解决问题，但下面有更好的选择 🚨
 
-# Code above omitted 👆
+# 以上代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:7-24]!}
 
-# Code below omitted 👇
+# 以下代码已省略 👇
 ```
 
 ////
@@ -140,18 +140,18 @@ The simplest way to solve it could be to create **multiple models**, each one wi
 //// tab | Python 3.7+
 
 ```Python hl_lines="5-9  12-15  18-22"
-# This would work, but there's a better option below 🚨
+# 这能解决问题，但下面有更好的选择 🚨
 
-# Code above omitted 👆
+# 以上代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:7-24]!}
 
-# Code below omitted 👇
+# 以下代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -179,34 +179,34 @@ The simplest way to solve it could be to create **multiple models**, each one wi
 
 ///
 
-Here's the important detail, and probably the most important feature of **SQLModel**: only `Hero` is declared with `table = True`.
+这里有一个重要的细节，也许是 **SQLModel** 中最重要的特性：只有 `Hero` 模型声明了 `table = True`。
 
-This means that the class `Hero` represents a **table** in the database. It is both a **Pydantic** model and a **SQLAlchemy** model.
+这意味着类 `Hero` 代表数据库中的 **表**。它既是一个 **Pydantic** 模型，也是一个 **SQLAlchemy** 模型。
 
-But `HeroCreate` and `HeroPublic` don't have `table = True`. They are only **data models**, they are only **Pydantic** models. They won't be used with the database, but only to declare data schemas for the API (or for other uses).
+但 `HeroCreate` 和 `HeroPublic` 没有 `table = True`。它们只是 **数据模型**，仅仅是 **Pydantic** 模型。它们不会与数据库一起使用，而仅用于声明 API 的数据 schema（或其他用途）。
 
-This also means that `SQLModel.metadata.create_all()` won't create tables in the database for `HeroCreate` and `HeroPublic`, because they don't have `table = True`, which is exactly what we want. 🚀
+这也意味着 `SQLModel.metadata.create_all()` 不会为 `HeroCreate` 和 `HeroPublic` 创建数据库表，因为它们没有 `table = True`，这正是我们想要的。🚀
 
 /// tip
 
-We will improve this code to avoid duplicating the fields, but for now we can continue learning with these models.
+我们将改进此代码，以避免重复字段，但现在我们可以继续使用这些模型进行学习。
 
 ///
 
-## Use Multiple Models to Create a Hero
+## 使用多个模型创建英雄
 
-Let's now see how to use these new models in the FastAPI application.
+现在让我们看看如何在 FastAPI 应用程序中使用这些新模型。
 
-Let's first check how is the process to create a hero now:
+首先，让我们检查现在创建英雄的过程：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-4  6"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:44-51]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -214,11 +214,11 @@ Let's first check how is the process to create a hero now:
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-4  6"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:46-53]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -226,16 +226,16 @@ Let's first check how is the process to create a hero now:
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-4  6"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:46-53]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -263,18 +263,18 @@ Let's first check how is the process to create a hero now:
 
 ///
 
-Let's check that in detail.
+让我们详细看看。
 
-Now we use the type annotation `HeroCreate` for the request JSON data in the `hero` parameter of the **path operation function**.
+现在我们使用类型注解 `HeroCreate` 来表示请求 JSON 数据中的 `hero` 参数，这是在 **路径操作函数** 中使用的。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:45]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -282,11 +282,11 @@ Now we use the type annotation `HeroCreate` for the request JSON data in the `he
 //// tab | Python 3.9+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:47]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -294,35 +294,37 @@ Now we use the type annotation `HeroCreate` for the request JSON data in the `he
 //// tab | Python 3.7+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:47]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-Then we create a new `Hero` (this is the actual **table** model that saves things to the database) using `Hero.model_validate()`.
+然后，我们使用 `Hero.model_validate()` 创建一个新的 `Hero` 实例（这是实际的 **表** 模型，用于将数据保存到数据库）。
 
-The method `.model_validate()` reads data from another object with attributes (or a dict) and creates a new instance of this class, in this case `Hero`.
+`.model_validate()` 方法从另一个对象（具有属性或字典）读取数据，并创建该类的新实例，在这里是 `Hero`。
 
-In this case, we have a `HeroCreate` instance in the `hero` variable. This is an object with attributes, so we use `.model_validate()` to read those attributes.
+在这种情况下，我们有一个 `HeroCreate` 实例，它存储在 `hero` 变量中。这是一个具有属性的对象，因此我们使用 `.model_validate()` 来读取这些属性。
 
 /// tip
-In versions of **SQLModel** before `0.0.14` you would use the method `.from_orm()`, but it is now deprecated and you should use `.model_validate()` instead.
+
+在 **SQLModel** 的 `0.0.14` 版本之前，你会使用 `.from_orm()` 方法，但该方法现在已被弃用，应该使用 `.model_validate()` 代替。
+
 ///
 
-We can now create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
+现在我们可以创建一个新的 `Hero` 实例（即数据库中的实例），并使用 `HeroCreate` 实例中的数据将其存入变量 `db_hero`。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:47]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -330,11 +332,11 @@ We can now create a new `Hero` instance (the one for the database) and put it in
 //// tab | Python 3.9+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:49]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -342,29 +344,29 @@ We can now create a new `Hero` instance (the one for the database) and put it in
 //// tab | Python 3.7+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:49]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-Then we just `add` it to the **session**, `commit`, and `refresh` it, and finally, we return the same `db_hero` variable that has the just refreshed `Hero` instance.
+然后我们只需将其 `add` 到 **session** 中，`commit` 并 `refresh` 它，最后返回刚刚刷新的 `db_hero` 变量，它包含刚刷新过的 `Hero` 实例。
 
-Because it is just refreshed, it has the `id` field set with a new ID taken from the database.
+由于它刚刚被刷新，因此它的 `id` 字段已设置为从数据库中获取的新 ID。
 
-And now that we return it, FastAPI will validate the data with the `response_model`, which is a `HeroPublic`:
+现在，当我们返回它时，FastAPI 会使用 `response_model`（即 `HeroPublic`）对数据进行验证：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:44]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -372,11 +374,11 @@ And now that we return it, FastAPI will validate the data with the `response_mod
 //// tab | Python 3.9+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:46]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -384,73 +386,73 @@ And now that we return it, FastAPI will validate the data with the `response_mod
 //// tab | Python 3.7+
 
 ```Python hl_lines="3"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:46]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-This will validate that all the data that we promised is there and will remove any data we didn't declare.
+这将验证我们承诺返回的所有数据，并删除我们未声明的任何数据。
 
 /// tip
 
-This filtering could be very important and could be a very good security feature, for example, to make sure you filter private data, hashed passwords, etc.
+这种过滤可能非常重要，并且是一个很好的安全功能，例如确保过滤掉私人数据、加密密码等。
 
-You can read more about it in the <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI docs about Response Model</a>.
+你可以在 <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI 关于响应模型的文档</a> 中了解更多。
 
 ///
 
-In particular, it will make sure that the `id` is there and that it is indeed an integer (and not `None`).
+特别地，它将确保 `id` 字段存在并且确实是一个整数（而不是 `None`）。
 
-## Shared Fields
+## 共享字段
 
-But looking closely, we could see that these models have a lot of **duplicated information**.
+但仔细观察，我们可以看到这些模型有很多 **重复的信息**。
 
-All **the 3 models** declare that they share some **common fields** that look exactly the same:
+所有 **这三个模型** 都声明了它们共享一些 **公共字段**，这些字段看起来完全一样：
 
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+* `name`，必填
+* `secret_name`，必填
+* `age`，可选
 
-And then they declare other fields with some differences (in this case, only about the `id`).
+然后它们声明了其他一些字段，其中有一些差异（在这种情况下，只有关于 `id` 的差异）。
 
-We want to **avoid duplicated information** if possible.
+我们希望 **尽可能避免重复的信息**。
 
-This is important if, for example, in the future, we decide to **refactor the code** and rename one field (column). For example, from `secret_name` to `secret_identity`.
+这很重要，比如，未来如果我们决定 **重构代码** 并重命名某个字段（列）。例如，将 `secret_name` 改为 `secret_identity`。
 
-If we have that duplicated in multiple models, we could easily forget to update one of them. But if we **avoid duplication**, there's only one place that would need updating. ✨
+如果这些字段在多个模型中都有重复，我们很容易忘记更新其中的一个。但如果我们 **避免重复**，就只有一个地方需要更新。✨
 
-Let's now improve that. 🤓
+现在让我们来改进这一点。🤓
 
-## Multiple Models with Inheritance
+## 使用继承的多个模型
 
-And here it is, you found the biggest feature of **SQLModel**. 💎
+这就是你发现的 **SQLModel** 中的最大特点。💎
 
-Each of these models is only a **data model** or both a data model and a **table model**.
+这些模型中的每一个，都是 **数据模型**，或者是数据模型和 **表模型** 的结合体。
 
-So, it's possible to create models with **SQLModel** that don't represent tables in the database.
+因此，使用 **SQLModel** 创建不代表数据库表的模型是完全可能的。
 
-On top of that, we can use inheritance to avoid duplicated information in these models.
+更重要的是，我们可以使用继承来避免这些模型中的重复信息。
 
-We can see from above that they all share some **base** fields:
+我们可以看到它们都共享一些 **基础** 字段：
 
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+* `name`，必填
+* `secret_name`，必填
+* `age`，可选
 
-So let's create a **base** model `HeroBase` that the others can inherit from:
+所以让我们创建一个 **基础** 模型 `HeroBase`，让其他模型可以继承它：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-6"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-8]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -458,11 +460,11 @@ So let's create a **base** model `HeroBase` that the others can inherit from:
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-6"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-10]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -470,16 +472,16 @@ So let's create a **base** model `HeroBase` that the others can inherit from:
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-6"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-10]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -507,22 +509,22 @@ So let's create a **base** model `HeroBase` that the others can inherit from:
 
 ///
 
-As you can see, this is *not* a **table model**, it doesn't have the `table = True` config.
+正如你所看到的，这不是一个 **表模型**，它没有 `table = True` 配置。
 
-But now we can create the **other models inheriting from it**, they will all share these fields, just as if they had them declared.
+但是现在我们可以创建 **继承它的其他模型**，它们将共享这些字段，就好像它们在各自的模型中声明过一样。
 
-### The `Hero` **Table Model**
+### `Hero` **表模型**
 
-Let's start with the only **table model**, the `Hero`:
+让我们从唯一的 **表模型** `Hero` 开始：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9-10"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-12]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -530,11 +532,11 @@ Let's start with the only **table model**, the `Hero`:
 //// tab | Python 3.9+
 
 ```Python hl_lines="9-10"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-14]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -542,16 +544,16 @@ Let's start with the only **table model**, the `Hero`:
 //// tab | Python 3.7+
 
 ```Python hl_lines="9-10"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-14]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -579,28 +581,28 @@ Let's start with the only **table model**, the `Hero`:
 
 ///
 
-Notice that `Hero` now doesn't inherit from `SQLModel`, but from `HeroBase`.
+请注意，`Hero` 现在不是继承自 `SQLModel`，而是继承自 `HeroBase`。
 
-And now we only declare one single field directly, the `id`, that here is `Optional[int]`, and is a `primary_key`.
+现在我们只直接声明一个字段，即 `id`，它是 `Optional[int]` 类型，并且是一个 `primary_key`。
 
-And even though we don't declare the other fields **explicitly**, because they are inherited, they are also part of this `Hero` model.
+尽管我们没有 **显式声明** 其他字段，因为它们是继承而来的，所以它们也属于这个 `Hero` 模型的一部分。
 
-And of course, all these fields will be in the columns for the resulting `hero` table in the database.
+当然，所有这些字段将成为数据库中生成的 `hero` 表的列。
 
-And those inherited fields will also be in the **autocompletion** and **inline errors** in editors, etc.
+这些继承的字段也将出现在 **自动补全** 和 **内联错误** 中，例如在编辑器里等。
 
-### Columns and Inheritance with Multiple Models
+### 列和多模型继承
 
-Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
+请注意，父模型 `HeroBase` 不是 **表模型**，但我们仍然可以使用 `Field(index=True)` 来声明 `name` 和 `age` 字段。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="4  6  9"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-12]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -608,11 +610,11 @@ Notice that the parent model `HeroBase`  is not a **table model**, but still, we
 //// tab | Python 3.9+
 
 ```Python hl_lines="4  6  9"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-14]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -620,16 +622,16 @@ Notice that the parent model `HeroBase`  is not a **table model**, but still, we
 //// tab | Python 3.7+
 
 ```Python hl_lines="4  6  9"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-14]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -657,24 +659,24 @@ Notice that the parent model `HeroBase`  is not a **table model**, but still, we
 
 ///
 
-This won't affect this parent **data model** `HeroBase`.
+这不会影响父 **数据模型** `HeroBase`。
 
-But once the child model `Hero` (the actual **table model**) inherits those fields, it will use those field configurations to create the indexes when creating the tables in the database.
+但是，一旦子模型 `Hero`（实际的 **表模型**）继承了这些字段，它将在数据库中创建表时使用这些字段配置来创建索引。
 
-### The `HeroCreate` **Data Model**
+### `HeroCreate` **数据模型**
 
-Now let's see the `HeroCreate` model that will be used to define the data that we want to receive in the API when creating a new hero.
+现在让我们看看 `HeroCreate` 模型，它将用于定义在 API 中创建新英雄时我们想要接收的数据。
 
-This is a fun one:
+这部分比较有趣：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="13-14"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-16]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -682,11 +684,11 @@ This is a fun one:
 //// tab | Python 3.9+
 
 ```Python hl_lines="13-14"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-18]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -694,16 +696,16 @@ This is a fun one:
 //// tab | Python 3.7+
 
 ```Python hl_lines="13-14"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-18]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -731,32 +733,32 @@ This is a fun one:
 
 ///
 
-What's happening here?
+这里发生了什么？
 
-The fields we need to create are **exactly the same** as the ones in the `HeroBase` model. So we don't have to add anything.
+我们需要创建的字段与 `HeroBase` 模型中的字段 **完全相同**。所以我们不需要添加任何内容。
 
-And because we can't leave the empty space when creating a new class, but we don't want to add any field, we just use `pass`.
+因为在创建新类时我们不能留下空白，但是我们又不想添加任何字段，所以我们使用了 `pass`。
 
-This means that there's nothing else special in this class apart from the fact that it is named `HeroCreate` and that it inherits from `HeroBase`.
+这意味着除了它被命名为 `HeroCreate` 并继承自 `HeroBase` 之外，这个类没有其他特殊的地方。
 
-As an alternative, we could use `HeroBase` directly in the API code instead of `HeroCreate`, but it would show up in the automatic docs UI with that name "`HeroBase`" which could be **confusing** for clients. Instead, "`HeroCreate`" is a bit more explicit about what it is for.
+作为替代方案，我们也可以直接在 API 代码中使用 `HeroBase`，而不是 `HeroCreate`，但是它会在自动文档 UI 中显示为 "`HeroBase`" 名称，这可能会让客户端 **困惑**。相反，"`HeroCreate`" 更明确地表明了它的用途。
 
-On top of that, we could easily decide in the future that we want to receive **more data** when creating a new hero apart from the data in `HeroBase` (for example, a password), and now we already have the class to put those extra fields.
+此外，我们可以轻松地决定未来在创建新英雄时希望接收 **更多数据**，除了 `HeroBase` 中的数据（例如，密码），现在我们已经有了这个类来添加这些额外字段。
 
-### The `HeroPublic` **Data Model**
+### `HeroPublic` **数据模型**
 
-Now let's check the `HeroPublic` model.
+现在让我们看看 `HeroPublic` 模型。
 
-This one just declares that the `id` field is required when reading a hero from the API, because a hero read from the API will come from the database, and in the database it will always have an ID.
+这个模型只是声明了在从 API 读取英雄数据时，`id` 字段是必需的，因为从 API 读取的英雄数据会来自数据库，而在数据库中，英雄数据将始终具有 ID。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="17-18"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-20]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -764,11 +766,11 @@ This one just declares that the `id` field is required when reading a hero from 
 //// tab | Python 3.9+
 
 ```Python hl_lines="17-18"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-22]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -776,16 +778,16 @@ This one just declares that the `id` field is required when reading a hero from 
 //// tab | Python 3.7+
 
 ```Python hl_lines="17-18"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-22]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -813,81 +815,81 @@ This one just declares that the `id` field is required when reading a hero from 
 
 ///
 
-## Review the Updated Docs UI
+## 回顾更新后的文档 UI
 
-The FastAPI code is still the same as above, we still use `Hero`, `HeroCreate`, and `HeroPublic`. But now, we define them in a smarter way with inheritance.
+FastAPI 代码与之前相同，我们仍然使用 `Hero`、`HeroCreate` 和 `HeroPublic`。但现在，我们通过继承定义它们，使代码更加智能。
 
-So, we can jump to the docs UI right away and see how they look with the updated data.
+所以，我们可以直接跳转到文档 UI，看看它们在更新后的数据下是怎样展示的。
 
-### Docs UI to Create a Hero
+### 创建英雄的文档 UI
 
-Let's see the new UI for creating a hero:
+让我们看看创建英雄的新 UI：
 
-<img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/multiple-models/image02.png">
+<img class="shadow" alt="互动 API 文档 UI" src="../../../img/tutorial/fastapi/multiple-models/image02.png">
 
-Nice! It now shows that to create a hero, we just pass the `name`, `secret_name`, and optionally `age`.
+很棒！现在它显示创建一个英雄时，我们只需传入 `name`、`secret_name` 和可选的 `age`。
 
-We no longer pass an `id`.
+我们不再传入 `id`。
 
-### Docs UI with Hero Responses
+### 含有英雄响应的文档 UI
 
-Now we can scroll down a bit to see the response schema:
+现在，我们可以稍微向下滚动，查看响应模式：
 
-<img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/multiple-models/image03.png">
+<img class="shadow" alt="互动 API 文档 UI" src="../../../img/tutorial/fastapi/multiple-models/image03.png">
 
-We can now see that `id` is a required field, it has a red asterisk (<span style="color: #f00;">*</span>).
+现在我们可以看到，`id` 是必需字段，它有一个红色的星号（<span style="color: #f00;">*</span>）。
 
-And if we check the schema for the **Read Heroes** *path operation* it will also show the updated schema.
+如果我们查看 **读取英雄** 的 *路径操作* 模式，它也会显示更新后的模式。
 
-## Inheritance and Table Models
+## 继承和表模型
 
-We just saw how powerful the inheritance of these models could be.
+我们刚刚看到这些模型的继承功能有多强大。
 
-This is a very simple example, and it might look a bit... meh. 😅
+这是一个非常简单的例子，可能看起来有点…… meh。😅
 
-But now imagine that your table has **10 or 20 columns**. And that you have to duplicate all that information for all your **data models**... then it becomes more obvious why it's quite useful to be able to avoid all that information duplication with inheritance.
+但现在想象一下，你的表中有 **10 或 20 列**。而且你必须为所有的 **数据模型** 复制所有这些信息……这时就更能明显看出，通过继承避免信息重复是多么有用。
 
-Now, this probably looks so flexible that it's not obvious **when to use inheritance** and for what.
+现在，这种灵活性可能让人觉得不太清楚 **何时使用继承**，以及该用继承做什么。
 
-Here are a couple of rules of thumb that can help you.
+这里有几个经验法则，可以帮助你做出判断。
 
-### Only Inherit from Data Models
+### 仅从数据模型继承
 
-Only inherit from **data models**, don't inherit from **table models**.
+只从 **数据模型** 继承，不要从 **表模型** 继承。
 
-It will help you avoid confusion, and there won't be any reason for you to need to inherit from a **table model**.
+这有助于避免混淆，并且没有任何理由需要从 **表模型** 继承。
 
-If you feel like you need to inherit from a **table model**, then instead create a **base** class that is only a **data model** and has all those fields, like `HeroBase`.
+如果你觉得需要从 **表模型** 继承，那么不如创建一个仅作为 **数据模型** 并包含所有字段的 **基类**，例如 `HeroBase`。
 
-And then inherit from that **base** class that is only a **data model** for any other **data model** and for the **table model**.
+然后从那个仅作为 **数据模型** 的 **基类** 继承，用于其他任何 **数据模型** 和 **表模型**。
 
-### Avoid Duplication - Keep it Simple
+### 避免重复 - 保持简洁
 
-It could feel like you need to have a profound reason why to inherit from one model or another, because "in some mystical way" they separate different concepts... or something like that.
+你可能会觉得需要有一个深刻的理由来决定从某个模型继承，因为“某种神秘的方式”它们区分了不同的概念……之类的。
 
-In some cases, there are **simple separations** that you can use, like the models to create data, read, update, etc. If that's quick and obvious, nice, use it. 💯
+在某些情况下，你可以使用一些 **简单的区分**，比如创建数据、读取、更新等模型。如果这些区分快速而直观，那就好，直接使用它们。💯
 
-Otherwise, don't worry too much about profound conceptual reasons to separate models, just try to **avoid duplication** and **keep the code simple** enough to reason about it.
+否则，不用过于担心深刻的概念理由来区分模型，只需尽量 **避免重复** 并保持代码足够简洁，易于理解即可。
 
-If you see you have a lot of **overlap** between two models, then you can probably **avoid some of that duplication** with a base model.
+如果你发现两个模型之间有很多 **重叠**，那么你可以通过基类来 **避免一些重复**。
 
-But if to avoid some duplication you end up with a crazy tree of models with inheritance, then it might be **simpler** to just duplicate some of those fields, and that might be easier to reason about and to maintain.
+但是，如果为了避免一些重复，最终却形成了一个复杂的继承树，那么可能 **更简单** 的做法是直接重复其中一些字段，这样可能更容易理解和维护。
 
-Do whatever is easier to **reason** about, to **program** with, to **maintain**, and to **refactor** in the future. 🤓
+做任何你认为更容易 **理解**、**编程**、**维护** 和 **未来重构** 的事情。🤓
 
-Remember that inheritance, the same as **SQLModel**, and anything else, are just tools to **help you be more productive**, that's one of their main objectives. If something is not helping with that (e.g. too much duplication, too much complexity), then change it. 🚀
+记住，继承和 **SQLModel** 以及其他任何工具，都是为了 **帮助你提高生产力**，这是它们的主要目标之一。如果某样东西没有达到这个目的（例如：重复过多、复杂度过高），那么就改变它。🚀
 
-## Recap
+## 总结
 
-You can use **SQLModel** to declare multiple models:
+你可以使用 **SQLModel** 来声明多个模型：
 
-* Some models can be only **data models**. They will also be **Pydantic** models.
-* And some can *also* be **table models** (apart from already being **data models**) by having the config `table = True`. They will also be **Pydantic** models and **SQLAlchemy** models.
+* 有些模型可以仅是 **数据模型**。它们也会是 **Pydantic** 模型。
+* 有些模型 *也* 可以是 **表模型**（除了已经是 **数据模型**）通过配置 `table = True`。它们也会是 **Pydantic** 模型和 **SQLAlchemy** 模型。
 
-Only the **table models** will create tables in the database.
+只有 **表模型** 会在数据库中创建表。
 
-So, you can use all the other **data models** to validate, convert, filter, and document the schema of the data for your application. ✨
+所以，你可以使用所有其他的 **数据模型** 来验证、转换、过滤和记录应用程序数据的模式。✨
 
-You can use inheritance to **avoid information and code duplication**. 😎
+你可以使用继承来 **避免信息和代码重复**。😎
 
-And you can use all these models directly with **FastAPI**. 🚀
+并且你可以直接在 **FastAPI** 中使用所有这些模型。🚀

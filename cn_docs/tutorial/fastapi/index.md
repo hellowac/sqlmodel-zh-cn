@@ -1,17 +1,17 @@
-# FastAPI and Pydantic - Intro
+# FastAPI 和 Pydantic - 简介
 
-One of the use cases where **SQLModel** shines the most, and the main one why it was built, was to be combined with **FastAPI**. ✨
+**SQLModel** 最突出的应用场景之一，也是它创建的主要原因，就是与 **FastAPI** 结合使用。✨
 
-<a href="https://fastapi.tiangolo.com/" class="external-link" target="_blank">FastAPI</a> is a Python web framework for building web APIs created by the same <a href="https://twitter.com/tiangolo" class="external-link" target="_blank">author</a> of SQLModel. FastAPI is also built on top of **Pydantic**.
+<a href="https://fastapi.tiangolo.com/" class="external-link" target="_blank">FastAPI</a> 是一个用于构建 Web API 的 Python Web 框架，由 **SQLModel** 的作者创建。FastAPI 也构建在 **Pydantic** 之上。
 
-In this group of chapters we will see how to combine SQLModel **table models** representing tables in the SQL database as all the ones we have seen up to now, with **data models** that only represent data (which are actually just Pydantic models behind the scenes).
+在这一组章节中，我们将看到如何将 SQLModel **表模型**（表示 SQL 数据库中的表，和我们到目前为止看到的所有模型一样）与 **数据模型**（仅表示数据，实际上是在幕后使用 Pydantic 模型）结合使用。
 
-Being able to combine SQLModel **table** models with pure **data** models would be useful on its own, but to make all the examples more concrete, we will use them with **FastAPI**.
+能够将 SQLModel **表** 模型与纯 **数据** 模型结合使用本身就很有用，但为了让所有示例更加具体，我们将与 **FastAPI** 一起使用它们。
 
-By the end we will have a **simple** but **complete** web **API** to interact with the data in the database. 🎉
+到最后，我们将拥有一个 **简单** 但 **完整** 的 Web **API**，用于与数据库中的数据进行交互。🎉
 
-## Learning FastAPI
+## 学习 FastAPI
 
-If you have never used FastAPI, maybe a good idea would be to go and study it a bit before continuing.
+如果你从未使用过 FastAPI，可能在继续之前先去了解一下它会是个不错的选择。
 
-Just reading and trying the examples on the <a href="https://fastapi.tiangolo.com/" class="external-link" target="_blank">FastAPI main page</a> should be enough, and it shouldn't take you more than **10 minutes**.
+只需阅读并尝试一下 <a href="https://fastapi.tiangolo.com/" class="external-link" target="_blank">FastAPI 官方页面</a> 上的示例就足够了，应该不会花费你超过 **10 分钟**。

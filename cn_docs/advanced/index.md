@@ -1,10 +1,10 @@
-# Advanced User Guide
+# 高级用户指南
 
-The **Advanced User Guide** is gradually growing, you can already read about some advanced topics.
+**高级用户指南** 正在逐步扩展，你已经可以阅读一些高级话题了。
 
-At some point it will include:
+未来它将包括：
 
-* How to use `async` and `await` with the async session.
-* How to run migrations.
-* How to combine **SQLModel** models with SQLAlchemy.
-* ...and more. 🤓
+* 如何使用 `async` 和 `await` 与异步会话一起使用。
+* 如何运行迁移。
+* 如何将 **SQLModel** 模型与 SQLAlchemy 结合使用。
+* ……以及更多内容。🤓

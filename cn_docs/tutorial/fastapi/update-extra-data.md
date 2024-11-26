@@ -1,51 +1,51 @@
-# Update with Extra Data (Hashed Passwords) with FastAPI
+# 使用 FastAPI 更新附加数据（哈希密码）
 
-In the previous chapter I explained to you how to update data in the database from input data coming from a **FastAPI** *path operation*.
+在上一章中，我向你解释了如何从 **FastAPI** *路径操作* 接收到的输入数据更新数据库中的数据。
 
-Now I'll explain to you how to add **extra data**, additional to the input data, when updating or creating a model object.
+现在，我将向你解释如何在更新或创建模型对象时，添加 **附加数据**，即除了输入数据之外的数据。
 
-This is particularly useful when you need to **generate some data** in your code that is **not coming from the client**, but you need to store it in the database. For example, to store a **hashed password**.
+当你需要在代码中 **生成一些数据**，这些数据 **不是来自客户端**，但你需要将其存储在数据库中时，这特别有用。例如，存储 **哈希密码**。
 
-## Password Hashing
+## 密码哈希
 
-Let's imagine that each hero in our system also has a **password**.
+假设我们系统中的每个英雄都有一个 **密码**。
 
-We should never store the password in plain text in the database, we should only stored a **hashed version** of it.
+我们绝不能将密码以明文形式存储在数据库中，而应该只存储其 **哈希版本**。
 
-"**Hashing**" means converting some content (a password in this case) into a sequence of bytes (just a string) that looks like gibberish.
+“**哈希**”是指将某些内容（在此情况下为密码）转换为一串字节（即一个字符串），看起来像是乱码。
 
-Whenever you pass exactly the same content (exactly the same password) you get exactly the same gibberish.
+每次你传递完全相同的内容（即完全相同的密码），你会得到完全相同的乱码。
 
-But you **cannot convert** from the gibberish **back to the password**.
+但你 **无法将乱码** 从 **转换回密码**。
 
-### Why use Password Hashing
+### 为什么使用密码哈希
 
-If your database is stolen, the thief won't have your users' **plaintext passwords**, only the hashes.
+如果你的数据库被盗，盗贼将无法获取用户的 **明文密码**，只能拿到哈希值。
 
-So, the thief won't be able to try to use that password in another system (as many users use the same password everywhere, this would be dangerous).
+因此，盗贼将无法尝试将该密码用于另一个系统（因为许多用户在各处使用相同的密码，这将非常危险）。
 
 /// tip
 
-You could use <a href="https://passlib.readthedocs.io/en/stable/" class="external-link" target="_blank">passlib</a> to hash passwords.
+你可以使用 <a href="https://passlib.readthedocs.io/en/stable/" class="external-link" target="_blank">passlib</a> 来哈希密码。
 
-In this example we will use a fake hashing function to focus on the data changes. 🤡
+在这个示例中，我们将使用一个伪哈希函数来专注于数据变更。🤡
 
 ///
 
-## Update Models with Extra Data
+## 使用附加数据更新模型
 
-The `Hero` table model will now store a new field `hashed_password`.
+`Hero` 表模型现在将存储一个新的字段 `hashed_password`。
 
-And the data models for `HeroCreate` and `HeroUpdate` will also have a new field `password` that will contain the plain text password sent by clients.
+而 `HeroCreate` 和 `HeroUpdate` 的数据模型也将增加一个新的字段 `password`，用于包含客户端发送的明文密码。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="11  15  26"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:5-28]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -53,11 +53,11 @@ And the data models for `HeroCreate` and `HeroUpdate` will also have a new field
 //// tab | Python 3.9+
 
 ```Python hl_lines="11  15  26"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:7-30]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -65,16 +65,16 @@ And the data models for `HeroCreate` and `HeroUpdate` will also have a new field
 //// tab | Python 3.7+
 
 ```Python hl_lines="11  15  26"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002.py[ln:7-30]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -102,28 +102,28 @@ And the data models for `HeroCreate` and `HeroUpdate` will also have a new field
 
 ///
 
-When a client is creating a new hero, they will send the `password` in the request body.
+当客户端创建一个新英雄时，他们会在请求体中发送 `password` 字段。
 
-And when they are updating a hero, they could also send the `password` in the request body to update it.
+当他们更新一个英雄时，也可以在请求体中发送 `password` 字段来更新密码。
 
-## Hash the Password
+## 哈希密码
 
-The app will receive the data from the client using the `HeroCreate` model.
+应用程序将使用 `HeroCreate` 模型接收来自客户端的数据。
 
-This contains the `password` field with the plain text password, and we cannot use that one. So we need to generate a hash from it.
+这个模型包含了明文密码的 `password` 字段，而我们不能直接使用这个密码。因此，我们需要从中生成一个哈希值。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:55-57]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -131,15 +131,15 @@ This contains the `password` field with the plain text password, and we cannot u
 //// tab | Python 3.9+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:44-46]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:57-59]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -147,20 +147,20 @@ This contains the `password` field with the plain text password, and we cannot u
 //// tab | Python 3.7+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002.py[ln:44-46]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/update/tutorial002.py[ln:57-59]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -188,25 +188,25 @@ This contains the `password` field with the plain text password, and we cannot u
 
 ///
 
-## Create an Object with Extra Data
+## 使用附加数据创建对象
 
-Now we need to create the database hero.
+现在我们需要创建数据库中的英雄。
 
-In previous examples, we have used something like:
+在之前的示例中，我们使用了类似这样的代码：
 
 ```Python
 db_hero = Hero.model_validate(hero)
 ```
 
-This creates a `Hero` (which is a *table model*) object from the `HeroCreate` (which is a *data model*) object that we received in the request.
+这将从请求中接收到的 `HeroCreate`（数据模型）对象创建一个 `Hero`（表模型）对象。
 
-And this is all good... but as `Hero` doesn't have a field `password`, it won't be extracted from the object `HeroCreate` that has it.
+这很好……但由于 `Hero` 没有 `password` 字段，它不会从包含该字段的 `HeroCreate` 对象中提取它。
 
-`Hero` actually has a `hashed_password`, but we are not providing it. We need a way to provide it...
+`Hero` 实际上有一个 `hashed_password` 字段，但我们没有提供它。我们需要一种方式来提供它……
 
-### Dictionary Update
+### 字典更新
 
-Let's pause for a second to check this, when working with dictionaries, there's a way to `update` a dictionary with extra data from another dictionary, something like this:
+让我们暂停一下，检查一下，当处理字典时，有一种方法可以用另一个字典中的附加数据来 `update` 字典，类似这样：
 
 ```Python hl_lines="14"
 db_user_dict = {
@@ -234,22 +234,22 @@ print(db_user_dict)
 # }
 ```
 
-This `update` method allows us to add and override things in the original dictionary with the data from another dictionary.
+这个 `update` 方法允许我们用另一个字典中的数据添加和覆盖原始字典中的内容。
 
-So now, `db_user_dict` has the updated `age` field with `32` instead of `None` and more importantly, **it has the new `hashed_password` field**.
+现在，`db_user_dict` 更新了 `age` 字段，值为 `32`，而不是 `None`，更重要的是，**它有了新的 `hashed_password` 字段**。
 
-### Create a Model Object with Extra Data
+### 使用附加数据创建模型对象
 
-Similar to how dictionaries have an `update` method, **SQLModel** models have a parameter `update` in `Hero.model_validate()` that takes a dictionary with extra data, or data that should take precedence:
+类似于字典中的 `update` 方法，**SQLModel** 模型在 `Hero.model_validate()` 中也有一个 `update` 参数，它接受一个包含附加数据的字典，或者是应该优先使用的数据：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:55-64]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -257,11 +257,11 @@ Similar to how dictionaries have an `update` method, **SQLModel** models have a 
 //// tab | Python 3.9+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:57-66]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -269,16 +269,16 @@ Similar to how dictionaries have an `update` method, **SQLModel** models have a 
 //// tab | Python 3.7+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002.py[ln:57-66]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -306,26 +306,26 @@ Similar to how dictionaries have an `update` method, **SQLModel** models have a 
 
 ///
 
-Now, `db_hero` (which is a *table model* `Hero`) will extract its values from `hero` (which is a *data model* `HeroCreate`), and then it will **`update`** its values with the extra data from the dictionary `extra_data`.
+现在，`db_hero`（即 *表模型* `Hero`）将从 `hero`（即 *数据模型* `HeroCreate`）中提取其值，然后它将使用来自字典 `extra_data` 的附加数据 **更新** 其值。
 
-It will only take the fields defined in `Hero`, so **it will not take the `password`** from `HeroCreate`. And it will also **take its values** from the **dictionary passed to the `update`** parameter, in this case, the `hashed_password`.
+它只会采用 `Hero` 中定义的字段，因此 **不会获取 `HeroCreate` 中的 `password`**。它还将 **从传递给 `update` 参数的字典中获取其值**，在这种情况下为 `hashed_password`。
 
-If there's a field in both `hero` and the `extra_data`, **the value from the `extra_data` passed to `update` will take precedence**.
+如果 `hero` 和 `extra_data` 中都有某个字段，**传递给 `update` 的 `extra_data` 中的值将优先**。
 
-## Update with Extra Data
+## 使用附加数据更新
 
-Now let's say we want to **update a hero** that already exists in the database.
+现在假设我们要 **更新一个已经存在于数据库中的英雄**。
 
-The same way as before, to avoid removing existing data, we will use `exclude_unset=True` when calling `hero.model_dump()`, to get a dictionary with only the data sent by the client.
+与之前相同，为了避免删除现有数据，我们在调用 `hero.model_dump()` 时将使用 `exclude_unset=True`，以仅获取客户端发送的数据的字典。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:83-89]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -333,11 +333,11 @@ The same way as before, to avoid removing existing data, we will use `exclude_un
 //// tab | Python 3.9+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:85-91]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -345,16 +345,16 @@ The same way as before, to avoid removing existing data, we will use `exclude_un
 //// tab | Python 3.7+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002.py[ln:85-91]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -382,22 +382,22 @@ The same way as before, to avoid removing existing data, we will use `exclude_un
 
 ///
 
-Now, this `hero_data` dictionary could contain a `password`. We need to check it, and if it's there, we need to generate the `hashed_password`.
+现在，这个 `hero_data` 字典可能包含一个 `password` 字段。我们需要检查它，如果存在，就需要生成 `hashed_password`。
 
-Then we can put that `hashed_password` in a dictionary.
+然后，我们可以将该 `hashed_password` 放入字典中。
 
-And then we can update the `db_hero` object using the method `db_hero.sqlmodel_update()`.
+接着，我们可以使用 `db_hero.sqlmodel_update()` 方法更新 `db_hero` 对象。
 
-It takes a model object or dictionary with the data to update the object and also an **additional `update` argument** with extra data.
+该方法接受一个模型对象或包含要更新的对象数据的字典，并且还有一个 **附加的 `update` 参数**，用于传递附加数据。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="15"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:83-99]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -405,11 +405,11 @@ It takes a model object or dictionary with the data to update the object and als
 //// tab | Python 3.9+
 
 ```Python hl_lines="15"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:85-101]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -417,16 +417,16 @@ It takes a model object or dictionary with the data to update the object and als
 //// tab | Python 3.7+
 
 ```Python hl_lines="15"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial002.py[ln:85-101]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -456,10 +456,10 @@ It takes a model object or dictionary with the data to update the object and als
 
 /// tip
 
-The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.16. 😎
+`db_hero.sqlmodel_update()` 方法是在 SQLModel 0.0.16 中添加的。😎
 
 ///
 
-## Recap
+## 小结
 
-You can use the `update` parameter in `Hero.model_validate()` to provide extra data when creating a new object and `Hero.sqlmodel_update()` to provide extra data when updating an existing object. 🤓
+你可以在 `Hero.model_validate()` 中使用 `update` 参数，在创建新对象时提供附加数据；并且可以在更新现有对象时，使用 `Hero.sqlmodel_update()` 提供附加数据。🤓

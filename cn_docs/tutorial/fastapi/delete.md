@@ -1,25 +1,25 @@
-# Delete Data with FastAPI
+# 使用 FastAPI 删除数据
 
-Let's now add a *path operation* to delete a hero.
+现在，让我们添加一个 *路径操作* 来删除一个英雄。
 
-This is quite straightforward. 😁
+这非常简单。😁
 
-## Delete Path Operation
+## 删除路径操作
 
-Because we want to **delete** data, we use an HTTP `DELETE` operation.
+因为我们要 **删除** 数据，所以使用 HTTP 的 `DELETE` 操作。
 
-We get a `hero_id` from the path parameter and verify if it exists, just as we did when reading a single hero or when updating it, **possibly raising an error** with a `404` response.
+我们从路径参数中获取 `hero_id`，并验证它是否存在，正如我们在读取单个英雄或更新英雄时所做的那样，**可能会抛出一个 `404` 错误响应**。
 
-And if we actually find a hero, we just delete it with the **session**.
+如果确实找到该英雄，我们只需使用 **session** 将其删除。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-11"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/delete/tutorial001_py310.py[ln:89-97]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -27,11 +27,11 @@ And if we actually find a hero, we just delete it with the **session**.
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-11"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/delete/tutorial001_py39.py[ln:91-99]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -39,16 +39,16 @@ And if we actually find a hero, we just delete it with the **session**.
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-11"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/delete/tutorial001.py[ln:91-99]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -76,7 +76,7 @@ And if we actually find a hero, we just delete it with the **session**.
 
 ///
 
-After deleting it successfully, we just return a response of:
+删除成功后，我们只需返回以下响应：
 
 ```JSON
 {
@@ -84,8 +84,8 @@ After deleting it successfully, we just return a response of:
 }
 ```
 
-## Recap
+## 小结
 
-That's it, feel free to try it out in the interactive docs UI to delete some heroes. 💥
+就是这样，欢迎在交互式文档 UI 中尝试删除一些英雄。💥
 
-Using **FastAPI** to read data and combining it with **SQLModel** makes it quite straightforward to delete data from the database.
+使用 **FastAPI** 来读取数据并结合 **SQLModel** 使得从数据库中删除数据变得非常简单。

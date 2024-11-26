@@ -1,45 +1,45 @@
-# Link Model with Extra Fields
+# 带有额外字段的连接模型
 
-In the previous example we never interacted directly with the `HeroTeamLink` model, it was all through the automatic **many-to-many** relationship.
+在之前的示例中，我们从未直接与 `HeroTeamLink` 模型进行交互，一切都是通过自动的 **多对多** 关系来完成的。
 
-But what if we needed to have additional data to describe the link between the two models?
+但如果我们需要额外的数据来描述两个模型之间的连接呢？
 
-Let's say that we want to have an extra field/column to say if a hero **is still training** in that team or if they are already going on missions and stuff.
+假设我们想要有一个额外的字段/列，用来表示一个英雄是否仍然在该队伍中 **训练**，或者他们是否已经开始执行任务等。
 
-Let's see how to achieve that.
+让我们看看如何实现这一点。
 
-## Link Model with Two One-to-Many
+## 带有两个一对多关系的连接模型
 
-The way to handle this is to explicitly use the link model, to be able to get and modify its data (apart from the foreign keys pointing to the two models for `Hero` and `Team`).
+处理这种情况的方式是显式地使用连接模型，以便能够获取和修改其数据（除了指向 `Hero` 和 `Team` 两个模型的外键）。
 
-In the end, the way it works is just like two **one-to-many** relationships combined.
+最终，它的工作方式就像是两个 **一对多** 关系的结合。
 
-A row in the table `heroteamlink` points to **one** particular hero, but a single hero can be connected to **many** hero-team links, so it's **one-to-many**.
+在 `heroteamlink` 表中的一行指向 **一个** 特定的英雄，但一个英雄可以与 **多个** 英雄-队伍连接，所以是 **一对多**。
 
-And also, the same row in the table `heroteamlink` points to **one** team, but a single team can be connected to **many** hero-team links, so it's also **one-to-many**.
+同样，`heroteamlink` 表中的同一行也指向 **一个** 队伍，但一个队伍可以与 **多个** 英雄-队伍连接，所以也是 **一对多**。
 
 /// tip
 
-The previous many-to-many relationship was also just two one-to-many relationships combined, but now it's going to be much more explicit.
+之前的多对多关系实际上也只是两个一对多关系的结合，但现在它会变得更加显式。
 
 ///
 
-## Update Link Model
+## 更新连接模型
 
-Let's update the `HeroTeamLink` model.
+我们将更新 `HeroTeamLink` 模型。
 
-We will add a new field `is_training`.
+我们将添加一个新字段 `is_training`。
 
-And we will also add two **relationship attributes**, for the linked `team` and `hero`:
+同时，我们还会为链接的 `team` 和 `hero` 添加两个 **关系属性**：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="6  8-9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:4-10]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -47,11 +47,11 @@ And we will also add two **relationship attributes**, for the linked `team` and 
 //// tab | Python 3.9+
 
 ```Python hl_lines="10  12-13"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:6-16]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -59,16 +59,16 @@ And we will also add two **relationship attributes**, for the linked `team` and 
 //// tab | Python 3.7+
 
 ```Python hl_lines="10  12-13"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003.py[ln:6-16]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -96,33 +96,33 @@ And we will also add two **relationship attributes**, for the linked `team` and 
 
 ///
 
-The new **relationship attributes** have their own `back_populates` pointing to new relationship attributes we will create in the `Hero` and `Team` models:
+新的 **关系属性** 有它们自己的 `back_populates`，指向我们将在 `Hero` 和 `Team` 模型中创建的新关系属性：
 
-* `team`: has `back_populates="hero_links"`, because in the `Team` model, the attribute will contain the links to the **team's heroes**.
-* `hero`: has `back_populates="team_links"`, because in the `Hero` model, the attribute will contain the links to the **hero's teams**.
+* `team`：具有 `back_populates="hero_links"`，因为在 `Team` 模型中，该属性将包含指向 **队伍英雄** 的链接。
+* `hero`：具有 `back_populates="team_links"`，因为在 `Hero` 模型中，该属性将包含指向 **英雄队伍** 的链接。
 
 /// info
 
-In SQLAlchemy this is called an Association Object or Association Model.
+在 SQLAlchemy 中，这被称为关联对象或关联模型（Association Object 或 Association Model）。
 
-I'm calling it **Link Model** just because that's easier to write avoiding typos. But you are also free to call it however you want. 😉
+我称其为 **连接模型**，仅仅是因为这样写更简单，避免了拼写错误。但您也可以根据需要随意命名。😉
 
 ///
 
-## Update Team Model
+## 更新 Team 模型
 
-Now let's update the `Team` model.
+现在让我们更新 `Team` 模型。
 
-We no longer have the `heroes` relationship attribute, and instead we have the new `hero_links` attribute:
+我们不再使用 `heroes` 关系属性，取而代之的是新的 `hero_links` 属性：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:13-18]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -130,11 +130,11 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 //// tab | Python 3.9+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:19-24]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -142,16 +142,16 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 //// tab | Python 3.7+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003.py[ln:19-24]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -177,22 +177,20 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 
 ////
 
-///
+## 更新 Hero 模型
 
-## Update Hero Model
+同样的，更新 `Hero` 模型。
 
-The same with the `Hero` model.
-
-We change the `teams` relationship attribute for `team_links`:
+我们将 `teams` 关系属性改为 `team_links`：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:21-27]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -200,11 +198,11 @@ We change the `teams` relationship attribute for `team_links`:
 //// tab | Python 3.9+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:27-33]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -212,16 +210,16 @@ We change the `teams` relationship attribute for `team_links`:
 //// tab | Python 3.7+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003.py[ln:27-33]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -249,20 +247,20 @@ We change the `teams` relationship attribute for `team_links`:
 
 ///
 
-## Create Relationships
+## 创建关系
 
-Now the process to create relationships is very similar.
+现在创建关系的过程非常相似。
 
-But now we create the **explicit link models** manually, pointing to their hero and team instances, and specifying the additional link data (`is_training`):
+但现在我们需要手动创建**显式的链接模型**，这些模型指向它们的英雄和团队实例，并指定额外的链接数据（`is_training`）：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="21-30  32-35"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:40-79]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -270,11 +268,11 @@ But now we create the **explicit link models** manually, pointing to their hero 
 //// tab | Python 3.9+
 
 ```Python hl_lines="21-30  32-35"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:46-85]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -282,16 +280,16 @@ But now we create the **explicit link models** manually, pointing to their hero 
 //// tab | Python 3.7+
 
 ```Python hl_lines="21-30  32-35"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003.py[ln:46-85]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -319,23 +317,23 @@ But now we create the **explicit link models** manually, pointing to their hero 
 
 ///
 
-We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will be also automatically included in the session when we commit.
+我们只需要将链接模型实例添加到会话中，因为链接模型实例已经连接到英雄和团队，当我们提交时，它们也会自动包含在会话中。
 
-## Run the Program
+## 运行程序
 
-Now, if we run the program, it will show almost the same output as before, because it is generating almost the same SQL, but this time including the new `is_training` column:
+现在，如果我们运行程序，它将显示几乎与之前相同的输出，因为它生成的 SQL 几乎相同，但这次包括了新的 `is_training` 列：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 省略之前的输出 🙈
 
-// Automatically start a new transaction
+// 自动开始一个新事务
 INFO Engine BEGIN (implicit)
 
-// Insert the heroes
+// 插入英雄数据
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [generated in 0.00025s] ('Deadpond', 'Dive Wilson', None)
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
@@ -343,22 +341,22 @@ INFO Engine [cached since 0.00136s ago] ('Spider-Boy', 'Pedro Parqueador', None)
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.001858s ago] ('Rusty-Man', 'Tommy Sharp', 48)
 
-// Insert the teams
+// 插入团队数据
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [generated in 0.00019s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.0007985s ago] ('Preventers', 'Sharp Tower')
 
-// Insert the hero-team links
+// 插入英雄-团队链接数据
 INFO Engine INSERT INTO heroteamlink (team_id, hero_id, is_training) VALUES (?, ?, ?)
 INFO Engine [generated in 0.00023s] ((1, 1, 0), (2, 1, 1), (2, 2, 1), (2, 3, 0))
-// Save the changes in the transaction in the database
+// 在事务中保存更改到数据库
 INFO Engine COMMIT
 
-// Automatically start a new transaction
+// 自动开始一个新事务
 INFO Engine BEGIN (implicit)
 
-// Automatically fetch the data on attribute access
+// 自动获取属性访问时的数据
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team
 WHERE team.id = ?
@@ -372,10 +370,10 @@ FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00024s] (1,)
 
-// Print Z-Force hero data, including link data
+// 打印 Z-Force 英雄数据，包括链接数据
 Z-Force hero: name='Deadpond' age=None id=1 secret_name='Dive Wilson' is training: False
 
-// Automatically fetch the data on attribute access
+// 自动获取属性访问时的数据
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team
 WHERE team.id = ?
@@ -385,44 +383,44 @@ FROM heroteamlink
 WHERE ? = heroteamlink.team_id
 INFO Engine [cached since 0.005778s ago] (2,)
 
-// Print Preventers hero data, including link data
+// 打印 Preventers 英雄数据，包括链接数据
 Preventers hero: name='Deadpond' age=None id=1 secret_name='Dive Wilson' is training: True
 
-// Automatically fetch the data on attribute access
+// 自动获取属性访问时的数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.004196s ago] (2,)
 
-// Print Preventers hero data, including link data
+// 打印 Preventers 英雄数据，包括链接数据
 Preventers hero: name='Spider-Boy' age=None id=2 secret_name='Pedro Parqueador' is training: True
 
-// Automatically fetch the data on attribute access
+// 自动获取属性访问时的数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.006005s ago] (3,)
 
-// Print Preventers hero data, including link data
+// 打印 Preventers 英雄数据，包括链接数据
 Preventers hero: name='Rusty-Man' age=48 id=3 secret_name='Tommy Sharp' is training: False
 ```
 
 </div>
 
-## Add Relationships
+## 添加关系
 
-Now, to add a new relationship, we have to create a new `HeroTeamLink` instance pointing to the hero and the team, add it to the session, and commit it.
+现在，要添加一个新的关系，我们需要创建一个新的 `HeroTeamLink` 实例，指向英雄和团队，添加到会话中，然后提交它。
 
-Here we do that in the `update_heroes()` function:
+这里我们在 `update_heroes()` 函数中执行此操作：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="10-15"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:82-97]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -430,11 +428,11 @@ Here we do that in the `update_heroes()` function:
 //// tab | Python 3.9+
 
 ```Python hl_lines="10-15"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:88-103]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -442,16 +440,16 @@ Here we do that in the `update_heroes()` function:
 //// tab | Python 3.7+
 
 ```Python hl_lines="10-15"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003.py[ln:88-103]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -479,37 +477,37 @@ Here we do that in the `update_heroes()` function:
 
 ///
 
-## Run the Program with the New Relationship
+## 使用新关系运行程序
 
-If we run that program, we will see the output:
+如果我们运行该程序，将看到如下输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 省略之前的输出 🙈
 
-// Automatically start a new transaction
+// 自动开始一个新事务
 INFO Engine BEGIN (implicit)
 
-// Select the hero
+// 选择英雄
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00014s] ('Spider-Boy',)
 
-// Select the team
+// 选择团队
 INFO Engine SELECT team.id, team.name, team.headquarters
 FROM team
 WHERE team.name = ?
 INFO Engine [no key 0.00012s] ('Z-Force',)
 
-// Create the link
+// 创建链接
 INFO Engine INSERT INTO heroteamlink (team_id, hero_id, is_training) VALUES (?, ?, ?)
 INFO Engine [generated in 0.00023s] (1, 2, 1)
 
-// Automatically refresh the data on attribute access
+// 自动刷新数据，访问属性时
 INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training
 FROM heroteamlink
 WHERE ? = heroteamlink.team_id
@@ -525,13 +523,13 @@ FROM heroteamlink
 WHERE ? = heroteamlink.hero_id
 INFO Engine [generated in 0.00018s] (2,)
 
-// Print updated hero links
+// 打印更新后的英雄链接
 Updated Spider-Boy's Teams: [
     HeroTeamLink(team_id=2, is_training=True, hero_id=2),
     HeroTeamLink(team_id=1, is_training=True, hero_id=2)
 ]
 
-// Automatically refresh team data on attribute access
+// 自动刷新团队数据，访问属性时
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team
 WHERE team.id = ?
@@ -541,7 +539,7 @@ FROM heroteamlink
 WHERE ? = heroteamlink.team_id
 INFO Engine [cached since 0.1054s ago] (1,)
 
-// Print team hero links
+// 打印团队英雄链接
 Z-Force heroes: [
     HeroTeamLink(team_id=1, is_training=False, hero_id=1),
     HeroTeamLink(team_id=1, is_training=True, hero_id=2)
@@ -550,26 +548,26 @@ Z-Force heroes: [
 
 </div>
 
-## Update Relationships with Links
+## 使用链接更新关系
 
-Now let's say that **Spider-Boy** has been training enough in the **Preventers**, and they say he can join the team full time.
+现在假设 **Spider-Boy** 在 **Preventers** 训练得足够久，团队同意他可以全职加入。
 
-So now we want to update the status of `is_training` to `False`.
+因此，我们现在希望将 `is_training` 的状态更新为 `False`。
 
-We can do that by iterating on the links:
+我们可以通过迭代链接来实现这一点：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8-10"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:82-83]!}
 
-        # Code here omitted 👈
+        # 代码省略 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:99-107]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -577,15 +575,15 @@ We can do that by iterating on the links:
 //// tab | Python 3.9+
 
 ```Python hl_lines="8-10"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:88-89]!}
 
-        # Code here omitted 👈
+        # 代码省略 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:105-113]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -593,20 +591,20 @@ We can do that by iterating on the links:
 //// tab | Python 3.7+
 
 ```Python hl_lines="8-10"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial003.py[ln:88-89]!}
 
-        # Code here omitted 👈
+        # 代码省略 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial003.py[ln:105-113]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -634,34 +632,34 @@ We can do that by iterating on the links:
 
 ///
 
-## Run the Program with the Updated Relationships
+## 使用更新后的关系运行程序
 
-And if we run the program now, it will output:
+如果我们现在运行程序，它将输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 省略之前的输出 🙈
 
-// Automatically fetch team data on attribute access
+// 自动通过属性访问获取团队数据
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team
 WHERE team.id = ?
 INFO Engine [generated in 0.00015s] (2,)
 
-// Update link row
+// 更新链接行
 INFO Engine UPDATE heroteamlink SET is_training=? WHERE heroteamlink.team_id = ? AND heroteamlink.hero_id = ?
 INFO Engine [generated in 0.00020s] (0, 2, 2)
 
-// Save current transaction to database
+// 保存当前事务到数据库
 INFO Engine COMMIT
 
-// Automatically start a new transaction
+// 自动开始一个新事务
 INFO Engine BEGIN (implicit)
 
-// Automatically fetch data on attribute access
+// 自动通过属性访问获取数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero
 WHERE hero.id = ?
@@ -675,22 +673,22 @@ FROM team
 WHERE team.id = ?
 INFO Engine [cached since 0.09707s ago] (2,)
 
-// Print Spider-Boy team, including link data, if is training
+// 打印 Spider-Boy 的团队信息，包括链接数据，检查是否在训练
 Spider-Boy team: headquarters='Sharp Tower' id=2 name='Preventers' is training: False
 
-// Automatically fetch data on attribute access
+// 自动通过属性访问获取数据
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team
 WHERE team.id = ?
 INFO Engine [cached since 0.2097s ago] (1,)
 
-// Print Spider-Boy team, including link data, if is training
+// 打印 Spider-Boy 的团队信息，包括链接数据，检查是否在训练
 Spider-Boy team: headquarters='Sister Margaret's Bar' id=1 name='Z-Force' is training: True
 INFO Engine ROLLBACK
 ```
 
 </div>
 
-## Recap
+## 总结
 
-If you need to store more information about a **many-to-many** relationship you can use an explicit link model with extra data in it. 🤓
+如果您需要存储更多关于 **多对多** 关系的信息，您可以使用一个显式的链接模型，并在其中包含额外的数据。🤓

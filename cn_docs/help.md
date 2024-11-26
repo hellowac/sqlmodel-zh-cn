@@ -1,250 +1,246 @@
-# Help SQLModel - Get Help
+# 帮助 SQLModel - 获取帮助
 
-Do you like **SQLModel**?
+你喜欢 **SQLModel** 吗？
 
-Would you like to help SQLModel, other users, and the author?
+你想帮助 SQLModel、其他用户以及作者吗？
 
-Or would you like to get help with **SQLModel**?
+或者你想获得关于 **SQLModel** 的帮助吗？
 
-There are very simple ways to help (several involve just one or two clicks).
+有一些非常简单的方法可以提供帮助（其中一些只需要一两次点击）。
 
-And there are several ways to get help too.
+同样，也有多种方式可以获得帮助。
 
-## Subscribe to the FastAPI and Friends newsletter
+## 订阅 FastAPI 和朋友的新闻通讯
 
-You can subscribe to the (infrequent) <a href="https://fastapi.tiangolo.com/newsletter" class="external-link" target="_blank">**FastAPI and friends** newsletter</a> to stay updated about:
+你可以订阅不频繁的 <a href="https://fastapi.tiangolo.com/newsletter" class="external-link" target="_blank">**FastAPI 和朋友** 新闻通讯</a>，以便保持最新信息：
 
-* News about FastAPI and friends, including SQLModel 🚀
-* Guides 📝
-* Features ✨
-* Breaking changes 🚨
-* Tips and tricks ✅
+* 关于 FastAPI 和朋友的新闻，包括 SQLModel 🚀
+* 指南 📝
+* 新特性 ✨
+* 重大变更 🚨
+* 提示和技巧 ✅
 
-## Star **SQLModel** in GitHub
+## 在 GitHub 上为 **SQLModel** 点赞
 
-You can "star" SQLModel in GitHub (clicking the star button at the top right): <a href="https://github.com/fastapi/sqlmodel" class="external-link" target="_blank">https://github.com/fastapi/sqlmodel</a>. ⭐️
+你可以在 GitHub 上为 SQLModel 点赞（点击右上角的星形按钮）： <a href="https://github.com/fastapi/sqlmodel" class="external-link" target="_blank">https://github.com/fastapi/sqlmodel</a>。⭐️
 
-By adding a star, other users will be able to find it more easily and see that it has been already useful for others.
+通过添加一个星标，其他用户可以更容易地找到它，并看到它已经对其他人有帮助。
 
-## Watch the GitHub repository for releases
+## 关注 GitHub 仓库的发布更新
 
-You can "watch" SQLModel in GitHub (clicking the "watch" button at the top right): <a href="https://github.com/fastapi/sqlmodel" class="external-link" target="_blank">https://github.com/fastapi/sqlmodel</a>. 👀
+你可以在 GitHub 上“关注”SQLModel（点击右上角的“关注”按钮）： <a href="https://github.com/fastapi/sqlmodel" class="external-link" target="_blank">https://github.com/fastapi/sqlmodel</a>。👀
 
-There you can select "Releases only".
+在这里，你可以选择只关注“发布”部分。
 
-By doing it, you will receive notifications (in your email) whenever there's a new release (a new version) of **SQLModel** with bug fixes and new features.
+通过这样做，你将收到通知（通过电子邮件），当 **SQLModel** 有新的发布版本时（包括错误修复和新特性）。
 
-## Connect with the author
+## 与作者联系
 
-You can connect with <a href="https://tiangolo.com" class="external-link" target="_blank">me (Sebastián Ramírez / `tiangolo`)</a>, the author.
+你可以与 <a href="https://tiangolo.com" class="external-link" target="_blank">我（Sebastián Ramírez / `tiangolo`）</a> 联系。
 
-You can:
+你可以：
 
-* <a href="https://github.com/tiangolo" class="external-link" target="_blank">Follow me on **GitHub**</a>.
-    * See other Open Source projects I have created that could help you.
-    * Follow me to see when I create a new Open Source project.
-* <a href="https://twitter.com/tiangolo" class="external-link" target="_blank">Follow me on **Twitter**</a>.
-    * Tell me how you use SQLModel (I love to hear that).
-    * Hear when I make announcements or release new tools.
-* <a href="https://www.linkedin.com/in/tiangolo/" class="external-link" target="_blank">Connect with me on **Linkedin**</a>.
-    * Hear when I make announcements or release new tools (although I use Twitter more often 🤷‍♂).
-* Read what I write (or follow me) on <a href="https://dev.to/tiangolo" class="external-link" target="_blank">**Dev.to**</a> or <a href="https://medium.com/@tiangolo" class="external-link" target="_blank">**Medium**</a>.
-    * Read other ideas, articles, and read about tools I have created.
-    * Follow me to read when I publish something new.
+* <a href="https://github.com/tiangolo" class="external-link" target="_blank">在 **GitHub** 上关注我</a>。
+    * 查看我创建的其他开源项目，这些项目可能对你有帮助。
+    * 关注我，查看我发布的新开源项目。
+* <a href="https://twitter.com/tiangolo" class="external-link" target="_blank">在 **Twitter** 上关注我</a>。
+    * 告诉我你是如何使用 SQLModel 的（我很喜欢听到这些）。
+    * 了解我发布的公告或新工具。
+* <a href="https://www.linkedin.com/in/tiangolo/" class="external-link" target="_blank">在 **LinkedIn** 上与我联系</a>。
+    * 了解我发布的公告或新工具（尽管我更常使用 Twitter 🤷‍♂）。
+* 阅读我写的文章（或关注我）在 <a href="https://dev.to/tiangolo" class="external-link" target="_blank">**Dev.to**</a> 或 <a href="https://medium.com/@tiangolo" class="external-link" target="_blank">**Medium**</a>。
+    * 阅读我写的其他文章和关于我创建的工具。
+    * 关注我，阅读我发布的新内容。
 
-## Tweet about **SQLModel**
+## 在 Twitter 上发布关于 **SQLModel** 的推文
 
-<a href="https://twitter.com/compose/tweet?text=I'm loving SQLModel because... https://github.com/fastapi/sqlmodel cc: @tiangolo" class="external-link" target="_blank">Tweet about **SQLModel**</a> and let me and others know why you like it. 🎉
+<a href="https://twitter.com/compose/tweet?text=I'm loving SQLModel because... https://github.com/fastapi/sqlmodel cc: @tiangolo" class="external-link" target="_blank">发布关于 **SQLModel** 的推文</a>，让我和其他人知道你喜欢它的原因。 🎉
 
-I love to hear about how **SQLModel** is being used, what you have liked in it, in which project/company are you using it, etc.
+我喜欢听到 **SQLModel** 是如何被使用的，哪些方面你觉得很棒，在哪个项目/公司使用它，等等。
 
-## Help others with questions in GitHub
+## 在 GitHub 上帮助其他人解答问题
 
-You can try and help others with their questions in:
+你可以尝试帮助其他人在以下平台解决问题：
 
 * <a href="https://github.com/fastapi/sqlmodel/discussions/categories/questions?discussions_q=category%3AQuestions+is%3Aunanswered" class="external-link" target="_blank">GitHub Discussions</a>
 * <a href="https://github.com/fastapi/sqlmodel/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Aquestion+-label%3Aanswered+" class="external-link" target="_blank">GitHub Issues</a>
 
-In many cases you might already know the answer for those questions. 🤓
+在很多情况下，你可能已经知道这些问题的答案。 🤓
 
-Just remember, the most important point is: try to be kind. People come with their frustrations and in many cases don't ask in the best way, but try as best as you can to be kind. 🤗
+只要记住，最重要的一点是：尽量保持友善。人们带着他们的困惑和不满提问，很多时候问题提得不够清晰，但尽可能友好地回应他们。🤗
 
-The idea is for the **SQLModel** community to be kind and welcoming. At the same time, don't accept bullying or disrespectful behavior towards others. We have to take care of each other.
-
----
-
-Here's how to help others with questions (in discussions or issues):
-
-### Understand the question
-
-* Check if you can understand what is the **purpose** and use case of the person asking.
-
-* Then check if the question (the vast majority are questions) is **clear**.
-
-* In many cases the question asked is about an imaginary solution from the user, but there might be a **better** one. If you can understand the problem and use case better, you might be able to suggest a better **alternative solution**.
-
-* If you can't understand the question, ask for more **details**.
-
-### Reproduce the problem
-
-For most of the cases and most of the questions there's something related to the person's **original code**.
-
-In many cases they will only copy a fragment of the code, but that's not enough to **reproduce the problem**.
-
-* You can ask them to provide a <a href="https://stackoverflow.com/help/minimal-reproducible-example" class="external-link" target="_blank">minimal, reproducible, example</a>, that you can **copy-paste** and run locally to see the same error or behavior they are seeing, or to understand their use case better.
-
-* If you are feeling too generous, you can try to **create an example** like that yourself, just based on the description of the problem. Just have in mind that this might take a lot of time and it might be better to ask them to clarify the problem first.
-
-### Suggest solutions
-
-* After being able to understand the question, you can give them a possible **answer**.
-
-* In many cases, it's better to understand their **underlying problem or use case**, because there might be a better way to solve it than what they are trying to do.
-
-### Ask to close
-
-If they reply, there's a high chance you would have solved their problem, congrats, **you're a hero**! 🦸
-
-* Now, if that solved their problem, you can ask them to:
-
-    * In GitHub Discussions: mark the comment as the **answer**.
-    * In GitHub Issues: **close** the issue**.
-
-## Watch the GitHub repository
-
-You can "watch" SQLModel in GitHub (clicking the "watch" button at the top right): <a href="https://github.com/fastapi/sqlmodel" class="external-link" target="_blank">https://github.com/fastapi/sqlmodel</a>. 👀
-
-If you select "Watching" instead of "Releases only" you will receive notifications when someone creates a new issue or question. You can also specify that you only want to be notified about new issues, or discussions, or PRs, etc.
-
-Then you can try and help them solve those questions.
-
-## Ask Questions
-
-You can <a href="https://github.com/fastapi/sqlmodel/discussions/new?category=questions" class="external-link" target="_blank">create a new question</a> in the GitHub repository, for example to:
-
-* Ask a **question** or ask about a **problem**.
-* Suggest a new **feature**.
-
-**Note**: if you do it, then I'm going to ask you to also help others. 😉
-
-## Review Pull Requests
-
-You can help me review pull requests from others.
-
-Again, please try your best to be kind. 🤗
+我们的目标是让 **SQLModel** 社区变得友好和欢迎。同时，不接受任何针对他人的恶意或不尊重的行为。我们必须彼此照顾。
 
 ---
 
-Here's what to have in mind and how to review a pull request:
+以下是如何帮助他人解决问题（在讨论或问题中）：
 
-### Understand the problem
+### 理解问题
 
-* First, make sure you **understand the problem** that the pull request is trying to solve. It might have a longer discussion in a GitHub Discussion or issue.
+* 确认你是否能理解提问者的 **目的** 和使用场景。
+* 然后确认问题（大多数情况下是问题）是否 **清晰**。
+* 在许多情况下，提问的问题基于用户设想的某种解决方案，但可能有一个 **更好的** 解决方案。如果你能更好地理解问题和使用场景，可能能提出一个更合适的 **替代解决方案**。
+* 如果你无法理解问题，可以要求提供更多的 **细节**。
 
-* There's also a good chance that the pull request is not actually needed because the problem can be solved in a **different way**. Then you can suggest or ask about that.
+### 复现问题
 
-### Don't worry about style
+对于大多数问题和问题来说，都涉及到提问者的 **原始代码**。
 
-* Don't worry too much about things like commit message styles, I will squash and merge customizing the commit manually.
+很多时候，他们只会复制代码的片段，但那样不足以 **复现问题**。
 
-* Also don't worry about style rules, there are already automatized tools checking that.
+* 你可以要求他们提供一个 <a href="https://stackoverflow.com/help/minimal-reproducible-example" class="external-link" target="_blank">最小可复现示例</a>，这样你就可以 **复制粘贴** 并在本地运行，查看他们遇到的错误或行为，或者更好地理解他们的使用场景。
+* 如果你有时间和耐心，可以根据问题的描述自己尝试 **创建示例**。但要记住，这可能会花费很多时间，最好先请他们澄清问题。
 
-And if there's any other style or consistency need, I'll ask directly for that, or I'll add commits on top with the needed changes.
+### 提供解决方案
 
-### Check the code
+* 在理解了问题之后，你可以给出一个可能的 **答案**。
 
-* Check and read the code, see if it makes sense, **run it locally** and see if it actually solves the problem.
+* 在许多情况下，更好的是理解他们的 **根本问题或使用场景**，因为可能有比他们尝试的方式更好的解决方案。
 
-* Then **comment** saying that you did that, that's how I will know you really checked it.
+### 请求关闭
+
+如果他们回复，很可能你已经解决了他们的问题，恭喜你，**你是个英雄**！🦸
+
+* 现在，如果这解决了他们的问题，你可以要求他们：
+
+    * 在 GitHub Discussions 中：标记评论为 **答案**。
+    * 在 GitHub Issues 中：**关闭** 该问题。
+
+## 关注 GitHub 仓库
+
+你可以在 GitHub 上“关注”SQLModel（点击右上角的“关注”按钮）： <a href="https://github.com/fastapi/sqlmodel" class="external-link" target="_blank">https://github.com/fastapi/sqlmodel</a>。👀
+
+如果你选择“Watching”（而非“仅发布”），你将收到通知，当有人创建新问题或提问时。你还可以选择只接收新问题、讨论或 PR 等的通知。
+
+然后你可以尝试帮助他们解决这些问题。
+
+## 提问
+
+你可以在 GitHub 仓库中 <a href="https://github.com/fastapi/sqlmodel/discussions/new?category=questions" class="external-link" target="_blank">创建一个新问题</a>，例如：
+
+* 提问 **问题** 或询问关于 **问题** 的内容。
+* 提议一个新的 **功能**。
+
+**注意**：如果你这么做，我会要求你也帮助其他人。😉
+
+## 审查 Pull 请求
+
+你可以帮助我审查其他人的 Pull 请求。
+
+同样，请尽量保持友好。🤗
+
+---
+
+以下是审查 Pull 请求时需要注意的事项：
+
+### 理解问题
+
+* 首先，确保你 **理解** 这个 Pull 请求试图解决的问题。可能会在 GitHub Discussions 或 Issue 中有更详细的讨论。
+
+* 也有可能这个 Pull 请求实际上不需要，因为问题可以用 **不同的方式** 解决。然后你可以提出建议或询问关于其他解决方案的意见。
+
+### 不要过于关注样式
+
+* 不用太担心像提交信息样式这样的细节，我会在合并时手动调整提交记录。
+
+* 同样，不用担心样式规则，已经有自动化工具在检查这些问题。
+
+如果有其他样式或一致性方面的需求，我会直接提出，或者在现有提交上添加修改。
+
+### 检查代码
+
+* 检查并阅读代码，看看是否合适，**本地运行** 看是否真正解决了问题。
+
+* 然后 **评论** 说明你已经这样做了，这样我会知道你确实检查过。
 
 /// info
 
-Unfortunately, I can't simply trust PRs that just have several approvals.
+不幸的是，我不能仅凭几个批准就轻易信任 PR。
 
-Several times it has happened that there are PRs with 3, 5 or more approvals, probably because the description is appealing, but when I check the PRs, they are actually broken, have a bug, or don't solve the problem they claim to solve. 😅
+有时会发生 PR 已经获得 3、5 个或更多的批准，可能因为描述吸引人，但当我检查 PR 时，实际上它们是坏的、存在漏洞，或者没有解决它们声称要解决的问题。😅
 
-So, it's really important that you actually read and run the code, and let me know in the comments that you did. 🤓
+因此，真的很重要的是，你要实际阅读并运行代码，并在评论中告诉我你已经检查过。🤓
 
 ///
 
-* If the PR can be simplified in a way, you can ask for that, but there's no need to be too picky, there might be a lot of subjective points of view (and I will have my own as well 🙈), so it's better if you can focus on the fundamental things.
+* 如果 PR 可以简化，你可以提出请求，但不必过于挑剔，可能会有许多主观的观点（而我也会有自己的观点 🙈），所以最好能关注核心内容。
 
-### Tests
+### 测试
 
-* Help me check that the PR has **tests**.
+* 帮我检查 PR 是否包含 **测试**。
 
-* Check that the tests **fail** before the PR. 🚨
+* 检查测试是否在 PR 之前 **失败**。🚨
 
-* Then check that the tests **pass** after the PR. ✅
+* 然后检查测试是否在 PR 后 **通过**。✅
 
-* Many PRs don't have tests, you can **remind** them to add tests, or you can even **suggest** some tests yourself. That's one of the things that consume most time and you can help a lot with that.
+* 许多 PR 没有测试，你可以 **提醒** 他们添加测试，或者你甚至可以 **自己建议** 一些测试。这是耗时最多的任务之一，你可以提供很多帮助。
 
-* Then also comment what you tried, that way I'll know that you checked it. 🤓
+* 然后也评论你尝试的内容，这样我就知道你检查过了。🤓
 
-## Create a Pull Request
+## 创建 Pull 请求
 
-You can [contribute](contributing.md){.internal-link target=_blank} to the source code with Pull Requests, for example:
+你可以通过 Pull 请求 [贡献](contributing.md){.internal-link target=_blank} 源代码，例如：
 
-* To fix a typo you found on the documentation.
-* To propose new documentation sections.
-* To fix an existing issue/bug.
-    * Make sure to add tests.
-* To add a new feature.
-    * Make sure to add tests.
-    * Make sure to add documentation if it's relevant.
+* 修复文档中发现的拼写错误。
+* 提议新的文档部分。
+* 修复现有的缺陷/错误。
+    * 确保添加测试。
+* 添加新功能。
+    * 确保添加测试。
+    * 确保添加相关文档。
 
-## Help Maintain SQLModel
+## 帮助维护 SQLModel
 
-Help me maintain **SQLModel**! 🤓
+帮我维护 **SQLModel**！🤓
 
-There's a lot of work to do, and for most of it, **YOU** can do it.
+有很多工作要做，而且对于大多数工作，**你** 可以做。
 
-The main tasks that you can do right now are:
+你现在可以做的主要任务是：
 
-* [Help others with questions in GitHub](#help-others-with-questions-in-github){.internal-link target=_blank} (see the section above).
-* [Review Pull Requests](#review-pull-requests){.internal-link target=_blank} (see the section above).
+* [帮助他人在 GitHub 上解答问题](#help-others-with-questions-in-github){.internal-link target=_blank}（见上面的部分）。
+* [审查 Pull 请求](#review-pull-requests){.internal-link target=_blank}（见上面的部分）。
 
-Those two tasks are what **consume time the most**. That's the main work of maintaining SQLModel.
+这两项任务是 **最耗时的**。这也是维护 SQLModel 的主要工作。
 
-If you can help me with that, **you are helping me maintain SQLModel** and making sure it keeps **advancing faster and better**. 🚀
+如果你能帮我做这些，**你就在帮助我维护 SQLModel**，并确保它继续 **快速而有效地发展**。🚀
 
-## Join the chat
+## 加入聊天
 
-Join the 👥 <a href="https://discord.gg/VQjSZaeJmf" class="external-link" target="_blank">FastAPI and Friends Discord chat server</a> 👥 and hang out with others in the community. There's a `#sqlmodel` channel.
+加入 👥 <a href="https://discord.gg/VQjSZaeJmf" class="external-link" target="_blank">FastAPI 和朋友 Discord 聊天服务器</a> 👥，和社区中的其他人一起聊天。在其中有一个 `#sqlmodel` 频道。
 
 /// tip
 
-For questions, ask them in <a href="https://github.com/fastapi/sqlmodel/discussions/new?category=questions" class="external-link" target="_blank">GitHub Discussions</a>, there's a much better chance you will receive help there.
+如果有问题，请在 <a href="https://github.com/fastapi/sqlmodel/discussions/new?category=questions" class="external-link" target="_blank">GitHub Discussions</a> 提问，那里的回复几率更高。
 
-Use the chat only for other general conversations.
+仅在聊天中进行其他一般性对话。
 
 ///
 
-### Don't use the chat for questions
+### 不要在聊天中提问
 
-Have in mind that as chats allow more "free conversation", it's easy to ask questions that are too general and more difficult to answer, so, you might not receive answers.
+请记住，由于聊天允许更多“自由对话”，很容易提问过于广泛的问题，这些问题可能不容易回答，所以你可能不会得到答案。
 
-In GitHub, the template will guide you to write the right question so that you can more easily get a good answer, or even solve the problem yourself even before asking. And in GitHub I can make sure I always answer everything, even if it takes some time. I can't personally do that with the chat. 😅
+在 GitHub 中，模板会引导你写出正确的问题，这样你可以更容易获得好的答案，或者甚至在提问之前就解决问题。而在聊天中，我无法保证我一定会答复每一个问题，即使有时会花一些时间。😅
 
-Conversations in the chat are also not as easily searchable as in GitHub, so questions and answers might get lost in the conversation.
+在 GitHub 中，所有对话都可以很容易地被搜索，而聊天中的对话不易搜索，所以问题和答案可能会在对话中丢失。
 
-On the other side, there are thousands of users in the chat, so there's a high chance you'll find someone to talk to there, almost all the time. 😄
+另一方面，聊天中有成千上万的用户，所以几乎每次你都能找到人交流。😄
 
-## Sponsor the author
+## 支持作者
 
-You can also financially support the author (me) through <a href="https://github.com/sponsors/tiangolo" class="external-link" target="_blank">GitHub sponsors</a>.
+你也可以通过 <a href="https://github.com/sponsors/tiangolo" class="external-link" target="_blank">GitHub Sponsors</a> 经济支持作者（我）。
 
-There you could buy me a coffee ☕️ to say thanks. 😄
+在这里，你可以请我喝杯咖啡 ☕️ 以表达感谢。😄
 
-## Sponsor the tools that power SQLModel
+## 支持 SQLModel 所依赖的工具
 
-As you have seen in the documentation, SQLModel stands on the shoulders of giants, Pydantic and SQLAlchemy.
+正如你在文档中看到的，SQLModel 建立在 Pydantic 和 SQLAlchemy 这些巨人的肩膀上。
 
-You can also sponsor:
+你也可以支持：
 
 * <a href="https://github.com/sponsors/samuelcolvin" class="external-link" target="_blank">Samuel Colvin (Pydantic)</a>
 * <a href="https://github.com/sponsors/sqlalchemy" class="external-link" target="_blank">SQLAlchemy</a>
 
 ---
 
-Thanks! 🚀
+感谢！🚀

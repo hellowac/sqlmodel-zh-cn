@@ -1,29 +1,29 @@
-# FastAPI Path Operations for Teams - Other Models
+# FastAPI 团队路径操作 - 其他模型
 
-Let's now update the **FastAPI** application to handle data for teams.
+现在，让我们更新 **FastAPI** 应用程序，以处理团队的数据。
 
-This is very similar to the things we have done for heroes, so we will go over it quickly here.
+这与我们为英雄所做的非常相似，因此我们将在这里快速介绍。
 
-We will use the same models we used in previous examples, with the **relationship attributes**, etc.
+我们将使用与之前示例中相同的模型，包含 **关系属性** 等。
 
-## Add Teams Models
+## 添加团队模型
 
-Let's add the models for the teams.
+让我们添加团队的模型。
 
-It's the same process we did for heroes, with a base model, a **table model**, and some other **data models**.
+这与我们为英雄所做的过程相同，首先是基础模型、**表模型**，以及一些其他的 **数据模型**。
 
-We have a `TeamBase` **data model**, and from it, we inherit with a `Team` **table model**.
+我们有一个 `TeamBase` **数据模型**，然后从它继承出 `Team` **表模型**。
 
-Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamPublic` **data models**.
+接着，我们还从 `TeamBase` 继承出 `TeamCreate` 和 `TeamPublic` **数据模型**。
 
-And we also create a `TeamUpdate` **data model**.
+同时，我们还创建了一个 `TeamUpdate` **数据模型**。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="5-7  10-13  16-17  20-21  24-26"
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:1-26]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -33,7 +33,7 @@ And we also create a `TeamUpdate` **data model**.
 ```Python hl_lines="7-9  12-15  18-19  22-23  26-28"
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:1-28]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -43,12 +43,12 @@ And we also create a `TeamUpdate` **data model**.
 ```Python hl_lines="7-9  12-15  18-19  22-23  26-28"
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:1-28]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -76,20 +76,20 @@ And we also create a `TeamUpdate` **data model**.
 
 ///
 
-We now also have **relationship attributes**. 🎉
+现在，我们还具有了 **关系属性**。🎉
 
-Let's now update the `Hero` models too.
+接下来，让我们更新 `Hero` 模型。
 
-## Update Hero Models
+## 更新英雄模型
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:29-55]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -97,11 +97,11 @@ Let's now update the `Hero` models too.
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:31-57]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -109,16 +109,16 @@ Let's now update the `Hero` models too.
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:31-57]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -146,24 +146,24 @@ Let's now update the `Hero` models too.
 
 ///
 
-We now have a `team_id` in the hero models.
+现在我们在英雄模型中加入了 `team_id`。
 
-Notice that we can declare the `team_id` in the `HeroBase` because it can be reused by all the models, in all the cases it's an optional integer.
+注意，我们可以在 `HeroBase` 中声明 `team_id`，因为它可以被所有模型重用，且在所有情况下它都是一个可选的整数。
 
-And even though the `HeroBase` is *not* a **table model**, we can declare `team_id` in it with the `foreign key` parameter. It won't do anything in most of the models that inherit from `HeroBase`, but in the **table model** `Hero` it will be used to tell **SQLModel** that this is a **foreign key** to that table.
+即使 `HeroBase` *不是* 一个 **表模型**，我们也可以在其中声明 `team_id`，并使用 `foreign key` 参数。对于继承自 `HeroBase` 的大多数模型来说，这不会产生任何影响，但在 **表模型** `Hero` 中，它将用于告诉 **SQLModel** 这是一个指向该表的 **外键**。
 
-## Relationship Attributes
+## 关系属性
 
-Notice that the **relationship attributes**, the ones with `Relationship()`, are **only** in the **table models**, as those are the ones that are handled by **SQLModel** with SQLAlchemy and that can have the automatic fetching of data from the database when we access them.
+请注意，**关系属性**（使用 `Relationship()` 的那些）**仅**存在于 **表模型** 中，因为这些模型由 **SQLModel** 与 SQLAlchemy 处理，且当我们访问它们时，能够自动从数据库中获取数据。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="11  38"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:5-55]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -171,11 +171,11 @@ Notice that the **relationship attributes**, the ones with `Relationship()`, are
 //// tab | Python 3.9+
 
 ```Python hl_lines="11  38"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:7-57]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -183,16 +183,16 @@ Notice that the **relationship attributes**, the ones with `Relationship()`, are
 //// tab | Python 3.7+
 
 ```Python hl_lines="11  38"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:7-57]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -220,20 +220,20 @@ Notice that the **relationship attributes**, the ones with `Relationship()`, are
 
 ///
 
-## Path Operations for Teams
+## 团队的路径操作
 
-Let's now add the **path operations** for teams.
+现在让我们为团队添加 **路径操作**。
 
-These are equivalent and very similar to the **path operations** for the **heroes** we had before, so we don't have to go over the details for each one, let's check the code.
+这些操作与我们之前为 **英雄** 创建的 **路径操作** 相似，因此我们不需要详细讲解每一个操作，直接来看代码吧。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:136-190]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -241,11 +241,11 @@ These are equivalent and very similar to the **path operations** for the **heroe
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:138-192]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -253,16 +253,16 @@ These are equivalent and very similar to the **path operations** for the **heroe
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:138-192]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -290,18 +290,18 @@ These are equivalent and very similar to the **path operations** for the **heroe
 
 ///
 
-## Using Relationships Attributes
+## 使用关系属性
 
-Up to this point, we are actually not using the **relationship attributes**, but we could access them in our code.
+到目前为止，我们实际上还没有使用 **关系属性**，但我们可以在代码中访问它们。
 
-In the next chapter, we will play more with them.
+在下一章节中，我们将进一步操作这些关系属性。
 
-## Check the Docs UI
+## 查看文档 UI
 
-Now we can check the automatic docs UI to see all the **path operations** for heroes and teams.
+现在我们可以查看自动生成的文档 UI，查看所有关于英雄和团队的 **路径操作**。
 
-<img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/teams/image01.png">
+<img class="shadow" alt="交互式 API 文档 UI" src="/img/tutorial/fastapi/teams/image01.png">
 
-## Recap
+## 总结
 
-We can use the same patterns to add more models and API **path operations** to our **FastAPI** application. 🎉
+我们可以使用相同的模式向 **FastAPI** 应用程序中添加更多模型和 API **路径操作**。🎉

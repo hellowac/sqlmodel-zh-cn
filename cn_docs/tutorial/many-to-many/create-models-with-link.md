@@ -1,23 +1,23 @@
-# Create Models with a Many-to-Many Link
+# 使用多对多关系创建模型
 
-We'll now support **many-to-many** relationships using a **link table** like this:
+现在我们将通过 **关联表** 支持 **多对多** 关系，如下所示：
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="多对多表关系" src="../../../img/tutorial/many-to-many/many-to-many.svg">
 
-Let's start by defining the class models, including the **link table** model.
+让我们从定义类模型开始，包括 **关联表** 模型。
 
-## Link Table Model
+## 关联表模型
 
-As we want to support a **many-to-many** relationship, now we need a **link table** to connect them.
+为了支持 **多对多** 关系，我们需要一个 **关联表** 来连接它们。
 
-We can create it just as any other **SQLModel**:
+我们可以像创建其他 **SQLModel** 一样创建它：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="4-6"
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:1-6]!}
 
-# Code below omitted 👇
+# 以下代码省略 👇
 ```
 
 ////
@@ -27,7 +27,7 @@ We can create it just as any other **SQLModel**:
 ```Python hl_lines="6-12"
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:1-12]!}
 
-# Code below omitted 👇
+# 以下代码省略 👇
 ```
 
 ////
@@ -37,12 +37,12 @@ We can create it just as any other **SQLModel**:
 ```Python hl_lines="6-12"
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:1-12]!}
 
-# Code below omitted 👇
+# 以下代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -70,26 +70,26 @@ We can create it just as any other **SQLModel**:
 
 ///
 
-This is a **SQLModel** class model table like any other.
+这与其他 **SQLModel** 类模型表相同。
 
-It has two fields, `team_id` and `hero_id`.
+它有两个字段，`team_id` 和 `hero_id`。
 
-They are both **foreign keys** to their respective tables. We'll create those models in a second, but you already know how that works.
+它们都是各自表的 **外键**。我们稍后会创建这些模型，但你已经知道它们是如何工作的了。
 
-And **both fields are primary keys**. We hadn't used this before. 🤓
+而且这 **两个字段都是主键**。这是我们之前没有使用过的功能。🤓
 
-## Team Model
+## 团队模型（Team Model）
 
-Let's see the `Team` model, it's almost identical as before, but with a little change:
+来看一下 `Team` 模型，它与之前的模型几乎相同，但有一点小改动：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:9-14]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -97,11 +97,11 @@ Let's see the `Team` model, it's almost identical as before, but with a little c
 //// tab | Python 3.9+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:15-20]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -109,16 +109,16 @@ Let's see the `Team` model, it's almost identical as before, but with a little c
 //// tab | Python 3.7+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:15-20]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -146,26 +146,26 @@ Let's see the `Team` model, it's almost identical as before, but with a little c
 
 ///
 
-The **relationship attribute `heroes`** is still a list of heroes, annotated as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
+**关系属性 `heroes`** 仍然是一个英雄的列表，类型注解为 `List["Hero"]`。我们用引号括住 `"Hero"`，因为此时代码中还没有声明这个类（但正如你所知，编辑器和 **SQLModel** 能理解它）。
 
-We use the same **`Relationship()`** function.
+我们继续使用 **`Relationship()`** 函数。
 
-We use **`back_populates="teams"`**. Before we referenced an attribute `team`, but as now we can have many, we'll rename it to `teams` when creating the `Hero` model.
+这里用 **`back_populates="teams"`**，而不是之前的 `team`，因为现在可以有多个团队，所以我们在创建 `Hero` 模型时将其重命名为 `teams`。
 
-And here's the important part to allow the **many-to-many** relationship, we use **`link_model=HeroTeamLink`**. That's it. ✨
+此外，允许 **多对多** 关系的关键部分是使用 **`link_model=HeroTeamLink`**。就是这样！✨
 
-## Hero Model
+## 英雄模型（Hero Model）
 
-Let's see the other side, here's the `Hero` model:
+接下来看看关系的另一端，即 `Hero` 模型：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:17-23]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -173,11 +173,11 @@ Let's see the other side, here's the `Hero` model:
 //// tab | Python 3.9+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:23-29]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -185,16 +185,16 @@ Let's see the other side, here's the `Hero` model:
 //// tab | Python 3.7+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:23-29]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -222,30 +222,30 @@ Let's see the other side, here's the `Hero` model:
 
 ///
 
-We **removed** the previous `team_id` field (column) because now the relationship is done via the link table. 🔥
+我们**移除了**之前的 `team_id` 字段（列），因为现在通过关联表完成关系管理。🔥
 
-The relationship attribute is now named **`teams`** instead of `team`, as now we support multiple teams.
+关系属性现在改名为 **`teams`**，而不再是 `team`，因为现在支持多支团队。
 
-It is no longer an `Optional[Team]` but a list of teams, annotated as **`List[Team]`**.
+属性的类型从 `Optional[Team]` 改为多个团队的列表，注解为 **`List[Team]`**。
 
-We are using the **`Relationship()`** here too.
+这里同样使用了 **`Relationship()`**。
 
-We still have **`back_populates="heroes"`** as before.
+仍然保留了 **`back_populates="heroes"`**，与之前一致。
 
-And now we have a **`link_model=HeroTeamLink`**. ✨
+此外，添加了 **`link_model=HeroTeamLink`** 来实现多对多的关系管理。✨
 
-## Create the Tables
+## 创建表
 
-The same as before, we will have the rest of the code to create the **engine**, and a function to create all the tables `create_db_and_tables()`.
+与之前一样，我们会编写代码来创建 **engine**，并定义一个函数 `create_db_and_tables()` 用于创建所有表。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:26-33]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -253,11 +253,11 @@ The same as before, we will have the rest of the code to create the **engine**, 
 //// tab | Python 3.9+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:32-39]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -265,16 +265,16 @@ The same as before, we will have the rest of the code to create the **engine**, 
 //// tab | Python 3.7+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:32-39]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -302,16 +302,15 @@ The same as before, we will have the rest of the code to create the **engine**, 
 
 ///
 
-
-And as in previous examples, we will add that function to a function `main()`, and we will call that `main()` function in the main block:
+与之前的例子类似，我们将这个函数添加到一个 `main()` 函数中，并在主程序块中调用它：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="4"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:72-73]!}
-    # We will do more stuff here later 👈
+    # 后续将在此处添加更多功能 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:77-78]!}
 ```
@@ -321,10 +320,10 @@ And as in previous examples, we will add that function to a function `main()`, a
 //// tab | Python 3.9+
 
 ```Python hl_lines="4"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:78-79]!}
-    # We will do more stuff here later 👈
+    # 后续将在此处添加更多功能 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:83-84]!}
 ```
@@ -334,17 +333,17 @@ And as in previous examples, we will add that function to a function `main()`, a
 //// tab | Python 3.7+
 
 ```Python hl_lines="4"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:78-79]!}
-    # We will do more stuff here later 👈
+    # 后续将在此处添加更多功能 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:83-84]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -373,16 +372,16 @@ And as in previous examples, we will add that function to a function `main()`, a
 ///
 
 
-## Run the Code
+## 运行代码
 
-If you run the code in the command line, it would output:
+如果你在命令行中运行代码，输出将如下所示：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Boilerplate omitted 😉
+// 标准输出省略 😉
 
 INFO Engine
 CREATE TABLE team (
@@ -407,7 +406,7 @@ CREATE TABLE hero (
 INFO Engine [no key 0.00016s] ()
 INFO Engine
 
-// Our shinny new link table ✨
+// 我们全新的链接表 ✨
 CREATE TABLE heroteamlink (
         team_id INTEGER,
         hero_id INTEGER,
@@ -424,10 +423,10 @@ INFO Engine COMMIT
 
 </div>
 
-## Recap
+## 回顾
 
-We can support **many-to-many** relationships between tables by declaring a link table.
+我们可以通过声明一个链接表来支持表之间的 **多对多** 关系。
 
-We can create it the same way as with other **SQLModel** classes, and then use it in the `link_model` parameter to `Relationship()`.
+可以像创建其他 **SQLModel** 类一样创建链接表，然后在 `Relationship()` 的 `link_model` 参数中使用它。
 
-Now let's work with data using these models in the next chapters. 🤓
+接下来，我们将使用这些模型处理数据。🤓

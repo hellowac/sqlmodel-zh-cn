@@ -1,14 +1,14 @@
-# Create Data with Many-to-Many Relationships
+# 使用多对多关系创建数据
 
-Let's continue from where we left and create some data.
+让我们从之前的内容继续，创建一些数据。
 
-We'll create data for this same **many-to-many** relationship with a link table:
+我们将为这个通过链接表建立的 **多对多** 关系创建数据：
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="many-to-many table relationships" src="../../../img/tutorial/many-to-many/many-to-many.svg">
 
-We'll continue from where we left off with the previous code.
+我们将在之前代码的基础上继续。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -36,18 +36,18 @@ We'll continue from where we left off with the previous code.
 
 ///
 
-## Create Heroes
+## 创建英雄
 
-As we have done before, we'll create a function `create_heroes()` and we'll create some teams and heroes in it:
+和之前一样，我们会创建一个名为 `create_heroes()` 的函数，并在其中创建一些团队和英雄：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:36-54]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -55,11 +55,11 @@ As we have done before, we'll create a function `create_heroes()` and we'll crea
 //// tab | Python 3.9+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:42-60]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -67,16 +67,16 @@ As we have done before, we'll create a function `create_heroes()` and we'll crea
 //// tab | Python 3.7+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:42-60]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -104,26 +104,26 @@ As we have done before, we'll create a function `create_heroes()` and we'll crea
 
 ///
 
-This is very similar to what we have done before.
+这与之前的操作非常相似。
 
-We create a couple of teams, and then three heroes.
+我们创建了两个团队，然后创建了三个英雄。
 
-The only new detail is that instead of using an argument `team` we now use `teams`, because that is the name of the new **relationship attribute**. And more importantly, we pass a **list of teams** (even if it contains a single team).
+唯一的新细节是，我们不再使用参数 `team`，而是使用 `teams`，因为这是新的 **关系属性** 的名称。更重要的是，我们传递了一个 **团队列表**（即使它只有一个团队）。
 
-See how **Deadpond** now belongs to the two teams?
+请注意，**Deadpond** 现在属于两个团队了！
 
-## Commit, Refresh, and Print
+## 提交、刷新并打印
 
-Now let's do as we have done before, `commit` the **session**, `refresh` the data, and print it:
+现在，让我们像之前一样，`commit` **会话**，`refresh` 数据，并打印它：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="22-25  27-29  31-36"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:36-69]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -131,11 +131,11 @@ Now let's do as we have done before, `commit` the **session**, `refresh` the dat
 //// tab | Python 3.9+
 
 ```Python hl_lines="22-25  27-29  31-36"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:42-75]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -143,16 +143,16 @@ Now let's do as we have done before, `commit` the **session**, `refresh` the dat
 //// tab | Python 3.7+
 
 ```Python hl_lines="22-25  27-29  31-36"
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:42-75]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -180,18 +180,18 @@ Now let's do as we have done before, `commit` the **session**, `refresh` the dat
 
 ///
 
-## Add to Main
+## 添加到主函数
 
-As before, add the `create_heroes()` function to the `main()` function to make sure it is called when running this program from the command line:
+和之前一样，将 `create_heroes()` 函数添加到 `main()` 函数中，以确保在从命令行运行该程序时调用它：
 
 //// tab | Python 3.10+
 
 ```Python
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:72-74]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -199,11 +199,11 @@ As before, add the `create_heroes()` function to the `main()` function to make s
 //// tab | Python 3.9+
 
 ```Python
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:78-80]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
@@ -211,16 +211,16 @@ As before, add the `create_heroes()` function to the `main()` function to make s
 //// tab | Python 3.7+
 
 ```Python
-# Code above omitted 👆
+# 上方代码已省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:78-80]!}
 
-# Code below omitted 👇
+# 下方代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -248,40 +248,40 @@ As before, add the `create_heroes()` function to the `main()` function to make s
 
 ///
 
-## Run the Program
+## 运行程序
 
-If we run the program from the command line, it would output:
+如果从命令行运行程序，输出将如下所示：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 之前的输出已省略 🙈
 
-// Automatically start a new transaction
+// 自动开始一个新事务
 INFO Engine BEGIN (implicit)
-// Insert the hero data first
+// 首先插入英雄数据
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [generated in 0.00041s] ('Deadpond', 'Dive Wilson', None)
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.001942s ago] ('Rusty-Man', 'Tommy Sharp', 48)
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.002541s ago] ('Spider-Boy', 'Pedro Parqueador', None)
-// Insert the team data second
+// 然后插入队伍数据
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [generated in 0.00037s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.001239s ago] ('Preventers', 'Sharp Tower')
-// Insert the link data last, to be able to re-use the created IDs
+// 最后插入链接数据，以便重用已创建的 ID
 INFO Engine INSERT INTO heroteamlink (team_id, hero_id) VALUES (?, ?)
 INFO Engine [generated in 0.00026s] ((2, 3), (1, 1), (2, 1), (2, 2))
-// Commit and save the data in the database
+// 提交事务并将数据保存到数据库
 INFO Engine COMMIT
 
-// Automatically start a new transaction
+// 自动开始一个新事务
 INFO Engine BEGIN (implicit)
-// Refresh the data
+// 刷新数据
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.id = ?
@@ -295,48 +295,48 @@ FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.003215s ago] (3,)
 
-// Print Deadpond
+// 打印 Deadpond
 Deadpond: name='Deadpond' age=None id=1 secret_name='Dive Wilson'
 
-// Accessing the .team attribute triggers a refresh
+// 访问 `.team` 属性触发刷新
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [generated in 0.00025s] (1,)
 
-// Print Deadpond's teams, 2 teams! 🎉
+// 打印 Deadpond 的队伍，2 个队伍！🎉
 Deadpond teams: [Team(id=1, name='Z-Force', headquarters='Sister Margaret's Bar'), Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 
-// Print Rusty-Man
+// 打印 Rusty-Man
 Rusty-Man: name='Rusty-Man' age=48 id=2 secret_name='Tommy Sharp'
 
-// Accessing the .team attribute triggers a refresh
+// 访问 `.team` 属性触发刷新
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [cached since 0.001716s ago] (2,)
 
-// Print Rusty-Man teams, just one, but still a list
+// 打印 Rusty-Man 的队伍，只有一个，但仍然是列表
 Rusty-Man Teams: [Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 
-// Print Spider-Boy
+// 打印 Spider-Boy
 Spider-Boy: name='Spider-Boy' age=None id=3 secret_name='Pedro Parqueador'
 
-// Accessing the .team attribute triggers a refresh
+// 访问 `.team` 属性触发刷新
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [cached since 0.002739s ago] (3,)
 
-// Print Spider-Boy's teams, just one, but still a list
+// 打印 Spider-Boy 的队伍，只有一个，但仍然是列表
 Spider-Boy Teams: [Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 
-// Automatic roll back any previous automatic transaction, at the end of the with block
+// 在 `with` 块结束时，自动回滚任何先前的自动事务
 INFO Engine ROLLBACK
 ```
 
 </div>
 
-## Recap
+## 回顾
 
-After setting up the model link, using it with **relationship attributes** is fairly straightforward, just Python objects. ✨
+在设置好模型链接后，使用 **关系属性** 的操作非常直观，仅需处理 Python 对象即可。✨

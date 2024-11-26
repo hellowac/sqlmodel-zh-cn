@@ -1,20 +1,20 @@
-# Test Applications with FastAPI and SQLModel
+# 使用 FastAPI 和 SQLModel 测试应用程序
 
-To finish this group of chapters about **FastAPI** with **SQLModel**, let's now learn how to implement automated tests for an application using FastAPI with SQLModel. ✅
+为了完成这一组关于 **FastAPI** 和 **SQLModel** 的章节，我们现在来学习如何为使用 FastAPI 和 SQLModel 的应用程序实现自动化测试。✅
 
-Including the tips and tricks. 🎁
+包括一些技巧和窍门。🎁
 
-## FastAPI Application
+## FastAPI 应用程序
 
-Let's work with one of the **simpler** FastAPI applications we built in the previous chapters.
+我们将使用我们在前几章中构建的一个 **简单** FastAPI 应用程序。
 
-All the same **concepts**, **tips** and **tricks** will apply to more complex applications as well.
+同样的 **概念**、**技巧** 和 **窍门** 也适用于更复杂的应用程序。
 
-We will use the application with the hero models, but without team models, and we will use the dependency to get a **session**.
+我们将使用包含英雄模型的应用程序，但不包括团队模型，并且我们将使用依赖项来获取一个 **会话**。
 
-Now we will see how useful it is to have this session dependency. ✨
+现在我们将看到拥有这个会话依赖项是多么有用。✨
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 ```Python
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/main.py!}
@@ -22,11 +22,11 @@ Now we will see how useful it is to have this session dependency. ✨
 
 ///
 
-## File Structure
+## 文件结构
 
-Now we will have a Python project with multiple files, one file `main.py` with all the application, and one file `test_main.py` with the tests, with the same ideas from [Code Structure and Multiple Files](../code-structure.md){.internal-link target=_blank}.
+现在我们将有一个包含多个文件的 Python 项目，一个文件 `main.py` 包含整个应用程序，一个文件 `test_main.py` 包含测试，遵循 [代码结构与多个文件](../code-structure.md){.internal-link target=_blank} 中的相同思路。
 
-The file structure is:
+文件结构如下：
 
 ```
 .
@@ -36,13 +36,13 @@ The file structure is:
     └── test_main.py
 ```
 
-## Testing FastAPI Applications
+## 测试 FastAPI 应用程序
 
-If you haven't done testing in FastAPI applications, first check the <a href="https://fastapi.tiangolo.com/tutorial/testing/" class="external-link" target="_blank">FastAPI docs about Testing</a>.
+如果你之前没有进行过 FastAPI 应用程序的测试，请首先查看 <a href="https://fastapi.tiangolo.com/tutorial/testing/" class="external-link" target="_blank">FastAPI 测试文档</a>。
 
-Then, we can continue here, the first step is to install the dependencies, `requests` and `pytest`.
+然后，我们可以继续，这里的第一步是安装依赖项 `requests` 和 `pytest`。
 
-Make sure you create a [virtual environment](../../virtual-environments.md){.internal-link target=_blank}, activate it, and then install them, for example with:
+确保你创建了一个 [虚拟环境](../../virtual-environments.md){.internal-link target=_blank}，并激活它，然后安装依赖项，例如使用：
 
 <div class="termy">
 
@@ -54,193 +54,191 @@ $ pip install requests pytest
 
 </div>
 
-## Basic Tests Code
+## 基本测试代码
 
-Let's start with a simple test, with just the basic test code we need the check that the **FastAPI** application is creating a new hero correctly.
+让我们从一个简单的测试开始，测试代码只是验证 **FastAPI** 应用程序是否能正确地创建一个新英雄。
 
 ```{ .python .annotate }
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:1-7]!}
-        # Some code here omitted, we will see it later 👈
+        # 这里省略了一些代码，我们稍后会看到 👈
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:20-24]!}
-        # Some code here omitted, we will see it later 👈
+        # 这里省略了一些代码，我们稍后会看到 👈
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:26-32]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_001.md!}
 
 /// tip
 
-Check out the number bubbles to see what is done by each line of code.
+查看代码行号气泡，了解每行代码的作用。
 
 ///
 
-That's the **core** of the code we need for all the tests later.
+这就是我们稍后所有测试所需的 **核心** 代码。
 
-But now, we need to deal with a bit of logistics and details we are not paying attention to just yet. 🤓
+但是现在，我们需要处理一些后勤工作和细节，之前我们还没有注意到这些。🤓
 
-## Testing Database
+## 测试数据库
 
-This test looks fine, but there's a problem.
+这个测试看起来没问题，但存在一个问题。
 
-If we run it, it will use the same **production database** that we are using to store our very important **heroes**, and we will end up adding unnecessary data to it, or even worse, in future tests we could end up removing production data.
+如果我们直接运行它，它将使用我们正在使用的 **生产数据库** 来存储我们非常重要的 **英雄** 数据，这样我们就可能向其中添加不必要的数据，甚至更糟，未来的测试中，我们可能会删除生产数据。
 
-So, we should use an independent **testing database**, just for the tests.
+因此，我们应该使用一个独立的 **测试数据库**，仅供测试使用。
 
-To do this, we need to change the URL used for the database.
+为此，我们需要更改用于数据库的 URL。
 
-But when the code for the API is executed, it gets a **session** that is already connected to an **engine**, and the **engine** is already using a specific database URL.
+但是当 API 代码执行时，它会获取一个已经连接到 **引擎** 的 **会话**，而 **引擎** 已经使用了一个特定的数据库 URL。
 
-Even if we import the variable from the `main` module and change its value just for the tests, by that point the **engine** is already created with the original value.
+即使我们从 `main` 模块导入变量并仅在测试中更改其值，到那时 **引擎** 已经使用原始值创建了。
 
-But all our API *path operations* get the *session* using a FastAPI **dependency**, and we can override dependencies in tests.
+但是我们所有的 API *路径操作* 都是通过 FastAPI **依赖项** 获取 *会话* 的，我们可以在测试中覆盖依赖项。
 
-Here's where dependencies start to help a lot.
+这就是依赖项开始大显身手的地方。
 
-## Override a Dependency
+## 覆盖依赖项
 
-Let's override the `get_session()` dependency for the tests.
+我们将为测试覆盖 `get_session()` 依赖项。
 
-This dependency is used by all the *path operations* to get the **SQLModel** session object.
+这个依赖项被所有的 *路径操作* 用来获取 **SQLModel** 会话对象。
 
-We will override it to use a different **session** object just for the tests.
+我们将覆盖它，使其仅在测试中使用一个不同的 **会话** 对象。
 
-That way we protect the production database and we have better control of the data we are testing.
+这样可以保护生产数据库，并更好地控制我们正在测试的数据。
 
 ```{ .python .annotate hl_lines="4  9-10  12  19" }
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_002.py[ln:1-7]!}
-        # Some code here omitted, we will see it later 👈
+        # 这里省略了一些代码，我们稍后会看到 👈
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_002.py[ln:15-32]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_002.md!}
 
 /// tip
 
-Check out the number bubbles to see what is done by each line of code.
+查看代码行号气泡，了解每行代码的作用。
 
 ///
 
-## Create the Engine and Session for Testing
+## 为测试创建引擎和会话
 
-Now let's create that **session** object that will be used during testing.
+现在让我们创建一个 **会话** 对象，供测试期间使用。
 
-It will use its own **engine**, and this new engine will use a new URL for the testing database:
+它将使用自己的 **引擎**，而这个新引擎将使用新的测试数据库 URL：
 
 ```
 sqlite:///testing.db
 ```
 
-So, the testing database will be in the file `testing.db`.
+所以，测试数据库将存储在 `testing.db` 文件中。
 
-``` { .python .annotate hl_lines="4  8-11  13  16  33"}
+```{ .python .annotate hl_lines="4  8-11  13  16  33"}
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_003.py!}
 ```
 
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_003.md!}
 
-### Import Table Models
+### 导入表模型
 
-Here we create all the tables in the testing database with:
+在这里，我们使用以下代码创建测试数据库中的所有表：
 
 ```Python
 SQLModel.metadata.create_all(engine)
 ```
 
-But remember that [Order Matters](../create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank} and we need to make sure all the **SQLModel** models are already defined and **imported** before calling `.create_all()`.
+但请记住，**顺序很重要**，[顺序很重要](../create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank}，我们需要确保所有 **SQLModel** 模型都已经定义并 **导入**，然后再调用 `.create_all()`。
 
-In this case, it all works for a little subtlety that deserves some attention.
+在这种情况下，它之所以有效，是因为我们导入了 `.main` 中的某些内容，*任何东西*，这将导致 `.main` 中的代码被执行，包括 **表模型** 的定义，这会自动将它们注册到 `SQLModel.metadata` 中。
 
-Because we import something, *anything*, from `.main`, the code in `.main` will be executed, including the definition of the **table models**, and that will automatically register them in `SQLModel.metadata`.
+这样，当我们调用 `.create_all()` 时，所有的 **表模型** 都会正确地注册到 `SQLModel.metadata` 中，一切都会正常工作。👌
 
-That way, when we call `.create_all()` all the **table models** are correctly registered in `SQLModel.metadata` and it will all work. 👌
+## 内存数据库
 
-## Memory Database
+现在我们不再使用生产数据库，而是使用了一个新的 **测试数据库**，存储在 `testing.db` 文件中，这很好。
 
-Now we are not using the production database. Instead, we use a **new testing database** with the `testing.db` file, which is great.
+但是，SQLite 也支持使用 **内存数据库**。这意味着整个数据库只存在于内存中，永远不会保存到磁盘上的文件中。
 
-But SQLite also supports having an **in memory** database. This means that all the database is only in memory, and it is never saved in a file on disk.
+在程序终止后，**内存数据库会被删除**，因此对于生产数据库没有太大帮助。
 
-After the program terminates, **the in-memory database is deleted**, so it wouldn't help much for a production database.
+但是，**它对测试非常有用**，因为它可以在每个测试之前快速创建，并在每个测试后快速删除。✅
 
-But **it works great for testing**, because it can be quickly created before each test, and quickly removed after each test. ✅
+而且，由于它永远不需要写入文件，一切都仅存在于内存中，它的速度会比通常的数据库更快。🏎
 
-And also, because it never has to write anything to a file and it's all just in memory, it will be even faster than normally. 🏎
+/// details | 其他替代方案和思路 👀
 
-/// details | Other alternatives and ideas 👀
+在考虑使用 **内存数据库** 之前，我们可以探索其他一些替代方案和思路。
 
-Before arriving at the idea of using an **in-memory database** we could have explored other alternatives and ideas.
+首先，我们没有在测试结束后删除文件，因此下一个测试可能会有 **残留数据**。因此，正确的做法是在测试结束后立即删除文件。🔥
 
-The first is that we are not deleting the file after we finish the test, so the next test could have **leftover data**. So, the right thing would be to delete the file right after finishing the test. 🔥
+但是，如果每个测试都必须创建一个新文件，然后再删除它，运行所有测试可能会 **稍微慢一点**。
 
-But if each test has to create a new file and then delete it afterwards, running all the tests could be **a bit slow**.
+目前，我们有一个文件 `testing.db`，所有测试都使用这个文件（虽然现在只有一个测试，但我们将会有更多）。
 
-Right now, we have a file `testing.db` that is used by all the tests (we only have one test now, but we will have more).
+因此，如果我们尝试同时 **并行** 运行测试以提高速度，它们可能会因为尝试使用 *相同的* `testing.db` 文件而发生冲突。
 
-So, if we tried to run the tests at the same time **in parallel** to try to speed things up a bit, they would clash trying to use the *same* `testing.db` file.
-
-Of course, we could also fix that, using some **random name** for each testing database file... but in the case of SQLite, we have an even better alternative by just using an **in-memory database**. ✨
+当然，我们也可以通过为每个测试数据库文件使用 **随机名称** 来解决这个问题……但对于 SQLite，我们有一个更好的替代方案——直接使用 **内存数据库**。✨
 
 ///
 
-## Configure the In-Memory Database
+## 配置内存数据库
 
-Let's update our code to use the in-memory database.
+让我们更新代码，使用内存数据库。
 
-We just have to change a couple of parameters in the **engine**.
+我们只需要更改 **引擎** 中的几个参数。
 
 ```{ .python .annotate hl_lines="3  9-13"}
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_004.py[ln:1-13]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_004.md!}
 
 /// tip
 
-Check out the number bubbles to see what is done by each line of code.
+查看代码行号气泡，了解每行代码的作用。
 
 ///
 
-That's it, now the test will run using the **in-memory database**, which will be faster and probably safer.
+就这样，现在测试将使用 **内存数据库** 运行，这将更快，也可能更安全。
 
-And all the other tests can do the same.
+其他所有测试也可以使用相同的方法。
 
-## Boilerplate Code
+## 样板代码
 
-Great, that works, and you could replicate all that process in each of the test functions.
+很好，代码有效，你可以在每个测试函数中复制整个过程。
 
-But we had to add a lot of **boilerplate code** to handle the custom database, creating it in memory, the custom session, and the dependency override.
+但我们不得不添加很多 **样板代码** 来处理自定义数据库，创建内存数据库、创建自定义会话和覆盖依赖项。
 
-Do we really have to duplicate all that for **each test**? No, we can do better! 😎
+我们真的需要为 **每个测试** 都复制这些代码吗？不，我们可以做得更好！ 😎
 
-We are using **pytest** to run the tests. And pytest also has a very similar concept to the **dependencies in FastAPI**.
+我们使用 **pytest** 来运行测试。而且，pytest 也有一个与 **FastAPI** 依赖项非常相似的概念。
 
 /// info
 
-In fact, pytest was one of the things that inspired the design of the dependencies in FastAPI.
+实际上，pytest 是启发 FastAPI 设计依赖项的因素之一。
 
 ///
 
-It's a way for us to declare some **code that should be run before** each test and **provide a value** for the test function (that's pretty much the same as FastAPI dependencies).
+它是一种让我们在每个测试之前声明一些 **代码** 并 **为测试函数提供一个值** 的方式（这几乎与 FastAPI 的依赖项相同）。
 
-In fact, it also has the same trick of allowing to use `yield` instead of `return` to provide the value, and then **pytest** makes sure that the code after `yield` is executed *after* the function with the test is done.
+实际上，它也有类似的技巧，允许使用 `yield` 代替 `return` 来提供值，然后 **pytest** 会确保 `yield` 后的代码会在测试函数执行完后再执行。
 
-In pytest, these things are called **fixtures** instead of *dependencies*.
+在 pytest 中，这些东西叫做 **fixtures**，而不是 *依赖项*。
 
-Let's use these **fixtures** to improve our code and reduce de duplicated boilerplate for the next tests.
+让我们使用这些 **fixtures** 来改进我们的代码，减少后续测试中的重复样板代码。
 
 ## Pytest Fixtures
 
-You can read more about them in the <a href="https://docs.pytest.org/en/6.2.x/fixture.html" class="external-link" target="_blank">pytest docs for fixtures</a>, but I'll give you a short example for what we need here.
+你可以在 <a href="https://docs.pytest.org/en/6.2.x/fixture.html" class="external-link" target="_blank">pytest 文档中的 Fixtures</a> 中了解更多，但我会给你一个简短的示例，展示我们在这里需要的内容。
 
-Let's see the first code example with a fixture:
+让我们看看第一个使用 fixture 的代码示例：
 
-``` { .python .annotate }
+```{ .python .annotate }
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_005.py!}
 ```
 
@@ -248,39 +246,39 @@ Let's see the first code example with a fixture:
 
 /// tip
 
-Check out the number bubbles to see what is done by each line of code.
+查看代码行号气泡，了解每行代码的作用。
 
 ///
 
-**pytest** fixtures work in a very similar way to FastAPI dependencies, but have some minor differences:
+**pytest** 的 fixtures 和 FastAPI 的依赖项工作方式非常相似，但有一些小的差别：
 
-* In pytest fixtures, we need to add a decorator of `@pytest.fixture()` on top.
-* To use a pytest fixture in a function, we have to declare the parameter with the **exact same name**. In FastAPI we have to **explicitly use `Depends()`** with the actual function inside it.
+* 在 pytest fixtures 中，我们需要在上方添加 `@pytest.fixture()` 装饰器。
+* 要在函数中使用 pytest fixture，我们必须声明参数的 **完全相同的名称**。在 FastAPI 中，我们必须显式地使用 `Depends()` 并将实际函数放在其中。
 
-But apart from the way we declare them and how we tell the framework that we want to have them in the function, they **work in a very similar way**.
+但除了声明方式和如何告知框架我们希望将其应用于函数的方式外，它们 **工作方式非常相似**。
 
-Now we create lot's of tests and re-use that same fixture in all of them, saving us that **boilerplate code**.
+现在，我们创建了许多测试并在其中重用相同的 fixture，从而节省了大量的 **样板代码**。
 
-**pytest** will make sure to run them right before (and finish them right after) each test function. So, each test function will actually have its own database, engine, and session.
+**pytest** 将确保在每个测试函数之前执行它们（并在之后执行它们）。所以，每个测试函数都会有自己独立的数据库、引擎和会话。
 
-## Client Fixture
+## 客户端 Fixture
 
-Awesome, that fixture helps us prevent a lot of duplicated code.
+太棒了，这个 fixture 帮助我们减少了大量的重复代码。
 
-But currently, we still have to write some code in the test function that will be repetitive for other tests, right now we:
+但目前，我们仍然需要在测试函数中编写一些重复的代码，目前我们需要：
 
-* create the **dependency override**
-* put it in the `app.dependency_overrides`
-* create the `TestClient`
-* Clear the dependency override(s) after making the request
+* 创建 **依赖项覆盖**
+* 将其放入 `app.dependency_overrides`
+* 创建 `TestClient`
+* 在发出请求后清理依赖项覆盖
 
-That's still gonna be repetitive in the other future tests. Can we improve it? Yes! 🎉
+这些在未来的其他测试中仍然是重复的。我们可以改进它吗？可以！🎉
 
-Each **pytest** fixture (the same way as **FastAPI** dependencies), can require other fixtures.
+每个 **pytest** fixture（和 **FastAPI** 依赖项一样），可以依赖其他 fixture。
 
-So, we can create a **client fixture** that will be used in all the tests, and it will itself require the **session fixture**.
+因此，我们可以创建一个 **客户端 fixture**，它将在所有测试中使用，并且它本身需要 **会话 fixture**。
 
-``` { .python .annotate hl_lines="19-28  31" }
+```{ .python .annotate hl_lines="19-28  31" }
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_006.py!}
 ```
 
@@ -288,31 +286,31 @@ So, we can create a **client fixture** that will be used in all the tests, and i
 
 /// tip
 
-Check out the number bubbles to see what is done by each line of code.
+查看代码行号气泡，了解每行代码的作用。
 
 ///
 
-Now we have a **client fixture** that, in turn, uses the **session fixture**.
+现在我们有了一个 **客户端 fixture**，它又依赖于 **会话 fixture**。
 
-And in the actual test function, we just have to declare that we require this **client fixture**.
+在实际的测试函数中，我们只需要声明需要这个 **客户端 fixture**。
 
-## Add More Tests
+## 添加更多测试
 
-At this point, it all might seem like we just did a lot of changes for nothing, to get **the same result**. 🤔
+到目前为止，可能看起来我们做了很多更改，却没有得到任何新的结果，依然是 **相同的结果**。🤔
 
-But normally we will create **lots of other test functions**. And now all the boilerplate and complexity is **written only once**, in those two fixtures.
+但通常情况下，我们会创建 **很多其他测试函数**。现在所有的样板代码和复杂性 **只写了一次**，就放在了这两个 fixture 中。
 
-Let's add some more tests:
+让我们添加更多的测试：
 
 ```Python hl_lines="3  22"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:30-58]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 ```Python
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
@@ -322,33 +320,33 @@ Let's add some more tests:
 
 /// tip
 
-It's always **good idea** to not only test the normal case, but also that **invalid data**, **errors**, and **corner cases** are handled correctly.
+除了测试正常情况外，**测试无效数据**、**错误**和**边界情况**也是 **好主意**，确保它们能正确处理。
 
-That's why we add these two extra tests here.
+这就是我们在这里添加这两个额外测试的原因。
 
 ///
 
-Now, any additional test functions can be as **simple** as the first one, they just have to **declare the `client` parameter** to get the `TestClient` **fixture** with all the database stuff setup. Nice! 😎
+现在，任何额外的测试函数都可以像第一个测试一样简单，它们只需要 **声明 `client` 参数** 来获取已经设置好所有数据库内容的 `TestClient` **fixture**。很棒！😎
 
-## Why Two Fixtures
+## 为什么是两个 Fixtures
 
-Now, seeing the code, we could think, why do we put **two fixtures** instead of **just one** with all the code? And that makes total sense!
+现在，看到这些代码后，我们可能会想，为什么要使用 **两个 fixtures**，而不是 **只用一个** 包含所有代码的 fixture 呢？这个问题非常有道理！
 
-For these examples, **that would have been simpler**, there's no need to separate that code into two fixtures for them...
+对于这些示例，**用一个 fixture 更简单**，其实没必要把代码拆分成两个 fixture。
 
-But for the next test function, we will require **both fixtures**, the **client** and the **session**.
+但对于下一个测试函数，我们将需要 **两个 fixture**，即 **client** 和 **session**。
 
 ```Python hl_lines="6  10"
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:1-6]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:61-81]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 ```Python
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
@@ -356,37 +354,37 @@ But for the next test function, we will require **both fixtures**, the **client*
 
 ///
 
-In this test function, we want to check that the *path operation* to **read a list of heroes** actually sends us heroes.
+在这个测试函数中，我们希望检查 **读取英雄列表** 的路径操作是否真的发送了英雄数据。
 
-But if the **database is empty**, we would get an **empty list**, and we wouldn't know if the hero data is being sent correctly or not.
+但如果 **数据库为空**，我们会得到一个 **空列表**，这时我们无法判断英雄数据是否正确发送。
 
-But we can **create some heroes** in the testing database right before sending the API request. ✨
+但是我们可以在发送 API 请求之前 **在测试数据库中创建一些英雄**。✨
 
-And because we are using the **testing database**, we don't affect anything by creating heroes for the test.
+而且，由于我们使用的是 **测试数据库**，在测试中创建英雄数据不会影响其他内容。
 
-To do it, we have to:
+为此，我们需要：
 
-* import the `Hero` model
-* require both fixtures, the **client** and the **session**
-* create some heroes and save them in the database using the **session**
+* 导入 `Hero` 模型
+* 需要两个 fixtures，**client** 和 **session**
+* 创建一些英雄并使用 **session** 将它们保存到数据库中
 
-After that, we can send the request and check that we actually got the data back correctly from the database. 💯
+之后，我们就可以发送请求并检查是否从数据库中正确获取了数据。💯
 
-Here's the important detail to notice: we can require fixtures in other fixtures **and also** in the test functions.
+这里需要注意的一个重要细节是：我们可以在其他 fixture **和** 测试函数中要求使用 fixtures。
 
-The function for the **client fixture** and the actual testing function will **both** receive the same **session**.
+**client fixture** 函数和实际的测试函数会 **都** 使用相同的 **session**。
 
-## Add the Rest of the Tests
+## 添加其余的测试
 
-Using the same ideas, requiring the fixtures, creating data that we need for the tests, etc., we can now add the rest of the tests. They look quite similar to what we have done up to now.
+利用相同的思路，要求 fixtures，创建测试所需的数据等等，我们现在可以添加剩余的测试。它们看起来与我们迄今为止所做的非常相似。
 
 ```Python hl_lines="3  18  33"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:84-125]!}
 ```
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 ```Python
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
@@ -394,39 +392,39 @@ Using the same ideas, requiring the fixtures, creating data that we need for the
 
 ///
 
-## Run the Tests
+## 运行测试
 
-Now we can run the tests with `pytest` and see the results:
+现在我们可以使用 `pytest` 运行测试，并查看结果：
 
 <div class="termy">
 
 ```console
 $ pytest
 
-============= test session starts ==============
-platform linux -- Python 3.7.5, pytest-6.2.4, py-1.10.0, pluggy-0.13.1
-rootdir: /home/user/code/sqlmodel-tutorial
-<b>collected 7 items                              </b>
+============= 测试会话开始 ==============
+平台 linux -- Python 3.7.5, pytest-6.2.4, py-1.10.0, pluggy-0.13.1
+根目录: /home/user/code/sqlmodel-tutorial
+<b>已收集 7 项                              </b>
 
 ---> 100%
 
 project/test_main.py <font color="#A6E22E">.......         [100%]</font>
 
-<font color="#A6E22E">============== </font><font color="#A6E22E"><b>7 passed</b></font><font color="#A6E22E"> in 0.83s ===============</font>
+<font color="#A6E22E">============== </font><font color="#A6E22E"><b>7 通过</b></font><font color="#A6E22E"> 0.83秒 ===============</font>
 ```
 
 </div>
 
-## Recap
+## 回顾
 
-Did you read all that? Wow, I'm impressed! 😎
+你都读完了吗？哇，真让我印象深刻！😎
 
-Adding tests to your application will give you a lot of **certainty** that everything is **working correctly**, as you intended.
+为你的应用程序添加测试将为你提供很多 **确定性**，确保一切按预期 **正确工作**。
 
-And tests will be notoriously useful when **refactoring** your code, **changing things**, **adding features**. Because tests can help catch a lot of errors that can be easily introduced by refactoring.
+测试在 **重构** 代码、**更改内容**、**添加功能** 时尤其有用。因为测试能够帮助捕捉许多在重构时容易引入的错误。
 
-And they will give you the confidence to work faster and **more efficiently**, because you know that you are checking if you are **not breaking anything**. 😅
+它们还会让你更有信心地工作，**更高效**，因为你知道自己在检查 **没有破坏任何东西**。😅
 
-I think tests are one of those things that bring your code and you as a developer to the next professional level. 😎
+我认为，测试是将你的代码和你作为开发者提升到下一个专业级别的东西之一。😎
 
-And if you read and studied all this, you already know a lot of the advanced ideas and tricks that took me years to learn. 🚀
+如果你读完并研究了这一切，你已经掌握了许多高级的思想和技巧，而这些是我花了几年才学到的。🚀

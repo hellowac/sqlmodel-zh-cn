@@ -1,37 +1,37 @@
-# Read Heroes with Limit and Offset with FastAPI
+# 使用 FastAPI 获取带限制和偏移量的英雄列表
 
-When a client sends a request to get all the heroes, we have been returning them all.
+当客户端发送请求获取所有英雄时，我们之前返回的是所有英雄。
 
-But if we had **thousands** of heroes that could consume a lot of **computational resources**, network bandwidth, etc.
+但是，如果我们有 **成千上万** 的英雄，这可能会消耗大量的 **计算资源**、网络带宽等。
 
-So, we probably want to limit it.
+因此，我们可能希望对此进行限制。
 
-Let's use the same **offset** and **limit** we learned about in the previous tutorial chapters for the API.
+让我们使用前面教程章节中学到的 **偏移量**（offset）和 **限制**（limit）来处理 API 请求。
 
 /// info
 
-In many cases, this is also called **pagination**.
+在许多情况下，这也叫做 **分页**。
 
 ///
 
-## Add a Limit and Offset to the Query Parameters
+## 将限制和偏移量添加到查询参数
 
-Let's add `limit` and `offset` to the query parameters.
+我们将 `limit` 和 `offset` 添加到查询参数中。
 
-By default, we will return the first results from the database, so `offset` will have a default value of `0`.
+默认情况下，我们将返回数据库中的前几条结果，因此 `offset` 的默认值为 `0`。
 
-And by default, we will return a maximum of `100` heroes, so `limit` will have a default value of `100`.
+默认情况下，我们将返回最多 `100` 个英雄，因此 `limit` 的默认值为 `100`。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="1  7  9"
 {!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py[ln:1-2]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py[ln:52-56]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -41,11 +41,11 @@ And by default, we will return a maximum of `100` heroes, so `limit` will have a
 ```Python hl_lines="3  9  11"
 {!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py39.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py39.py[ln:54-58]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -55,16 +55,16 @@ And by default, we will return a maximum of `100` heroes, so `limit` will have a
 ```Python hl_lines="3  9  11"
 {!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001.py[ln:54-58]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -92,30 +92,30 @@ And by default, we will return a maximum of `100` heroes, so `limit` will have a
 
 ///
 
-We want to allow clients to set different `offset` and `limit` values.
+我们希望允许客户端设置不同的 `offset` 和 `limit` 值。
 
-But we don't want them to be able to set a `limit` of something like `9999`, that's over `9000`! 😱
+但我们不希望他们设置一个像 `9999` 这样的 `limit`，那简直太多了！ 😱
 
-So, to prevent it, we add additional validation to the `limit` query parameter, declaring that it has to be **l**ess than or **e**qual to `100` with `le=100`.
+所以，为了防止这种情况，我们在 `limit` 查询参数中添加了额外的验证，声明它必须小于或等于 `100`，使用 `le=100`。
 
-This way, a client can decide to take fewer heroes if they want, but not more.
+这样，客户端可以决定获取更少的英雄，但不能超过这个限制。
 
 /// info
 
-If you need to refresh how query parameters and their validation work, check out the docs in FastAPI:
+如果你需要刷新查询参数及其验证的工作原理，可以查看 FastAPI 文档：
 
-* <a href="https://fastapi.tiangolo.com/tutorial/query-params/" class="external-link" target="_blank">Query Parameters</a>
-* <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" class="external-link" target="_blank">Query Parameters and String Validations</a>
-* <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/" class="external-link" target="_blank">Path Parameters and Numeric Validations</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/query-params/" class="external-link" target="_blank">查询参数</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" class="external-link" target="_blank">查询参数和字符串验证</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/" class="external-link" target="_blank">路径参数和数值验证</a>
 
 ///
 
-## Check the Docs UI
+## 查看文档 UI
 
-Now we can see that the docs UI shows the new parameters to control **limit** and **offset** of our data.
+现在，我们可以看到文档 UI 显示了新的参数，用于控制数据的 **limit** 和 **offset**。
 
 <img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/limit-and-offset/image01.png">
 
-## Recap
+## 总结
 
-You can use **FastAPI**'s automatic data validation to get the parameters for `limit` and `offset`, and then use them with the **session** to control ranges of data to be sent in responses.
+你可以使用 **FastAPI** 的自动数据验证来获取 `limit` 和 `offset` 的参数，然后使用它们与 **session** 一起控制响应中发送的数据范围。

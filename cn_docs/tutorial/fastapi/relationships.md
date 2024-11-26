@@ -1,12 +1,12 @@
-# Models with Relationships in FastAPI
+# FastAPI 中具有关系的模型
 
-If we go right now and read a single **hero** by ID, we get the hero data with the team ID.
+如果我们现在通过 ID 查询单个 **英雄**，我们会得到包含团队 ID 的英雄数据。
 
-But we don't get any data about the particular team:
+但是我们并没有得到任何关于该团队的具体信息：
 
-<img class="shadow" alt="Interactive API docs UI getting a single hero" src="/img/tutorial/fastapi/relationships/image01.png">
+<img class="shadow" alt="交互式 API 文档 UI 获取单个英雄" src="../../../img/tutorial/fastapi/relationships/image01.png">
 
-We get a response of:
+我们得到的响应是：
 
 ```JSON hl_lines="5"
 {
@@ -14,15 +14,15 @@ We get a response of:
     "secret_name": "Dive Wilson",
     "age": null,
     "team_id": 1,
-    "id": 1,
+    "id": 1
 }
 ```
 
-And the same way, if we get a **team** by ID, we get the team data, but we don't get any information about this team's heroes:
+同样地，如果我们通过 ID 查询 **团队**，我们会得到团队数据，但没有关于这个团队英雄的任何信息：
 
-<img class="shadow" alt="Interactive API docs UI getting a single team" src="/img/tutorial/fastapi/relationships/image02.png">
+<img class="shadow" alt="交互式 API 文档 UI 获取单个团队" src="../../../img/tutorial/fastapi/relationships/image02.png">
 
-Here we get a response of:
+我们得到的响应是：
 
 ```JSON
 {
@@ -32,38 +32,38 @@ Here we get a response of:
 }
 ```
 
-...but no information about the heroes.
+...但是没有关于英雄的信息。
 
-Let's update that. 🤓
+让我们来更新一下。🤓
 
-## Why Aren't We Getting More Data
+## 为什么我们没有获取更多数据？
 
-First, why is it that we are not getting the related data for each hero and for each team?
+首先，为什么我们没有获取每个英雄和每个团队的相关数据呢？
 
-It's because we declared the `HeroPublic` with only the same base fields of the `HeroBase` plus the `id`. But it doesn't include a field `team` for the **relationship attribute**.
+这是因为我们在声明 `HeroPublic` 时只包括了 `HeroBase` 的基本字段以及 `id`，但没有包括 `team` 作为 **关系属性**。
 
-And the same way, we declared the `TeamPublic` with only the same base fields of the `TeamBase` plus the `id`. But it doesn't include a field `heroes` for the **relationship attribute**.
+同样地，我们在声明 `TeamPublic` 时只包括了 `TeamBase` 的基本字段和 `id`，但没有包括 `heroes` 作为 **关系属性**。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-5  9-10  14-19  23-24"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:5-7]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:20-21]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:29-34]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:43-44]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -71,23 +71,23 @@ And the same way, we declared the `TeamPublic` with only the same base fields of
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-5  9-10  14-19  23-24"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:7-9]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:22-23]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:31-36]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:45-46]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -95,28 +95,28 @@ And the same way, we declared the `TeamPublic` with only the same base fields of
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-5  9-10  14-19  23-24"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:7-9]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:22-23]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:31-36]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:45-46]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -144,22 +144,22 @@ And the same way, we declared the `TeamPublic` with only the same base fields of
 
 ///
 
-Now, remember that <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI uses the `response_model` to validate and **filter** the response data</a>?
+现在，记住 FastAPI 使用 `response_model` 来验证和 **过滤** 响应数据，对吧？
 
-In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic`, so FastAPI will use them to filter the response data, even if we return a **table model** that includes **relationship attributes**:
+在这种情况下，我们使用了 `response_model=TeamPublic` 和 `response_model=HeroPublic`，因此 FastAPI 会使用它们来过滤响应数据，即使我们返回的是包含 **关系属性** 的 **表模型**：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3  8  12  17"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:102-107]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:156-161]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -167,15 +167,15 @@ In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic
 //// tab | Python 3.9+
 
 ```Python hl_lines="3  8  12  17"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:104-109]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:158-163]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -183,20 +183,20 @@ In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic
 //// tab | Python 3.7+
 
 ```Python hl_lines="3  8  12  17"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:104-109]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:158-163]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -224,13 +224,13 @@ In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic
 
 ///
 
-## Don't Include All the Data
+## 不包含所有数据
 
-Now let's stop for a second and think about it.
+现在让我们暂停一下，思考一下这个问题。
 
-We cannot simply include *all* the data, including all the internal relationships, because each **hero** has an attribute `team` with their team, and then that **team** also has an attribute `heroes` with all the **heroes** in the team, including this one.
+我们不能简单地包含 *所有* 数据，包括所有的内部关系，因为每个 **英雄** 都有一个 `team` 属性指向他们的团队，而这个 **团队** 也有一个 `heroes` 属性包含该团队的所有 **英雄**，包括这个英雄本身。
 
-If we tried to include everything, we could make the server application **crash** trying to extract **infinite data**, going through the same hero and team over and over again internally, something like this:
+如果我们尝试包含所有内容，服务器应用可能会 **崩溃**，因为它会尝试提取 **无限数据**，不断地重复遍历相同的英雄和团队，像这样：
 
 ```JSON hl_lines="2  13  24  34"
 {
@@ -266,7 +266,7 @@ If we tried to include everything, we could make the server application **crash*
                                 "headquarters": "Sharp Tower",
                                 "id": 2,
                                 "heroes": [
-                                    ...with infinite data here... 😱
+                                    ...这里是无限数据... 😱
                                 ]
                             }
                         }
@@ -278,40 +278,40 @@ If we tried to include everything, we could make the server application **crash*
 }
 ```
 
-As you can see, in this example, we would get the hero **Rusty-Man**, and from this hero we would get the team **Preventers**, and then from this team we would get its heroes, of course, including **Rusty-Man**... 😱
+正如你所看到的，在这个例子中，我们会得到英雄 **Rusty-Man**，然后从这个英雄我们会得到团队 **Preventers**，接着从这个团队我们会得到它的英雄，当然，包括 **Rusty-Man**... 😱
 
-So we start again, and in the end, the server would just crash trying to get all the data with a `"Maximum recursion error"`, we would not even get a response like the one above.
+然后我们又开始了，最终服务器会因为尝试获取所有数据而 **崩溃**，出现 `"Maximum recursion error"`，我们甚至不会得到像上面那样的响应。
 
-So, we need to carefully choose in which cases we want to include data and in which not.
+因此，我们需要谨慎选择在什么情况下包含数据，在什么情况下不包含数据。
 
-## What Data to Include
+## 应该包含哪些数据？
 
-This is a decision that will depend on **each application**.
+这是一个依赖于 **每个应用程序** 的决策。
 
-In our case, let's say that if we get a **list of heroes**, we don't want to also include each of their teams in each one.
+在我们的情况下，假设如果我们获取一个 **英雄列表**，我们不想在每个英雄中包含他们各自的团队信息。
 
-And if we get a **list of teams**, we don't want to get a list of the heroes for each one.
+如果我们获取一个 **团队列表**，我们也不希望获取每个团队的英雄列表。
 
-But if we get a **single hero**, we want to include the team data (without the team's heroes).
+但如果我们获取一个 **单个英雄**，我们希望包含团队数据（但不包括团队的英雄）。
 
-And if we get a **single team**, we want to include the list of heroes (without each hero's team).
+如果我们获取一个 **单个团队**，我们希望包含英雄列表（但不包括每个英雄的团队）。
 
-Let's add a couple more **data models** that declare that data so we can use them in those two specific *path operations*.
+让我们添加几个新的 **数据模型**，来声明这些数据，以便在这两个特定的 *路径操作* 中使用它们。
 
-## Models with Relationships
+## 具有关系的模型
 
-Let's add the models `HeroPublicWithTeam` and `TeamPublicWithHeroes`.
+我们将添加 `HeroPublicWithTeam` 和 `TeamPublicWithHeroes` 模型。
 
-We'll add them **after** the other models so that we can easily reference the previous models.
+我们将在 **其他模型之后** 添加它们，以便可以轻松引用之前的模型。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-4  7-8"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:59-64]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -319,11 +319,11 @@ We'll add them **after** the other models so that we can easily reference the pr
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-4  7-8"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001_py39.py[ln:61-66]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -331,16 +331,16 @@ We'll add them **after** the other models so that we can easily reference the pr
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-4  7-8"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001.py[ln:61-66]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -368,50 +368,50 @@ We'll add them **after** the other models so that we can easily reference the pr
 
 ///
 
-These two models are very **simple in code**, but there's a lot happening here. Let's check it out.
+这两个模型的代码非常 **简单**，但实际上这里有很多内容发生。让我们来看看。
 
-### Inheritance and Type Annotations
+### 继承与类型注解
 
-The `HeroPublicWithTeam` **inherits** from `HeroPublic`, which means that it will have the **normal fields for reading**, including the required `id` that was declared in `HeroPublic`.
+`HeroPublicWithTeam` **继承** 自 `HeroPublic`，这意味着它将拥有 `HeroPublic` 中声明的 **用于读取的常规字段**，包括必需的 `id` 字段。
 
-And then it adds the **new field** `team`, which could be `None`, and is declared with the type `TeamPublic` with the base fields for reading a team.
+然后，它添加了一个 **新字段** `team`，该字段可能是 `None`，并且被声明为类型 `TeamPublic`，该类型包含读取团队的基础字段。
 
-Then we do the same for the `TeamPublicWithHeroes`, it **inherits** from `TeamPublic`, and declares the **new field** `heroes`, which is a list of `HeroPublic`.
+对于 `TeamPublicWithHeroes`，我们做了相同的操作，它 **继承** 自 `TeamPublic`，并声明了 **新字段** `heroes`，该字段是 `HeroPublic` 类型的列表。
 
-### Data Models Without Relationship Attributes
+### 没有关系属性的数据模型
 
-Now, notice that these new fields `team` and `heroes` are not declared with `Relationship()`, because these are not **table models**, they cannot have **relationship attributes** with the magic access to get that data from the database.
+现在，请注意这些新字段 `team` 和 `heroes` 并未使用 `Relationship()` 声明，因为这些并不是 **表模型**，它们无法像数据库中的模型那样通过魔术方法访问数据。
 
-Instead, here these are only **data models** that will tell FastAPI **which attributes** to get data from and **which data** to get from them.
+相反，这些只是 **数据模型**，用来告诉 FastAPI **应该从哪些属性** 获取数据，以及 **从这些属性中获取哪些数据**。
 
-### Reference to Other Models
+### 对其他模型的引用
 
-Also, notice that the field `team` is not declared with this new `TeamPublicWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamPublic` model.
+此外，请注意字段 `team` 并未声明为 `TeamPublicWithHeroes`，因为那样会再次导致数据的无限递归。相反，我们使用了普通的 `TeamPublic` 模型来声明它。
 
-And the same for `TeamPublicWithHeroes`, the model used for the new field `heroes` uses `HeroPublic` to get only each hero's data.
+对于 `TeamPublicWithHeroes` 也是一样，新的字段 `heroes` 使用的是 `HeroPublic` 模型，以便仅获取每个英雄的数据。
 
-This also means that, even though we have these two new models, **we still need the previous ones**, `HeroPublic` and `TeamPublic`, because we need to reference them here (and we are also using them in the rest of the *path operations*).
+这也意味着，尽管我们有了这两个新模型，**我们仍然需要之前的模型**，即 `HeroPublic` 和 `TeamPublic`，因为我们需要在这里引用它们（并且在其余的 *路径操作* 中也在使用它们）。
 
-## Update the Path Operations
+## 更新路径操作
 
-Now we can update the *path operations* to use the new models.
+现在我们可以更新 *路径操作*，使用新模型。
 
-This will tell **FastAPI** to take the object that we return from the *path operation function* (a **table model**) and **access the additional attributes** from them to extract their data.
+这将告诉 **FastAPI** 从 *路径操作函数* 返回的对象（一个 **表模型**）中 **访问附加属性**，并提取它们的数据。
 
-In the case of the hero, this tells FastAPI to extract the `team` too. And in the case of the team, to extract the list of `heroes` too.
+对于英雄来说，这会告诉 FastAPI 也提取 `team`。对于团队来说，也会提取 `heroes` 列表。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3  8  12  17"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:111-116]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:165-170]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -419,15 +419,15 @@ In the case of the hero, this tells FastAPI to extract the `team` too. And in th
 //// tab | Python 3.9+
 
 ```Python hl_lines="3  8  12  17"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001_py39.py[ln:113-118]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001_py39.py[ln:167-172]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -435,20 +435,20 @@ In the case of the hero, this tells FastAPI to extract the `team` too. And in th
 //// tab | Python 3.7+
 
 ```Python hl_lines="3  8  12  17"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001.py[ln:113-118]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/relationships/tutorial001.py[ln:167-172]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -476,15 +476,15 @@ In the case of the hero, this tells FastAPI to extract the `team` too. And in th
 
 ///
 
-## Check It Out in the Docs UI
+## 在文档 UI 中查看
 
-Now let's try it out again in the **docs UI**.
+现在我们再次在 **文档 UI** 中尝试一下。
 
-Let's try again with the same **hero** with ID `1`:
+我们再试一次获取 ID 为 `1` 的 **英雄**：
 
-<img class="shadow" alt="Interactive API docs UI getting a single hero with team" src="/img/tutorial/fastapi/relationships/image03.png">
+<img class="shadow" alt="Interactive API docs UI getting a single hero with team" src="../../../img/tutorial/fastapi/relationships/image03.png">
 
-Now we get the **team** data included:
+现在我们得到了 **团队** 数据：
 
 ```JSON hl_lines="7-11"
 {
@@ -501,11 +501,11 @@ Now we get the **team** data included:
 }
 ```
 
-And if we get now the **team** with ID `2`:
+现在，如果我们获取 ID 为 `2` 的 **团队**：
 
-<img class="shadow" alt="Interactive API docs UI getting a single team with the list of heroes" src="/img/tutorial/fastapi/relationships/image04.png">
+<img class="shadow" alt="Interactive API docs UI getting a single team with the list of heroes" src="../../../img/tutorial/fastapi/relationships/image04.png">
 
-Now we get the list of **heroes** included:
+现在我们得到了 **英雄** 的列表：
 
 ```JSON hl_lines="5-41"
 {
@@ -552,14 +552,14 @@ Now we get the list of **heroes** included:
 }
 ```
 
-## Recap
+## 总结
 
-Using the same techniques to declare additional **data models**, we can tell FastAPI what data to return in the responses, even when we return **table models**.
+通过声明额外的 **数据模型**，我们可以告诉 FastAPI 在响应中返回哪些数据，即使我们返回的是 **表模型**。
 
-Here we almost **didn't have to change the FastAPI app** code, but of course, there will be cases where you need to get the data and process it in different ways in the *path operation function* before returning it.
+在这里，我们几乎 **不需要改变 FastAPI 应用** 的代码，但当然，也会有一些情况，在这些情况下你需要在 *路径操作函数* 中获取并以不同的方式处理数据，然后再返回它。
 
-But even in those cases, you will be able to define the **data models** to use in `response_model` to tell FastAPI how to validate and filter the data.
+但即便在这些情况下，你仍然可以定义 **数据模型** 用于 `response_model`，以告诉 FastAPI 如何验证和过滤数据。
 
-By this point, you already have a very robust API to handle data in a SQL database combining **SQLModel** with **FastAPI**, and implementing **best practices**, like data validation, conversion, filtering, and documentation. ✨
+到此为止，你已经拥有了一个非常强大的 API，能够结合 **SQLModel** 和 **FastAPI** 处理 SQL 数据库中的数据，并实现了 **最佳实践**，例如数据验证、转换、过滤和文档生成。✨
 
-In the next chapter, I'll tell you how to implement automated **testing** for your application using FastAPI and SQLModel. ✅
+在下一章，我将告诉你如何使用 FastAPI 和 SQLModel 为你的应用实现自动化 **测试**。✅

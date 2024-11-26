@@ -1,16 +1,16 @@
-# Read One Model with FastAPI
+# 使用 FastAPI 读取单个模型
 
-Let's now add a *path operation* to read a single model to our **FastAPI** application.
+现在我们向 **FastAPI** 应用程序添加一个 *路径操作* 来读取单个模型。
 
-## Path Operation for One Hero
+## 读取单个英雄的路径操作
 
-Let's add a new *path operation* to read one single hero.
+我们将添加一个新的 *路径操作* 来读取单个英雄。
 
-We want to get the hero based on the `id`, so we will use a **path parameter** `hero_id`.
+我们希望根据 `id` 获取英雄，所以我们将使用一个 **路径参数** `hero_id`。
 
-/// info
+/// 信息
 
-If you need to refresh how *path parameters* work, including their data validation, check the <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">FastAPI docs about Path Parameters</a>.
+如果你需要刷新一下 *路径参数* 的工作原理，包括它们的数据验证，请查阅 <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">FastAPI 文档中的路径参数部分</a>。
 
 ///
 
@@ -19,7 +19,7 @@ If you need to refresh how *path parameters* work, including their data validati
 ```Python hl_lines="6"
 {!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-2]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
 ```
@@ -31,7 +31,7 @@ If you need to refresh how *path parameters* work, including their data validati
 ```Python hl_lines="8"
 {!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:61-67]!}
 ```
@@ -43,14 +43,14 @@ If you need to refresh how *path parameters* work, including their data validati
 ```Python hl_lines="8"
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -78,23 +78,23 @@ If you need to refresh how *path parameters* work, including their data validati
 
 ///
 
-For example, to get the hero with ID `2` we would send a `GET` request to:
+例如，要获取 ID 为 `2` 的英雄，我们会发送一个 `GET` 请求到：
 
 ```
 /heroes/2
 ```
 
-## Handling Errors
+## 错误处理
 
-Then, because FastAPI already takes care of making sure that the `hero_id` is an actual integer, we can use it directly with `Hero.get()` to try and get one hero by that ID.
+然后，因为 FastAPI 已经确保 `hero_id` 是一个有效的整数，所以我们可以直接使用它与 `Hero.get()` 来尝试根据该 ID 获取一个英雄。
 
-But if the integer is not the ID of any hero in the database, it will not find anything, and the variable `hero` will be `None`.
+但如果该整数不是数据库中任何英雄的 ID，它将找不到任何内容，并且变量 `hero` 将是 `None`。
 
-So, we check it in an `if` block, if it's `None`, we raise an `HTTPException` with a `404` status code.
+因此，我们需要在 `if` 语句中检查它，如果是 `None`，则抛出一个 `HTTPException`，并返回 `404` 状态码。
 
-And to use it, we first import `HTTPException` from `fastapi`.
+为了使用它，我们首先从 `fastapi` 导入 `HTTPException`。
 
-This will let the client know that they probably made a mistake on their side and requested a hero that doesn't exist in the database.
+这将让客户端知道他们可能在请求时犯了一个错误，请求了一个不存在于数据库中的英雄。
 
 //// tab | Python 3.10+
 
@@ -132,7 +132,7 @@ This will let the client know that they probably made a mistake on their side an
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -160,18 +160,18 @@ This will let the client know that they probably made a mistake on their side an
 
 ///
 
-## Return the Hero
+## 返回英雄
 
-Then, if the hero exists, we return it.
+然后，如果该英雄存在，我们就返回它。
 
-And because we are using the `response_model` with `HeroPublic`, it will be validated, documented, etc.
+由于我们使用了 `response_model` 并指定了 `HeroPublic`，所以它会被验证、文档化等。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="6  12"
 {!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-2]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
 ```
@@ -183,7 +183,7 @@ And because we are using the `response_model` with `HeroPublic`, it will be vali
 ```Python hl_lines="8  14"
 {!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:61-67]!}
 ```
@@ -195,14 +195,14 @@ And because we are using the `response_model` with `HeroPublic`, it will be vali
 ```Python hl_lines="8  14"
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 这里的代码省略 👈
 
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -230,12 +230,12 @@ And because we are using the `response_model` with `HeroPublic`, it will be vali
 
 ///
 
-## Check the Docs UI
+## 查看文档 UI
 
-We can then go to the docs UI and see the new *path operation*.
+然后我们可以进入文档 UI，查看新的 *路径操作*。
 
-<img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/read-one/image01.png">
+<img class="shadow" alt="Interactive API docs UI" src="../../../img/tutorial/fastapi/read-one/image01.png">
 
-## Recap
+## 总结
 
-You can combine **FastAPI** features like automatic path parameter validation to get models by ID.
+你可以结合 **FastAPI** 的功能，如自动路径参数验证，通过 ID 获取模型。

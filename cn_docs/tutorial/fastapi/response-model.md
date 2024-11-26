@@ -1,36 +1,36 @@
-# FastAPI Response Model with SQLModel
+# FastAPI 响应模型与 SQLModel
 
-Now I'll show you how to use FastAPI's `response_model` with **SQLModel**.
+现在，我将向你展示如何使用 FastAPI 的 `response_model` 与 **SQLModel** 配合使用。
 
-## Interactive API Docs
+## 交互式 API 文档
 
-Up to now, with the code we have used, the API docs know the data the clients have to send:
+到目前为止，我们使用的代码，API 文档已经知道客户端需要发送的数据：
 
-<img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/simple-hero-api/image01.png">
+<img class="shadow" alt="Interactive API docs UI" src="../../../img/tutorial/fastapi/simple-hero-api/image01.png">
 
-This interactive docs UI is powered by <a href="https://github.com/swagger-api/swagger-ui" class="external-link" target="_blank">Swagger UI</a>, and what Swagger UI does is to read a big JSON content that defines the API with all the data schemas (data shapes) using the standard <a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md" class="external-link" target="_blank">OpenAPI</a>, and showing it in that nice <abbr title="User Interface">UI</abbr>.
+这个交互式文档 UI 是由 <a href="https://github.com/swagger-api/swagger-ui" class="external-link" target="_blank">Swagger UI</a> 提供支持的，Swagger UI 的作用是读取一个大型的 JSON 内容，这个 JSON 定义了 API 和所有数据架构（数据结构），使用标准的 <a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md" class="external-link" target="_blank">OpenAPI</a>，并将其显示在这个漂亮的 <abbr title="用户界面">UI</abbr> 中。
 
-FastAPI automatically **generates that OpenAPI** for Swagger UI to read it.
+FastAPI 会自动 **生成 OpenAPI**，供 Swagger UI 读取。
 
-And it generates it **based on the code you write**, using the Pydantic models (in this case **SQLModel** models) and type annotations to know the schemas of the data that the API handles.
+它根据你编写的代码生成这些内容，利用 Pydantic 模型（在本例中是 **SQLModel** 模型）和类型注解来了解 API 处理的数据架构。
 
-## Response Data
+## 响应数据
 
-But up to now, the API docs UI doesn't know the schema of the *responses* our app sends back.
+但是，到目前为止，API 文档 UI 并不知道我们的应用程序返回的 *响应* 的架构。
 
-You can see that there's a possible "Successful Response" with a code `200`, but we have no idea how the response data would look like.
+你可以看到，有一个可能的 "成功响应" 和代码 `200`，但是我们并不知道响应数据的具体样子。
 
-<img class="shadow" alt="API docs UI without response data schemas" src="/img/tutorial/fastapi/response-model/image01.png">
+<img class="shadow" alt="API docs UI without response data schemas" src="../../../img/tutorial/fastapi/response-model/image01.png">
 
-Right now, we only tell FastAPI the data we want to receive, but we don't tell it yet the data we want to send back.
+现在，我们只告诉了 FastAPI 我们希望接收的数据，但还没有告诉它我们希望发送回的数据。
 
-Let's do that now. 🤓
+让我们现在做这个改变。🤓
 
-## Use `response_model`
+## 使用 `response_model`
 
-We can use `response_model` to tell FastAPI the schema of the data we want to send back.
+我们可以使用 `response_model` 来告诉 FastAPI 我们希望发送回的数据的架构。
 
-For example, we can pass the same `Hero` **SQLModel** class (because it is also a Pydantic model):
+例如，我们可以传递相同的 `Hero` **SQLModel** 类（因为它也是一个 Pydantic 模型）：
 
 //// tab | Python 3.10+
 
@@ -68,7 +68,7 @@ For example, we can pass the same `Hero` **SQLModel** class (because it is also 
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -96,11 +96,11 @@ For example, we can pass the same `Hero` **SQLModel** class (because it is also 
 
 ///
 
-## List of Heroes in `response_model`
+## 在 `response_model` 中列出英雄
 
-We can also use other type annotations, the same way we can use with Pydantic fields. For example, we can pass a list of `Hero`s.
+我们还可以使用其他类型注解，就像我们在 Pydantic 字段中使用的那样。例如，我们可以传递一个 `Hero` 对象的列表。
 
-First, we import `List` from `typing` and then we declare the `response_model` with `List[Hero]`:
+首先，我们从 `typing` 导入 `List`，然后在 `response_model` 中声明 `List[Hero]`：
 
 //// tab | Python 3.10+
 
@@ -142,7 +142,7 @@ First, we import `List` from `typing` and then we declare the `response_model` w
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -170,40 +170,41 @@ First, we import `List` from `typing` and then we declare the `response_model` w
 
 ///
 
-## FastAPI and Response Model
+## FastAPI 和 Response Model
 
-FastAPI will do data validation and filtering of the response with this `response_model`.
+FastAPI 会使用这个 `response_model` 进行数据验证和响应数据过滤。
 
-So this works like a contract between our application and the client.
+这就像是我们应用程序和客户端之间的契约。
 
-You can read more about it in the <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI docs about `response_model`</a>.
+你可以在 <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI 文档关于 `response_model` 的部分</a> 中阅读更多内容。
 
-## New API Docs UI
+## 新的 API 文档 UI
 
-Now we can go back to the docs UI and see that they now show the schema of the response we will receive.
+现在我们可以返回到文档 UI，看到它们已经显示了我们将接收到的响应的 schema。
 
-<img class="shadow" alt="API docs UI without response data schemas" src="/img/tutorial/fastapi/response-model/image02.png">
+<img class="shadow" alt="API docs UI without response data schemas" src="../../../img/tutorial/fastapi/response-model/image02.png">
 
-The clients will know what data they should expect.
 
-## Automatic Clients
+客户端将知道他们应该期待什么数据。
 
-The most visible advantage of using the `response_model` is that it shows up in the API docs UI.
+## 自动化客户端
 
-But there are other advantages, like that FastAPI will do automatic <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">data validation and filtering</a> of the response data using this model.
+使用 `response_model` 的最大好处之一就是它会显示在 API 文档 UI 中。
 
-Additionally, because the schemas are defined in using a standard, there are many tools that can take advantage of this.
+但它还有其他优点，比如 FastAPI 会使用这个模型自动进行 <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">数据验证和响应数据过滤</a>。
 
-For example, client generators, that can automatically create the code necessary to talk to your API in many languages.
+此外，由于 schema 是使用标准定义的，有许多工具可以利用这一点。
 
-/// info
+例如，客户端生成器可以自动生成与您的 API 交互所需的代码，支持多种语言。
 
-If you are curious about the standards, FastAPI generates OpenAPI, that internally uses JSON Schema.
+/// tip
 
-You can read about all that in the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/#openapi" class="external-link" target="_blank">FastAPI docs - First Steps</a>.
+如果你对这些标准感兴趣，FastAPI 会生成 OpenAPI，而 OpenAPI 内部使用的是 JSON Schema。
+
+你可以在 <a href="https://fastapi.tiangolo.com/tutorial/first-steps/#openapi" class="external-link" target="_blank">FastAPI 文档 - 第一步</a> 中阅读所有相关内容。
 
 ///
 
-## Recap
+## 总结
 
-Use the `response_model` to tell FastAPI the schema of the data you want to send back and have awesome data APIs. 😎
+使用 `response_model` 告诉 FastAPI 你希望发送回的数据的 schema，从而拥有强大的数据 API。 😎

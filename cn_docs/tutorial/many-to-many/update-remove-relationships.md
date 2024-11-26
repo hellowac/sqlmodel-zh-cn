@@ -1,10 +1,10 @@
-# Update and Remove Many-to-Many Relationships
+# 更新和移除多对多关系
 
-Now we'll see how to update and remove these **many-to-many** relationships.
+现在我们来学习如何更新和移除这些 **多对多** 关系。
 
-We'll continue from where we left off with the previous code.
+我们将继续之前的代码。
 
-/// details | 👀 Full file preview
+/// details | 👀 查看完整文件预览
 
 //// tab | Python 3.10+
 
@@ -32,26 +32,26 @@ We'll continue from where we left off with the previous code.
 
 ///
 
-## Get Data to Update
+## 获取待更新的数据
 
-Let's now create a function `update_heroes()`.
+现在我们来创建一个函数 `update_heroes()`。
 
-We'll get **Spider-Boy** and the **Z-Force** team.
+我们将获取 **Spider-Boy** 和 **Z-Force** 团队。
 
-As you already know how these goes, I'll use the **short version** and get the data in a single Python statement.
+由于你已经熟悉基本的操作，我们会使用 **简短版本**，在一个 Python 语句中获取这些数据。
 
-And because we are now using `select()`, we also have to import it.
+此外，由于我们使用了 `select()`，我们需要将其导入。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="1  5-10"
 {!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:1]!}
 
-# Some code here omitted 👈
+# 这里省略了一些代码 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-77]!}
 
-# Code below omitted 👇
+# 下方代码被省略 👇
 ```
 
 ////
@@ -61,11 +61,11 @@ And because we are now using `select()`, we also have to import it.
 ```Python hl_lines="3  7-12"
 {!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:1-3]!}
 
-# Some code here omitted 👈
+# 这里省略了一些代码 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:78-83]!}
 
-# Code below omitted 👇
+# 下方代码被省略 👇
 ```
 
 ////
@@ -75,16 +75,16 @@ And because we are now using `select()`, we also have to import it.
 ```Python hl_lines="3  7-12"
 {!./docs_src/tutorial/many_to_many/tutorial002.py[ln:1-3]!}
 
-# Some code here omitted 👈
+# 这里省略了一些代码 👈
 
 {!./docs_src/tutorial/many_to_many/tutorial002.py[ln:78-83]!}
 
-# Code below omitted 👇
+# 下方代码被省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 查看完整文件预览
 
 //// tab | Python 3.10+
 
@@ -112,12 +112,12 @@ And because we are now using `select()`, we also have to import it.
 
 ///
 
-And of course, we have to add `update_heroes()` to our `main()` function:
+当然，我们需要将 `update_heroes()` 添加到 `main()` 函数中：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="6"
-# Code above omitted 👆
+# 上方代码被省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:94-101]!}
 ```
@@ -127,7 +127,7 @@ And of course, we have to add `update_heroes()` to our `main()` function:
 //// tab | Python 3.9+
 
 ```Python hl_lines="6"
-# Code above omitted 👆
+# 上方代码被省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:100-107]!}
 ```
@@ -137,14 +137,14 @@ And of course, we have to add `update_heroes()` to our `main()` function:
 //// tab | Python 3.7+
 
 ```Python hl_lines="6"
-# Code above omitted 👆
+# 上方代码被省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002.py[ln:100-107]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 查看完整文件预览
 
 //// tab | Python 3.10+
 
@@ -172,20 +172,20 @@ And of course, we have to add `update_heroes()` to our `main()` function:
 
 ///
 
-## Add Many-to-Many Relationships
+## 添加多对多关系
 
-Now let's imagine that **Spider-Boy** thinks that the **Z-Force** team is super cool and decides to go there and join them.
+现在，假设 **Spider-Boy** 觉得 **Z-Force** 团队特别酷，决定加入他们。
 
-We can use the same **relationship attributes** to include `hero_spider_boy` in the `team_z_force.heroes`.
+我们可以使用同样的 **关系属性**，将 `hero_spider_boy` 添加到 `team_z_force.heroes` 中。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="10-12  14-15"
-# Code above omitted 👆
+# 上方代码被省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-84]!}
 
-# Code below omitted 👇
+# 下方代码被省略 👇
 ```
 
 ////
@@ -193,11 +193,11 @@ We can use the same **relationship attributes** to include `hero_spider_boy` in 
 //// tab | Python 3.9+
 
 ```Python hl_lines="10-12  14-15"
-# Code above omitted 👆
+# 上方代码被省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:78-90]!}
 
-# Code below omitted 👇
+# 下方代码被省略 👇
 ```
 
 ////
@@ -205,16 +205,16 @@ We can use the same **relationship attributes** to include `hero_spider_boy` in 
 //// tab | Python 3.7+
 
 ```Python hl_lines="10-12  14-15"
-# Code above omitted 👆
+# 上方代码被省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002.py[ln:78-90]!}
 
-# Code below omitted 👇
+# 下方代码被省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 查看完整文件预览
 
 //// tab | Python 3.10+
 
@@ -244,63 +244,63 @@ We can use the same **relationship attributes** to include `hero_spider_boy` in 
 
 /// tip
 
-Because we are accessing an attribute in the models right after we commit, with `hero_spider_boy.teams` and `team_z_force.heroes`, the data is refreshed automatically.
+由于我们在提交后立即访问模型中的属性（如 `hero_spider_boy.teams` 和 `team_z_force.heroes`），数据会自动刷新。
 
-So we don't have to call `session.refresh()`.
+因此，无需调用 `session.refresh()`。
 
 ///
 
-We then commit the change, refresh, and print the updated **Spider-Boy**'s heroes to confirm.
+然后我们提交更改、刷新并打印更新后的 **Spider-Boy** 的队伍以确认。
 
-Notice that we only `add` **Z-Force** to the session, then we commit.
+注意，我们只将 **Z-Force** 添加到会话中，然后提交。
 
-We never add **Spider-Boy** to the session, and we never even refresh it. But we still print his teams.
+我们从未将 **Spider-Boy** 添加到会话中，也从未刷新它。但我们仍然打印了他的队伍。
 
-This still works correctly because we are using `back_populates` in the `Relationship()` in the models. That way, **SQLModel** (actually SQLAlchemy) can keep track of the changes and updates, and make sure they also happen on the relationships in the other related models. 🎉
+这一切能够正常工作是因为在模型中的 `Relationship()` 使用了 `back_populates`。这样，**SQLModel**（实际上是 SQLAlchemy）可以跟踪更改和更新，并确保这些更新也会发生在其他相关模型的关系中。🎉
 
-## Run the Program
+## 运行程序
 
-You can confirm it's all working by running the program in the command line:
+您可以通过在命令行运行程序来确认一切是否正常工作：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 上面的输出省略 🙈
 
-// Create the new many-to-many relationship
+// 创建新的多对多关系
 INFO Engine INSERT INTO heroteamlink (team_id, hero_id) VALUES (?, ?)
-INFO Engine [generated in 0.00020s] (1, 3)
+INFO Engine [生成于 0.00020s] (1, 3)
 INFO Engine COMMIT
 
-// Start a new automatic transaction
+// 开始一个新的自动事务
 INFO Engine BEGIN (implicit)
 
-// Automatically refresh the data while accessing the attribute .teams
+// 访问属性 .teams 时自动刷新数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero
 WHERE hero.id = ?
-INFO Engine [generated in 0.00044s] (3,)
+INFO Engine [生成于 0.00044s] (3,)
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
-INFO Engine [cached since 0.1648s ago] (3,)
+INFO Engine [缓存自 0.1648s 前] (3,)
 
-// Print Spider-Boy teams, including Z-Force 🎉
-Updated Spider-Boy's Teams: [
+// 打印 Spider-Boy 的队伍，包括 Z-Force 🎉
+更新后的 Spider-Boy 的队伍: [
     Team(id=2, name='Preventers', headquarters='Sharp Tower'),
     Team(id=1, name='Z-Force', headquarters='Sister Margaret's Bar')
 ]
 
-// Automatically refresh the data while accessing the attribute .heores
+// 访问属性 .heroes 时自动刷新数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero, heroteamlink
 WHERE ? = heroteamlink.team_id AND hero.id = heroteamlink.hero_id
-INFO Engine [cached since 0.1499s ago] (1,)
+INFO Engine [缓存自 0.1499s 前] (1,)
 
-// Print Z-Force heroes, including Spider-Boy 🎉
-Z-Force heroes: [
+// 打印 Z-Force 的英雄，包括 Spider-Boy 🎉
+Z-Force 的英雄: [
     Hero(name='Deadpond', age=None, id=1, secret_name='Dive Wilson'),
     Hero(name='Spider-Boy', age=None, id=3, secret_name='Pedro Parqueador', teams=[
         Team(id=2, name='Preventers', headquarters='Sharp Tower'),
@@ -311,28 +311,28 @@ Z-Force heroes: [
 
 </div>
 
-## Remove Many-to-Many Relationships
+## 移除多对多关系
 
-Now let's say that right after joining the team, **Spider-Boy** realized that their "life preserving policies" are much more relaxed than what he's used to. 💀
+现在，假设 **Spider-Boy** 加入团队后，发现他们的“生命保护政策”比他习惯的要宽松得多。💀
 
-And their *occupational safety and health* is also not as great... 💥
+而且他们的 *职业安全和健康* 也不如预期... 💥
 
-So, **Spider-Boy** decides to leave **Z-Force**.
+所以，**Spider-Boy** 决定离开 **Z-Force**。
 
-Let's update the relationships to remove `team_z_force` from `hero_spider_boy.teams`.
+让我们更新关系，移除 `hero_spider_boy.teams` 中的 `team_z_force`。
 
-Because `hero_spider_boy.teams` is just a list (a special list managed by SQLAlchemy, but a list), we can use the standard list methods.
+由于 `hero_spider_boy.teams` 只是一个列表（实际上是由 SQLAlchemy 管理的特殊列表，但仍然是列表），我们可以使用标准的列表方法。
 
-In this case, we use the method `.remove()`, that takes an item and removes it from the list.
+在这种情况下，我们使用 `.remove()` 方法，它接受一个项目并将其从列表中移除。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="17-19  21-22"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-91]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -340,11 +340,11 @@ In this case, we use the method `.remove()`, that takes an item and removes it f
 //// tab | Python 3.9+
 
 ```Python hl_lines="17-19  21-22"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:78-97]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -352,16 +352,16 @@ In this case, we use the method `.remove()`, that takes an item and removes it f
 //// tab | Python 3.7+
 
 ```Python hl_lines="17-19  21-22"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial002.py[ln:78-97]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 查看完整文件预览
 
 //// tab | Python 3.10+
 
@@ -389,73 +389,73 @@ In this case, we use the method `.remove()`, that takes an item and removes it f
 
 ///
 
-And this time, just to show again that by using `back_populates` **SQLModel** (actually SQLAlchemy) takes care of connecting the models by their relationships, even though we performed the operation from the `hero_spider_boy` object (modifying `hero_spider_boy.teams`), we are adding `team_z_force` to the **session**. And we commit that, without even add `hero_spider_boy`.
+这次，我们再次展示，使用 `back_populates` 时，**SQLModel**（实际上是 SQLAlchemy）会自动处理通过关系连接模型的工作，即使我们是从 `hero_spider_boy` 对象（修改 `hero_spider_boy.teams`）执行操作，实际上我们是在将 `team_z_force` 添加到 **会话** 中，并提交它，而不需要显式地添加 `hero_spider_boy`。
 
-This still works because by updating the teams in `hero_spider_boy`, because they are synchronized with `back_populates`, the changes are also reflected in `team_z_force`, so it also has changes to be saved in the DB (that **Spider-Boy** was removed).
+这依然有效，因为通过更新 `hero_spider_boy` 中的队伍（它们与 `back_populates` 同步），这些更改也会反映到 `team_z_force` 中，因此它也有更改需要保存到数据库中（即 **Spider-Boy** 被移除）。
 
-And then we add the team, and commit the changes, which updates the `team_z_force` object, and because it changed the table that also had a connection with the `hero_spider_boy`, it is also marked internally as updated, so it all works.
+然后，我们将该团队添加到会话，并提交更改，从而更新 `team_z_force` 对象。由于它更改了与 `hero_spider_boy` 相关联的表，它也会在内部标记为已更新，因此一切都正常工作。
 
-And then we just print them again to confirm that everything worked correctly.
+最后，我们再次打印它们，以确认一切是否正常。
 
-## Run the Program Again
+## 再次运行程序
 
-To confirm that this last part worked, you can run the program again, it will output something like:
+为了确认最后的部分是否正常工作，您可以再次运行程序，它会输出类似如下内容：
 
 <div style="font-size: 1rem;" class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 上面的输出省略 🙈
 
-// Delete the row in the link table
+// 删除连接表中的行
 INFO Engine DELETE FROM heroteamlink WHERE heroteamlink.team_id = ? AND heroteamlink.hero_id = ?
-INFO Engine [generated in 0.00043s] (1, 3)
-// Save the changes
+INFO Engine [生成于 0.00043s] (1, 3)
+// 保存更改
 INFO Engine COMMIT
 
-// Automatically start a new transaction
+// 自动开始一个新的事务
 INFO Engine BEGIN (implicit)
 
-// Automatically refresh the data while accessing the attribute .heroes
+// 访问属性 .heroes 时自动刷新数据
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team
 WHERE team.id = ?
-INFO Engine [generated in 0.00029s] (1,)
+INFO Engine [生成于 0.00029s] (1,)
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero, heroteamlink
 WHERE ? = heroteamlink.team_id AND hero.id = heroteamlink.hero_id
-INFO Engine [cached since 0.5625s ago] (1,)
+INFO Engine [缓存自 0.5625s 前] (1,)
 
-// Print the Z-Force heroes after reverting the changes
-Reverted Z-Force's heroes: [
+// 打印撤销更改后的 Z-Force 英雄
+撤销后的 Z-Force 英雄: [
     Hero(name='Deadpond', age=None, id=1, secret_name='Dive Wilson')
 ]
 
-// Automatically refresh the data while accessing the attribute .teams
+// 访问属性 .teams 时自动刷新数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero
 WHERE hero.id = ?
-INFO Engine [cached since 0.4209s ago] (3,)
+INFO Engine [缓存自 0.4209s 前] (3,)
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
 FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
-INFO Engine [cached since 0.5842s ago] (3,)
+INFO Engine [缓存自 0.5842s 前] (3,)
 
-// Print Spider-Boy's teams after reverting the changes
-Reverted Spider-Boy's teams: [
+// 打印撤销更改后的 Spider-Boy 队伍
+撤销后的 Spider-Boy 队伍: [
     Team(id=2, name='Preventers', headquarters='Sharp Tower')
 ]
 
-// Automatically roll back any possible previously unsaved transaction
+// 自动回滚任何可能尚未保存的事务
 INFO Engine ROLLBACK
 
 ```
 
 </div>
 
-## Recap
+## 总结
 
-Updating and removing many-to-many relationships is quite straightforward after setting up the **link model** and the relationship attributes.
+在设置好 **连接模型** 和关系属性之后，更新和移除多对多关系是相当简单的。
 
-You can just use common list operation. 🚀
+您只需使用常见的列表操作即可。 🚀

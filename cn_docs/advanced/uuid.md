@@ -1,138 +1,138 @@
-# UUID (Universally Unique Identifiers)
+# UUID（通用唯一标识符）
 
-We have discussed some data types like `str`, `int`, etc.
+我们已经讨论了一些数据类型，如 `str`、`int` 等。
 
-There's another data type called `UUID` (Universally Unique Identifier).
+另一个数据类型是 `UUID`（通用唯一标识符）。
 
-You might have seen **UUIDs**, for example in URLs. They look something like this:
+你可能在 URL 中见过 **UUIDs**，它们看起来像这样：
 
 ```
 4ff2dab7-bffe-414d-88a5-1826b9fea8df
 ```
 
-UUIDs can be particularly useful as an alternative to auto-incrementing integers for **primary keys**.
+UUIDs 可以作为 **主键** 的替代，用来代替自动递增的整数。
 
 /// info
 
-Official support for UUIDs was added in SQLModel version `0.0.20`.
+UUIDs 的官方支持在 SQLModel 版本 `0.0.20` 中被添加。
 
 ///
 
-## About UUIDs
+## 关于 UUIDs
 
-UUIDs are numbers with 128 bits, that is, 16 bytes.
+UUIDs 是 128 位的数字，即 16 字节。
 
-They are normally seen as 32 <abbr title="numbers in base 16 (instead of base 10), using letters from A to F to represent the numbers from 10 to 15">hexadecimal</abbr> characters separated by dashes.
+它们通常表示为由 32 个 **十六进制** 字符组成，这些字符由短横线分隔。
 
-There are several versions of UUID, some versions include the current time in the bytes, but **UUIDs version 4** are mainly random, the way they are generated makes them virtually **unique**.
+UUID 有多个版本，其中一些版本将当前时间包含在字节中，但 **UUID 版本 4** 主要是随机的，它们的生成方式使得它们几乎是 **唯一的**。
 
-### Distributed UUIDs
+### 分布式 UUIDs
 
-You could generate one UUID in one computer, and someone else could generate another UUID in another computer, and it would be almost **impossible** for both UUIDs to be the **same**.
+你可以在一台计算机上生成一个 UUID，在另一台计算机上生成另一个 UUID，它们几乎 **不可能** 完全相同。
 
-This means that you don't have to wait for the DB to generate the ID for you, you can **generate it in code before sending it to the database**, because you can be quite certain it will be unique.
+这意味着，你无需等待数据库为你生成 ID，可以在代码中 **提前生成 UUID 并发送到数据库**，因为你可以非常确定它是唯一的。
 
-/// note | Technical Details
+/// note | 技术细节
 
-Because the number of possible UUIDs is so large (2^128), the probability of generating the same UUID version 4 (the random ones) twice is very low.
+由于可能的 UUID 数量非常大（2^128），因此生成两个相同的 UUID 版本 4（即随机生成的 UUID）的概率非常低。
 
-If you had 103 trillion version 4 UUIDs stored in the database, the probability of generating a duplicated new one is one in a billion. 🤓
+如果你在数据库中存储了 103 万亿个版本 4 的 UUID，那么生成一个重复 UUID 的概率是十亿分之一。 🤓
 
 ///
 
-For the same reason, if you decided to migrate your database, combine it with another database and mix records, etc. you would most probably be able to **just use the same UUIDs** you had originally.
+出于同样的原因，如果你决定迁移数据库，将其与另一个数据库合并或混合记录等，你很可能 **可以直接使用原来的 UUIDs**。
 
 /// warning
 
-There's still a chance you could have a collision, but it's very low. In most cases you could assume you wouldn't have it, but it would be good to be prepared for it.
+尽管发生碰撞的几率非常低，但它仍然存在。在大多数情况下，你可以假设不会发生碰撞，但做好准备总是好的。
 
 ///
 
-### UUIDs Prevent Information Leakage
+### UUIDs 防止信息泄露
 
-Because UUIDs version 4 are **random**, you could give these IDs to the application users or to other systems, **without exposing information** about your application.
+由于 UUID 版本 4 是 **随机的**，你可以将这些 ID 发送给应用程序用户或其他系统，**而不会暴露** 应用程序的任何信息。
 
-When using **auto-incremented integers** for primary keys, you could implicitly expose information about your system. For example, someone could create a new hero, and by getting the hero ID `20` **they would know that you have 20 heroes** in your system (or even less, if some heroes were already deleted).
+使用 **自动递增的整数** 作为主键时，可能会无意中暴露系统中的信息。例如，某人可以创建一个新的英雄，并通过获取英雄 ID `20` **推断出系统中有 20 个英雄**（如果某些英雄已被删除，实际数量可能更少）。
 
-### UUID Storage
+### UUID 存储
 
-Because UUIDs are 16 bytes, they would **consume more space** in the database than a smaller auto-incremented integer (commonly 4 bytes).
+由于 UUID 是 16 字节，它们在数据库中 **占用的空间比较大**，比自动递增的整数（通常为 4 字节）要多。
 
-Depending on the database you use, UUIDs could have **better or worse performance**. If you are concerned about that, you should check the documentation for the specific database.
+根据你使用的数据库，UUIDs 的 **性能和空间使用** 可能会有所不同。如果你关心这些问题，应该查阅特定数据库的文档。
 
-SQLite doesn't have a specific UUID type, so it will store the UUID as a string. Other databases like Postgres have a specific UUID type which would result in better performance and space usage than strings.
+SQLite 没有专门的 UUID 类型，因此它会将 UUID 存储为字符串。其他数据库，如 Postgres，有专门的 UUID 类型，这将比字符串更节省空间且性能更好。
 
-## Models with UUIDs
+## 使用 UUID 的模型
 
-To use UUIDs as primary keys we need to import `uuid`, which is part of the Python standard library (we don't have to install anything) and use `uuid.UUID` as the **type** for the ID field.
+为了使用 UUID 作为主键，我们需要导入 `uuid`，它是 Python 标准库的一部分（不需要额外安装），并使用 `uuid.UUID` 作为 ID 字段的 **类型**。
 
-We also want the Python code to **generate a new UUID** when creating a new instance, so we use `default_factory`.
+我们还希望 Python 代码 **在创建新实例时生成新的 UUID**，所以我们使用 `default_factory`。
 
-The parameter `default_factory` takes a function (or in general, a "<abbr title="Something that can be called as a function.">callable</abbr>"). This function will be **called when creating a new instance** of the model and the value returned by the function will be used as the default value for the field.
+`default_factory` 参数接受一个函数（或者一般来说是一个 “可调用” 对象）。这个函数会在创建模型的新实例时 **被调用**，并返回的值将作为字段的默认值。
 
-For the function in `default_factory` we pass `uuid.uuid4`, which is a function that generates a **new UUID version 4**.
+对于 `default_factory` 中的函数，我们传递 `uuid.uuid4`，这是一个生成 **新的 UUID 版本 4** 的函数。
 
 /// tip
 
-We don't call `uuid.uuid4()` ourselves in the code (we don't put the parenthesis). Instead, we pass the function itself, just `uuid.uuid4`, so that SQLModel can call it every time we create a new instance.
+我们在代码中不会自己调用 `uuid.uuid4()`（不会加括号）。相反，我们只传递函数本身，`uuid.uuid4`，以便 SQLModel 每次创建新实例时都能调用它。
 
 ///
 
-This means that the UUID will be generated in the Python code, **before sending the data to the database**.
+这意味着 UUID 会在 Python 代码中生成，**在将数据发送到数据库之前**。
 
 {* ./docs_src/advanced/uuid/tutorial001_py310.py ln[1:10] hl[1,7] *}
 
-Pydantic has support for <a href="https://docs.pydantic.dev/latest/api/standard_library_types/#uuid" class="external-link" target="_blank">`UUID` types</a>.
+Pydantic 支持 <a href="https://docs.pydantic.dev/latest/api/standard_library_types/#uuid" class="external-link" target="_blank">`UUID` 类型</a>。
 
-For the database, **SQLModel** internally uses <a href="https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.Uuid" class="external-link" target="_blank">SQLAlchemy's `Uuid` type</a>.
+对于数据库，**SQLModel** 内部使用 <a href="https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.Uuid" class="external-link" target="_blank">SQLAlchemy 的 `Uuid` 类型</a>。
 
-### Create a Record with a UUID
+### 使用 UUID 创建记录
 
-When creating a `Hero` record, the `id` field will be **automatically populated** with a new UUID because we set `default_factory=uuid.uuid4`.
+创建 `Hero` 记录时，`id` 字段会 **自动填充** 新的 UUID，因为我们设置了 `default_factory=uuid.uuid4`。
 
-As `uuid.uuid4` will be called when creating the model instance, even before sending it to the database, we can **access and use the ID right away**.
+由于 `uuid.uuid4` 会在创建模型实例时被调用，所以即使在将数据发送到数据库之前，我们也可以 **立即访问并使用这个 ID**。
 
-And that **same ID (a UUID)** will be saved in the database.
+而这个 **相同的 ID（UUID）** 会被保存到数据库中。
 
 {* ./docs_src/advanced/uuid/tutorial001_py310.py ln[23:34] hl[25,27,29,34] *}
 
-### Select a Hero
+### 选择一个英雄
 
-We can do the same operations we could do with other fields.
+我们可以对 UUID 进行与其他字段相同的操作。
 
-For example we can **select a hero by ID**:
+例如，我们可以 **通过 ID 选择一个英雄**：
 
 {* ./docs_src/advanced/uuid/tutorial001_py310.py ln[37:54] hl[49] *}
 
 /// tip
 
-Even if a database like SQLite stores the UUID as a string, we can select and run comparisons using a Python UUID object and it will work.
+即使像 SQLite 这样的数据库将 UUID 存储为字符串，我们也可以使用 Python 的 UUID 对象进行选择和比较，它仍然有效。
 
-SQLModel (actually SQLAlchemy) will take care of making it work. ✨
+SQLModel（实际上是 SQLAlchemy）会处理这些操作。✨
 
 ///
 
-#### Select with `session.get()`
+#### 使用 `session.get()` 选择
 
-We could also select by ID with `session.get()`:
+我们也可以使用 `session.get()` 按 ID 进行选择：
 
 {* ./docs_src/advanced/uuid/tutorial002_py310.py ln[37:53] hl[49] *}
 
-The same way as with other fields, we could update, delete, etc. 🚀
+像处理其他字段一样，我们也可以更新、删除等。🚀
 
-### Run the program
+### 运行程序
 
-If you run the program, you will see the **UUID** generated in the Python code, and then the record **saved in the database with the same UUID**.
+如果运行程序，你将看到 **UUID** 在 Python 代码中生成，并且记录 **以相同的 UUID 保存到数据库** 中。
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate and previous output omitted 😉
+// 一些模板和前面的输出省略 😉
 
-// In SQLite, the UUID will be stored as a string
-// other DBs like Postgres have a specific UUID type
+// 在 SQLite 中，UUID 会作为字符串存储
+// 其他数据库如 Postgres 有专门的 UUID 类型
 CREATE TABLE hero (
         id CHAR(32) NOT NULL,
         name VARCHAR NOT NULL,
@@ -141,27 +141,27 @@ CREATE TABLE hero (
         PRIMARY KEY (id)
 )
 
-// Before saving in the DB we already have the UUID
+// 在保存到数据库之前，我们已经有了 UUID
 The hero before saving in the DB
 name='Deadpond' secret_name='Dive Wilson' id=UUID('0e44c1a6-88d3-4a35-8b8a-307faa2def28') age=None
 The hero ID was already set
 0e44c1a6-88d3-4a35-8b8a-307faa2def28
 
-// The SQL statement to insert the record uses our UUID
+// 插入记录的 SQL 语句使用了我们创建的 UUID
 INSERT INTO hero (id, name, secret_name, age) VALUES (?, ?, ?, ?)
 ('0e44c1a688d34a358b8a307faa2def28', 'Deadpond', 'Dive Wilson', None)
 
-// And indeed, the record was saved with the UUID we created 😎
+// 记录确实使用我们创建的 UUID 保存了 😎
 After saving in the DB
 age=None id=UUID('0e44c1a6-88d3-4a35-8b8a-307faa2def28') name='Deadpond' secret_name='Dive Wilson'
 
-// Now we create a new hero (to select it in a bit)
+// 现在我们创建一个新英雄（稍后选择）
 Created hero:
 age=None id=UUID('9d90d186-85db-4eaa-891a-def7b4ae2dab') name='Spider-Boy' secret_name='Pedro Parqueador'
 Created hero ID:
 9d90d186-85db-4eaa-891a-def7b4ae2dab
 
-// And now we select it
+// 然后我们选择它
 Selected hero:
 age=None id=UUID('9d90d186-85db-4eaa-891a-def7b4ae2dab') name='Spider-Boy' secret_name='Pedro Parqueador'
 Selected hero ID:
@@ -170,9 +170,9 @@ Selected hero ID:
 
 </div>
 
-## Learn More
+## 了解更多
 
-You can learn more about **UUIDs** in:
+你可以了解更多关于 **UUIDs** 的信息：
 
-* The official <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python docs for UUID</a>.
-* The <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier" class="external-link" target="_blank">Wikipedia for UUID</a>.
+* 官方的 <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python UUID 文档</a>。
+* <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier" class="external-link" target="_blank">Wikipedia 关于 UUID 的介绍</a>。

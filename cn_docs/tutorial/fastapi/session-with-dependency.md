@@ -1,19 +1,19 @@
-# Session with FastAPI Dependency
+# 使用 FastAPI 依赖项管理 Session
 
-Before we keep adding things, let's change a bit how we get the session for each request to simplify our life later.
+在我们继续添加功能之前，让我们稍微改变一下获取每个请求的 session 的方式，以便以后简化我们的工作。
 
-## Current Sessions
+## 当前的 Session
 
-Up to now, we have been creating a session in each *path operation*, in a `with` block.
+到目前为止，我们在每个 *路径操作* 中都在 `with` 块中创建了一个 session。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/delete/tutorial001_py310.py[ln:48-55]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -21,11 +21,11 @@ Up to now, we have been creating a session in each *path operation*, in a `with`
 //// tab | Python 3.9+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/delete/tutorial001_py39.py[ln:50-57]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -33,16 +33,16 @@ Up to now, we have been creating a session in each *path operation*, in a `with`
 //// tab | Python 3.7+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/delete/tutorial001.py[ln:50-57]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -70,26 +70,26 @@ Up to now, we have been creating a session in each *path operation*, in a `with`
 
 ///
 
-That's perfectly fine, but in many use cases we would want to use <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI Dependencies</a>, for example to **verify** that the client is **logged in** and get the **current user** before executing any other code in the *path operation*.
+这样做是完全没问题的，但在许多情况下，我们希望使用 [FastAPI 依赖项](https://fastapi.tiangolo.com/tutorial/dependencies/)，例如在执行任何其他代码之前， **验证** 客户端是否 **登录** 并获取 **当前用户** 。
 
-These dependencies are also very useful during **testing**, because we can **easily replace them**, and then, for example, use a new database for our tests, or put some data before the tests, etc.
+这些依赖项在 **测试** 中也非常有用，因为我们可以 **轻松地替换它们**，然后例如为测试使用新的数据库，或在测试前插入一些数据等。
 
-So, let's refactor these sessions to use **FastAPI Dependencies**.
+因此，让我们重构这些 session，使其使用 **FastAPI 依赖项**。
 
-## Create a **FastAPI** Dependency
+## 创建一个 **FastAPI** 依赖项
 
-A **FastAPI** dependency is very simple, it's just a function that returns a value.
+**FastAPI** 依赖项非常简单，它只是一个返回值的函数。
 
-It could use `yield` instead of `return`, and in that case **FastAPI** will make sure it executes all the code **after** the `yield`, once it is done with the request.
+它可以使用 `yield` 替代 `return`，在这种情况下，**FastAPI** 会确保在请求完成后执行所有 `yield` 之后的代码。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-5"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -97,11 +97,11 @@ It could use `yield` instead of `return`, and in that case **FastAPI** will make
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-5"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -109,16 +109,16 @@ It could use `yield` instead of `return`, and in that case **FastAPI** will make
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-5"
-# Code above omitted 👆
+# 代码省略 👆
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -146,26 +146,26 @@ It could use `yield` instead of `return`, and in that case **FastAPI** will make
 
 ///
 
-## Use the Dependency
+## 使用依赖项
 
-Now let's make FastAPI execute a dependency and get its value in the *path operation*.
+现在，让我们让 FastAPI 执行一个依赖项，并在 *路径操作* 中获取它的值。
 
-We import `Depends()` from `fastapi`. Then we use it in the *path operation function* in a **parameter**, the same way we declared parameters to get JSON bodies, path parameters, etc.
+我们从 `fastapi` 导入 `Depends()`，然后在 *路径操作函数* 中使用它作为一个 **参数**，就像我们声明参数以获取 JSON 数据体、路径参数等一样。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="1  13"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:1-2]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:53-59]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -175,15 +175,15 @@ We import `Depends()` from `fastapi`. Then we use it in the *path operation func
 ```Python hl_lines="3  15"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:55-61]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -193,20 +193,20 @@ We import `Depends()` from `fastapi`. Then we use it in the *path operation func
 ```Python hl_lines="3  15"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-61]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -236,44 +236,44 @@ We import `Depends()` from `fastapi`. Then we use it in the *path operation func
 
 /// tip
 
-Here's a tip about that `*,` thing in the parameters.
+这里有一个关于参数中 `*,` 的小贴士。
 
-Here we are passing the parameter `session` that has a "default value" of `Depends(get_session)` before the parameter `hero`, that doesn't have any default value.
+在这里，我们传递了一个参数 `session`，它的“默认值”是 `Depends(get_session)`，位于没有默认值的参数 `hero` 之前。
 
-Python would normally complain about that, but we can use the initial "parameter" `*,` to mark all the rest of the parameters as "keyword only", which solves the problem.
+通常情况下，Python 会抱怨这个，但我们可以使用初始的“参数” `*,` 来将剩下的参数标记为“仅限关键字”，这样就解决了这个问题。
 
-You can read more about it in the FastAPI documentation <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks" class="external-link" target="_blank">Path Parameters and Numeric Validations - Order the parameters as you need, tricks</a>
+你可以在 FastAPI 文档中阅读更多关于这个的内容：[路径参数和数字验证 - 按需排序参数技巧](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks)
 
 ///
 
-The value of a dependency will **only be used for one request**, FastAPI will call it right before calling your code and will give you the value from that dependency.
+依赖项的值 **只会用于一次请求**，FastAPI 会在调用你的代码之前调用它，并将依赖项的值传递给你。
 
-If it had `yield`, then it will continue the rest of the execution once you are done sending the response. In the case of the **session**, it will finish the cleanup code from the `with` block, closing the session, etc.
+如果它有 `yield`，那么在你完成发送响应后，FastAPI 会继续执行 `yield` 之后的其余代码。在 **session** 的情况下，它会完成 `with` 块中的清理代码，关闭 session 等。
 
-Then FastAPI will call it again for the **next request**.
+然后，FastAPI 会在 **下一个请求** 时再次调用它。
 
-Because it is called **once per request**, we will still get a **single session per request** as we should, so we are still fine with that. ✅
+由于它是 **每次请求调用一次**，我们仍然会为每个请求获取 **单个 session**，因此我们仍然是可以接受的。✅
 
-And because dependencies can use `yield`, FastAPI will make sure to run the code **after** the `yield` once it is done, including all the **cleanup code** at the end of the `with` block. So we are also fine with that. ✅
+因为依赖项可以使用 `yield`，FastAPI 会确保在完成后运行 `yield` 之后的代码，包括 `with` 块末尾的所有 **清理代码**。所以我们也可以接受这一点。✅
 
-## The `with` Block
+## `with` 块
 
-This means that in the main code of the *path operation function*, it will work equivalently to the previous version with the explicit `with` block.
+这意味着在 *路径操作函数* 的主代码中，它将与之前使用显式 `with` 块的版本等效。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="14-18"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:1-2]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:53-59]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -283,15 +283,15 @@ This means that in the main code of the *path operation function*, it will work 
 ```Python hl_lines="16-20"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:55-61]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -301,20 +301,20 @@ This means that in the main code of the *path operation function*, it will work 
 ```Python hl_lines="16-20"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-61]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -342,24 +342,24 @@ This means that in the main code of the *path operation function*, it will work 
 
 ///
 
-In fact, you could think that all that block of code inside of the `create_hero()` function is still inside a `with` block for the **session**, because this is more or less what's happening behind the scenes.
+实际上，你可以认为 `create_hero()` 函数中所有的代码块仍然是在 **session** 的 `with` 块内，因为这基本上是幕后发生的事情。
 
-But now, the `with` block is not explicitly in the function, but in the dependency above:
+但现在，`with` 块并不显式在函数内，而是在上面的依赖项中：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="7-8"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:1-2]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:53-59]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -369,15 +369,15 @@ But now, the `with` block is not explicitly in the function, but in the dependen
 ```Python hl_lines="9-10"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:55-61]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -387,20 +387,20 @@ But now, the `with` block is not explicitly in the function, but in the dependen
 ```Python hl_lines="9-10"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-61]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -428,30 +428,30 @@ But now, the `with` block is not explicitly in the function, but in the dependen
 
 ///
 
-We will see how this is very useful when testing the code later. ✅
+我们稍后会看到，这在测试代码时非常有用。✅
 
-## Update the Path Operations to Use the Dependency
+## 更新路径操作以使用依赖项
 
-Now we can update the rest of the *path operations* to use the new dependency.
+现在，我们可以更新其余的 *路径操作* 以使用新的依赖项。
 
-We just declare the dependency in the parameters of the function, with:
+我们只需在函数的参数中声明依赖项，使用：
 
 ```Python
 session: Session = Depends(get_session)
 ```
 
-And then we remove the previous `with` block with the old **session**.
+然后，移除之前使用旧 **session** 的 `with` 块。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="13  24  33  42  57"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:1-2]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:53-104]!}
 ```
@@ -463,11 +463,11 @@ And then we remove the previous `with` block with the old **session**.
 ```Python hl_lines="15  26  35  44  59"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:55-106]!}
 ```
@@ -479,18 +479,18 @@ And then we remove the previous `with` block with the old **session**.
 ```Python hl_lines="15  26  35  44  59"
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:1-4]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
 
-# Code here omitted 👈
+# 代码省略 👈
 
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-106]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -518,10 +518,10 @@ And then we remove the previous `with` block with the old **session**.
 
 ///
 
-## Recap
+## 小结
 
-You just learned how to use **FastAPI dependencies** to handle the database session. This will come in handy later when testing the code.
+你刚刚学习了如何使用 **FastAPI 依赖项** 来处理数据库会话。这将在稍后的测试代码中派上用场。
 
-And you will see how much these dependencies can help the more you work with FastAPI, to handle **permissions**, **authentication**, resources like database **sessions**, etc. 🚀
+随着你在 FastAPI 中的工作越来越多，你会发现这些依赖项能帮助你处理 **权限**、**认证**、数据库 **会话** 等资源。🚀
 
-If you want to learn more about dependencies, checkout the <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI docs about Dependencies</a>.
+如果你想了解更多关于依赖项的内容，请查看 <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI 文档中的依赖项</a>。

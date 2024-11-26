@@ -1,43 +1,43 @@
-# Code Structure and Multiple Files
+# 代码结构与多个文件
 
-Let's stop for a second to think about how to structure the code, particularly in **large projects** with multiple files.
+让我们停下来思考一下如何组织代码，特别是在 **大型项目** 中，涉及多个文件的情况。
 
-## Circular Imports
+## 循环导入
 
-The class `Hero` has a reference to the class `Team` internally.
+`Hero` 类内部引用了 `Team` 类。
 
-But the class `Team` also has a reference to the class `Hero`.
+但是，`Team` 类也引用了 `Hero` 类。
 
-So, if those two classes were in separate files and you tried to import the classes in each other's file directly, it would result in a **circular import**. 🔄
+因此，如果这两个类分别位于不同的文件中，并且你尝试直接在彼此的文件中导入这些类，就会导致 **循环导入** 。🔄
 
-And Python will not be able to handle it and will throw an error. 🚨
+Python 无法处理这种情况，会抛出一个错误。🚨
 
-But we actually want to *mean* that **circular reference**, because in our code, we would be able to do crazy things like:
+但实际上，我们希望表达的是 **这种循环引用** ，因为在我们的代码中，我们可以做一些非常炫酷的事情，例如：
 
 ```Python
 hero.team.heroes[0].team.heroes[1].team.heroes[2].name
 ```
 
-And that circular reference is what we are expressing with these **relationship attributes**, that:
+这个循环引用正是我们通过这些 **关系属性** 在表达的意思，即：
 
-* A hero can have a team
-    * That team can have a list of heroes
-        * Each of those heroes can have a team
-            * ...and so on.
+* 一个英雄可以有一个团队
+    * 这个团队可以有一组英雄
+        * 这些英雄中的每个都可以有一个团队
+            * ...以此类推。
 
-Let's see different strategies to **structure the code** accounting for this.
+接下来，我们将看到几种 **结构化代码** 的策略，考虑到这种情况。
 
-## Single Module for Models
+## 单一模块模型
 
-This is the simplest way. ✨
+这是最简单的方式。✨
 
-In this solution we are still using **multiple files**, for the `models`, for the `database`, and for the `app`.
+在这种解决方案中，我们仍然使用 **多个文件** ，分别用于 `models`、`database` 和 `app`。
 
-And we could have any **other files** necessary.
+我们还可以有任何其他必要的 **文件** 。
 
-But in this first case, all the models would live in a **single file**.
+但在这种情况下，所有的模型都会放在 **一个文件** 中。
 
-The file structure of the project could be:
+项目的文件结构可能是：
 
 ```
 .
@@ -48,89 +48,87 @@ The file structure of the project could be:
     └── models.py
 ```
 
-We have 3 <abbr title="Python files that can be imported or run">**Python modules**</abbr> (or files):
+我们有 3 个 **Python模块** （或文件）：
 
 * `app`
 * `database`
 * `models`
 
-And we also have an empty `__init__.py` file to make this project a "**Python package**" (a collection of Python modules). This way we can use **relative imports** in the `app.py` file/module, like:
+我们还会有一个空的 `__init__.py` 文件，使该项目成为一个“ **Python 包** ”（一组 Python 模块）。这样，我们就可以在 `app.py` 文件/模块中使用 **相对导入** ，比如：
 
 ```Python
 from .models import Hero, Team
 from .database import engine
 ```
 
-We can use these relative imports because, for example, in the file `app.py` (the `app` module) Python knows that it is **part of our Python package** because it is in the same directory as the file `__init__.py`. And all the Python files on the same directory are part of the same Python package too.
+我们之所以能使用这些相对导入，是因为，例如，在文件 `app.py`（`app` 模块）中，Python 知道它是 **我们 Python 包的一部分** ，因为它与 `__init__.py` 文件位于同一目录。而同一目录下的所有 Python 文件也都属于同一个 Python 包。
 
-### Models File
+### 模型文件
 
-You could put all the database Models in a single Python module (a single Python file), for example `models.py`:
+你可以将所有数据库模型放在一个 Python 模块（一个 Python 文件）中，例如 `models.py`：
 
 ```Python
 {!./docs_src/tutorial/code_structure/tutorial001/models.py!}
 ```
 
-This way, you wouldn't have to deal with circular imports for other models.
+这样，你就不需要为其他模型处理循环导入的问题。
 
-And then you could import the models from this file/module in any other file/module in your application.
+然后，你可以在应用程序中的任何其他文件/模块中导入该文件/模块中的模型。
 
-### Database File
+### 数据库文件
 
-Then you could put the code creating the **engine** and the function to create all the tables (if you are not using migrations) in another file `database.py`:
+然后，你可以将创建**engine** 和创建所有表的函数（如果没有使用迁移的话）放在另一个文件 `database.py` 中：
 
 ```Python
 {!./docs_src/tutorial/code_structure/tutorial001/database.py!}
 ```
 
-This file would also be imported by your application code, to use the shared **engine** and to get and call the function `create_db_and_tables()`.
+这个文件也会被你的应用程序代码导入，以便使用共享的 **engine** ，并调用函数 `create_db_and_tables()`。
 
-### Application File
+### 应用程序文件
 
-Finally, you could put the code to create the **app** in another file `app.py`:
+最后，你可以将创建 **应用程序** 的代码放在另一个文件 `app.py` 中：
 
 ```Python hl_lines="3-4"
 {!./docs_src/tutorial/code_structure/tutorial001/app.py!}
 ```
 
-Here we import the models, the engine, and the function to create all the tables and then we can use them all internally.
+在这里，我们导入模型、engine 以及创建所有表的函数，然后可以在内部使用它们。
 
-### Order Matters
+### 顺序很重要
 
-Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank} when calling `SQLModel.metadata.create_all()`?
+记得在调用 `SQLModel.metadata.create_all()` 时， **顺序很重要** 吗？ [文档中的这一部分](create-db-and-table.md#sqlmodel-metadata-order-matters) 指出，你必须在调用 `SQLModel.metadata.create_all()` 之前，导入包含模型的模块。
 
-The point of that section in the docs is that you have to import the module that has the models **before** calling `SQLModel.metadata.create_all()`.
+我们在这里做的是，首先在 `app.py` 中导入模型，然后 **再** 创建数据库和表格，所以一切都正常，代码也能正确运行。👌
 
-We are doing that here, we import the models in `app.py` and **after** that we create the database and tables, so we are fine and everything works correctly. 👌
+### 在命令行运行
 
-### Run It in the Command Line
-
-Because now this is a larger project with a **Python package** and not a single Python file, we **cannot** call it just passing a single file name as we did before with:
+因为现在这是一个包含 **Python 包** 的较大项目，而不是一个单一的 Python 文件，所以我们 **不能** 像以前那样只传递单个文件名来运行：
 
 ```console
 $ python app.py
 ```
 
-Now we have to tell Python that we want it to execute a *module* that is part of a package:
+现在，我们需要告诉 Python，我们希望它执行一个作为包一部分的*模块*：
 
 ```console
 $ python -m project.app
 ```
 
-The `-m` is to tell Python to call a *module*. And the next thing we pass is a string with `project.app`, that is the same format we would use in an **import**:
+`-m` 选项告诉 Python 调用一个*模块*。接下来，我们传递 `project.app` 字符串，这是我们在 **导入** 时使用的相同格式：
 
 ```Python
 import project.app
 ```
 
-Then Python will execute that module *inside* of that package, and because Python is executing it directly, the same trick with the **main block** that we have in `app.py` will still work:
+然后，Python 会在该包内执行该模块，并且由于 Python 是直接执行它的，`app.py` 中的 **主函数块** （main block）仍然会起作用：
 
 ```Python
 if __name__ == '__main__':
     main()
 ```
 
-So, the output would be:
+所以，输出将是：
 
 <div class="termy">
 
@@ -143,21 +141,21 @@ Hero's team: name='Z-Force' headquarters='Sister Margaret's Bar' id=1
 
 </div>
 
-## Make Circular Imports Work
+## 解决循环导入问题
 
-Let's say that for some reason you hate the idea of having all the database models together in a single file, and you really want to have **separate files** a `hero_model.py` file and a `team_model.py` file.
+假设由于某种原因，你不喜欢将所有数据库模型放在一个文件中，而是希望将它们分开，分别放在 `hero_model.py` 和 `team_model.py` 文件中。
 
-You can also do it. 😎 There's a couple of things to keep in mind. 🤓
+你当然可以这样做。😎 但有几件事需要注意。🤓
 
-/// warning
+/// 警告
 
-This is a bit more advanced.
+这有点更高级。
 
-If the solution above already worked for you, that might be enough for you, and you can continue in the next chapter. 🤓
+如果上面的解决方案已经适用于你，那可能就足够了，你可以继续进行下一章的内容。🤓
 
 ///
 
-Let's assume that now the file structure is:
+假设现在文件结构变为：
 
 ```
 .
@@ -169,73 +167,73 @@ Let's assume that now the file structure is:
     └── team_model.py
 ```
 
-### Circular Imports and Type Annotations
+### 循环导入和类型注解
 
-The problem with circular imports is that Python can't resolve them at <abbr title="While it is executing the program, as opposed to the code as just text in a file stored on disk.">*runtime*</abbr>.
+循环导入的问题在于，Python 无法在 **运行时** 解决它们。
 
-But when using Python **type annotations** it's very common to need to declare the type of some variables with classes imported from other files.
+但是，在使用 Python **类型注解** 时，通常需要声明一些变量的类型，这些变量的类可能是从其他文件导入的。
 
-And the files with those classes might **also need to import** more things from the first files.
+而这些包含类的文件 **也可能需要导入** 更多来自第一个文件的内容。
 
-And this ends up *requiring* the same **circular imports** that are not supported in Python at *runtime*.
+这最终就需要使用 **循环导入** ，而 Python 在 **运行时** 是不支持的。
 
-### Type Annotations and Runtime
+### 类型注解与运行时
 
-But these **type annotations** we want to declare are not needed at *runtime*.
+但这些我们想声明的 **类型注解** 并不需要在 **运行时** 使用。
 
-In fact, remember that we used `List["Hero"]`, with a `"Hero"` in a string?
+事实上，记得我们使用了 `List["Hero"]`，其中 `"Hero"` 是一个字符串吗？
 
-For Python, at runtime, that is **just a string**.
+对 Python 来说，在运行时，这只是一个 **字符串**。
 
-So, if we could add the type annotations we need using the **string versions**, Python wouldn't have a problem.
+所以，如果我们能用 **字符串版本** 添加需要的类型注解，Python 就不会有问题。
 
-But if we just put strings in the type annotations, without importing anything, the editor wouldn't know what we mean, and wouldn't be able to help us with **autocompletion** and **inline errors**.
+但如果我们仅在类型注解中使用字符串，而不导入任何东西，编辑器就无法知道我们的意思，也无法提供 **自动补全** 和 **内联错误** 的帮助。
 
-So, if there was a way to "import" some things that act as "imported" only while editing the code but not at <abbr title="When Python is executing the code.">*runtime*</abbr>, that would solve it... And it exists! Exactly that. 🎉
+因此，如果有一种方法可以“导入”某些内容，只在编辑代码时作为“导入”，而在 **运行时** 不需要导入，那就可以解决这个问题……而这种方法确实存在！就是这样。🎉
 
-### Import Only While Editing with `TYPE_CHECKING`
+### 仅在编辑时导入 `TYPE_CHECKING`
 
-To solve it, there's a special trick with a special <abbr title="Technically it's a constant, it doesn't vary in the code 🤷">variable</abbr> `TYPE_CHECKING` in the `typing` module.
+为了解决这个问题，Python 提供了一个特殊的技巧，利用 `typing` 模块中的一个特殊变量 `TYPE_CHECKING`。
 
-It has a value of `True` for editors and tools that analyze the code with the type annotations.
+该变量在代码编辑器和工具分析类型注解时值为 `True`。
 
-But when Python is executing, its value is `False`.
+但当 Python 执行时，值为 `False`。
 
-So, we can use it in an `if` block and import things inside the `if` block. And they will be "imported" only for editors, but not at runtime.
+因此，我们可以在 `if` 块中使用它，在其中导入其他内容。这样，这些内容只会在编辑器中“导入”，而在运行时不会导入。
 
-### Hero Model File
+### Hero 模型文件
 
-Using that trick of `TYPE_CHECKING` we can "import" the `Team` in `hero_model.py`:
+使用 `TYPE_CHECKING` 的技巧，我们可以在 `hero_model.py` 中“导入” `Team`：
 
 ```Python hl_lines="1  5-6  16"
 {!./docs_src/tutorial/code_structure/tutorial002/hero_model.py!}
 ```
 
-Have in mind that now we *have* to put the annotation of `Team` as a string: `"Team"`, so that Python doesn't have errors at runtime.
+请注意，现在我们 *必须* 将 `Team` 的注解写成字符串形式：“`"Team"`”，这样 Python 在运行时就不会报错。
 
-### Team Model File
+### Team 模型文件
 
-We use the same trick in the `team_model.py` file:
+我们在 `team_model.py` 文件中使用相同的技巧：
 
 ```Python hl_lines="1  5-6  14"
 {!./docs_src/tutorial/code_structure/tutorial002/team_model.py!}
 ```
 
-Now we get editor support, autocompletion, inline errors, and **SQLModel** keeps working. 🎉
+现在我们可以在编辑器中得到支持，包括自动补全、内联错误提示，同时 **SQLModel** 仍然能够正常工作。🎉
 
-### App File
+### 应用程序文件
 
-Now, just for completeness, the `app.py` file would import the models from both modules:
+现在，为了完整性，`app.py` 文件将从两个模块中导入模型：
 
 ```Python hl_lines="4-5  10  12-14"
 {!./docs_src/tutorial/code_structure/tutorial002/app.py!}
 ```
 
-And of course, all the tricks with `TYPE_CHECKING` and type annotations in strings are **only needed in the files with circular imports**.
+当然，所有的 `TYPE_CHECKING` 和类型注解字符串的技巧 **只需要在有循环导入的文件中** 使用。
 
-As there are no circular imports with `app.py`, we can just use normal imports and use the classes as normally here.
+因为 `app.py` 没有循环导入，我们可以直接使用正常的导入方式，并像平常一样使用类。
 
-And running that achieves the same result as before:
+运行该程序将得到与之前相同的结果：
 
 <div class="termy">
 
@@ -248,8 +246,8 @@ Hero's team: id=1 name='Z-Force' headquarters='Sister Margaret's Bar'
 
 </div>
 
-## Recap
+## 总结
 
-For the **simplest cases** (for most of the cases) you can just keep all the models in a single file, and structure the rest of the application (including setting up the **engine**) in as many files as you want.
+对于 **最简单的情况** （大多数情况），你可以将所有模型放在一个文件中，其他应用程序的结构（包括设置 **engine** ）可以分布在多个文件中。
 
-And for the **complex cases** that really need separating all the models in different files, you can use the `TYPE_CHECKING` to make it all work and still have the best developer experience with the best editor support. ✨
+而对于那些 **复杂的情况** ，需要将所有模型分离到不同的文件中时，可以使用 `TYPE_CHECKING` 来让所有内容正常工作，并保持最佳的开发体验和编辑器支持。✨

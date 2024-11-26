@@ -1,18 +1,18 @@
-# Contributing
+# 贡献
 
-First, you might want to see the basic ways to [help SQLModel and get help](help.md){.internal-link target=_blank}.
+首先，你可能想查看一些基本的方式来 [帮助 SQLModel 并获取帮助](help.md){.internal-link target=_blank}。
 
-## Developing
+## 开发
 
-If you already cloned the <a href="https://github.com/fastapi/sqlmodel" class="external-link" target="_blank">sqlmodel repository</a> and you want to deep dive in the code, here are some guidelines to set up your environment.
+如果你已经克隆了 <a href="https://github.com/fastapi/sqlmodel" class="external-link" target="_blank">sqlmodel 仓库</a>，并且想深入研究代码，以下是一些设置环境的指南。
 
-### Virtual Environment
+### 虚拟环境
 
-Follow the instructions to create and activate a [virtual environment](virtual-environments.md){.internal-link target=_blank} for the internal code of `sqlmodel`.
+按照说明创建并激活一个 [虚拟环境](virtual-environments.md){.internal-link target=_blank}，用于 `sqlmodel` 的内部代码。
 
-### Install Requirements Using `pip`
+### 使用 `pip` 安装依赖
 
-After activating the environment, install the required packages:
+激活环境后，安装所需的包：
 
 <div class="termy">
 
@@ -24,27 +24,27 @@ $ pip install -r requirements.txt
 
 </div>
 
-It will install all the dependencies and your local SQLModel in your local environment.
+这将安装所有依赖项并在本地环境中安装你的 SQLModel 本地版本。
 
-### Using your Local SQLModel
+### 使用本地 SQLModel
 
-If you create a Python file that imports and uses SQLModel, and run it with the Python from your local environment, it will use your cloned local SQLModel source code.
+如果你创建一个 Python 文件，导入并使用 SQLModel，然后用你本地环境中的 Python 运行它，它将使用你克隆的本地 SQLModel 源代码。
 
-And if you update that local SQLModel source code when you run that Python file again, it will use the fresh version of SQLModel you just edited.
+当你更新本地 SQLModel 源代码时，再次运行 Python 文件时，它将使用你刚刚编辑的最新版本的 SQLModel。
 
-That way, you don't have to "install" your local version to be able to test every change.
+这样，你不必“安装”本地版本就能测试每次更改。
 
-/// note | "Technical Details"
+/// note | “技术细节”
 
-This only happens when you install using this included `requirements.txt` instead of running `pip install sqlmodel` directly.
+只有在使用这个包含的 `requirements.txt` 文件安装时才会发生这种情况，而不是直接运行 `pip install sqlmodel`。
 
-That is because inside the `requirements.txt` file, the local version of SQLModel is marked to be installed in "editable" mode, with the `-e` option.
+这是因为在 `requirements.txt` 文件中，本地版本的 SQLModel 被标记为“可编辑”模式，使用了 `-e` 选项。
 
 ///
 
-### Format
+### 格式化
 
-There is a script that you can run that will format and clean all your code:
+你可以运行一个脚本，格式化并清理你的所有代码：
 
 <div class="termy">
 
@@ -54,11 +54,11 @@ $ bash scripts/format.sh
 
 </div>
 
-It will also auto-sort all your imports.
+它还会自动对所有导入进行排序。
 
-## Tests
+## 测试
 
-There is a script that you can run locally to test all the code and generate coverage reports in HTML:
+你可以运行一个脚本，在本地测试所有代码并生成 HTML 格式的覆盖率报告：
 
 <div class="termy">
 
@@ -68,15 +68,15 @@ $ bash scripts/test-cov-html.sh
 
 </div>
 
-This command generates a directory `./htmlcov/`, if you open the file `./htmlcov/index.html` in your browser, you can explore interactively the regions of code that are covered by the tests, and notice if there is any region missing.
+此命令会生成一个 `./htmlcov/` 目录，如果你在浏览器中打开 `./htmlcov/index.html` 文件，你可以互动地查看被测试覆盖的代码区域，并注意是否有任何区域没有被覆盖。
 
-## Docs
+## 文档
 
-First, make sure you set up your environment as described above, that will install all the requirements.
+首先，确保你按照上面的描述设置好环境，这将安装所有的依赖。
 
-### Docs Live
+### 文档实时更新
 
-During local development, there is a script that builds the site and checks for any changes, live-reloading:
+在本地开发期间，有一个脚本可以构建网站并检查任何变化，支持实时重载：
 
 <div class="termy">
 
@@ -90,21 +90,21 @@ $ python ./scripts/docs.py live
 
 </div>
 
-It will serve the documentation on `http://127.0.0.1:8008`.
+它会在 `http://127.0.0.1:8008` 上提供文档服务。
 
-That way, you can edit the documentation/source files and see the changes live.
+这样，你可以编辑文档/源文件并实时查看变化。
 
 /// tip
 
-Alternatively, you can perform the same steps that scripts does manually.
+或者，你可以手动执行脚本中的相同步骤。
 
-Go into the docs director at `docs/`:
+进入 `docs/` 目录：
 
 ```console
 $ cd docs/
 ```
 
-Then run `mkdocs` in that directory:
+然后在该目录下运行 `mkdocs`：
 
 ```console
 $ mkdocs serve --dev-addr 8008
@@ -112,13 +112,13 @@ $ mkdocs serve --dev-addr 8008
 
 ///
 
-#### Typer CLI (Optional)
+#### Typer CLI（可选）
 
-The instructions here show you how to use the script at `./scripts/docs.py` with the `python` program directly.
+此处的说明展示了如何直接使用 `python` 程序运行 `./scripts/docs.py` 脚本。
 
-But you can also use <a href="https://typer.tiangolo.com/typer-cli/" class="external-link" target="_blank">Typer CLI</a>, and you will get autocompletion in your terminal for the commands after installing completion.
+但你也可以使用 <a href="https://typer.tiangolo.com/typer-cli/" class="external-link" target="_blank">Typer CLI</a>，并在终端中为命令提供自动补全功能，前提是已安装补全功能。
 
-If you install Typer CLI, you can install completion with:
+如果你安装了 Typer CLI，可以通过以下命令安装补全功能：
 
 <div class="termy">
 
@@ -131,34 +131,34 @@ Completion will take effect once you restart the terminal.
 
 </div>
 
-### Docs Structure
+### 文档结构
 
-The documentation uses <a href="https://www.mkdocs.org/" class="external-link" target="_blank">MkDocs</a>.
+文档使用了 <a href="https://www.mkdocs.org/" class="external-link" target="_blank">MkDocs</a>。
 
-And there are extra tools/scripts in place in `./scripts/docs.py`.
+并且在 `./scripts/docs.py` 中有一些额外的工具/脚本。
 
 /// tip
 
-You don't need to see the code in `./scripts/docs.py`, you just use it in the command line.
+你不需要查看 `./scripts/docs.py` 中的代码，只需在命令行中使用它。
 
 ///
 
-All the documentation is in Markdown format in the directory `./docs`.
+所有文档都存储在 `./docs` 目录下，并使用 Markdown 格式。
 
-Many of the tutorials have blocks of code.
+许多教程中有代码块。
 
-In most of the cases, these blocks of code are actual complete applications that can be run as is.
+在大多数情况下，这些代码块是完整的应用程序，可以直接运行。
 
-In fact, those blocks of code are not written inside the Markdown, they are Python files in the `./docs_src/` directory.
+实际上，这些代码块并不是写在 Markdown 文件中，而是存储在 `./docs_src/` 目录中的 Python 文件。
 
-And those Python files are included/injected in the documentation when generating the site.
+这些 Python 文件在生成网站时会被包含/注入到文档中。
 
-### Docs for Tests
+### 测试文档
 
-Most of the tests actually run against the example source files in the documentation.
+大多数测试实际上是针对文档中的示例源文件进行的。
 
-This helps to make sure that:
+这有助于确保：
 
-* The documentation is up-to-date.
-* The documentation examples can be run as is.
-* Most of the features are covered by the documentation, ensured by test coverage.
+* 文档是最新的。
+* 文档中的示例代码可以直接运行。
+* 大多数功能都被文档覆盖，通过测试覆盖率得以确保。
