@@ -1,6 +1,8 @@
-## About the String in `List["Hero"]`
+# 类型注解字符串
 
-In the first Relationship attribute, we declare it with `List["Hero"]`, putting the `Hero` in quotes instead of just normally there:
+## 关于 `List["Hero"]` 中的字符串
+
+在第一个 `Relationship` 属性中，我们使用 `List["Hero"]` 来声明它，而不是直接写 `List[Hero]`，将 `Hero` 放在引号中：
 
 //// tab | Python 3.10+
 
@@ -32,7 +34,7 @@ In the first Relationship attribute, we declare it with `List["Hero"]`, putting 
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -60,20 +62,20 @@ In the first Relationship attribute, we declare it with `List["Hero"]`, putting 
 
 ///
 
-What's that about? Can't we just write it normally as `List[Hero]`?
+这是怎么回事？我们不能像正常那样写 `List[Hero]` 吗？
 
-By that point, in that line in the code, the Python interpreter **doesn't know of any class `Hero`**, and if we put it just there, it would try to find it unsuccessfully, and then fail. 😭
+在那行代码执行时，Python 解释器 **并不知道 `Hero` 这个类**，如果我们直接写它，它会尝试查找但失败，进而抛出错误。😭
 
-But by putting it in quotes, in a string, the interpreter sees it as just a string with the text `"Hero"` inside.
+但是通过把它放在引号里，作为一个字符串，解释器会把它看作是一个包含 `"Hero"` 的字符串。
 
-But the editor and other tools can see that **the string is actually a type annotation inside**, and provide all the autocompletion, type checks, etc. 🎉
+而编辑器和其他工具可以看到 **这个字符串实际上是一个类型注解**，并提供自动补全、类型检查等功能。🎉
 
-And of course, **SQLModel** can also understand it in the string correctly. ✨
+当然，**SQLModel** 也能正确理解这个字符串。✨
 
-That is actually part of Python, it's the current official solution to handle it.
+这其实是 Python 的一部分，它是当前官方解决方案，用来处理这个问题。
 
 /// info
 
-There's a lot of work going on in Python itself to make that simpler and more intuitive, and find ways to make it possible to not wrap the class in a string.
+Python 本身正在进行大量工作，简化这一过程并让其更加直观，并寻找方法使得不需要将类包装在字符串中。
 
 ///

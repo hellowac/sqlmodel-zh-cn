@@ -1,20 +1,20 @@
-# Read One Row
+# 读取单行数据
 
-You already know how to filter rows to select using `.where()`.
+你已经知道如何使用 `.where()` 来筛选行进行选择。
 
-And you saw how when executing a `select()` it normally returns an **iterable** object.
+你也看到过，当执行 `select()` 时，它通常返回一个 **可迭代** 对象。
 
-Or you can call `results.all()` to get a **list** of all the rows right away, instead of an iterable.
+或者你可以调用 `results.all()` 来立即获取所有行的 **列表** ，而不是可迭代对象。
 
-But in many cases you really just want to read a **single row**, and having to deal with an iterable or a list is not as convenient.
+但是在许多情况下，你只想读取 **单行数据** ，而处理可迭代对象或列表并不那么方便。
 
-Let's see the utilities to read a single row.
+接下来，我们来看一下读取单行数据的实用工具。
 
-## Continue From Previous Code
+## 从上一个代码继续
 
-We'll continue with the same examples we have been using in the previous chapters to create and select data and we'll keep updating them.
+我们将继续使用前几章中用来创建和选择数据的相同示例，并继续更新它们。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -34,11 +34,11 @@ We'll continue with the same examples we have been using in the previous chapter
 
 ///
 
-If you already executed the previous examples and have a database with data, **remove the database file** before running each example, that way you won't have duplicate data and you will be able to get the same results.
+如果你已经执行了之前的示例并且有一个数据库文件， **在运行每个示例之前删除数据库文件** ，这样你就不会有重复数据，并且可以获得相同的结果。
 
-## Read the First Row
+## 读取第一行
 
-We have been iterating over the rows in a `result` object like:
+我们一直在遍历 `result` 对象中的行，像这样：
 
 //// tab | Python 3.10+
 
@@ -64,7 +64,7 @@ We have been iterating over the rows in a `result` object like:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -84,9 +84,9 @@ We have been iterating over the rows in a `result` object like:
 
 ///
 
-But let's say that we are not interested in all the rows, just the **first** one.
+但假设我们并不关心所有的行，只关心 **第一行**。
 
-We can call the `.first()` method on the `results` object to get the first row:
+我们可以在 `results` 对象上调用 `.first()` 方法来获取第一行：
 
 //// tab | Python 3.10+
 
@@ -112,7 +112,7 @@ We can call the `.first()` method on the `results` object to get the first row:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -132,44 +132,44 @@ We can call the `.first()` method on the `results` object to get the first row:
 
 ///
 
-This will return the first object in the `results` (if there was any).
+这将返回 `results` 中的第一行对象（如果有的话）。
 
-That way, we don't have to deal with an iterable or a list.
+这样，我们就不需要处理可迭代对象或列表了。
 
 /// tip
 
-Notice that `.first()` is a method of the `results` object, not of the `select()` statement.
+请注意，`.first()` 是 `results` 对象的方法，而不是 `select()` 语句的方法。
 
 ///
 
-Although this query would find two rows, by using `.first()` we get only the first row.
+虽然这个查询会找到两行数据，但通过使用 `.first()` 我们只会获得第一行。
 
-If we run it in the command line it would output:
+如果我们在命令行中运行它，输出将是：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些初始化输出被省略 😉
 
-// The SELECT with WHERE
+// 带有 WHERE 的 SELECT 查询
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.age <= ?
 INFO Engine [no key 0.00021s] (35,)
 
-// Only print the first item
+// 只打印第一项
 Hero: secret_name='Natalia Roman-on' age=32 id=4 name='Tarantula'
 ```
 
 </div>
 
-## First or `None`
+## 第一个或 `None`
 
-It would be possible that the SQL query doesn't find any row.
+SQL 查询可能不会找到任何行。
 
-In that case, `.first()` will return `None`:
+在这种情况下，`.first()` 将返回 `None`：
 
 //// tab | Python 3.10+
 
@@ -195,7 +195,7 @@ In that case, `.first()` will return `None`:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -215,36 +215,36 @@ In that case, `.first()` will return `None`:
 
 ///
 
-In this case, as there's no hero with an age less than 25, `.first()` will return `None`.
+在这种情况下，由于没有年龄小于 25 的英雄，`.first()` 将返回 `None`。
 
-When we run it in the command line it will output:
+当我们在命令行运行它时，输出将是：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些初始化输出被省略 😉
 
-// The SELECT with WHERE
+// 带有 WHERE 的 SELECT 查询
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.age <= ?
 INFO Engine [no key 0.00021s] (35,)
 
-// Now rows found, first is None
+// 没有找到行，第一行是 None
 Hero: None
 ```
 
 </div>
 
-## Exactly One
+## 精确匹配一行
 
-There might be cases where we want to ensure that there's exactly **one** row matching the query.
+有时我们希望确保查询结果中只有 **一行** 数据。
 
-And if there was more than one, it would mean that there's an error in the system, and we should terminate with an error.
+如果查询结果中多于一行，则意味着系统出现了错误，我们应该终止并抛出一个错误。
 
-In that case, instead of `.first()` we can use `.one()`:
+在这种情况下，我们可以使用 `.one()`，而不是 `.first()`：
 
 //// tab | Python 3.10+
 
@@ -270,7 +270,7 @@ In that case, instead of `.first()` we can use `.one()`:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -290,59 +290,59 @@ In that case, instead of `.first()` we can use `.one()`:
 
 ///
 
-Here we know that there's only one `"Deadpond"`, and there shouldn't be any more than one.
+在这里，我们知道 `"Deadpond"` 只有一行，而且不应该有多于一行的记录。
 
-If we run it once will output:
+如果我们运行一次，输出将会是：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些初始化输出被省略 😉
 
-// The SELECT with WHERE
+// 带有 WHERE 的 SELECT 查询
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00015s] ('Deadpond',)
 
-// Only one row found, we're good ✅
+// 只找到了一行，没问题 ✅
 Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 ```
 
 </div>
 
-But if we run it again, as it will create and insert all the heroes in the database again, they will be duplicated, and there will be more than one `"Deadpond"`. 😱
+但如果我们再次运行，由于它会重新创建并插入所有英雄记录到数据库中，这会导致重复的记录，并且会有多个 `"Deadpond"`。 😱
 
-So, running it again, without first deleting the file `database.db` will output:
+因此，如果我们没有先删除 `database.db` 文件，直接运行它，将会输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些初始化输出被省略 😉
 
-// The SELECT with WHERE
+// 带有 WHERE 的 SELECT 查询
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00015s] ('Deadpond',)
 
-// Oh, no, the database is in a broken state, with duplicates! 🚨
+// 哎呀，数据库处于损坏状态，有重复记录！ 🚨
 Traceback (most recent call last):
 
-// Some details about the error omitted
+// 错误的详细信息省略
 
 sqlalchemy.exc.MultipleResultsFound: Multiple rows were found when exactly one was required
 ```
 
 </div>
 
-## Exactly One with More Data
+## 精确匹配一行（有更多数据时）
 
-Of course, even if we don't duplicate the data, we could get the same error if we send a query that finds more than one row and expect exactly one with `.one()`:
+当然，即使我们没有重复数据，如果发送一个查询返回多于一行的结果，并且仍然期望 `.one()` 返回正好一行，我们也会遇到相同的错误：
 
 //// tab | Python 3.10+
 
@@ -368,7 +368,7 @@ Of course, even if we don't duplicate the data, we could get the same error if w
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -388,11 +388,11 @@ Of course, even if we don't duplicate the data, we could get the same error if w
 
 ///
 
-That would find 2 rows, and would end up with the same error.
+这个查询将会找到 2 行数据，最终也会抛出相同的错误。
 
-## Exactly One with No Data
+## 精确匹配一行（没有数据时）
 
-And also, if we get no rows at all with `.one()`, it will also raise an error:
+如果我们使用 `.one()` 但查询没有返回任何行，它也会抛出一个错误：
 
 //// tab | Python 3.10+
 
@@ -418,7 +418,7 @@ And also, if we get no rows at all with `.one()`, it will also raise an error:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -438,9 +438,9 @@ And also, if we get no rows at all with `.one()`, it will also raise an error:
 
 ///
 
-In this case, as there are no heroes with an age less than 25, `.one()` will raise an error.
+在这种情况下，由于没有年龄小于 25 的英雄，`.one()` 会抛出一个错误。
 
-This is what we would get if we run it in the command line:
+如果我们在命令行运行它，输出会是这样的：
 
 <div class="termy">
 
@@ -455,19 +455,19 @@ FROM hero
 WHERE hero.age < ?
 INFO Engine [no key 0.00014s] (25,)
 
-// Oh, no, we expected one row but there aren't any! 🚨
+// 哎呀，我们期望有一行数据，但没有找到任何！🚨
 Traceback (most recent call last):
 
-// Some details about the error omitted
+// 一些错误的详细信息被省略
 
 sqlalchemy.exc.NoResultFound: No row was found when one was required
 ```
 
 </div>
 
-## Compact Version
+## 简洁版本
 
-Of course, with `.first()` and `.one()` you would also probably write all that in a more compact form most of the time, all in a single line (or at least a single Python statement):
+当然，使用 `.first()` 和 `.one()` 时，通常你会将代码写得更加简洁，大多数情况下可以将其写成一行（或者至少是一条 Python 语句）：
 
 //// tab | Python 3.10+
 
@@ -493,7 +493,7 @@ Of course, with `.first()` and `.one()` you would also probably write all that i
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -513,13 +513,13 @@ Of course, with `.first()` and `.one()` you would also probably write all that i
 
 ///
 
-That would result in the same as some examples above.
+这将与上面的例子得到相同的结果。
 
-## Select by Id with `.where()`
+## 使用 `.where()` 根据 Id 进行选择
 
-In many cases you might want to select a single row by its Id column with the **primary key**.
+在许多情况下，你可能想通过 **主键** 的 Id 列选择单行数据。
 
-You could do it the same way we have been doing with a `.where()` and then getting the first item with `.first()`:
+你可以像我们之前做的那样，使用 `.where()` 然后用 `.first()` 获取第一项：
 
 //// tab | Python 3.10+
 
@@ -545,7 +545,7 @@ You could do it the same way we have been doing with a `.where()` and then getti
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -565,11 +565,11 @@ You could do it the same way we have been doing with a `.where()` and then getti
 
 ///
 
-That would work correctly, as expected. But there's a shorter version. 👇
+这将按预期正常工作。但其实有一个更简洁的版本。👇
 
-## Select by Id with `.get()`
+## 使用 `.get()` 根据 Id 进行选择
 
-As selecting a single row by its Id column with the **primary key** is a common operation, there's a shortcut for it:
+由于根据 **主键** 的 Id 列选择单行数据是一个常见操作，因此有一个简便的方法来实现：
 
 //// tab | Python 3.10+
 
@@ -595,7 +595,7 @@ As selecting a single row by its Id column with the **primary key** is a common 
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -615,16 +615,16 @@ As selecting a single row by its Id column with the **primary key** is a common 
 
 ///
 
-`session.get(Hero, 1)` is an equivalent to creating a `select()`, then filtering by Id using `.where()`, and then getting the first item with `.first()`.
+`session.get(Hero, 1)` 等效于创建一个 `select()` 查询，使用 `.where()` 根据 Id 进行筛选，然后使用 `.first()` 获取第一项。
 
-If you run it, it will output:
+如果你运行它，输出将是：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些基本输出被省略 😉
 
 // SELECT with WHERE
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
@@ -632,15 +632,15 @@ FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00021s] (1,)
 
-// The printed result
+// 打印结果
 Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 ```
 
 </div>
 
-## Select by Id with `.get()` with No Data
+## 使用 `.get()` 根据 Id 进行选择（无数据）
 
-`.get()` behaves similar to `.first()`, if there's no data it will simply return `None` (instead of raising an error):
+`.get()` 的行为类似于 `.first()`，如果没有数据，它将返回 `None`（而不是抛出错误）：
 
 //// tab | Python 3.10+
 
@@ -666,7 +666,7 @@ Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -686,14 +686,14 @@ Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 
 ///
 
-Running that will output:
+运行这段代码将输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些基本输出被省略 😉
 
 // SELECT with WHERE
 INFO Engine BEGIN (implicit)
@@ -702,12 +702,12 @@ FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00024s] (9001,)
 
-// No data found, so the value is None
+// 没有找到数据，因此值为 None
 Hero: None
 ```
 
 </div>
 
-## Recap
+## 总结
 
-As querying the SQL database for a single row is a common operation, you now have several tools to do it in a short and simple way. 🎉
+由于查询 SQL 数据库中的单行数据是一个常见操作，现在你有了几种工具，可以以简洁的方式实现这一功能。🎉

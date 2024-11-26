@@ -1,8 +1,8 @@
-# Create Rows - Use the Session - INSERT
+# 创建数据行 - 使用 Session - 插入（INSERT）
 
-Now that we have a database and a table, we can start adding data.
+现在我们已经有了数据库和表，可以开始添加数据了。
 
-Here's a reminder of how the table would look like, this is the data we want to add:
+以下是表格的样子（目标数据）：
 
 <table>
 <tr>
@@ -19,18 +19,20 @@ Here's a reminder of how the table would look like, this is the data we want to 
 </tr>
 </table>
 
-## Create Table and Database
+---
 
-We will continue from where we left of in the last chapter.
+## 创建表和数据库
 
-This is the code we had to create the database and table, nothing new here:
+我们将从上一章的内容继续。
+
+以下是创建数据库和表的代码，这部分没有变化：
 
 //// tab | Python 3.10+
 
-```{.python .annotate hl_lines="20" }
+```python
 {!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py[ln:1-18]!}
 
-# More code here later 👈
+# 之后会添加更多代码 👈
 
 {!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py[ln:21-22]!}
 ```
@@ -41,10 +43,10 @@ This is the code we had to create the database and table, nothing new here:
 
 //// tab | Python 3.7+
 
-```{.python .annotate hl_lines="22" }
+```python
 {!./docs_src/tutorial/create_db_and_table/tutorial003.py[ln:1-20]!}
 
-# More code here later 👈
+# 之后会添加更多代码 👈
 
 {!./docs_src/tutorial/create_db_and_table/tutorial003.py[ln:23-24]!}
 ```
@@ -53,106 +55,106 @@ This is the code we had to create the database and table, nothing new here:
 
 ////
 
-Now that we can create the database and the table, we will continue from this point and add more code on the same file to create the data.
+现在，我们已经能够创建数据库和表，我们将在此基础上继续扩展代码，在同一个文件中添加代码以插入数据。
 
-## Create Data with SQL
+## 使用 SQL 创建数据
 
-Before working with Python code, let's see how we can create data with SQL.
+在编写 Python 代码之前，让我们先看看如何使用 SQL 创建数据。
 
-Let's say we want to insert the record/row for `Deadpond` into our database.
+假设我们要向数据库中插入 `Deadpond` 的记录/行。
 
-We can do this with the following SQL code:
+可以使用以下 SQL 语句完成：
 
 ```SQL
 INSERT INTO "hero" ("name", "secret_name")
 VALUES ("Deadpond", "Dive Wilson");
 ```
 
-It means, more or less:
+这段 SQL 语句的含义大致是：
 
-> Hey SQL database 👋, please `INSERT` something (create a record/row) `INTO` the table `"hero"`.
+> 嘿，SQL 数据库 👋，请 `INSERT` 一些内容（创建一条记录/行）到表 `"hero"` 中。
 >
-> I want you to insert a row with some values in these specific columns:
+> 我希望你将这些值插入到以下指定的列中：
 >
-> * `"name"`
-> * `"secret_name"`
+> - `"name"`
+> - `"secret_name"`
 >
-> And the values I want you to put in these columns are:
+> 我希望在这些列中填写的值是：
 >
-> * `"Deadpond"`
-> * `"Dive Wilson"`
+> - `"Deadpond"`
+> - `"Dive Wilson"`
 
-### Try it in DB Explorer for SQLite
+### 在 SQLite 的 DB Explorer 中尝试
 
-You can try that SQL statement in **DB Explorer for SQLite**.
+你可以在 **DB Explorer for SQLite** 中尝试这条 SQL 语句。
 
-Make sure to open the same database we already created by clicking <kbd>Open Database</kbd> and selecting the same `database.db` file.
+确保点击 <kbd>Open Database</kbd> 打开我们之前创建的同一个数据库，并选择同一个 `database.db` 文件。
 
 /// tip
 
-If you don't have that `database.db` file with the table `hero`, you can re-create it by running the Python program at the top. 👆
+如果你没有包含 `hero` 表的 `database.db` 文件，可以通过运行上方的 Python 程序重新创建该文件。👆
 
 ///
 
-Then go to the <kbd>Execute SQL</kbd> tab and copy the SQL from above.
+接着，进入 <kbd>Execute SQL</kbd> 选项卡，并复制上述 SQL 语句。
 
-It would look like this:
+看起来会像这样：
 
-<img class="shadow" src="/img/tutorial/insert/image01.png">
+<img class="shadow" src="../../img/tutorial/insert/image01.png">
 
-Click the "Execute all" <kbd>▶</kbd> button.
+点击 "Execute all" 按钮 <kbd>▶</kbd>。
 
-Then you can go to the <kbd>Browse Data</kbd> tab, and you will see your newly created record/row:
+然后，进入 <kbd>Browse Data</kbd> 选项卡，你将看到新创建的记录/行：
 
-<img class="shadow" src="/img/tutorial/insert/image02.png">
+<img class="shadow" src="../../img/tutorial/insert/image02.png">
 
-## Data in a Database and Data in Code
+## 数据库中的数据与代码中的数据
 
-When working with a database (SQL or any other type) in a programming language, we will always have some data **in memory**, in objects and variables we create in our code, and there will be some data **in the database**.
+当我们在编程语言中操作数据库（SQL 或其他类型）时，数据会有两种状态：一部分数据存在于**内存中**（由我们创建的对象和变量存储），另一部分数据则保存在**数据库中**。
 
-We are constantly **getting** *some* of the data from the database and putting it in memory, in variables.
+我们经常会从数据库中**获取**一些数据，放入内存中的变量中。
 
-The same way, we are constantly **creating** variables and objects with data in our code, that we then want to save in the database, so we **send** it somehow.
+同样地，我们会在代码中创建一些变量和对象，并将这些数据保存到数据库中，称之为**发送**。
 
-In some cases, we can even create some data in memory and then change it and update it before saving it in the database.
+有时候，我们甚至会在内存中创建一些数据，修改后再保存到数据库中。
 
-We might even decide with some logic in the code that we no longer want to save the data in the database, and then just remove it. 🔥 And we only handled that data in memory, without sending it back and forth to the database.
+也可能通过代码中的某些逻辑决定不再将数据保存到数据库中，仅在内存中处理这些数据，然后丢弃它们🔥，而无需与数据库进行交互。
 
-**SQLModel** does all it can (actually via SQLAlchemy) to make this interaction as simple, intuitive, and familiar or "close to programming" as possible. ✨
+**SQLModel** （实际上是通过 SQLAlchemy 实现的）尽可能地使这种交互变得简单、直观且贴近编程体验 ✨。
 
-But that division of the two places where some data might be at each moment in time (in memory or in the database) is always there. And it's important for you to have it in mind. 🤓
+不过，这种数据存在于两种位置（内存或数据库）的分界始终存在。这一点非常重要，需要你时刻记在心中。🤓
 
-## Create Data with Python and **SQLModel**
+## 使用 Python 和 **SQLModel** 创建数据
 
-Now let's create that same row in Python.
+现在，我们通过 Python 创建相同的行。
 
-First, remove that file `database.db` so we can start from a clean slate.
+首先，删除 `database.db` 文件，确保从零开始。
 
-Because we have Python code executing with data in memory, and the database is an independent system (an external SQLite file, or an external database server), we need to perform two steps:
+由于我们通过 Python 代码在内存中处理数据，而数据库是一个独立的系统（如一个独立的 SQLite 文件或外部的数据库服务器），因此需要执行以下两步：
 
-* create the data in Python, in memory (in a variable)
-* save/send the data to the database
+* 在 Python 内存中（变量中）创建数据
+* 将数据保存/发送到数据库
 
-## Create a Model Instance
+## 创建模型实例
 
-Let's start with the first step, create the data in memory.
+从第一步开始，在内存中创建数据。
 
-We already created a class `Hero` that represents the `hero` table in the database.
+我们已经创建了一个名为 `Hero` 的类，用于表示数据库中的 `hero` 表。
 
-Each instance we create will represent the data in a row in the database.
+我们创建的每个实例都将表示数据库中一行的数据。
 
-So, the first step is to simply create an instance of `Hero`.
+因此，第一步就是简单地创建一个 `Hero` 实例。
 
-We'll create 3 right away, for the 3 heroes:
+我们将立即创建 3 个实例，分别代表 3 个英雄：
 
 //// tab | Python 3.10+
 
 ```Python
-# Code above omitted 👆
+# 上方省略的代码 👆
 
 {!./docs_src/tutorial/insert/tutorial002_py310.py[ln:21-24]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
@@ -160,16 +162,16 @@ We'll create 3 right away, for the 3 heroes:
 //// tab | Python 3.7+
 
 ```Python
-# Code above omitted 👆
+# 上方省略的代码 👆
 
 {!./docs_src/tutorial/insert/tutorial002.py[ln:23-26]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -191,40 +193,40 @@ We'll create 3 right away, for the 3 heroes:
 
 /// tip
 
-The code above in this file (the omitted code) is just the same code that you see at the top of this chapter.
+文件中的上述代码（省略部分）与本章开头的代码完全一致。
 
-The same code we used before to create the `Hero` model.
+也就是我们之前用于创建 `Hero` 模型的代码。
 
 ///
 
-We are putting that in a function `create_heroes()`, to call it later once we finish it.
+我们将这些代码放入一个函数 `create_heroes()` 中，稍后可以调用这个函数完成操作。
 
-If you are trying the code interactively, you could also write that directly.
+如果你是交互式尝试代码，也可以直接编写这些代码。
 
-## Create a **Session**
+## 创建 **Session**
 
-Up to now, we have only used the **engine** to interact with the database.
+到目前为止，我们只使用了 **engine** 与数据库交互。
 
-The **engine** is that single object that we share with all the code, and that is in charge of communicating with the database, handling the connections (when using a server database like PostgreSQL or MySQL), etc.
+**engine** 是一个全局共享的单一对象，负责与数据库通信，管理连接（例如使用 PostgreSQL 或 MySQL 这样的服务器数据库时），等等。
 
-But when working with **SQLModel** you will mostly use another tool that sits on top, the **Session**.
+但在使用 **SQLModel** 时，大多数情况下会使用一个更高级的工具——**Session**。
 
-In contrast to the **engine** that is one for the whole application, we create a new **session** for each group of operations with the database that belong together.
+与全局唯一的 **engine** 不同，我们会为每一组相关的数据库操作创建一个新的 **session**。
 
-In fact, the **session** needs and uses an **engine**.
+实际上，**session** 需要并依赖 **engine**。
 
-For example, if we have a web application, we would normally have a single **session** per request.
+例如，在构建 Web 应用时，通常会为每个请求创建一个独立的 **session**。
 
-We would re-use the same **engine** in all the code, everywhere in the application (shared by all the requests). But for each request, we would create and use a new **session**. And once the request is done, we would close the session.
+应用中的所有代码都会共享同一个 **engine**（被所有请求复用）。但对于每个请求，我们会创建一个新的 **session**，请求完成后关闭该 **session**。
 
-The first step is to import the `Session` class:
+第一步是导入 `Session` 类：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="1"
 {!./docs_src/tutorial/insert/tutorial001_py310.py[ln:1]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -234,12 +236,12 @@ The first step is to import the `Session` class:
 ```Python hl_lines="3"
 {!./docs_src/tutorial/insert/tutorial001.py[ln:1-3]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -259,16 +261,16 @@ The first step is to import the `Session` class:
 
 ///
 
-Then we can create a new session:
+接着，我们可以创建一个新的 **session**：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-26]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
@@ -276,16 +278,16 @@ Then we can create a new session:
 //// tab | Python 3.7+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/insert/tutorial001.py[ln:23-28]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -305,25 +307,25 @@ Then we can create a new session:
 
 ///
 
-The new `Session` takes an `engine` as a parameter. And it will use the **engine** underneath.
+新的 `Session` 需要一个 **engine** 作为参数，并会在底层使用该 **engine**。
 
 /// tip
 
-We will see a better way to create a **session** using a `with` block later.
+稍后我们将学习一种更好的方式，使用 `with` 块来创建 **session**。
 
 ///
 
-## Add Model Instances to the Session
+## 将模型实例添加到 Session
 
-Now that we have some hero model instances (some objects in memory) and a **session**, the next step is to add them to the session:
+现在我们已经有了一些英雄模型实例（内存中的对象）以及一个 **session**，下一步是将它们添加到 **session** 中：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9-11"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-30]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
@@ -331,15 +333,15 @@ Now that we have some hero model instances (some objects in memory) and a **sess
 //// tab | Python 3.7+
 
 ```Python hl_lines="9-11"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial001.py[ln:23-32]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -359,35 +361,35 @@ Now that we have some hero model instances (some objects in memory) and a **sess
 
 ///
 
-By this point, our heroes are *not* stored in the database yet.
+此时，我们的英雄数据还**没有**存储到数据库中。
 
-And this is one of the cases where having a **session** independent of an **engine** makes sense.
+这正是 **session** 独立于 **engine** 的意义所在。
 
-The session is holding in memory all the objects that should be saved in the database later.
+**session** 会在内存中保存所有需要稍后存储到数据库的对象。
 
-And once we are ready, we can **commit** those changes, and then the **session** will use the **engine** underneath to save all the data by sending the appropriate SQL to the database, and that way it will create all the rows. All in a single batch.
+一旦准备好，我们可以执行 **commit** 操作，此时 **session** 将使用底层的 **engine** 生成相应的 SQL 并发送到数据库中，从而一次性将所有行写入数据库。
 
-This makes the interactions with the database more efficient (plus some extra benefits).
+这种方式不仅提高了与数据库交互的效率，还带来了其他额外的好处。
 
-/// info  | Technical Details
+/// info | 技术细节
 
-The session will create a new transaction and execute all the SQL code in that transaction.
+**session** 会创建一个新的事务，并在该事务中执行所有 SQL 代码。
 
-This ensures that the data is saved in a single batch, and that it will all succeed or all fail, but it won't leave the database in a broken state.
+这确保了所有数据以单批的方式保存，并且要么全部成功，要么全部失败，从而避免了数据库处于不一致的状态。
 
 ///
 
-## Commit the Session Changes
+## 提交 Session 的更改
 
-Now that we have the heroes in the **session** and that we are ready to save all that to the database, we can **commit** the changes:
+现在，我们已经将英雄数据添加到了 **session** 中，并准备将这些数据保存到数据库，可以通过 **commit** 提交这些更改：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="13"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-32]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
@@ -395,15 +397,15 @@ Now that we have the heroes in the **session** and that we are ready to save all
 //// tab | Python 3.7+
 
 ```Python hl_lines="13"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial001.py[ln:23-34]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -423,22 +425,22 @@ Now that we have the heroes in the **session** and that we are ready to save all
 
 ///
 
-Once this line is executed, the **session** will use the **engine** to save all the data in the database by sending the corresponding SQL.
+执行这行代码后，**session** 将通过 **engine** 与数据库交互，发送相应的 SQL 语句，将所有数据保存到数据库中。
 
-## Create Heroes as a Script
+## 将英雄创建为脚本
 
-The function to create the heroes is now ready.
+现在，用于创建英雄的函数已经准备就绪。
 
-Now we just need to make sure to call it when we run this program with Python directly.
+接下来，我们需要确保在直接使用 Python 运行这个程序时调用它。
 
-We already had a main block like:
+我们之前有一个类似这样的主程序块：
 
 ```Python
 if __name__ == "__main__":
     create_db_and_tables()
 ```
 
-We could add the new function there, as:
+我们可以在这里添加新函数，如下所示：
 
 ```Python
 if __name__ == "__main__":
@@ -446,15 +448,15 @@ if __name__ == "__main__":
     create_heroes()
 ```
 
-But to keep things a bit more organized, let's instead create a new function `main()` that will contain all the code that should be executed when called as an independent script, and we can put there the previous function `create_db_and_tables()`, and add the new function `create_heroes()`:
+但是为了让代码更有条理，我们可以创建一个新的函数 `main()`，用来包含所有在脚本独立运行时需要执行的代码。我们可以将之前的函数 `create_db_and_tables()` 放入其中，并添加新函数 `create_heroes()`：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="2  4"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial002_py310.py[ln:34-36]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
@@ -462,15 +464,15 @@ But to keep things a bit more organized, let's instead create a new function `ma
 //// tab | Python 3.7+
 
 ```Python hl_lines="2  4"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial002.py[ln:36-38]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -490,12 +492,12 @@ But to keep things a bit more organized, let's instead create a new function `ma
 
 ///
 
-And then we can call that single `main()` function from that main block:
+然后，我们可以在主程序块中调用这个单一的 `main()` 函数：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial002_py310.py[ln:34-40]!}
 ```
 
@@ -504,13 +506,13 @@ And then we can call that single `main()` function from that main block:
 //// tab | Python 3.7+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial002.py[ln:36-42]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -530,67 +532,67 @@ And then we can call that single `main()` function from that main block:
 
 ///
 
-By having everything that should happen when called as a script in a single function, we can easily add more code later on.
+通过将脚本运行时的所有逻辑集中到一个函数中，我们可以更方便地在后续添加代码。
 
-And some other code could also import and use this same `main()` function if it was necessary.
+此外，其他代码在需要时也可以导入并调用这个 `main()` 函数。
 
-## Run the Script
+## 运行脚本
 
-Now we can run our program as a script from the console.
+现在我们可以从控制台以脚本方式运行程序了。
 
-Because we created the **engine** with `echo=True`, it will print out all the SQL code that it is executing:
+由于我们在创建 **engine** 时设置了 `echo=True`，程序将输出所有正在执行的 SQL 代码：
 
 <div class="termy">
 
 ```console
 $ python app.py
-// Some boilerplate, checking that the hero table already exists
+// 一些初始操作，检查 hero 表是否已经存在
 INFO Engine BEGIN (implicit)
 INFO Engine PRAGMA main.table_info("hero")
 INFO Engine [raw sql] ()
 INFO Engine COMMIT
-// BEGIN a transaction automatically ✨
+// 自动启动事务 ✨
 INFO Engine BEGIN (implicit)
-// Our INSERT statement, it uses VALUES (?, ?, ?) as parameters
+// INSERT 语句，使用 VALUES (?, ?, ?) 作为参数
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
-// ...and these are the parameter values 🚀
+// ...以及参数值 🚀
 INFO Engine [generated in 0.00013s] ('Deadpond', 'Dive Wilson', None)
-// Again, for Spider-Boy
+// 对于 Spider-Boy 的 INSERT
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.000755s ago] ('Spider-Boy', 'Pedro Parqueador', None)
-// And now for Rusty-Man
+// 然后是 Rusty-Man 的 INSERT
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.001014s ago] ('Rusty-Man', 'Tommy Sharp', 48)
-// All good? Yes, commit this transaction! 🎉
+// 一切顺利？是的，提交事务！ 🎉
 INFO Engine COMMIT
 ```
 
 </div>
 
-If you have ever used Git, this works very similarly.
+如果你使用过 Git，会发现这个过程很类似。
 
-We use `session.add()` to add new objects (model instances) to the session (similar to `git add`).
+我们通过 `session.add()` 将新对象（模型实例）添加到 session 中（类似于 `git add`）。
 
-And that ends up in a group of data ready to be saved, but not saved yet.
+此时这些数据已经准备好保存，但还未真正保存。
 
-We can make more modifications, add more objects, etc.
+你可以进行更多修改，添加更多对象，等等。
 
-And once we are ready, we can **commit** all the changes in a single step (similar to `git commit`).
+一旦准备就绪，我们可以通过 **commit** 一步提交所有更改（类似于 `git commit`）。
 
-## Close the Session
+## 关闭 Session
 
-The **session** holds some resources, like connections from the engine.
+**session** 会持有一些资源，比如来自 **engine** 的连接。
 
-So once we are done with the session, we should **close** it to make it release those resources and finish its cleanup:
+因此，当我们完成 session 的操作后，应该 **关闭** 它以释放这些资源并完成清理：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="16"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-34]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
@@ -598,16 +600,16 @@ So once we are done with the session, we should **close** it to make it release 
 //// tab | Python 3.7+
 
 ```Python hl_lines="16"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/insert/tutorial001.py[ln:23-36]!}
 
-# More code here later 👇
+# 后续将添加更多代码 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -627,22 +629,20 @@ So once we are done with the session, we should **close** it to make it release 
 
 ///
 
-But what happens if we forget to close the session?
+如果我们忘记关闭 session，或者代码中发生异常，导致 `session.close()` 没有被执行会怎样？
 
-Or if there's an exception in the code and it never reaches the `session.close()`?
+为了解决这种情况，可以使用更好的方式来创建和关闭 session，即使用 `with` 块。👇
 
-For that, there's a better way to create and close the session, using a `with` block. 👇
+## 在 `with` 块中使用 Session
 
-## A Session in a `with` Block
+了解如何手动创建和关闭 `Session` 很重要，例如，如果你想在交互式环境中探索代码（比如使用 Jupyter），这会非常有用。
 
-It's good to know how the `Session` works and how to create and close it manually. It might be useful if, for example, you want to explore the code in an interactive session (for example with Jupyter).
-
-But there's a better way to handle the session, using a `with` block:
+不过，处理 `Session` 的更好方式是使用 `with` 块：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="7-12"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial002_py310.py[ln:21-31]!}
 ```
 
@@ -651,13 +651,13 @@ But there's a better way to handle the session, using a `with` block:
 //// tab | Python 3.7+
 
 ```Python hl_lines="7-12"
-# Code above omitted 👆
+# 上方代码省略 👆
 {!./docs_src/tutorial/insert/tutorial002.py[ln:23-33]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -677,17 +677,17 @@ But there's a better way to handle the session, using a `with` block:
 
 ///
 
-This is the same as creating the session manually and then manually closing it. But here, using a `with` block, it will be automatically created when **starting** the `with` block and assigned to the variable `session`, and it will be automatically closed after the `with` block is **finished**.
+这与手动创建和关闭 `Session` 的效果相同。但使用 `with` 块时，`Session` 会在 **进入** `with` 块时自动创建，并赋值给变量 `session`，在 `with` 块 **结束** 后自动关闭。
 
-And it will work even if there's an exception in the code. 😎
+即使代码中发生异常，它也能正常关闭。😎
 
-## Review All the Code
+## 回顾所有代码
 
-Let's give this whole file a final look. 🔍
+让我们再次查看整个文件的代码。🔍
 
-You already know all the first part creating the `Hero` model class, the **engine**, and creating the database and table.
+你已经熟悉了前面部分的内容，包括创建 `Hero` 模型类、**engine**、数据库和表的部分。
 
-Let's focus on the new code:
+现在关注新增的代码：
 
 //// tab | Python 3.10+
 
@@ -711,20 +711,20 @@ Let's focus on the new code:
 
 /// tip
 
-Review what each line does by clicking each number bubble in the code. 👆
+点击代码中的数字气泡，查看每一行的作用。👆
 
 ///
 
-You can now put it in a `app.py` file and run it with Python. And you will see an output like the one shown above.
+现在你可以将代码保存为 `app.py` 文件，并使用 Python 运行。你会看到类似前文展示的输出。
 
-After that, if you open the database with **DB Browser for SQLite**, you will see the data you just created in the <kbd>Browse Data</kbd> tab:
+之后，如果用 **DB Browser for SQLite** 打开数据库，可以在 <kbd>Browse Data</kbd> 选项卡中看到刚创建的数据：
 
-<img class="shadow" src="/img/tutorial/insert/image03.png">
+<img class="shadow" src="../../img/tutorial/insert/image03.png">
 
-## What's Next
+## 接下来学习什么
 
-Now you know how to add rows to the database. 🎉
+现在你已经知道如何向数据库添加行了。🎉
 
-Now is a good time to understand better why the `id` field **can't be `NULL`** on the database because it's a **primary key**, but actually **can be `None`** in the Python code.
+接下来，我们会深入理解为什么数据库中的 `id` 字段作为 **主键** **不能为 `NULL`**，但在 Python 代码中却可以是 **`None`**。
 
-I'll tell you about that in the next chapter. 🚀
+下一章会详细讲解这些内容。🚀

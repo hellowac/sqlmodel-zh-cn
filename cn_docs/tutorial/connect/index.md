@@ -1,15 +1,15 @@
-# Connect Tables - JOIN - Intro
+# 连接表格 - JOIN - 简介
 
-By this point, you already know how to perform the main <abbr title="Create, read, update, delete.">CRUD</abbr> operations with **SQLModel** using a single table. 🎉
+到目前为止，你已经知道如何使用 **SQLModel** 在单个表格上执行主要的 <abbr title="Create, read, update, delete.">CRUD</abbr> 操作了。🎉
 
-But the main advantage and feature of SQL databases is being able to handle related data, to **connect** or **"join"** different tables together. Connecting rows in one table to rows in another.
+但 SQL 数据库的主要优势和特性是能够处理关联数据，**连接** 或 **“连接”** 不同的表格。将一个表格中的行与另一个表格中的行连接起来。
 
-Let's see how to use **SQLModel** to manage connected data in the next chapters. 🤝
+接下来，让我们看看如何使用 **SQLModel** 来管理连接的数据。🤝
 
 /// tip
 
-We will extend this further in the next group of chapters making it even more convenient to work with in Python code, using **relationship attributes**.
+我们将在接下来的章节中进一步扩展这一部分，使其在 Python 代码中更便于使用，利用 **关系属性(relationship attributes)**。
 
-But you should start in this group of chapters first. 🤓
+但你应该先从这一组章节开始。🤓
 
 ///

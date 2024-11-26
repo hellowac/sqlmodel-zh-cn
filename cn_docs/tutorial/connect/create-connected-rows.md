@@ -1,8 +1,8 @@
-# Create and Connect Rows
+# 创建并连接数据行
 
-We will now **create rows** for each table. ✨
+现在我们将为每个表格 **创建数据行**。✨
 
-The `team` table will look like this:
+`team` 表格将如下所示：
 
 <table>
 <tr>
@@ -16,7 +16,7 @@ The `team` table will look like this:
 </tr>
 </table>
 
-And after we finish working with the data in this chapter, the `hero` table will look like this:
+在我们完成本章中的数据操作后，`hero` 表格将如下所示：
 
 <table>
 <tr>
@@ -33,19 +33,19 @@ And after we finish working with the data in this chapter, the `hero` table will
 </tr>
 </table>
 
-Each row in the table `hero` will point to a row in the table `team`:
+`hero` 表格中的每一行都将指向 `team` 表格中的一行：
 
 <img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.svg">
 
 /// info
 
-We will later update **Spider-Boy** to add him to the **Preventers** team too, but not yet.
+我们稍后会更新 **Spider-Boy**，将他也添加到 **Preventers** 团队，但现在还不进行。
 
 ///
 
-We will continue with the code in the previous example and we will add more things to it.
+我们将继续使用前面示例中的代码，并在此基础上进行扩展。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -65,15 +65,15 @@ We will continue with the code in the previous example and we will add more thin
 
 ///
 
-Make sure you remove the `database.db` file before running the examples to get the same results.
+在运行示例之前，请确保删除 `database.db` 文件，以确保得到相同的结果。
 
-## Create Rows for Teams with **SQLModel**
+## 使用 **SQLModel** 为团队创建数据行
 
-Let's do the same we did before and define a `create_heroes()` function where we create our heroes.
+让我们做和之前一样的操作，定义一个 `create_heroes()` 函数，在其中创建我们的英雄。
 
-And now we will also create the teams there. 🎉
+现在我们也将在这里创建团队。🎉
 
-Let's start by creating two teams:
+首先，创建两个团队：
 
 //// tab | Python 3.10+
 
@@ -99,7 +99,7 @@ Let's start by creating two teams:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -119,19 +119,19 @@ Let's start by creating two teams:
 
 ///
 
-This would hopefully look already familiar.
+这应该已经看起来很熟悉了。
 
-We start a **session** in a `with` block using the same **engine** we created above.
+我们在一个 `with` 块中启动一个 **session**，使用之前创建的 **engine**。
 
-Then we create two instances of the model class (in this case `Team`).
+然后我们创建 `Team` 模型类的两个实例。
 
-Next we add those objects to the **session**.
+接下来，我们将这些对象添加到 **session** 中。
 
-And finally we **commit** the session to save the changes to the database.
+最后，我们 **commit** 该 session，将更改保存到数据库中。
 
-## Add It to Main
+## 将其添加到 Main 函数
 
-Let's not forget to add this function `create_heroes()` to the `main()` function so that we run it when calling the program from the command line:
+别忘了将这个函数 `create_heroes()` 添加到 `main()` 函数中，这样我们就能在从命令行调用程序时运行它：
 
 //// tab | Python 3.10+
 
@@ -157,7 +157,7 @@ Let's not forget to add this function `create_heroes()` to the `main()` function
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -177,9 +177,9 @@ Let's not forget to add this function `create_heroes()` to the `main()` function
 
 ///
 
-## Run it
+## 运行代码
 
-If we run that code we have up to now, it will output:
+如果我们运行到目前为止的代码，它将输出：
 
 <div class="termy">
 
@@ -188,9 +188,9 @@ $ python app.py
 
 // Previous output omitted 😉
 
-// Automatically start a transaction
+// 自动启动事务
 INFO Engine BEGIN (implicit)
-// Add the teams to the database
+// 将团队添加到数据库
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [generated in 0.00050s] ('Preventers', 'Sharp Tower')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
@@ -200,13 +200,13 @@ INFO Engine COMMIT
 
 </div>
 
-You can see in the output that it uses common SQL `INSERT` statements to create the rows.
+你可以在输出中看到，它使用了常见的 SQL `INSERT` 语句来创建数据行。
 
-## Create Rows for Heroes in Code
+## 在代码中创建英雄行
 
-Now let's create one hero object to start.
+现在我们开始创建一个英雄对象。
 
-As the `Hero` class model now has a field (column, attribute) `team_id`, we can set it by using the ID field from the `Team` objects we just created before:
+由于 `Hero` 类模型现在有一个字段（列，属性）`team_id`，我们可以通过使用之前创建的 `Team` 对象的 ID 字段来设置它：
 
 //// tab | Python 3.10+
 
@@ -232,7 +232,7 @@ As the `Hero` class model now has a field (column, attribute) `team_id`, we can 
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -252,17 +252,17 @@ As the `Hero` class model now has a field (column, attribute) `team_id`, we can 
 
 ///
 
-We haven't committed this hero to the database yet, but there are already a couple of things to pay **attention** to.
+到目前为止，我们还没有将这个英雄提交到数据库，但已经有几个需要**注意**的地方。
 
-If the database already had some teams, we wouldn't even know **what is the ID** that is going to be automatically assigned to each team by the database, for example, we couldn't just guess `1` or `2`.
+如果数据库中已经有一些团队，我们甚至不知道**哪个 ID**会被数据库自动分配给每个团队。例如，我们不能仅仅猜测是 `1` 还是 `2`。
 
-But once the team is created and committed to the database, we can access the object's `id` field to get that ID.
+但是一旦团队创建并提交到数据库，我们就可以通过访问对象的 `id` 字段来获取该 ID。
 
-Accessing an attribute in a model that was just committed, for example with `team_z_force.id`, automatically **triggers a refresh** of the data from the DB in the object, and then exposes the value for that field.
+访问刚刚提交的模型中的属性，例如 `team_z_force.id`，会自动**触发数据的刷新**，并从数据库中获取该团队的数据，然后将字段值暴露出来。
 
-So, even though we are not committing this hero yet, just because we are using `team_z_force.id`, that will trigger some SQL sent to the database to fetch the data for this team.
+因此，即使我们还没有提交这个英雄，只是因为我们使用了 `team_z_force.id`，这将触发 SQL 查询来获取该团队的数据。
 
-That line alone would generate an output of:
+单单这一行就会生成如下输出：
 
 ```
 INFO Engine BEGIN (implicit)
@@ -272,7 +272,7 @@ WHERE team.id = ?
 INFO Engine [generated in 0.00025s] (2,)
 ```
 
-Let's now create two more heroes:
+接下来，我们再创建两个英雄：
 
 //// tab | Python 3.10+
 
@@ -298,7 +298,7 @@ Let's now create two more heroes:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -318,7 +318,7 @@ Let's now create two more heroes:
 
 ///
 
-When creating `hero_rusty_man`, we are accessing `team_preventers.id`, so that will also trigger a refresh of its data, generating an output of:
+在创建 `hero_rusty_man` 时，我们访问了 `team_preventers.id`，因此也会触发数据的刷新，生成如下输出：
 
 ```
 INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
@@ -327,11 +327,11 @@ WHERE team.id = ?
 INFO Engine [cached since 0.001795s ago] (1,)
 ```
 
-There's something else to note. We marked `team_id` as `Optional[int]`, meaning that this could be `NULL` on the database (and `None` in Python).
+还有一些值得注意的地方。我们将 `team_id` 标记为 `Optional[int]`，意味着它在数据库中可以是 `NULL`（在 Python 中是 `None`）。
 
-That means that a hero doesn't have to have a team. And in this case, **Spider-Boy** doesn't have one.
+这意味着一个英雄不必属于任何团队。在这个例子中，**Spider-Boy** 就没有所属的团队。
 
-Next we just commit the changes to save them to the database, and that will generate the output:
+接下来，我们只需提交这些更改以保存到数据库，这将生成如下输出：
 
 ```
 INFO Engine INSERT INTO hero (name, secret_name, age, team_id) VALUES (?, ?, ?, ?)
@@ -343,9 +343,9 @@ INFO Engine [cached since 0.001095s ago] ('Spider-Boy', 'Pedro Parqueador', None
 INFO Engine COMMIT
 ```
 
-## Refresh and Print Heroes
+## 刷新并打印英雄
 
-Now let's refresh and print those new heroes to see their new ID pointing to their teams:
+现在让我们刷新并打印这些新创建的英雄，以查看它们指向团队的新 ID：
 
 //// tab | Python 3.10+
 
@@ -371,7 +371,7 @@ Now let's refresh and print those new heroes to see their new ID pointing to the
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -391,7 +391,7 @@ Now let's refresh and print those new heroes to see their new ID pointing to the
 
 ///
 
-If we execute that in the command line, it will output:
+如果我们在命令行中执行它，它将输出：
 
 <div class="termy">
 
@@ -427,12 +427,12 @@ Created hero: id=3 secret_name='Pedro Parqueador' team_id=None name='Spider-Boy'
 
 </div>
 
-They now have their `team_id`s, nice!
+它们现在已经有了 `team_id`，太好了！
 
-## Relationships
+## 关系
 
-Relationships in SQL databases are just made by having **columns in one table** referencing the values in **columns on other tables**.
+SQL 数据库中的关系就是通过在 **一张表中的列** 引用 **另一张表中的列** 的值来建立的。
 
-And here we have treated them just like that, more **column fields**, which is what they actually are behind the scenes in the SQL database.
+在这里，我们把它们当作 **列字段** 来处理，这其实就是它们在 SQL 数据库中的实际表现。
 
-But later in this tutorial, in the next group of chapters, you will learn about **Relationship Attributes** to make it all a lot easier to work with in code. ✨
+但是，在本教程的后面章节中，您将学习到关于 **关系属性** 的内容，这将使在代码中使用这些关系变得更加简单。✨

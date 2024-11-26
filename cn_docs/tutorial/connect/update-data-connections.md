@@ -1,6 +1,6 @@
-# Update Data Connections
+# 更新数据连接
 
-At this point we have a `team` table:
+此时，我们有一个 `team` 表：
 
 <table>
 <tr>
@@ -14,7 +14,7 @@ At this point we have a `team` table:
 </tr>
 </table>
 
-And a `hero` table:
+以及一个 `hero` 表：
 
 <table>
 <tr>
@@ -31,13 +31,13 @@ And a `hero` table:
 </tr>
 </table>
 
-Some of these heroes are part of a team.
+其中一些英雄属于某个团队。
 
-Now we'll see how to **update** those connections between rows tables.
+现在我们将看到如何 **更新** 这些行之间的连接。
 
-We will continue with the code we used to create some heroes, and we'll update them.
+我们将继续使用创建英雄的代码，并对其进行更新。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -57,11 +57,11 @@ We will continue with the code we used to create some heroes, and we'll update t
 
 ///
 
-## Assign a Team to a Hero
+## 为英雄分配一个团队
 
-Let's say that **Tommy Sharp** uses his "rich uncle" charms to recruit **Spider-Boy** to join the team of the **Preventers**, now we need to update our Spider-Boy hero object to connect it to the Preventers team.
+假设 **Tommy Sharp** 利用他“富有的叔叔”的魅力招募 **Spider-Boy** 加入 **Preventers** 团队，现在我们需要更新 **Spider-Boy** 英雄对象，将其连接到 **Preventers** 团队。
 
-Doing it is just like updating any other field:
+这样做就像更新任何其他字段一样：
 
 //// tab | Python 3.10+
 
@@ -95,7 +95,7 @@ Doing it is just like updating any other field:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -115,38 +115,38 @@ Doing it is just like updating any other field:
 
 ///
 
-We can simply **assign** a value to that field attribute `team_id`, then `add()` the hero to the session, and then `commit()`.
+我们可以简单地 **分配** 一个值给字段属性 `team_id`，然后将英雄对象 `add()` 到会话中，再通过 `commit()` 提交。
 
-Next we `refresh()` it to get the recent data, and we print it.
+接下来，我们使用 `refresh()` 来获取最新的数据，并打印它。
 
-Running that in the command line will output:
+在命令行中运行后将输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 😉
+// 之前的输出省略 😉
 
-// Update the hero
+// 更新英雄
 INFO Engine UPDATE hero SET team_id=? WHERE hero.id = ?
 INFO Engine [generated in 0.00014s] (1, 3)
-// Commit the session saving the changes
+// 提交会话保存更改
 INFO Engine COMMIT
-// Automatically start a new transaction
+// 自动启动一个新事务
 INFO Engine BEGIN (implicit)
-// Refresh the hero data
+// 刷新英雄数据
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
 FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.08837s ago] (3,)
 
-// Print the updated hero
+// 打印更新后的英雄
 Updated hero: id=3 secret_name='Pedro Parqueador' team_id=1 name='Spider-Boy' age=None
 ```
 
 </div>
 
-And now **Spider-Boy** has the `team_id=1`, which is the ID of the Preventers. 🎉
+现在 **Spider-Boy** 的 `team_id=1`，这是 **Preventers** 团队的 ID。🎉
 
-Let's now see how to remove connections in the next chapter. 💥
+接下来，我们将看到如何在下一章节中删除连接。💥

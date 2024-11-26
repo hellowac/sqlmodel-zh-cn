@@ -1,31 +1,31 @@
-# Relationship back_populates
+# 关系 `back_populates`
 
-Now you know how to use the **relationship attributes** to manipulate connected data in the database! 🎉
+现在你已经知道如何使用 **关系属性** 来操作数据库中连接的数据了！🎉
 
-Let's now take a small step back and review how we defined those `Relationship()` attributes again, let's clarify that `back_populates` argument. 🤓
+接下来，我们稍微回顾一下之前定义 `Relationship()` 属性的方式，并澄清一下 `back_populates` 参数的含义。🤓
 
-## Relationship with `back_populates`
+## 带有 `back_populates` 的关系
 
-So, what is that `back_populates` argument in each `Relationship()`?
+那么，`Relationship()` 中的 `back_populates` 参数到底是什么呢？
 
-The value is a string with the name of the attribute in the **other** model class.
+它的值是一个字符串，表示**另一个**模型类中属性的名称。
 
 <img src="/img/tutorial/relationships/attributes/back-populates.svg">
 
-That tells **SQLModel** that if something changes in this model, it should change that attribute in the other model, and it will work even before committing with the session (that would force a refresh of the data).
+这告诉 **SQLModel**，如果当前模型中发生了变化，它应该同步更新另一个模型中的对应属性，而且即使在提交（commit）之前，它也会立刻生效（而不需要强制刷新数据）。
 
-Let's understand that better with an example.
+让我们通过一个例子来更好地理解这一点。
 
-## An Incomplete Relationship
+## 不完整的关系
 
-Let's see how that works by writing an **incomplete** version first, without `back_populates`:
+首先，我们通过不使用 `back_populates` 来写一个**不完整**的版本，看看它是如何工作的：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9  19"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:1-19]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -35,7 +35,7 @@ Let's see how that works by writing an **incomplete** version first, without `ba
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:1-21]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -45,12 +45,12 @@ Let's see how that works by writing an **incomplete** version first, without `ba
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py[ln:1-21]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -78,20 +78,20 @@ Let's see how that works by writing an **incomplete** version first, without `ba
 
 ///
 
-## Read Data Objects
+## 读取数据对象
 
-Now, we will get the **Spider-Boy** hero and, *independently*, the **Preventers** team using two `select`s.
+现在，我们将获取 **Spider-Boy** 英雄，并独立地获取 **Preventers** 队伍，使用两个 `select` 语句。
 
-As you already know how this works, I won't separate that in a select `statement`, `results`, etc. Let's use the shorter form in a single call:
+如你所知，如何执行这两个操作，我就不再分开讲解 `select` 语句、`results` 等内容了。我们直接使用更简洁的形式，通过一个调用来完成：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="5-7  9-11"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:103-111]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -99,11 +99,11 @@ As you already know how this works, I won't separate that in a select `statement
 //// tab | Python 3.9+
 
 ```Python hl_lines="5-7  9-11"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:105-113]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -111,16 +111,16 @@ As you already know how this works, I won't separate that in a select `statement
 //// tab | Python 3.7+
 
 ```Python hl_lines="5-7  9-11"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py[ln:105-113]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -150,22 +150,22 @@ As you already know how this works, I won't separate that in a select `statement
 
 /// tip
 
-When writing your own code, this is probably the style you will use most often, as it's shorter, more convenient, and you still get all the power of autocompletion and inline errors.
+在编写自己的代码时，这可能是你最常用的风格，因为它更加简洁、方便，并且你依然能享受自动补全和内联错误提示的所有优势。
 
 ///
 
-## Print the Data
+## 打印数据
 
-Now, let's print the current **Spider-Boy**, the current **Preventers** team, and particularly, the current **Preventers** list of heroes:
+现在，让我们打印当前的 **Spider-Boy**，当前的 **Preventers** 队伍，特别是当前 **Preventers** 英雄列表：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="13-15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:103-115]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -173,11 +173,11 @@ Now, let's print the current **Spider-Boy**, the current **Preventers** team, an
 //// tab | Python 3.9+
 
 ```Python hl_lines="13-15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:105-117]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -185,16 +185,16 @@ Now, let's print the current **Spider-Boy**, the current **Preventers** team, an
 //// tab | Python 3.7+
 
 ```Python hl_lines="13-15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py[ln:105-117]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -222,12 +222,12 @@ Now, let's print the current **Spider-Boy**, the current **Preventers** team, an
 
 ///
 
-Up to this point, it's all good. 😊
+到目前为止，一切正常。😊
 
-In particular, the result of printing `preventers_team.heroes` is:
+特别是，打印 `preventers_team.heroes` 的结果是：
 
-``` hl_lines="3"
-Preventers Team Heroes: [
+```hl_lines="3"
+Preventers 队伍英雄：[
         Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2),
         Hero(name='Spider-Boy', age=None, id=3, secret_name='Pedro Parqueador', team_id=2),
         Hero(name='Tarantula', age=32, id=6, secret_name='Natalia Roman-on', team_id=2),
@@ -236,24 +236,24 @@ Preventers Team Heroes: [
 ]
 ```
 
-Notice that we have **Spider-Boy** there.
+注意，我们在这里看到了 **Spider-Boy** 。
 
-## Update Objects Before Committing
+## 提交前更新对象
 
-Now let's update **Spider-Boy**, removing him from the team by setting `hero_spider_boy.team = None` and then let's print this object again:
+现在让我们更新 **Spider-Boy**，通过将 `hero_spider_boy.team = None` 来将他从队伍中移除，然后再打印这个对象：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8  12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:103-104]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:117-121]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -261,15 +261,15 @@ Now let's update **Spider-Boy**, removing him from the team by setting `hero_spi
 //// tab | Python 3.9+
 
 ```Python hl_lines="8  12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:105-106]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:119-123]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -277,20 +277,20 @@ Now let's update **Spider-Boy**, removing him from the team by setting `hero_spi
 //// tab | Python 3.7+
 
 ```Python hl_lines="8  12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py[ln:105-106]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py[ln:119-123]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -318,30 +318,30 @@ Now let's update **Spider-Boy**, removing him from the team by setting `hero_spi
 
 ///
 
-The first important thing is, we *haven't committed* the hero yet, so accessing the list of heroes would not trigger an automatic refresh.
+首先需要注意的是，我们**还没有提交**英雄对象，因此访问英雄列表不会触发自动刷新。
 
-But in our code, in this exact point in time, we already said that **Spider-Boy** is no longer part of the **Preventers**. 🔥
+但在我们的代码中，恰恰在这个时刻，我们已经声明 **Spider-Boy** 不再是 **Preventers** 队伍的一员了。🔥
 
 /// tip
 
-We could revert that later by not committing the **session**, but that's not what we are interested in here.
+我们以后可以通过不提交 **session** 来撤销这一更改，但这不是我们在这里关注的内容。
 
 ///
 
-Here, at this point in the code, in memory, the code expects **Preventers** to *not include* **Spider-Boy**.
+在此时的代码中，在内存中，代码预期 **Preventers** 不再包括 **Spider-Boy**。
 
-The output of printing `hero_spider_boy` without team is:
+打印没有队伍的 `hero_spider_boy` 的输出是：
 
 ```
-Spider-Boy without team: name='Spider-Boy' age=None id=3 secret_name='Pedro Parqueador' team_id=2 team=None
+没有队伍的 Spider-Boy: name='Spider-Boy' age=None id=3 secret_name='Pedro Parqueador' team_id=2 team=None
 ```
 
-Cool, the team is set to `None`, the `team_id` attribute still has the team ID until we save it. But that's okay as we are now working mainly with the **relationship attributes** and the objects. ✅
+很酷，队伍已经被设置为 `None`，`team_id` 属性仍然保留队伍 ID，直到我们保存它。但没关系，因为我们现在主要是在操作 **关系属性** 和对象。✅
 
-But now, what happens when we print the `preventers_team.heroes`?
+但是现在，当我们打印 `preventers_team.heroes` 时会发生什么？
 
-``` hl_lines="3"
-Preventers Team Heroes again: [
+```hl_lines="3"
+Preventers 队伍英雄（更新后）: [
         Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2),
         Hero(name='Spider-Boy', age=None, id=3, secret_name='Pedro Parqueador', team_id=2, team=None),
         Hero(name='Tarantula', age=32, id=6, secret_name='Natalia Roman-on', team_id=2),
@@ -350,24 +350,24 @@ Preventers Team Heroes again: [
 ]
 ```
 
-Oh, no! 😱 **Spider-Boy** is still listed there!
+哦，不！😱 **Spider-Boy** 仍然出现在列表中！
 
-## Commit and Print
+## 提交并打印
 
-Now, if we commit it and print again:
+现在，如果我们提交更改并再次打印：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8-9  15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:103-104]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:123-130]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -375,15 +375,15 @@ Now, if we commit it and print again:
 //// tab | Python 3.9+
 
 ```Python hl_lines="8-9  15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:105-106]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:125-132]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -391,20 +391,20 @@ Now, if we commit it and print again:
 //// tab | Python 3.7+
 
 ```Python hl_lines="8-9  15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py[ln:105-106]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py[ln:125-132]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -432,7 +432,7 @@ Now, if we commit it and print again:
 
 ///
 
-When we access `preventers_team.heroes` after the `commit`, that triggers a refresh, so we get the latest list, without **Spider-Boy**, so that's fine again:
+在我们提交后访问 `preventers_team.heroes` 时，会触发数据刷新，所以我们得到了最新的列表， **Spider-Boy** 被移除了，结果就正常了：
 
 ```
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
@@ -448,26 +448,26 @@ Preventers Team Heroes after commit: [
 ]
 ```
 
-There's no **Spider-Boy** after committing, so that's good. 😊
+提交后没有 **Spider-Boy** ，所以一切正常。😊
 
-But we still have that inconsistency in that previous point above.
+不过，在之前的那一部分，我们依然存在不一致的情况。
 
-If we use the objects before committing, we could end up having errors. 😔
+如果我们在提交前就使用了对象，可能会遇到错误。😔
 
-Let's fix that. 🤓
+让我们来修复这个问题。🤓
 
-## Fix It Using `back_populates`
+## 使用 `back_populates` 修复
 
-That's what `back_populates` is for. ✨
+这就是 `back_populates` 的作用。✨
 
-Let's add it back:
+让我们将其添加回来：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9  19"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:1-19]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -477,7 +477,7 @@ Let's add it back:
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:1-21]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -487,12 +487,12 @@ Let's add it back:
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py[ln:1-21]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// 详细信息 | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -520,20 +520,20 @@ Let's add it back:
 
 ///
 
-And we can keep the rest of the code the same:
+然后我们可以保持其余代码不变：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8  12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:103-104]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:117-121]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -541,15 +541,15 @@ And we can keep the rest of the code the same:
 //// tab | Python 3.9+
 
 ```Python hl_lines="8  12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:105-106]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:119-123]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -557,20 +557,20 @@ And we can keep the rest of the code the same:
 //// tab | Python 3.7+
 
 ```Python hl_lines="8  12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py[ln:105-106]!}
 
-        # Code here omitted 👈
+        # 这里的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py[ln:119-123]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -600,17 +600,17 @@ And we can keep the rest of the code the same:
 
 /// tip
 
-This is the same section where we updated `hero_spider_boy.team` to `None` but we *haven't committed* that change yet.
+这是我们之前将 `hero_spider_boy.team` 设置为 `None` 但*尚未提交*该更改的同一部分。
 
-The same section that caused a problem before.
+也就是之前导致问题的部分。
 
 ///
 
-## Review the Result
+## 回顾结果
 
-This time, **SQLModel** (actually SQLAlchemy) will be able to notice the change, and **automatically update the list of heroes** in the team, even before we commit.
+这次， **SQLModel** （实际上是 SQLAlchemy）能够注意到更改，并 **自动更新团队中的英雄列表** ，即使我们还没有提交。
 
-That second print would output:
+第二次打印将输出：
 
 ```
 Preventers Team Heroes again: [
@@ -621,20 +621,20 @@ Preventers Team Heroes again: [
 ]
 ```
 
-Notice that now **Spider-Boy** is not there, we fixed it with `back_populates`! 🎉
+请注意，现在 **Spider-Boy** 不再出现在列表中，我们通过 `back_populates` 修复了这一点！🎉
 
-## The Value of `back_populates`
+## `back_populates` 的价值
 
-Now that you know why `back_populates` is there, let's review the exact value again.
+现在你知道了 `back_populates` 的作用，让我们再次回顾它的具体价值。
 
-It's quite simple code, it's just a string, but it might be confusing to think exactly *what* string should go there:
+代码其实很简单，它只是一个字符串，但可能会让人困惑的是，究竟应该在这里使用什么字符串：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9  19"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:1-19]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -644,7 +644,7 @@ It's quite simple code, it's just a string, but it might be confusing to think e
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:1-21]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -654,12 +654,12 @@ It's quite simple code, it's just a string, but it might be confusing to think e
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py[ln:1-21]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -687,20 +687,20 @@ It's quite simple code, it's just a string, but it might be confusing to think e
 
 ///
 
-The string in `back_populates` is the name of the attribute *in the other* model, that will reference *the current* model.
+`back_populates` 中的字符串是指在 **另一个** 模型中，将引用 **当前** 模型的属性。
 
-<img src="/img/tutorial/relationships/attributes/back-populates.svg">
+<img src="../../../img/tutorial/relationships/attributes/back-populates.svg">
 
-So, in the class `Team`, we have an attribute `heroes` and we declare it with `Relationship(back_populates="team")`.
+因此，在 `Team` 类中，我们有一个属性 `heroes`，并使用 `Relationship(back_populates="team")` 来声明它。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:4-9]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -708,11 +708,11 @@ So, in the class `Team`, we have an attribute `heroes` and we declare it with `R
 //// tab | Python 3.9+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:6-11]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -720,16 +720,16 @@ So, in the class `Team`, we have an attribute `heroes` and we declare it with `R
 //// tab | Python 3.7+
 
 ```Python hl_lines="8"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py[ln:6-11]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -757,20 +757,20 @@ So, in the class `Team`, we have an attribute `heroes` and we declare it with `R
 
 ///
 
-The string in `back_populates="team"` refers to the attribute `team` in the class `Hero` (the other class).
+`back_populates="team"` 中的字符串指的是 `Hero` 类（另一个类）中的 `team` 属性。
 
-And, in the class `Hero`, we declare an attribute `team`, and we declare it with `Relationship(back_populates="heroes")`.
+在 `Hero` 类中，我们声明了一个属性 `team`，并使用 `Relationship(back_populates="heroes")` 来声明它。
 
-So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
+因此，字符串 `"heroes"` 指的是 `Team` 类中的 `heroes` 属性。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="10"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:12-19]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -778,11 +778,11 @@ So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
 //// tab | Python 3.9+
 
 ```Python hl_lines="10"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:14-21]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -790,16 +790,16 @@ So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
 //// tab | Python 3.7+
 
 ```Python hl_lines="10"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py[ln:14-21]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -829,35 +829,35 @@ So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
 
 /// tip
 
-Each **relationship attribute** points to the other one, in the other model, using `back_populates`.
+每个 **关系属性** 都通过 `back_populates` 指向另一个模型中的对应属性。
 
 ///
 
-Although it's simple code, it can be confusing to think about 😵, because the same line has concepts related to both models in multiple places:
+尽管代码很简单，但理解时可能会让人困惑 😵，因为同一行代码涉及到了多个模型的概念：
 
-* Just by being in the **current** model, the line has something to do with the current model.
-* The name of the attribute is about the **other** model.
-* The type annotation is about the **other** model.
-* And the `back_populates` refers to an attribute in the **other** model, that points to the **current** model.
+* 仅仅因为它位于 **当前** 模型中，这行代码与当前模型相关。
+* 属性的名称与 **另一个** 模型相关。
+* 类型注解与 **另一个** 模型相关。
+* `back_populates` 指向的是 **另一个** 模型中的属性，而这个属性指向的是 **当前** 模型。
 
-## A Mental Trick to Remember `back_populates`
+## 记住 `back_populates` 的一个心理技巧
 
-A mental trick you can use to remember is that the string in `back_populates` is always about the current model class you are editing. 🤓
+你可以使用的一个心理技巧是，`back_populates` 中的字符串始终是关于你正在编辑的当前模型类的。🤓
 
-So, if you are in the class `Hero`, the value of `back_populates` for any relationship attribute connecting to **any** other table (to any other model, it could be `Team`, `Weapon`, `Powers`, etc) will still always refer to this same class.
+因此，如果你在 `Hero` 类中，`back_populates` 中的任何关系属性，无论它连接到 **任何** 其他表（比如 `Team`、`Weapon`、`Powers` 等），都会始终指向这个相同的类。
 
-So, `back_populates` would most probably be something like `"hero"` or `"heroes"`.
+所以，`back_populates` 的值很可能是 `"hero"` 或 `"heroes"`。
 
-<img src="/img/tutorial/relationships/attributes/back-populates2.svg">
+<img src="../../../img/tutorial/relationships/attributes/back-populates2.svg">
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3  10  13  15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003_py310.py[ln:27-39]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -865,11 +865,11 @@ So, `back_populates` would most probably be something like `"hero"` or `"heroes"
 //// tab | Python 3.9+
 
 ```Python hl_lines="3  10  13  15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003_py39.py[ln:29-41]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -877,16 +877,16 @@ So, `back_populates` would most probably be something like `"hero"` or `"heroes"
 //// tab | Python 3.7+
 
 ```Python hl_lines="3  10  13  15"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003.py[ln:29-41]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 

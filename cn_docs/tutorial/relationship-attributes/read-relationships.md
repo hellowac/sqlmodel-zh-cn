@@ -1,23 +1,23 @@
-# Read Relationships
+# 读取关系
 
-Now that we know how to connect data using **relationship Attributes**, let's see how to get and read the objects from a relationship.
+现在我们已经知道如何使用 **关系属性** 来连接数据，让我们来看一下如何从关系中获取和读取对象。
 
-## Select a Hero
+## 选择一个英雄
 
-First, add a function `select_heroes()` where we get a hero to start working with, and add that function to the `main()` function:
+首先，添加一个 `select_heroes()` 函数，用来获取一个英雄对象并开始操作，并将该函数添加到 `main()` 函数中：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-7  14"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-98]!}
 
-# Previous code here omitted 👈
+# 之前的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:108-111]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -25,15 +25,15 @@ First, add a function `select_heroes()` where we get a hero to start working wit
 //// tab | Python 3.9+
 
 ```Python hl_lines="3-7  14"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:96-100]!}
 
-# Previous code here omitted 👈
+# 之前的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:110-113]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -41,20 +41,20 @@ First, add a function `select_heroes()` where we get a hero to start working wit
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-7  14"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-100]!}
 
-# Previous code here omitted 👈
+# 之前的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:110-113]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -82,20 +82,20 @@ First, add a function `select_heroes()` where we get a hero to start working wit
 
 ///
 
-## Select the Related Team - Old Way
+## 选择关联的团队 - 传统方法
 
-Now that we have a hero, we can get the team this hero belongs to.
+现在我们已经获取了一个英雄，我们可以获得这个英雄所属的团队。
 
-With what we have learned **up to now**, we could use a `select()` statement, then execute it with `session.exec()`, and then get the `.first()` result, for example:
+按照到目前为止我们学到的内容，我们可以使用 `select()` 语句，然后通过 `session.exec()` 执行它，最后获取 `.first()` 结果，例如：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9-12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-103]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -103,11 +103,11 @@ With what we have learned **up to now**, we could use a `select()` statement, th
 //// tab | Python 3.9+
 
 ```Python hl_lines="9-12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:96-105]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -115,16 +115,16 @@ With what we have learned **up to now**, we could use a `select()` statement, th
 //// tab | Python 3.7+
 
 ```Python hl_lines="9-12"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-105]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -152,24 +152,24 @@ With what we have learned **up to now**, we could use a `select()` statement, th
 
 ///
 
-## Get Relationship Team - New Way
+## 获取关系团队 - 新方式
 
-But now that we have the **relationship attributes**, we can just access them, and **SQLModel** (actually SQLAlchemy) will go and fetch the corresponding data from the database, and make it available in the attribute. ✨
+但现在我们有了 **关系属性**，我们可以直接访问它们，**SQLModel**（实际上是 SQLAlchemy）将自动从数据库中获取相应的数据，并将其加载到该属性中。✨
 
-So, the highlighted block above, has the same results as the block below:
+因此，上面高亮显示的代码块，与下面的代码块效果相同：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-98]!}
 
-        # Code from the previous example omitted 👈
+        # 之前示例的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:105]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -177,15 +177,15 @@ So, the highlighted block above, has the same results as the block below:
 //// tab | Python 3.9+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:96-100]!}
 
-        # Code from the previous example omitted 👈
+        # 之前示例的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:107]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -193,20 +193,20 @@ So, the highlighted block above, has the same results as the block below:
 //// tab | Python 3.7+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-100]!}
 
-        # Code from the previous example omitted 👈
+        # 之前示例的代码省略 👈
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:107]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -236,24 +236,24 @@ So, the highlighted block above, has the same results as the block below:
 
 /// tip
 
-The automatic data fetching will work as long as the starting object (in this case the `Hero`) is associated with an **open** session.
+只要起始对象（在这个例子中是 `Hero`）与 **开放** 的会话关联，自动数据获取就会生效。
 
-For example, here, **inside** a `with` block with a `Session` object.
+例如，在这里，**在** `Session` 对象的 `with` 代码块内。
 
 ///
 
-## Get a List of Relationship Objects
+## 获取关系对象列表
 
-And the same way, when we are working on the **many** side of the **one-to-many** relationship, we can get a list of of the related objects just by accessing the relationship attribute:
+同样地，当我们在 **一对多** 关系的 **多** 端工作时，只需访问关系属性，就可以获取相关对象的列表：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:94-100]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -261,11 +261,11 @@ And the same way, when we are working on the **many** side of the **one-to-many*
 //// tab | Python 3.9+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py39.py[ln:96-102]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -273,16 +273,16 @@ And the same way, when we are working on the **many** side of the **one-to-many*
 //// tab | Python 3.7+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py[ln:96-102]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -310,20 +310,20 @@ And the same way, when we are working on the **many** side of the **one-to-many*
 
 ///
 
-That would print a list with all the heroes in the Preventers team:
+这将打印出所有属于 **Preventers** 团队的英雄列表：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Automatically fetch the heroes
+// 自动获取英雄数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
 FROM hero
 WHERE ? = hero.team_id
 INFO Engine [cached since 0.8774s ago] (2,)
 
-// Print the list of Preventers
+// 打印 Preventers 团队的英雄列表
 Preventers heroes: [
     Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2),
     Hero(name='Spider-Boy', age=None, id=3, secret_name='Pedro Parqueador', team_id=2),
@@ -335,6 +335,6 @@ Preventers heroes: [
 
 </div>
 
-## Recap
+## 小结
 
-With **relationship attributes** you can use the power of common Python objects to easily access related data from the database. 😎
+通过 **关系属性**，你可以利用常见的 Python 对象轻松访问数据库中的相关数据。😎

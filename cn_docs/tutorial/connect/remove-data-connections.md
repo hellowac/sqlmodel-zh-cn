@@ -1,6 +1,6 @@
-# Remove Data Connections
+# 移除数据连接
 
-We currently have a `team` table:
+当前，我们有一个 `team` 表：
 
 <table>
 <tr>
@@ -14,7 +14,7 @@ We currently have a `team` table:
 </tr>
 </table>
 
-And a `hero` table:
+以及一个 `hero` 表：
 
 <table>
 <tr>
@@ -31,11 +31,11 @@ And a `hero` table:
 </tr>
 </table>
 
-Let's see how to **remove** connections between rows in tables.
+现在我们来看如何**移除**表之间行的连接。
 
-We will continue with the code from the previous chapter.
+我们将继续使用前一章节的代码。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -55,13 +55,13 @@ We will continue with the code from the previous chapter.
 
 ///
 
-## Break a Connection
+## 断开连接
 
-We don't really have to delete anything to break a connection. We can just assign `None` to the foreign key, in this case, to the `team_id`.
+我们不需要真正删除任何数据来断开连接。我们可以只将外键字段的值设为 `None`，在这个例子中是将 `team_id` 设为 `None`。
 
-Let's say **Spider-Boy** is tired of the lack of friendly neighbors and wants to get out of the **Preventers**.
+假设 **Spider-Boy** 对于 **Preventers** 团队缺乏友好的邻居感到厌烦，想要退出这个团队。
 
-We can simply set the `team_id` to `None`, and now it doesn't have a connection with the team:
+我们只需要将 `team_id` 设置为 `None`，这样它就不再与该团队有连接了：
 
 //// tab | Python 3.10+
 
@@ -95,7 +95,7 @@ We can simply set the `team_id` to `None`, and now it doesn't have a connection 
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -115,36 +115,36 @@ We can simply set the `team_id` to `None`, and now it doesn't have a connection 
 
 ///
 
-Again, we just **assign** a value to that field attribute `team_id`, now the value is `None`, which means `NULL` in the database. Then we `add()` the hero to the session, and then `commit()`.
+同样，我们只是**赋值**给字段属性 `team_id`，将其设置为 `None`，在数据库中这意味着 `NULL`。然后我们将英雄对象 `add()` 到会话中，再通过 `commit()` 提交。
 
-Next we `refresh()` it to get the recent data, and we print it.
+接下来，我们使用 `refresh()` 来获取最新的数据，并打印出来。
 
-Running that in the command line will output:
+在命令行中运行后将输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 😉
+// 之前的输出省略 😉
 
-// Update the hero
+// 更新英雄
 INFO Engine UPDATE hero SET team_id=? WHERE hero.id = ?
 INFO Engine [cached since 0.07753s ago] (None, 3)
-// Commit the session
+// 提交会话
 INFO Engine COMMIT
-// Automatically start a new transaction
+// 自动启动一个新事务
 INFO Engine BEGIN (implicit)
-// Refresh the hero
+// 刷新英雄数据
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
 FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.1661s ago] (3,)
 
-// Print the hero without a team
+// 打印没有团队的英雄
 No longer Preventer: id=3 secret_name='Pedro Parqueador' team_id=None name='Spider-Boy' age=None
 ```
 
 </div>
 
-That's it, we now removed a connection between rows in different tables by unsetting the foreign key column. 💥
+就这样，我们通过将外键列的值设为 `None`，成功移除了不同表之间的连接。💥

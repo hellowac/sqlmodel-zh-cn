@@ -1,12 +1,12 @@
-# Update Data - UPDATE
+# 更新数据 - UPDATE
 
-Now let's see how to update data using **SQLModel**.
+现在让我们看看如何使用 **SQLModel** 更新数据。
 
-## Continue From Previous Code
+## 从上一个代码继续
 
-As before, we'll continue from where we left off with the previous code.
+如前所述，我们将从上次的代码继续。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -26,11 +26,11 @@ As before, we'll continue from where we left off with the previous code.
 
 ///
 
-Remember to remove the `database.db` file before running the examples to get the same results.
+在运行示例之前，记得删除 `database.db` 文件，以确保获得相同的结果。
 
-## Update with SQL
+## 使用 SQL 更新
 
-Let's quickly check how to update data with SQL:
+让我们快速查看如何使用 SQL 更新数据：
 
 ```SQL hl_lines="1-2"
 UPDATE hero
@@ -38,35 +38,35 @@ SET age=16
 WHERE name = "Spider-Boy"
 ```
 
-This means, more or less:
+这大致意味着：
 
-> Hey SQL database 👋, I want to `UPDATE` the table called `hero`.
+> 嘿，SQL 数据库 👋，我要 `UPDATE` 名为 `hero` 的表。
 >
-> Please `SET` the value of the `age` column to `16`...
+> 请将 `age` 列的值设置为 `16`...
 >
-> ...for each of the rows `WHERE` the value of the column `name` is equal to `"Spider-Boy"`.
+> ...对于每一行，`WHERE` 列 `name` 的值等于 `"Spider-Boy"`。
 
-In a similar way to `SELECT` statements, the first part defines the columns to work with: what are the columns that have to be updated and to which value. The rest of the columns stay as they were.
+与 `SELECT` 语句类似，第一部分定义了要操作的列：要更新哪些列以及将其设置为哪个值。其余列保持不变。
 
-And the second part, with the `WHERE`, defines to which rows it should apply that update.
+第二部分则通过 `WHERE` 定义了应该应用此更新的行。
 
-In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the update in that row.
+在此案例中，由于只有一个名字为 `"Spider-Boy"` 的英雄，所以更新只会应用于这一行。
 
 /// info
 
-Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
+请注意，在 `UPDATE` 中，单等号（`=`）表示 **赋值** ，即将列设置为某个值。
 
-And in the `WHERE` the same single equals sign (`=`) is used for **comparison** between two values, to find rows that match.
+而在 `WHERE` 中，相同的单等号（`=`）用于 **比较** 两个值，以查找匹配的行。
 
-This is in contrast to Python and most programming languages, where a single equals sign (`=`) is used for assignment, and two equal signs (`==`) are used for comparisons.
+这与 Python 和大多数编程语言的用法有所不同，在这些语言中，单等号（`=`）用于赋值，而双等号（`==`）用于比较。
 
 ///
 
-You can try that in **DB Browser for SQLite**:
+你可以在 **DB Browser for SQLite** 中尝试执行这个 SQL：
 
-<img class="shadow" src="/img/tutorial/update/image01.png">
+<img class="shadow" src="../../img/tutorial/update/image01.png">
 
-After that update, the data in the table will look like this, with the new age for Spider-Boy:
+更新后，表中的数据将如下所示，`Spider-Boy` 的年龄已更新为 16：
 
 <table>
 <tr>
@@ -85,7 +85,7 @@ After that update, the data in the table will look like this, with the new age f
 
 /// tip
 
-It will probably be more common to find the row to update by `id`, for example:
+通常情况下，你会通过 `id` 查找要更新的行，例如：
 
 ```SQL
 UPDATE hero
@@ -93,26 +93,26 @@ SET age=16
 WHERE id = 2
 ```
 
-But in the example above I used `name` to make it more intuitive.
+但在上面的示例中，我使用了 `name` 来使操作更直观。
 
 ///
 
-Now let's do the same update in code, with **SQLModel**.
+现在，让我们用 **SQLModel** 在代码中做同样的更新。
 
-To get the same results, delete the `database.db` file before running the examples.
+为了获得相同的结果，在运行示例之前删除 `database.db` 文件。
 
-## Read From the Database
+## 从数据库读取数据
 
-We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update:
+我们将从选择英雄 `"Spider-Boy"` 开始，这也是我们将要更新的数据：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-47]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -120,16 +120,16 @@ We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update
 //// tab | Python 3.7+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001.py[ln:44-49]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -149,12 +149,12 @@ We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update
 
 ///
 
-Let's not forget to add that `update_heroes()` function to the `main()` function so that we call it when executing the program from the command line:
+别忘了将 `update_heroes()` 函数添加到 `main()` 函数中，这样在从命令行执行程序时会调用它：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="6"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001_py310.py[ln:56-63]!}
 ```
@@ -164,14 +164,14 @@ Let's not forget to add that `update_heroes()` function to the `main()` function
 //// tab | Python 3.7+
 
 ```Python hl_lines="6"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001.py[ln:58-65]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -191,22 +191,22 @@ Let's not forget to add that `update_heroes()` function to the `main()` function
 
 ///
 
-Up to that point, running that in the command line will output:
+到目前为止，在命令行运行程序时将输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate and previous output omitted 😉
+// 一些模板代码和之前的输出省略 😉
 
-// The SELECT with WHERE
+// SELECT with WHERE
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00017s] ('Spider-Boy',)
 
-// Print the hero as obtained from the database
+// 打印从数据库获取的英雄
 Hero: name='Spider-Boy' secret_name='Pedro Parqueador' age=None id=2
 ```
 
@@ -214,24 +214,24 @@ Hero: name='Spider-Boy' secret_name='Pedro Parqueador' age=None id=2
 
 /// tip
 
-Notice that by this point, the hero still doesn't have an age.
+注意到到目前为止，这个英雄的年龄仍然没有设置。
 
 ///
 
-## Set a Field Value
+## 设置字段值
 
-Now that you have a `hero` object, you can simply set the value of the field (the attribute representing a column) that you want.
+现在你已经有了一个 `hero` 对象，你可以简单地设置你想要的字段值（代表列的属性）。
 
-In this case, we will set the `age` to `16`:
+在本例中，我们将 `age` 设置为 `16`：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="10"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-49]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -239,16 +239,16 @@ In this case, we will set the `age` to `16`:
 //// tab | Python 3.7+
 
 ```Python hl_lines="10"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001.py[ln:44-51]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -268,20 +268,20 @@ In this case, we will set the `age` to `16`:
 
 ///
 
-## Add the Hero to the Session
+## 将英雄添加到会话中
 
-Now that the hero object in memory has a change, in this case a new value for the `age`, we need to add it to the session.
+现在，由于 `hero` 对象在内存中的值已经发生了变化，特别是 `age` 的新值，我们需要将它添加到会话中。
 
-This is the same we did when creating new hero instances:
+这与我们在创建新的英雄实例时做的操作是一样的：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-50]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -289,16 +289,16 @@ This is the same we did when creating new hero instances:
 //// tab | Python 3.7+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001.py[ln:44-52]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -318,20 +318,20 @@ This is the same we did when creating new hero instances:
 
 ///
 
-## Commit the Session
+## 提交会话
 
-To save the current changes in the session, **commit** it.
+要保存会话中的当前更改，需要 **提交** 会话。
 
-This will save the updated hero in the database:
+这将把更新后的英雄保存到数据库中：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="12"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-51]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -339,16 +339,16 @@ This will save the updated hero in the database:
 //// tab | Python 3.7+
 
 ```Python hl_lines="12"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001.py[ln:44-53]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -368,22 +368,22 @@ This will save the updated hero in the database:
 
 ///
 
-It will also save anything else that was added to the session.
+它还会保存会话中任何其他已经添加的内容。
 
-For example, if you were also creating new heroes and had added those objects to the session before, they would now be saved too in this single commit.
+例如，如果你之前创建了新的英雄并将这些对象添加到会话中，它们也将在这次提交中一起保存。
 
-This commit will generate this output:
+此提交将生成以下输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些模板输出省略 😉
 
-// Previous output omitted 🙈
+// 上述输出省略 🙈
 
-// The SQL to update the hero in the database
+// 更新英雄数据的 SQL 语句
 INFO Engine UPDATE hero SET age=? WHERE hero.id = ?
 INFO Engine [generated in 0.00017s] (16, 2)
 INFO Engine COMMIT
@@ -391,22 +391,22 @@ INFO Engine COMMIT
 
 </div>
 
-## Refresh the Object
+## 刷新对象
 
-At this point, the hero is updated in the database and it has the new data saved there.
+此时，英雄数据已在数据库中更新，并且新数据已经保存。
 
-The data in the object would be automatically refreshed if we accessed an attribute, like `hero.name`.
+如果我们访问某个属性，例如 `hero.name`，对象中的数据会自动刷新。
 
-But in this example we are not accessing any attribute, we will only print the object. And we also want to be explicit, so we will `.refresh()` the object directly:
+但在这个示例中，我们并没有访问任何属性，我们只是打印对象。同时，为了更加明确，我们将直接使用 `.refresh()` 来刷新对象：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="13"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-52]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -414,16 +414,16 @@ But in this example we are not accessing any attribute, we will only print the o
 //// tab | Python 3.7+
 
 ```Python hl_lines="13"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001.py[ln:44-54]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -443,18 +443,18 @@ But in this example we are not accessing any attribute, we will only print the o
 
 ///
 
-This refresh will trigger the same SQL query that would be automatically triggered by accessing an attribute. So it will generate this output:
+此刷新操作将触发与访问属性时自动触发的相同 SQL 查询。因此，它将生成以下输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些模板输出省略 😉
 
-// Previous output omitted 🙈
+// 上述输出省略 🙈
 
-// The SQL to SELECT the fresh hero data
+// 执行选择最新英雄数据的 SQL 查询
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.id = ?
@@ -463,18 +463,18 @@ INFO Engine [generated in 0.00018s] (2,)
 
 </div>
 
-## Print the Updated Object
+## 打印更新后的对象
 
-Now we can just print the hero:
+现在我们可以直接打印出更新后的英雄：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="14"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-53]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -482,16 +482,16 @@ Now we can just print the hero:
 //// tab | Python 3.7+
 
 ```Python hl_lines="14"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial001.py[ln:44-55]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -511,28 +511,28 @@ Now we can just print the hero:
 
 ///
 
-Because we refreshed it right after updating it, it has fresh data, including the new `age` we just updated.
+因为我们在更新之后立即刷新了它，它现在包含最新的数据，包括我们刚刚更新的 `age`。
 
-So, printing it will show the new `age`:
+所以，打印出来将显示新的 `age`：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些模板输出省略 😉
 
-// Previous output omitted 🙈
+// 上述输出省略 🙈
 
-// Print the hero with the new age
+// 打印更新后的英雄，包含新的年龄
 Updated hero: name='Spider-Boy' secret_name='Pedro Parqueador' age=16 id=2
 ```
 
 </div>
 
-## Review the Code
+## 回顾代码
 
-Now let's review all that code:
+现在让我们回顾一下所有的代码：
 
 //// tab | Python 3.10+
 
@@ -556,24 +556,24 @@ Now let's review all that code:
 
 /// tip
 
-Check out the number bubbles to see what is done by each line of code.
+查看每行代码旁边的数字气泡，了解每行代码的作用。
 
 ///
 
-## Multiple Updates
+## 多次更新
 
-The update process with **SQLModel** is more or less the same as with creating new objects, you add them to the session, and then commit them.
+使用 **SQLModel** 进行更新的过程与创建新对象的过程差不多，你只需要将它们添加到会话中，然后提交它们。
 
-This also means that you can update several fields (attributes, columns) at once, and you can also update several objects (heroes) at once:
+这也意味着你可以一次更新多个字段（属性，列），并且还可以一次更新多个对象（英雄）：
 
 //// tab | Python 3.10+
 
 ```{ .python .annotate hl_lines="15-17  19-21  23" }
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial004_py310.py[ln:42-68]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 {!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
@@ -583,18 +583,18 @@ This also means that you can update several fields (attributes, columns) at once
 //// tab | Python 3.7+
 
 ```{ .python .annotate hl_lines="15-17  19-21  23" }
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/update/tutorial004.py[ln:44-70]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 {!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -616,12 +616,12 @@ This also means that you can update several fields (attributes, columns) at once
 
 /// tip
 
-Review what each line does by clicking each number bubble in the code. 👆
+点击每个数字气泡，回顾每行代码的作用。👆
 
 ///
 
-## Recap
+## 总结
 
-Update **SQLModel** objects just as you would with other Python objects. 🐍
+更新 **SQLModel** 对象的方式与更新其他 Python 对象相同。🐍
 
-Just remember to `add` them to a **session**, and then `commit` it. And if necessary, `refresh` them.
+只需要记得将它们 `add` 到 **会话** 中，然后执行 `commit`。如果需要，还可以执行 `refresh` 来刷新它们。

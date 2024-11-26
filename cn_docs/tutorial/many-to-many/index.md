@@ -1,22 +1,22 @@
-# Many to Many - Intro
+# 多对多 - 介绍
 
-We saw how to work with <abbr title="Also called Many-to-One">One-to-Many</abbr> relationships in the data.
+我们已经了解了如何处理数据中的 <abbr title="也叫做多对一">一对多</abbr> 关系。
 
-But how do you handle **Many-to-Many** relationships?
+但是如何处理 **多对多** 关系呢？
 
-Let's explore them. 🚀
+让我们来探索一下。🚀
 
-## Starting from One-to-Many
+## 从一对多开始
 
-Let's start with the familiar and simpler option of **One-to-Many**.
+我们先从熟悉且简单的 **一对多** 关系开始。
 
-We have one table with teams and one with heroes, and for each **one** team, we can have **many** heroes.
+我们有一个包含团队的表和一个包含英雄的表，对于每个 **单一** 团队，我们可以有 **多个** 英雄。
 
-As each team could have multiple heroes, we wouldn't be able to put the Hero IDs in columns for all of them in the `team` table.
+由于每个团队可以有多个英雄，我们不能在 `team` 表中为每个英雄都创建一个专门的列来存放他们的 ID。
 
-But as each hero can belong **only to one** team, we have a **single column** in the heroes table to point to the specific team (to a specific row in the `team` table).
+但是，由于每个英雄只能属于 **一个** 团队，因此在英雄表中，我们有 **一个单一的列** 来指向特定的团队（即指向 `team` 表中的特定行）。
 
-The `team` table looks like this:
+`team` 表看起来像这样：
 
 <table>
 <tr>
@@ -32,11 +32,11 @@ The `team` table looks like this:
 
 /// tip
 
-Notice that it doesn't have any foreign key to other tables.
+注意，这里没有任何指向其他表的外键。
 
 ///
 
-And the `hero` table looks like this:
+`hero` 表看起来像这样：
 
 <table>
 <tr>
@@ -53,43 +53,43 @@ And the `hero` table looks like this:
 </tr>
 </table>
 
-We have a column in the `hero` table for the `team_id` that points to the ID of a specific team in the `team` table.
+我们在 `hero` 表中有一个 `team_id` 列，它指向 `team` 表中某个特定团队的 ID。
 
-This is how we connect each `hero` with a `team`:
+这就是我们如何将每个 `hero` 与一个 `team` 连接起来：
 
-<img alt="table relationships" src="/img/databases/relationships.svg">
+<img alt="table relationships" src="../../../img/databases/relationships.svg">
 
-Notice that each hero can only have **one** connection. But each team can receive **many** connections. In particular, the team **Preventers** has two heroes.
+注意，每个英雄只能有 **一个** 连接。但是每个团队可以接收 **多个** 连接。特别地，团队 **Preventers** 有两个英雄。
 
-## Introduce Many-to-Many
+## 引入多对多
 
-But let's say that as **Deadpond** is a great character, they recruit him to the new **Preventers** team, but he's still part of the **Z-Force** team too.
+但假设 **Deadpond** 是一个伟大的角色，他被招募到新的 **Preventers** 团队，但他仍然是 **Z-Force** 团队的一员。
 
-So, now, we need to be able to have a hero that is connected to **many** teams. And then, each team, should still be able to receive **many** heroes. So we need a **Many-to-Many** relationship.
+所以现在，我们需要能够让一个英雄连接到 **多个** 团队。并且，每个团队仍然可以接收 **多个** 英雄。因此，我们需要一个 **多对多** 关系。
 
-A naive approach that wouldn't work very well is to add more columns to the `hero` table. Imagine we add two extra columns. Now we could connect a single `hero` to 3 teams in total, but not more. So we haven't really solved the problem of supporting **many** teams, only a very limited fixed number of teams.
+一个不起作用的简单做法是往 `hero` 表中添加更多的列。假设我们添加了两个额外的列。那么现在我们可以将一个 `hero` 连接到最多 3 个团队，但不能更多。因此，这样做并没有真正解决支持 **多个** 团队的问题，只是支持了一个非常有限的固定数量的团队。
 
-We can do better! 🤓
+我们可以做得更好！ 🤓
 
-## Link Table
+## 链接表
 
-We can create another table that would represent the link between the `hero` and `team` tables.
+我们可以创建另一个表来表示 `hero` 表和 `team` 表之间的链接。
 
-All this table contains is two columns, `hero_id` and `team_id`.
+这个表只包含两列：`hero_id` 和 `team_id`。
 
-Both columns are **foreign keys** pointing to the ID of a specific row in the `hero` and `team` tables.
+这两列都是 **外键**，分别指向 `hero` 表和 `team` 表中某个特定行的 ID。
 
-As this will represent the **hero-team-link**, let's call the table `heroteamlink`.
+因为这个表将表示 **英雄-团队链接**，我们可以将其命名为 `heroteamlink`。
 
-It would look like this:
+它看起来是这样的：
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="多对多表关系" src="../../../img/tutorial/many-to-many/many-to-many.svg">
 
-Notice that now the table `hero` **doesn't have a `team_id`** column anymore, it is replaced by this link table.
+注意，现在 `hero` 表中 **不再有 `team_id`** 列，它被这个链接表所替代。
 
-And the `team` table, just as before, doesn't have any foreign key either.
+而 `team` 表，像以前一样，仍然没有任何外键。
 
-Specifically, the new link table `heroteamlink` would be:
+具体来说，新的链接表 `heroteamlink` 会是：
 
 <table>
 <tr>
@@ -111,42 +111,42 @@ Specifically, the new link table `heroteamlink` would be:
 
 /// info
 
-Other names used for this **link table** are:
+此 **链接表** 的其他常用名称包括：
 
-* association table
-* secondary table
-* junction table
-* intermediate table
-* join table
-* through table
-* relationship table
-* connection table
+* 关联表（association table）
+* 二级表（secondary table）
+* 连接表（junction table）
+* 中间表（intermediate table）
+* 联接表（join table）
+* 通过表（through table）
+* 关系表（relationship table）
+* 连接表（connection table）
 
-I'm using the term "link table" because it's short, doesn't collide with other terms already used (e.g. "relationship"), it's easy to remember how to write it, etc.
+我使用“链接表”这个术语，因为它简短、不与其他已用的术语（例如“关系”）冲突，且容易记住怎么写，等等。
 
 ///
 
-## Link Primary Key
+## 链接主键
 
-Cool, we have a link table with **just two columns**. But remember that SQL databases [require each row to have a **primary key**](../../databases.md#identifications-primary-key){.internal-link target=_blank} that **uniquely identifies** the row in that table?
+好，我们有一个只有 **两列** 的链接表。但记住，SQL 数据库要求每一行都必须有一个 **主键** 来 **唯一标识** 该表中的行，对吧？
 
-Now, what is the **primary key** in this table?
+那么，在这个表中， **主键** 是什么呢？
 
-How to we identify each unique row?
+我们该如何标识每一行的唯一性？
 
-Should we add another column just to be the **primary key** of this link table? Nope! We don't have to do that. 👌
+是否需要再添加一列来作为这个链接表的 **主键** ？不！我们不需要这样做。👌
 
-**Both columns are the primary key** of each row in this table (and each row just has those two columns). ✨
+**这两列作为主键** ，共同标识这个表中的每一行（每一行只有这两列）。✨
 
-A primary key is a way to **uniquely identify** a particular row in a **single table**. But it doesn't have to be a single column.
+主键是一种 **唯一标识** 单个表中特定行的方式。但它不一定是单独的一列。
 
-A primary key can be a group of the columns in a table, which combined are unique in this table.
+主键可以是表中一组列，组合起来在表中是唯一的。
 
-Check the table above again, see that **each row has a unique combination** of `hero_id` and `team_id`?
+再看一下上面的表，看到 **每一行都有唯一的 `hero_id` 和 `team_id` 组合** 吗？
 
-We cannot have duplicated primary keys, which means that we cannot have duplicated links between `hero` and `team`, exactly what we want!
+我们不能有重复的主键，这意味着我们不能有重复的 `hero` 和 `team` 之间的链接，这正是我们想要的！
 
-For example, the database will now prevent an error like this, with a duplicated row:
+例如，数据库现在会防止出现像下面这样有重复行的错误：
 
 <table>
 <tr>
@@ -169,14 +169,14 @@ For example, the database will now prevent an error like this, with a duplicated
 </tr>
 </table>
 
-It wouldn't make sense to have a hero be part of the **same team twice**, right?
+让一个英雄 **重复加入同一个团队** 是没有意义的，对吧？
 
-Now, just by using the two columns as the primary keys of this table, SQL will take care of **preventing us from duplicating** a link between `hero` and `team`. ✅
+现在，只需使用这两列作为这个表的主键，SQL 就会自动处理 **防止我们重复插入** `hero` 和 `team` 之间的链接。✅
 
-## Recap
+## 总结
 
-An intro with a recap! That's weird... but anyway. 🤷
+一个总结性的介绍！这有点奇怪……不过没关系。🤷
 
-Now you have the theory about the **many-to-many** relationships, and how to solve them with tables in SQL. 🤓
+现在你已经了解了 **多对多** 关系的理论，以及如何通过 SQL 表来解决它们。🤓
 
-Now let's check how to write the SQL and the code to work with them. 🚀
+接下来，让我们看看如何编写 SQL 和代码来实现它们。🚀

@@ -1,19 +1,19 @@
-# Automatic IDs, None Defaults, and Refreshing Data
+# 自动生成的 ID、`None` 默认值和数据刷新
 
-In the previous chapter, we saw how to add rows to the database using **SQLModel**.
+在上一章中，我们学习了如何使用 **SQLModel** 向数据库添加行。
 
-Now let's talk a bit about why the `id` field **can't be `NULL`** on the database because it's a **primary key**, and we declare it using `Field(primary_key=True)`.
+现在，让我们详细探讨一下为什么 `id` 字段在数据库中作为 **主键** 时 **不能为 `NULL`**，这是因为我们通过 `Field(primary_key=True)` 声明它。
 
-But the same `id` field actually **can be `None`** in the Python code, so we declare the type with `int | None (or Optional[int])`, and set the default value to `Field(default=None)`:
+然而，在 Python 代码中，同一个 `id` 字段实际上 **可以是 `None`**。因此，我们使用 `int | None`（或 `Optional[int]`）声明其类型，并设置默认值为 `Field(default=None)`：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="4"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:4-8]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -21,16 +21,16 @@ But the same `id` field actually **can be `None`** in the Python code, so we dec
 //// tab | Python 3.7+
 
 ```Python hl_lines="4"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:6-10]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -50,22 +50,22 @@ But the same `id` field actually **can be `None`** in the Python code, so we dec
 
 ///
 
-Next, I'll show you a bit more about the synchronization of data between the database and the Python code.
+接下来，我将详细介绍数据库与 Python 代码之间的数据同步。
 
-When do we get an actual `int` from the database in that `id` field? Let's see all that. 👇
+比如，什么时候会从数据库中获取 `id` 字段的实际 `int` 值？让我们一起来探讨这些内容。👇
 
-## Create a New `Hero` Instance
+## 创建一个新的 `Hero` 实例
 
-When we create a new `Hero` instance, we don't set the `id`:
+当我们创建一个新的 `Hero` 实例时，我们并没有设置 `id`：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-6"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:21-24]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -73,16 +73,16 @@ When we create a new `Hero` instance, we don't set the `id`:
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-6"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-26]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -102,40 +102,40 @@ When we create a new `Hero` instance, we don't set the `id`:
 
 ///
 
-### How `Optional` Helps
+### `Optional` 如何帮助
 
-Because we don't set the `id`, it takes the Python's default value of `None` that we set in `Field(default=None)`.
+由于我们没有设置 `id`，它会采用我们在 `Field(default=None)` 中设置的 Python 默认值 `None`。
 
-This is the only reason why we define it with `Optional` and with a default value of `None`.
+这就是为什么我们使用 `Optional` 并将默认值设置为 `None` 的唯一原因。
 
-Because at this point in the code, **before interacting with the database**, the Python value could actually be `None`.
+因为在代码的这一部分，**在与数据库交互之前**，Python 的值实际上可能是 `None`。
 
-If we assumed that the `id` was *always* an `int` and added the type annotation without `Optional`, we could end up writing broken code, like:
+如果我们假设 `id` 总是一个 `int`，并且没有使用 `Optional` 添加类型注解，我们可能会写出错误的代码，例如：
 
 ```Python
 next_hero_id = hero_1.id + 1
 ```
 
-If we ran this code before saving the hero to the database and the `hero_1.id` was still `None`, we would get an error like:
+如果我们在将英雄保存到数据库之前运行这段代码，并且 `hero_1.id` 仍然是 `None`，我们会得到如下错误：
 
 ```
 TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
 ```
 
-But by declaring it with `Optional[int]`, the editor will help us to avoid writing broken code by showing us a warning telling us that the code could be invalid if `hero_1.id` is `None`. 🔍
+但是通过使用 `Optional[int]` 声明，编辑器会帮助我们避免写出错误的代码，并提醒我们如果 `hero_1.id` 是 `None`，代码可能无效。🔍
 
-## Print the Default `id` Values
+## 打印默认的 `id` 值
 
-We can confirm that by printing our heroes before adding them to the database:
+我们可以通过在将英雄添加到数据库之前打印它们来确认这一点：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9-11"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:21-29]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -143,16 +143,16 @@ We can confirm that by printing our heroes before adding them to the database:
 //// tab | Python 3.7+
 
 ```Python hl_lines="9-11"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-31]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -172,16 +172,16 @@ We can confirm that by printing our heroes before adding them to the database:
 
 ///
 
-That will output:
+输出将是：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Output above omitted 👆
+// 上方输出省略 👆
 
-Before interacting with the database
+在与数据库交互之前
 Hero 1: id=None name='Deadpond' secret_name='Dive Wilson' age=None
 Hero 2: id=None name='Spider-Boy' secret_name='Pedro Parqueador' age=None
 Hero 3: id=None name='Rusty-Man' secret_name='Tommy Sharp' age=48
@@ -189,26 +189,26 @@ Hero 3: id=None name='Rusty-Man' secret_name='Tommy Sharp' age=48
 
 </div>
 
-Notice they all have `id=None`.
+注意它们的 `id=None`。
 
-That's the default value we defined in the `Hero` model class.
+这是我们在 `Hero` 模型类中定义的默认值。
 
-What happens when we `add` these objects to the **session**?
+当我们将这些对象 `add` 到 **session** 时会发生什么？
 
-## Add the Objects to the Session
+## 将对象添加到 Session
 
-After we add the `Hero` instance objects to the **session**, the IDs are *still* `None`.
+在我们将 `Hero` 实例对象添加到 **session** 后，ID 仍然是 `None`。
 
-We can verify by creating a session using a `with` block and adding the objects. And then printing them again:
+我们可以通过使用 `with` 块创建一个 session，添加对象，然后再次打印它们来验证这一点：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="19-21"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:21-39]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -216,16 +216,16 @@ We can verify by creating a session using a `with` block and adding the objects.
 //// tab | Python 3.7+
 
 ```Python hl_lines="19-21"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-41]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -245,16 +245,16 @@ We can verify by creating a session using a `with` block and adding the objects.
 
 ///
 
-This will, again, output the `id`s of the objects as `None`:
+这将再次输出对象的 `id` 为 `None`：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Output above omitted 👆
+// 上方输出省略 👆
 
-After adding to the session
+添加到 session 后
 Hero 1: id=None name='Deadpond' secret_name='Dive Wilson' age=None
 Hero 2: id=None name='Spider-Boy' secret_name='Pedro Parqueador' age=None
 Hero 3: id=None name='Rusty-Man' secret_name='Tommy Sharp' age=48
@@ -262,20 +262,20 @@ Hero 3: id=None name='Rusty-Man' secret_name='Tommy Sharp' age=48
 
 </div>
 
-As we saw before, the **session** is smart and doesn't talk to the database every time we prepare something to be changed, only after we are ready and tell it to `commit` the changes it goes and sends all the SQL to the database to store the data.
+正如我们之前所见，**session** 很智能，不会在每次准备更改时都与数据库通信，只有在我们准备好并告诉它 `commit` 更改时，它才会将所有 SQL 发送到数据库以存储数据。
 
-## Commit the Changes to the Database
+## 提交更改到数据库
 
-Then we can `commit` the changes in the session, and print again:
+然后我们可以提交 session 中的更改，并再次打印：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="13 16-18"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:31-46]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -283,16 +283,16 @@ Then we can `commit` the changes in the session, and print again:
 //// tab | Python 3.7+
 
 ```Python hl_lines="13 16-18"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-48]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -312,16 +312,16 @@ Then we can `commit` the changes in the session, and print again:
 
 ///
 
-And now, something unexpected happens, look at the output, it seems as if the `Hero` instance objects had no data at all:
+现在，发生了一些意想不到的事情，看看输出，似乎 `Hero` 实例对象根本没有数据：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Output above omitted 👆
+// 上方输出省略 👆
 
-// Here the engine talks to the database, the SQL part
+// 这里是引擎与数据库交互的部分，SQL 操作
 INFO Engine BEGIN (implicit)
 INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [generated in 0.00018s] ('Deadpond', 'Dive Wilson', None)
@@ -331,51 +331,51 @@ INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.001143s ago] ('Rusty-Man', 'Tommy Sharp', 48)
 INFO Engine COMMIT
 
-// And now our prints
-After committing the session
+// 现在是我们的打印输出
+提交 session 后
 Hero 1:
 Hero 2:
 Hero 3:
 
-// What is happening here? 😱
+// 这里发生了什么？😱
 ```
 
 </div>
 
-What happens is that SQLModel (actually SQLAlchemy) is internally marking those objects as "expired", they **don't have the latest version of their data**. This is because we could have some fields updated in the database, for example, imagine a field `updated_at: datetime` that was automatically updated when we saved changes.
+发生的情况是 SQLModel（实际上是 SQLAlchemy）内部将这些对象标记为“过期”，它们 **没有最新版本的数据** 。这是因为我们可能在数据库中更新了一些字段，例如，假设有一个字段 `updated_at: datetime`，它在我们保存更改时会自动更新。
 
-The same way, other values could have changed, so the option the **session** has to be sure and safe is to just internally mark the objects as expired.
+同样，其他值也可能发生了变化，因此 **session** 为了确保安全，会内部将对象标记为过期。
 
-And then, next time we access each attribute, for example with:
+然后，下次我们访问每个属性时，例如：
 
 ```Python
 current_hero_name = hero_1.name
 ```
 
-...SQLModel (actually SQLAlchemy) will make sure to contact the database and **get the most recent version of the data**, updating that field `name` in our object and then making it available for the rest of the Python expression. In the example above, at that point, Python would be able to continue executing and use that `hero_1.name` value (just updated) to put it in the variable `current_hero_name`.
+...SQLModel（实际上是 SQLAlchemy）会确保联系数据库并 **获取数据的最新版本** ，更新对象中的 `name` 字段，然后使其对后续的 Python 表达式可用。在上面的例子中，Python 会继续执行，并使用刚刚更新的 `hero_1.name` 值将其赋值给变量 `current_hero_name`。
 
-All this happens automatically and behind the scenes. ✨
+这一切都会自动发生，并且是幕后进行的。✨
 
-And here's the funny and strange thing with our example:
+而且这是我们示例中的有趣和奇怪之处：
 
 ```Python
 print("Hero 1:", hero_1)
 ```
 
-We didn't access the object's attributes, like `hero.name`. We only accessed the entire object and printed it, so **SQLAlchemy has no way of knowing** that we want to access this object's data.
+我们并没有访问对象的属性，如 `hero.name`。我们只是访问了整个对象并打印了它，所以 **SQLAlchemy 无法知道** 我们想访问该对象的数据。
 
-## Print a Single Field
+## 打印单个字段
 
-To confirm and understand how this **automatic expiration and refresh** of data when accessing attributes work, we can print some individual fields (instance attributes):
+为了确认和理解当访问属性时如何进行**自动过期和数据刷新**，我们可以打印一些单独的字段（实例属性）：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="21-23 26-28"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:31-56]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -383,16 +383,16 @@ To confirm and understand how this **automatic expiration and refresh** of data 
 //// tab | Python 3.7+
 
 ```Python hl_lines="21-23 26-28"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-58]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -412,93 +412,93 @@ To confirm and understand how this **automatic expiration and refresh** of data 
 
 ///
 
-Now we are actually accessing the attributes, because instead of printing the whole object `hero_1`:
+现在我们实际上正在访问属性，因为我们不再打印整个对象 `hero_1`：
 
 ```Python
 print("Hero 1:", hero_1)
 ```
 
-...we are now printing the `id` attribute in `hero.id`:
+...我们现在打印的是 `hero.id` 中的 `id` 属性：
 
 ```Python
 print("Hero 1 ID:", hero_1.id)
 ```
 
-By accessing the attribute, that **triggers** a lot of work done by SQLModel (actually SQLAlchemy) underneath to **refresh the data from the database**, set it in the object's `id` attribute, and make it available for the Python expression (in this case just to print it).
+通过访问属性，这**触发**了 SQLModel（实际上是 SQLAlchemy）在后台进行大量工作，**从数据库刷新数据**，将其设置到对象的 `id` 属性中，并使其在 Python 表达式中可用（在本例中就是打印出来）。
 
-Let's see how it works:
+让我们看看它是如何工作的：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Output above omitted 👆
+// 上方输出省略 👆
 
-// After committing, the objects are expired and have no values
-After committing the session
+// 提交后，对象已过期且没有值
+提交 session 后
 Hero 1:
 Hero 2:
 Hero 3:
 
-// Now we will access an attribute like the ID, this is the first print
-After committing the session, show IDs
+// 现在我们将访问像 ID 这样的属性，这是第一次打印
+提交 session 后，显示 ID
 
-// Notice that before printing the first ID, the Session makes the Engine go to the database to refresh the data 🤓
+// 请注意，在打印第一个 ID 之前，Session 会让 Engine 去数据库刷新数据 🤓
 INFO Engine BEGIN (implicit)
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00017s] (1,)
 
-// Here's our first print, now we have the database-generated ID
+// 这是我们的第一次打印，现在我们有了数据库生成的 ID
 Hero 1 ID: 1
 
-// Before the next print, refresh the data for the second object
+// 在打印下一个 ID 之前，刷新第二个对象的数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001245s ago] (2,)
 
-// Here's our print for the second hero with its auto-generated ID
+// 这是我们的第二个英雄打印，带有自动生成的 ID
 Hero 2 ID: 2
 
-// Before the third print, refresh its data
+// 在第三个打印之前，刷新它的数据
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002215s ago] (3,)
 
-// And here's our print for the third hero
+// 这是我们的第三个英雄打印
 Hero 3 ID: 3
 
-// What if we print another attribute like the name?
-After committing the session, show names
+// 如果我们打印另一个属性，比如名字呢？
+提交 session 后，显示名字
 Hero 1 name: Deadpond
 Hero 2 name: Spider-Boy
 Hero 3 name: Rusty-Man
 
-// Because the Session already refreshed these objects with all their data and the session knows they are not expired, it doesn't have to go again to the database for the names 🤓
+// 因为 Session 已经刷新了这些对象的所有数据，并且 Session 知道它们没有过期，所以它不需要再次去数据库获取名字 🤓
 ```
 
 </div>
 
-## Refresh Objects Explicitly
+## 显式刷新对象
 
-You just learnt how the **session** refreshes the data automatically behind the scenes, as a side effect, when you access an attribute.
+你刚刚学习了如何通过 **session** 在后台自动刷新数据，当你访问某个属性时，数据会作为副作用被刷新。
 
-But what if you want to **explicitly refresh** the data?
+但是如果你想 **显式刷新** 数据怎么办呢？
 
-You can do that too with `session.refresh(object)`:
+你也可以使用 `session.refresh(object)` 来做到这一点：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="30-32 35-37"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:31-65]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -506,16 +506,16 @@ You can do that too with `session.refresh(object)`:
 //// tab | Python 3.7+
 
 ```Python hl_lines="30-32 35-37"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-67]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -535,43 +535,43 @@ You can do that too with `session.refresh(object)`:
 
 ///
 
-When Python executes this code:
+当 Python 执行以下代码时：
 
 ```Python
 session.refresh(hero_1)
 ```
 
-...the **session** goes and makes the **engine** communicate with the database to get the recent data for this object `hero_1`, and then the **session** puts the data in the `hero_1` object and marks it as "fresh" or "not expired".
+... **session** 会让 **engine** 与数据库进行通信，获取该对象 `hero_1` 的最新数据，然后将数据放入 `hero_1` 对象中，并将其标记为“新鲜”或“未过期”。
 
-Here's how the output would look like:
+以下是输出的样子：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Output above omitted 👆
+// 上方输出省略 👆
 
-// The first refresh
+// 第一次刷新
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00024s] (1,)
 
-// The second refresh
+// 第二次刷新
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001487s ago] (2,)
 
-// The third refresh
+// 第三次刷新
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002377s ago] (3,)
 
-// Now print the data, as it's already refreshed there's no need for the Session to go and refresh it again
-After refreshing the heroes
+// 现在打印数据，由于数据已经刷新，Session 不需要再次刷新
+刷新英雄后
 Hero 1: age=None id=1 name='Deadpond' secret_name='Dive Wilson'
 Hero 2: age=None id=2 name='Spider-Boy' secret_name='Pedro Parqueador'
 Hero 3: age=48 id=3 name='Rusty-Man' secret_name='Tommy Sharp'
@@ -579,26 +579,26 @@ Hero 3: age=48 id=3 name='Rusty-Man' secret_name='Tommy Sharp'
 
 </div>
 
-This could be useful, for example, if you are building a web API to create heroes. And once a hero is created with some data, you return it to the client.
+这在某些情况下会很有用，例如，如果你正在构建一个用于创建英雄的 Web API。假设一旦创建了某个英雄并保存了一些数据，你将其返回给客户端。
 
-You wouldn't want to return an object that looks empty because the automatic magic to refresh the data was not triggered.
+你不希望返回一个看起来空空的对象，因为没有触发自动刷新数据的机制。
 
-In this case, after committing the object to the database with the **session**, you could refresh it, and then return it to the client. This would ensure that the object has its fresh data.
+在这种情况下，提交对象到数据库后，你可以显式刷新它，然后将其返回给客户端。这将确保对象包含最新的数据。
 
-## Print Data After Closing the Session
+## 关闭会话后打印数据
 
-Now, as a final experiment, we can also print data after the **session** is closed.
+现在，作为最后一个实验，我们还可以在 **会话** 关闭后打印数据。
 
-There are no surprises here, it still works:
+这里没有什么意外，依然能够正常工作：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="40-42"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:31-70]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
@@ -606,16 +606,16 @@ There are no surprises here, it still works:
 //// tab | Python 3.7+
 
 ```Python hl_lines="40-42"
-# Code above omitted 👆
+# 上方代码省略 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-72]!}
 
-# Code below omitted 👇
+# 下方代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -635,20 +635,20 @@ There are no surprises here, it still works:
 
 ///
 
-And the output shows again the same data:
+输出再次显示相同的数据：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Output above omitted 👆
+// 上方输出省略 👆
 
-// By finishing the with block, the Session is closed, including a rollback of any pending transaction that could have been there and was not committed
+// 在完成 with 块后，会话已关闭，包括任何未提交的挂起事务的回滚
 INFO Engine ROLLBACK
 
-// Then we print the data, it works normally
-After the session closes
+// 然后我们打印数据，正常工作
+会话关闭后
 Hero 1: age=None id=1 name='Deadpond' secret_name='Dive Wilson'
 Hero 2: age=None id=2 name='Spider-Boy' secret_name='Pedro Parqueador'
 Hero 3: age=48 id=3 name='Rusty-Man' secret_name='Tommy Sharp'
@@ -656,15 +656,15 @@ Hero 3: age=48 id=3 name='Rusty-Man' secret_name='Tommy Sharp'
 
 </div>
 
-## Review All the Code
+## 回顾所有代码
 
-Now let's review all this code once again.
+现在让我们再次回顾所有的代码。
 
 /// tip
 
-Each one of the numbered bubbles shows what each line will print in the output.
+每个编号气泡都会显示该行代码在输出中的打印内容。
 
-And as we created the **engine** with `echo=True`, we can see the SQL statements being executed at each step.
+由于我们在创建**引擎**时使用了 `echo=True`，我们可以看到在每个步骤中执行的 SQL 语句。
 
 ///
 
@@ -688,7 +688,7 @@ And as we created the **engine** with `echo=True`, we can see the SQL statements
 
 ////
 
-And here's all the output generated by running this program, all together:
+以下是运行该程序时生成的所有输出：
 
 <div class="termy">
 
@@ -778,14 +778,14 @@ Hero 3: age=48 id=3 name='Rusty-Man' secret_name='Tommy Sharp'
 
 </div>
 
-## Recap
+## 回顾
 
-You read all that! That was a lot! Have some cake, you earned it. 🍰
+你读完了所有这些内容！真是很多啊！来块蛋糕奖励一下自己吧，你值得拥有。🍰
 
-We discussed how the **session** uses the **engine** to send SQL to the database, to create data and to fetch data too. How it keeps track of "**expired**" and "**fresh**" data. At which moments it **fetches data automatically** (when accessing instance attributes) and how that data is synchronized between objects in memory and the database via the **session**.
+我们讨论了 **会话** 如何使用 **引擎** 向数据库发送 SQL，用于创建数据和获取数据。它如何追踪“ **过期** ”和“ **新鲜** ”的数据。在何时会 **自动获取数据** （访问实例属性时）以及如何通过 **会话** 在内存中的对象和数据库之间同步数据。
 
-If you understood all that, now you know a lot about **SQLModel**, SQLAlchemy, and how the interactions from Python with databases work in general.
+如果你理解了这些内容，那么现在你对 **SQLModel** 、SQLAlchemy，以及 Python 与数据库交互的工作原理有了很深入的了解。
 
-If you didn't get all that, it's fine, you can always come back later to <abbr title="See what I did there? 😜">`refresh`</abbr> the concepts.
+如果你没有完全理解也没关系，随时可以回来 **`刷新`** 一下这些概念。<abbr title="看懂我说的了吗？😜">`refresh`</abbr>
 
-I think this might be one of the main types of bugs that cause problems and makes you scratch your head. So, good job studying it! 💪
+我认为这可能是导致问题和让你头疼的主要错误类型之一。所以，做得好，继续努力学习！💪

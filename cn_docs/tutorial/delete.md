@@ -1,12 +1,12 @@
-# Delete Data - DELETE
+# 删除数据 - DELETE
 
-Now let's delete some data using **SQLModel**.
+现在让我们使用 **SQLModel** 删除一些数据。
 
-## Continue From Previous Code
+## 从之前的代码继续
 
-As before, we'll continue from where we left off with the previous code.
+和之前一样，我们将从上次的代码继续。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -26,15 +26,15 @@ As before, we'll continue from where we left off with the previous code.
 
 ///
 
-Remember to remove the `database.db` file before running the examples to get the same results.
+记得在运行示例之前删除 `database.db` 文件，以获得相同的结果。
 
-## Delete with SQL
+## 使用 SQL 删除
 
-This `Spider-Youngster` is getting too weird, so let's just delete it.
+这个 `Spider-Youngster` 实在是太奇怪了，我们就把它删除吧。
 
-But don't worry, we'll reboot it later with a new story. 😅
+但不用担心，我们稍后会用一个新的故事重新开始。😅
 
-Let's see how to delete it with **SQL**:
+让我们看看如何使用 **SQL** 删除它：
 
 ```SQL hl_lines="1"
 DELETE
@@ -42,46 +42,46 @@ FROM hero
 WHERE name = "Spider-Youngster"
 ```
 
-This means, more or less:
+这大致的意思是：
 
-> Hey SQL database 👋, I want to `DELETE` rows `FROM` the table called `hero`.
+> 嘿 SQL 数据库 👋，我想要 `DELETE` 从名为 `hero` 的表中删除行。
 >
-> Please delete all the rows `WHERE` the value of the column `name` is equal to `"Spider-Youngster"`.
+> 请删除所有 `WHERE` 列 `name` 的值等于 `"Spider-Youngster"` 的行。
 
-Remember that when using a `SELECT` statement it has the form:
+记住，当使用 `SELECT` 语句时，它的格式是：
 
 ```SQL
-SELECT [some stuff here]
-FROM [name of a table here]
-WHERE [some condition here]
+SELECT [这里填写一些内容]
+FROM [这里填写表名]
+WHERE [这里填写条件]
 ```
 
-`DELETE` is very similar, and again we use `FROM` to tell the table to work on, and we use `WHERE` to tell the condition to use to match the rows that we want to delete.
+`DELETE` 很相似，同样我们使用 `FROM` 来指定操作的表，并用 `WHERE` 来指定匹配我们想删除的行的条件。
 
-You can try that in **DB Browser for SQLite**:
+你可以在 **DB Browser for SQLite** 中尝试这个操作：
 
 <img class="shadow" src="/img/tutorial/delete/image01.png">
 
-Have in mind that `DELETE` is to delete entire **rows**, not single values in a row.
+请记住，`DELETE` 是删除整行数据，而不是单一列中的某个值。
 
-If you want to "delete" a single value in a column while **keeping the row**, you would instead **update** the row as explained in the previous chapter, setting the specific value of the column in that row to `NULL` (to `None` in Python).
+如果你想要“删除”列中的某个单一值，但 **保留整行**，你应该像上一章所解释的那样 **更新** 该行，将该列的特定值设置为 `NULL`（在 Python 中为 `None`）。
 
-Now let's delete with **SQLModel**.
+现在让我们用 **SQLModel** 来删除。
 
-To get the same results, delete the `database.db` file before running the examples.
+为了获得相同的结果，请在运行示例之前删除 `database.db` 文件。
 
-## Read From the Database
+## 从数据库读取
 
-We'll start by selecting the hero `"Spider-Youngster"` that we updated in the previous chapter, this is the one we will delete:
+我们将首先选择之前章节中更新过的英雄 `"Spider-Youngster"`，这是我们接下来要删除的对象：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-75]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -89,16 +89,16 @@ We'll start by selecting the hero `"Spider-Youngster"` that we updated in the pr
 //// tab | Python 3.7+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001.py[ln:72-77]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -118,12 +118,12 @@ We'll start by selecting the hero `"Spider-Youngster"` that we updated in the pr
 
 ///
 
-As this is a new function `delete_heroes()`, we'll also add it to the `main()` function so that we call it when executing the program from the command line:
+由于这是一个新函数 `delete_heroes()`，我们还需要将其添加到 `main()` 函数中，以便在从命令行执行程序时调用：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="7"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001_py310.py[ln:90-98]!}
 ```
@@ -133,14 +133,14 @@ As this is a new function `delete_heroes()`, we'll also add it to the `main()` f
 //// tab | Python 3.7+
 
 ```Python hl_lines="7"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001.py[ln:92-100]!}
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -160,40 +160,40 @@ As this is a new function `delete_heroes()`, we'll also add it to the `main()` f
 
 ///
 
-That will print the same existing hero **Spider-Youngster**:
+这将打印出当前存在的英雄 **Spider-Youngster**：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate and previous output omitted 😉
+// 一些样板和之前的输出省略 😉
 
-// The SELECT with WHERE
+// 执行带 WHERE 的 SELECT
 INFO Engine BEGIN (implicit)
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00011s] ('Spider-Youngster',)
 
-// Print the hero as obtained from the database
+// 打印从数据库获取的英雄
 Hero:  name='Spider-Youngster' secret_name='Pedro Parqueador' age=16 id=2
 ```
 
 </div>
 
-## Delete the Hero from the Session
+## 从会话中删除英雄
 
-Now, very similar to how we used `session.add()` to add or update new heroes, we can use `session.delete()` to delete the hero from the session:
+现在，和我们使用 `session.add()` 来添加或更新新英雄的方式类似，我们可以使用 `session.delete()` 来从会话中删除英雄：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="10"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-77]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -201,16 +201,16 @@ Now, very similar to how we used `session.add()` to add or update new heroes, we
 //// tab | Python 3.7+
 
 ```Python hl_lines="10"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001.py[ln:72-79]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -230,20 +230,20 @@ Now, very similar to how we used `session.add()` to add or update new heroes, we
 
 ///
 
-## Commit the Session
+## 提交会话
 
-To save the current changes in the session, **commit** it.
+要保存会话中的当前更改， **提交** 它。
 
-This will save all the changes stored in the **session**, like the deleted hero:
+这将保存会话中存储的所有更改，比如删除的英雄：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-78]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -251,16 +251,16 @@ This will save all the changes stored in the **session**, like the deleted hero:
 //// tab | Python 3.7+
 
 ```Python hl_lines="11"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001.py[ln:72-80]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -280,20 +280,20 @@ This will save all the changes stored in the **session**, like the deleted hero:
 
 ///
 
-The same as we have seen before, `.commit()` will also save anything else that was added to the session. Including updates, or created heroes.
+和之前看到的一样，`.commit()` 还会保存会话中所有其他的更改，包括更新或创建的英雄。
 
-This commit after deleting the hero will generate this output:
+在删除英雄之后的提交将生成以下输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些样板输出省略 😉
 
-// Previous output omitted 🙈
+// 之前的输出省略 🙈
 
-// The SQL to update the hero in the database
+// 删除英雄的 SQL
 INFO Engine DELETE FROM hero WHERE hero.id = ?
 INFO Engine [generated in 0.00020s] (2,)
 INFO Engine COMMIT
@@ -301,26 +301,26 @@ INFO Engine COMMIT
 
 </div>
 
-## Print the Deleted Object
+## 打印已删除的对象
 
-Now the hero is deleted from the database.
+现在，英雄已从数据库中删除。
 
-If we tried to use `session.refresh()` with it, it would raise an exception, because there's no data in the database for this hero.
+如果我们尝试使用 `session.refresh()` 来刷新它，将会引发异常，因为数据库中没有这个英雄的数据。
 
-Nevertheless, the object is still available with its data, but now it's not connected to the session and it no longer exists in the database.
+不过，尽管如此，这个对象仍然存在并保留其数据，但现在它不再与会话连接，也不再存在于数据库中。
 
-As the object is not connected to the session, it is not marked as "expired", the session doesn't even care much about this object anymore.
+由于该对象不再与会话连接，它没有被标记为“过期”，会话也不再关心这个对象。
 
-Because of that, the object still contains its attributes with the data in it, so we can print it:
+因此，该对象仍然包含其属性和数据，我们可以打印它：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="13"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-80]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -328,16 +328,16 @@ Because of that, the object still contains its attributes with the data in it, s
 //// tab | Python 3.7+
 
 ```Python hl_lines="13"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001.py[ln:72-82]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -357,35 +357,35 @@ Because of that, the object still contains its attributes with the data in it, s
 
 ///
 
-This will output:
+这将输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些样板输出省略 😉
 
-// Previous output omitted 🙈
+// 之前的输出省略 🙈
 
-// Print the deleted hero
+// 打印已删除的英雄
 Deleted hero: name='Spider-Youngster' secret_name='Pedro Parqueador' age=16 id=2
 ```
 
 </div>
 
-## Query the Database for the Same Row
+## 查询数据库中的相同行
 
-To confirm if it was deleted, now let's query the database again, with the same `"Spider-Youngster"` name:
+为了确认它是否已被删除，现在我们再次查询数据库，使用相同的 `"Spider-Youngster"` 名字：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="15-17"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-84]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -393,16 +393,16 @@ To confirm if it was deleted, now let's query the database again, with the same 
 //// tab | Python 3.7+
 
 ```Python hl_lines="15-17"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001.py[ln:72-86]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -422,27 +422,27 @@ To confirm if it was deleted, now let's query the database again, with the same 
 
 ///
 
-Here we are using `results.first()` to get the first object found (in case it found multiple) or `None`, if it didn't find anything.
+这里我们使用 `results.first()` 获取找到的第一个对象（如果找到了多个），或者如果没有找到任何内容，则返回 `None`。
 
-If we used `results.one()` instead, it would raise an exception, because it expects exactly one result.
+如果我们使用 `results.one()`，则会引发异常，因为它期望恰好返回一个结果。
 
-And because we just deleted that hero, this should not find anything and we should get `None`.
+由于我们刚刚删除了该英雄，因此此查询应该找不到任何内容，应该返回 `None`。
 
-This will execute some SQL in the database and output:
+这将执行一些 SQL 查询，并输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些样板输出省略 😉
 
-// Previous output omitted 🙈
+// 之前的输出省略 🙈
 
-// Automatically start a new transaction
+// 自动启动一个新事务
 INFO Engine BEGIN (implicit)
 
-// SQL to search for the hero
+// SQL 查询英雄
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.name = ?
@@ -451,20 +451,20 @@ INFO Engine [no key 0.00013s] ('Spider-Youngster',)
 
 </div>
 
-## Confirm the Deletion
+## 确认删除
 
-Now let's just confirm that, indeed, no hero was found in the database with that name.
+现在让我们确认一下，确实没有找到数据库中名为 `"Spider-Youngster"` 的英雄。
 
-We'll do it by checking that the "first" item in the `results` is `None`:
+我们可以通过检查 `results` 中的第一个项目是否为 `None` 来做到这一点：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="19-20"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-87]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
@@ -472,16 +472,16 @@ We'll do it by checking that the "first" item in the `results` is `None`:
 //// tab | Python 3.7+
 
 ```Python hl_lines="19-20"
-# Code above omitted 👆
+# 上面的代码省略 👆
 
 {!./docs_src/tutorial/delete/tutorial001.py[ln:72-89]!}
 
-# Code below omitted 👇
+# 下面的代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -501,29 +501,29 @@ We'll do it by checking that the "first" item in the `results` is `None`:
 
 ///
 
-This will output:
+这将输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些样板输出省略 😉
 
-// Previous output omitted 🙈
+// 之前的输出省略 🙈
 
-// Indeed, the hero was deleted 🔥
-There's no hero named Spider-Youngster
+// 确实，英雄已被删除 🔥
+没有名为 Spider-Youngster 的英雄
 
-// Cleanup after the with block
+// 完成后清理 with 块
 INFO Engine ROLLBACK
 ```
 
 </div>
 
-## Review the Code
+## 回顾代码
 
-Now let's review all that code:
+现在让我们回顾一下所有的代码：
 
 //// tab | Python 3.10+
 
@@ -547,10 +547,10 @@ Now let's review all that code:
 
 /// tip
 
-Check out the number bubbles to see what is done by each line of code.
+查看编号气泡，了解每行代码做了什么。
 
 ///
 
-## Recap
+## 小结
 
-To delete rows with **SQLModel** you just have to `.delete()` them with the **session**, and then, as always, `.commit()` the session to save the changes to the database. 🔥
+要使用 **SQLModel** 删除行，只需通过 **session** 调用 `.delete()` 删除它们，然后像往常一样，使用 `.commit()` 提交会话，将更改保存到数据库中。🔥

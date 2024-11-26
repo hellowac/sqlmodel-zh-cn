@@ -1,18 +1,18 @@
-# Read a Range of Data - LIMIT and OFFSET
+# 读取一范围数据 - LIMIT 和 OFFSET
 
-Now you know how to get a single row with `.one()`, `.first()`, and `session.get()`.
+现在你已经知道如何使用 `.one()`、`.first()` 和 `session.get()` 获取单行数据。
 
-And you also know how to get multiple rows while filtering them using `.where()`.
+你也知道如何使用 `.where()` 进行筛选来获取多行数据。
 
-Now let's see how to get only a **range of results**.
+接下来，让我们看看如何只获取一个 **结果范围**。
 
-<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
+<img class="shadow" alt="table with first 3 rows selected" src="../../img/tutorial/offset-and-limit/limit.svg">
 
-## Create Data
+## 创建数据
 
-We will continue with the same code as before, but we'll modify it a little the `select_heroes()` function to simplify the example and focus on what we want to achieve here.
+我们将继续使用之前的代码，但会稍微修改 `select_heroes()` 函数，以简化示例并专注于我们想要实现的目标。
 
-Again, we will create several heroes to have some data to select from:
+再次，我们将创建几个英雄，以便有一些数据可以选择：
 
 //// tab | Python 3.10+
 
@@ -38,7 +38,7 @@ Again, we will create several heroes to have some data to select from:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -58,9 +58,9 @@ Again, we will create several heroes to have some data to select from:
 
 ///
 
-## Review Select All
+## 回顾选择所有数据
 
-This is the code we had to select all the heroes in the `select()` examples:
+这是我们在 `select()` 示例中选择所有英雄的代码：
 
 //// tab | Python 3.10+
 
@@ -86,7 +86,7 @@ This is the code we had to select all the heroes in the `select()` examples:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -106,11 +106,11 @@ This is the code we had to select all the heroes in the `select()` examples:
 
 ///
 
-But this would get us **all** the heroes at the same time, in a database that could have thousands, that could be problematic.
+但这将一次性获取 **所有** 英雄，假设数据库中可能有成千上万的数据，这样做可能会造成问题。
 
-## Select with Limit
+## 使用 Limit 选择
 
-We currently have 7 heroes in the database. But we could as well have thousands, so let's limit the results to get only the first 3:
+目前，我们的数据库中有 7 个英雄。但是我们也可能有成千上万的英雄，因此我们可以使用 `limit` 限制结果，只获取前 3 个：
 
 //// tab | Python 3.10+
 
@@ -136,7 +136,7 @@ We currently have 7 heroes in the database. But we could as well have thousands,
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -156,30 +156,30 @@ We currently have 7 heroes in the database. But we could as well have thousands,
 
 ///
 
-The special **select** object we get from `select()` also has a method `.limit()` that we can use to limit the results to a certain number.
+我们从 `select()` 获得的特殊 **select** 对象也有一个 `.limit()` 方法，我们可以使用它来限制结果的数量。
 
-In this case, instead of getting all the 7 rows, we are limiting them to only get the first 3.
+在这个例子中，我们不再获取所有的 7 行数据，而是将其限制为只获取前 3 行。 
 
-<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
+<img class="shadow" alt="表格中选取的前三行" src="../../img/tutorial/offset-and-limit/limit.svg">
 
-## Run the Program on the Command Line
+## 在命令行运行程序
 
-If we run it on the command line, it will output:
+如果我们在命令行中运行程序，它会输出如下：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 前面的输出已省略 🙈
 
-// Select with LIMIT
+// 使用 LIMIT 进行选择
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00014s] (3, 0)
 
-// Print the heroes received, only 3
+// 打印收到的英雄，只有 3 个
 [
     Hero(age=None, secret_name='Dive Wilson', id=1, name='Deadpond'),
     Hero(age=None, secret_name='Pedro Parqueador', id=2, name='Spider-Boy'),
@@ -189,33 +189,33 @@ INFO Engine [no key 0.00014s] (3, 0)
 
 </div>
 
-Great! We got only 3 heroes as we wanted.
+太好了！我们得到了 3 个英雄，正如我们所希望的那样。
 
 /// tip
 
-We will check out that SQL code more in a bit.
+稍后我们将更详细地查看 SQL 代码。
 
 ///
 
-## Select with Offset and Limit
+## 使用 Offset 和 Limit 进行选择
 
-Now we can limit the results to get only the first 3.
+现在我们可以限制结果，获取前 3 个英雄。
 
-But imagine we are in a user interface showing the results in batches of 3 heroes at a time.
+但是假设我们正在一个用户界面中显示结果，每次显示 3 个英雄。
 
 /// tip
 
-This is commonly called "pagination". Because the user interface would normally show a "page" of a predefined number of heroes at a time.
+这种方式通常被称为“分页”。因为用户界面通常会一次显示一“页”预定义数量的英雄。
 
-And then you can interact with the user interface to get the next page, and so on.
+然后，你可以与界面交互来获取下一页，以此类推。
 
 ///
 
-How do we get the next 3?
+如何获取接下来的 3 个英雄呢？
 
-<img class="shadow" alt="table with next rows selected, from 4 to 6" src="/img/tutorial/offset-and-limit/limit2.svg">
+<img class="shadow" alt="表格中选取的下一组行，从 4 到 6" src="../../img/tutorial/offset-and-limit/limit2.svg">
 
-We can use `.offset()`:
+我们可以使用 `.offset()` 方法：
 
 //// tab | Python 3.10+
 
@@ -241,7 +241,7 @@ We can use `.offset()`:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -261,30 +261,30 @@ We can use `.offset()`:
 
 ///
 
-The way this works is that the special **select** object we get from `select()` has methods like `.where()`, `.offset()` and `.limit()`.
+这种方法的工作原理是，我们从 `select()` 得到的特殊 **select** 对象有一些方法，例如 `.where()`、`.offset()` 和 `.limit()`。
 
-Each of those methods applies the change in the internal special select statement object, and also **return the same object**, this way, we can continue using more methods on it, like in the example above that we use both `.offset()` and `.limit()`.
+每个方法都会在内部的特殊选择语句对象上应用变更，并且 **返回相同的对象** ，这样我们就可以继续在其上使用更多方法，就像上面的例子中，我们同时使用了 `.offset()` 和 `.limit()`。
 
-**Offset** means "skip this many rows", and as we want to skip the ones we already saw, the first three, we use `.offset(3)`.
+**Offset** 意味着“跳过这么多行”，而我们要跳过已经查看过的前三行，因此我们使用 `.offset(3)`。
 
-## Run the Program with Offset on the Command Line
+## 在命令行中使用 Offset 运行程序
 
-Now we can run the program on the command line, and it will output:
+现在我们可以在命令行中运行程序，它会输出如下：
 
 <div class="termy">
 
 ```console
-$python app.py
+$ python app.py
 
-// Previous output omitted 🙈
+// 前面的输出已省略 🙈
 
-// Select with LIMIT and OFFSET
+// 使用 LIMIT 和 OFFSET 进行选择
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00020s] (3, 3)
 
-// Print the 3 heroes received, the second batch
+// 打印收到的 3 个英雄，第二批
 [
     Hero(age=32, secret_name='Natalia Roman-on', id=4, name='Tarantula'),
     Hero(age=35, secret_name='Trevor Challa', id=5, name='Black Lion'),
@@ -294,9 +294,9 @@ INFO Engine [no key 0.00020s] (3, 3)
 
 </div>
 
-## Select Next Batch
+## 选择下一批数据
 
-Then to get the next batch of 3 rows we would offset all the ones we already saw, the first 6:
+然后，为了获取下一批 3 行数据，我们需要跳过前面已经看到的 6 行：
 
 //// tab | Python 3.10+
 
@@ -322,7 +322,7 @@ Then to get the next batch of 3 rows we would offset all the ones we already saw
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -342,32 +342,32 @@ Then to get the next batch of 3 rows we would offset all the ones we already saw
 
 ///
 
-The database right now has **only 7 rows**, so this query can only get 1 row.
+目前数据库中只有 **7 行**，所以这个查询只能获取 1 行数据。
 
-<img class="shadow" alt="table with the last row (7th) selected" src="/img/tutorial/offset-and-limit/limit3.svg">
+<img class="shadow" alt="表格显示最后一行（第7行）" src="../../img/tutorial/offset-and-limit/limit3.svg">
 
-But don't worry, the database won't throw an error trying to get 3 rows when there's only one (as would happen with a Python list).
+但不用担心，数据库不会因为只剩 1 行数据就抛出错误（就像在 Python 列表中会发生的情况）。
 
-The database knows that we want to **limit** the number of results, but it doesn't necessarily have to find that many results.
+数据库知道我们想要 **限制** 结果的数量，但它不一定需要找到那么多结果。
 
-## Run the Program with the Last Batch on the Command Line
+## 在命令行中运行最后一批数据
 
-And if we run it in the command line, it will output:
+如果我们在命令行中运行程序，它会输出如下：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 前面的输出已省略 🙈
 
-// Select last batch with LIMIT and OFFSET
+// 使用 LIMIT 和 OFFSET 选择最后一批
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00038s] (3, 6)
 
-// Print last batch of heroes, only one
+// 打印最后一批英雄，只有 1 个
 [
     Hero(age=93, secret_name='Esteban Rogelios', id=7, name='Captain North America')
 ]
@@ -375,11 +375,11 @@ INFO Engine [no key 0.00038s] (3, 6)
 
 </div>
 
-## SQL with LIMIT and OFFSET
+## SQL 中的 LIMIT 和 OFFSET
 
-You probably noticed the new SQL keywords `LIMIT` and `OFFSET`.
+你可能注意到 SQL 中的新关键字 `LIMIT` 和 `OFFSET`。
 
-You can use them in SQL, at the end of the other parts:
+你可以在 SQL 中使用它们，位于其他部分的后面：
 
 ```SQL
 SELECT id, name, secret_name, age
@@ -387,13 +387,13 @@ FROM hero
 LIMIT 3 OFFSET 6
 ```
 
-If you try that in **DB Browser for SQLite**, you will get the same result:
+如果你在 **DB Browser for SQLite** 中尝试这个 SQL 查询，你会得到相同的结果：
 
-<img class="shadow" alt="DB Browser for SQLite showing the result of the SQL query" src="/img/tutorial/offset-and-limit/db-browser.png">
+<img class="shadow" alt="DB Browser for SQLite 显示 SQL 查询结果" src="../../img/tutorial/offset-and-limit/db-browser.png">
 
-## Combine Limit and Offset with Where
+## 将 Limit 和 Offset 与 Where 结合使用
 
-Of course, you can also combine `.limit()` and `.offset()` with `.where()` and other methods you will learn about later:
+当然，你也可以将 `.limit()` 和 `.offset()` 与 `.where()` 以及你稍后将学到的其他方法结合使用：
 
 //// tab | Python 3.10+
 
@@ -419,7 +419,7 @@ Of course, you can also combine `.limit()` and `.offset()` with `.where()` and o
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -439,27 +439,27 @@ Of course, you can also combine `.limit()` and `.offset()` with `.where()` and o
 
 ///
 
-## Run the Program with Limit, Offset, and Where on the Command Line
+## 在命令行中运行包含 Limit、Offset 和 Where 的程序
 
-If we run it on the command line, it will find all the heroes in the database with an age above 32. That would normally be 4 heroes.
+如果我们在命令行中运行程序，它将查找数据库中所有年龄大于 32 的英雄。通常这会是 4 个英雄。
 
-But we are starting to include after an offset of 1 (so we don't count the first one), and we are limiting the results to only get the first 2 after that:
+但是我们从偏移量为 1 的位置开始（因此不计算第一个），并将结果限制为仅获取后面两个英雄：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Previous output omitted 🙈
+// 前面的输出已省略 🙈
 
-// Select with WHERE and LIMIT and OFFSET
+// 使用 WHERE、LIMIT 和 OFFSET 进行选择
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.age > ?
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00022s] (32, 2, 1)
 
-// Print the heroes received, only 2
+// 打印收到的 2 个英雄
 [
     Hero(age=36, id=6, name='Dr. Weird', secret_name='Steve Weird'),
     Hero(age=48, id=3, name='Rusty-Man', secret_name='Tommy Sharp')
@@ -468,8 +468,8 @@ INFO Engine [no key 0.00022s] (32, 2, 1)
 
 </div>
 
-## Recap
+## 总结
 
-Independently of how you filter the data with `.where()` or other methods, you can limit the query to get at maximum some number of results with `.limit()`.
+无论你如何使用 `.where()` 或其他方法筛选数据，你都可以使用 `.limit()` 来限制查询结果的最大数量。
 
-And the same way, you can skip the first results with `.offset()`.
+同样，你可以使用 `.offset()` 跳过前面的结果。

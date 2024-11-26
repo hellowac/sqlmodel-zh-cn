@@ -1,44 +1,44 @@
-# Cascade Delete Relationships
+# 级联删除关系
 
-What happens if we **delete** a team that has a **relationship** with heroes?
+如果我们**删除**一个与英雄有**关系**的团队会发生什么？
 
-Should those heroes be **automatically deleted** too? That's called a "**cascade**", because the initial deletion causes a cascade of other deletions.
+这些英雄是否也应该被**自动删除**？这就叫做“**级联**”，因为初始的删除会引发一连串其他删除。
 
-Should their `team_id` instead be set to `NULL` in the database?
+或者，应该将他们的 `team_id` 设置为 `NULL`，而不是删除？
 
-Let's see how to configure that with **SQLModel**.
+让我们看看如何使用 **SQLModel** 配置这个操作。
 
 /// info
 
-This feature, including `cascade_delete`, `ondelete`, and `passive_deletes`, is available since SQLModel version `0.0.21`.
+此功能，包括 `cascade_delete`、`ondelete` 和 `passive_deletes`，自 SQLModel 版本 `0.0.21` 起可用。
 
 ///
 
-## Initial Heroes and Teams
+## 初始的英雄和团队
 
-Let's say that we have these **teams** and **heroes**.
+假设我们有以下这些**团队**和**英雄**。
 
-### Team Table
+### 团队表
 
-| id   | name       | headquarters          |
-| ---- | ---------- | --------------------- |
-| 1    | Z-Force    | Sister Margaret's Bar |
-| 2    | Preventers | Sharp Tower           |
-| 3    | Wakaland   | Wakaland Capital City |
+| id  | name       | headquarters          |
+| --- | ---------- | --------------------- |
+| 1   | Z-Force    | Sister Margaret's Bar |
+| 2   | Preventers | Sharp Tower           |
+| 3   | Wakaland   | Wakaland Capital City |
 
-### Hero Table
+### 英雄表
 
-| id   | name            | secret_name      | age  | team_id |
-| ---- | --------------- | ---------------- | ---- | ------- |
-| 1    | Deadpond        | Dive WIlson      |      | 1       |
-| 2    | Rusty-Man       | Tommy Sharp      | 48   | 2       |
-| 3    | Spider-Boy      | Pedro Parqueador |      | 2       |
-| 4    | Black Lion      | Trevor Challa    | 35   | 3       |
-| 5    | Princess Sure-E | Sure-E           |      | 3       |
+| id  | name            | secret_name      | age | team_id |
+| --- | --------------- | ---------------- | --- | ------- |
+| 1   | Deadpond        | Dive WIlson      |     | 1       |
+| 2   | Rusty-Man       | Tommy Sharp      | 48  | 2       |
+| 3   | Spider-Boy      | Pedro Parqueador |     | 2       |
+| 4   | Black Lion      | Trevor Challa    | 35  | 3       |
+| 5   | Princess Sure-E | Sure-E           |     | 3       |
 
-### Visual Teams and Heroes
+### 可视化团队和英雄
 
-We could visualize them like this:
+我们可以这样可视化它们：
 
 ```mermaid
 flowchart TB
@@ -55,15 +55,15 @@ flowchart TB
     end
 ```
 
-## Delete a Team with Heroes
+## 删除一个有英雄的团队
 
-When we **delete a team**, we have to do something with the associated heroes.
+当我们 **删除一个团队** 时，必须对相关的英雄做一些处理。
 
-By default, their foreign key pointing to the team will be set to `NULL` in the database.
+默认情况下，它们指向该团队的外键会在数据库中被设置为 `NULL`。
 
-But let's say we want the associated heroes to be **automatically deleted**.
+但是假设我们希望相关的英雄被 **自动删除** 。
 
-For example, we could delete the team `Wakaland`:
+例如，我们可以删除团队 `Wakaland`：
 
 ```mermaid
 flowchart TB
@@ -81,9 +81,9 @@ flowchart TB
       style wakaland fill:#fee,stroke:#900
 ```
 
-And we would want the heroes `Black Lion` and `Princess Sure-E` to be **automatically deleted** too.
+我们希望英雄 `Black Lion` 和 `Princess Sure-E` 也被 **自动删除** 。
 
-So we would end up with these teams and heroes:
+最终，团队和英雄将变成这样：
 
 ```mermaid
 flowchart TB
@@ -96,18 +96,18 @@ flowchart TB
     end
 ```
 
-## Configure Automatic Deletion
+## 配置自动删除
 
-There are **two places** where this automatic deletion is configured:
+自动删除的配置有**两个地方**：
 
-* in **Python code**
-* in the **database**
+* 在 **Python 代码** 中
+* 在 **数据库** 中
 
-## Delete in Python with `cascade_delete`
+## 在 Python 中使用 `cascade_delete` 删除
 
-When creating a `Relationship()`, we can set `cascade_delete=True`.
+在创建 `Relationship()` 时，我们可以设置 `cascade_delete=True`。
 
-This configures SQLModel to **automatically delete** the related records (heroes) **when the initial one is deleted** (a team).
+这会配置 SQLModel，使其在删除初始记录（团队）时，**自动删除**相关记录（英雄）。
 
 //// tab | Python 3.10+
 
@@ -139,7 +139,7 @@ This configures SQLModel to **automatically delete** the related records (heroes
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -167,49 +167,49 @@ This configures SQLModel to **automatically delete** the related records (heroes
 
 ///
 
-With this configuration, when we delete a team, SQLModel (actually SQLAlchemy) will:
+使用此配置，当我们删除一个团队时，SQLModel（实际上是 SQLAlchemy）将会：
 
-* Make sure the objects for the **related records are loaded**, in this case, the `heroes`. If they are not loaded, it will send a `SELECT` query to the database to get them.
-* Send a `DELETE` query to the database **including each related record** (each hero).
-* Finally, **delete the initial record** (the team) with another `DELETE` query.
+* 确保 **相关记录的对象已加载** ，在这个例子中，就是 `heroes`（英雄）。如果它们没有加载，SQLModel 会发送一个 `SELECT` 查询来从数据库中获取它们。
+* 向数据库发送一个 `DELETE` 查询，**包括每一条相关记录**（每个英雄）。
+* 最后，发送另一个 `DELETE` 查询，**删除初始记录**（团队）。
 
-This way, the internal **Python code** will take care of deleting the related records, by emitting the necessary SQL queries for each of them.
+这样，内部的 **Python 代码** 将通过发出必要的 SQL 查询来处理删除相关记录的操作。
 
 /// tip
 
-The `cascade_delete` parameter is set in the `Relationship()`, on the model that **doesn't have a foreign key**.
+`cascade_delete` 参数设置在 **没有外键** 的模型中的 `Relationship()` 中。
 
 ///
 
-/// note | Technical Details
+/// note | 技术细节
 
-Setting `cascade_delete=True` in the `Relationship()` will configure SQLAlchemy to use `cascade="all, delete-orphan"`, which is the most common and useful configuration when wanting to cascade deletes.
+在 `Relationship()` 中设置 `cascade_delete=True` 将配置 SQLAlchemy 使用 `cascade="all, delete-orphan"`，这是当需要级联删除时最常用且有效的配置。
 
-You can read more about it in the <a href="https://docs.sqlalchemy.org/en/20/orm/cascades.html" class="external-link" target="_blank">SQLAlchemy docs</a>.
+你可以在 <a href="https://docs.sqlalchemy.org/en/20/orm/cascades.html" class="external-link" target="_blank">SQLAlchemy 文档</a> 中了解更多信息。
 
 ///
 
-## Delete in the Database with `ondelete`
+## 使用 `ondelete` 在数据库中删除
 
-In the previous section we saw that using `cascade_delete` handles automatic deletions from the Python code.
+在上一节中，我们看到使用 `cascade_delete` 处理了从 Python 代码中的自动删除。
 
-But what happens if someone **interacts with the database directly**, not using our code, and **deletes a team with SQL**?
+但是，如果有人直接 **与数据库交互** ，没有使用我们的代码，而是 **用 SQL 删除了一个团队** ，会发生什么呢？
 
-For those cases, we can configure the database to **automatically delete** the related records with the `ondelete` parameter in `Field()`.
+针对这种情况，我们可以通过 `Field()` 中的 `ondelete` 参数来配置数据库， **自动删除** 相关记录。
 
-### `ondelete` Options
+### `ondelete` 选项
 
-The `ondelete` parameter will set a SQL `ON DELETE` in the **foreign key column** in the database.
+`ondelete` 参数将在数据库的 **外键列** 中设置 SQL 的 `ON DELETE`。
 
-`ondelete` can have these values:
+`ondelete` 可以有以下值：
 
-* `CASCADE`: **Automatically delete this record** (hero) when the related one (team) is deleted.
-* `SET NULL`: Set this **foreign key** (`hero.team_id`) field to `NULL` when the related record is deleted.
-* `RESTRICT`: **Prevent** the deletion of this record (hero) if there is a foreign key value by raising an error.
+* `CASCADE`：当相关记录（团队）被删除时， **自动删除该记录** （英雄）。
+* `SET NULL`：当相关记录被删除时，将 **外键** （`hero.team_id`）字段设置为 `NULL`。
+* `RESTRICT`：如果存在外键值，则 **阻止** 删除该记录（英雄），并抛出错误。
 
-## Set `ondelete` to `CASCADE`
+## 设置 `ondelete` 为 `CASCADE`
 
-If we want to configure the database to **automatically delete** the related records when the parent is deleted, we can set `ondelete="CASCADE"`.
+如果我们希望在删除父记录时，数据库 **自动删除** 相关记录，可以设置 `ondelete="CASCADE"`。
 
 //// tab | Python 3.10+
 
@@ -241,7 +241,7 @@ If we want to configure the database to **automatically delete** the related rec
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -269,56 +269,56 @@ If we want to configure the database to **automatically delete** the related rec
 
 ///
 
-Now, when we **create the tables** in the database, the `team_id` column in the `Hero` table will have an `ON DELETE CASCADE` in its definition at the database level.
+现在，当我们在数据库中 **创建表** 时，`Hero` 表中的 `team_id` 列将在数据库级别的定义中具有 `ON DELETE CASCADE`。
 
-This will **configure the database** to **automatically delete** the records (heroes) when the related record (team) is deleted.
+这将 **配置数据库** ，使其在删除相关记录（团队）时， **自动删除** 相关记录（英雄）。
 
 /// tip
 
-The `ondelete` parameter is set in the `Field()`, on the model that **has a foreign key**.
+`ondelete` 参数设置在 **具有外键** 的模型中的 `Field()`。
 
 ///
 
-## Using `cascade_delete` or `ondelete`
+## 使用 `cascade_delete` 或 `ondelete`
 
-At this point, you might be wondering if you should use `cascade_delete` or `ondelete`. The answer is: **both**! 🤓
+此时，你可能会想知道是应该使用 `cascade_delete` 还是 `ondelete`。答案是：**两者都用**！ 🤓
 
-The `ondelete` will **configure the database**, in case someone interacts with it directly.
+`ondelete` 会 **配置数据库** ，以防有人直接与数据库交互。
 
-But `cascade_delete` is still needed to tell SQLAlchemy that it should delete the **Python objects** in memory.
+但仍然需要 `cascade_delete` 来告诉 SQLAlchemy，它应该删除内存中的**Python 对象**。
 
-### Foreign Key Constraint Support
+### 外键约束支持
 
-Some databases don't support foreign key constraints.
+一些数据库不支持外键约束。
 
-For example, **SQLite** doesn't support them by default. They have to be manually enabled with a custom SQL command:
+例如， **SQLite** 默认不支持外键约束。它们需要通过自定义 SQL 命令手动启用：
 
 ```
 PRAGMA foreign_keys = ON;
 ```
 
-So, in general is a good idea to have both `cascade_delete` and `ondelete` configured.
+因此，通常建议同时配置 `cascade_delete` 和 `ondelete`。
 
 /// tip
 
-You will learn more about how to **disable the default** automatic SQLModel (SQLAlchemy) behavior and **only rely on the database** down below, in the section about `passive_deletes`.
+你将会在下文的 `passive_deletes` 部分中学习到如何 **禁用默认的** 自动 SQLModel（SQLAlchemy）行为，并 **仅依赖于数据库** 。
 
 ///
 
-### `cascade_delete` on `Relationship()` and `ondelete` on `Field()`
+### `cascade_delete` 在 `Relationship()` 上和 `ondelete` 在 `Field()` 上
 
-Just a note to remember... 🤓
+记住一点... 🤓
 
-* `ondelete` is put on the `Field()` with a **foreign key**. On the **"many"** side in "one-to-many" relationships.
+* `ondelete` 应该放在具有 **外键** 的 `Field()` 上。通常在 "一对多" 关系的 **"多"** 端。
 
 ```Python
 class Hero(SQLModel, table=True):
     ...
 
-    team_id: int Field(foreign_key="team.id", ondelete="CASCADE")
+    team_id: int = Field(foreign_key="team.id", ondelete="CASCADE")
 ```
 
-* `cascade_delete` is put on the `Relationship()`. Normally on the **"one"** side in "one-to-many" relationships, the side **without a foreign key**.
+* `cascade_delete` 应该放在 `Relationship()` 上。通常在 "一对多" 关系的 **"一"** 端，即 **没有外键** 的那一端。
 
 ```Python
 class Team(SQLModel, table=True):
@@ -327,9 +327,9 @@ class Team(SQLModel, table=True):
     heroes: list[Hero] = Relationship(cascade_delete=True)
 ```
 
-## Remove a Team and its Heroes
+## 删除团队及其英雄
 
-Now, when we **delete a team**, we don't need to do anything else, it's **automatically** going to **delete its heroes**.
+现在，当我们 **删除一个团队** 时，无需做任何额外操作，它会 **自动** 删除与该团队相关联的 **英雄** 。
 
 //// tab | Python 3.10+
 
@@ -367,7 +367,7 @@ Now, when we **delete a team**, we don't need to do anything else, it's **automa
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -395,11 +395,11 @@ Now, when we **delete a team**, we don't need to do anything else, it's **automa
 
 ///
 
-## Confirm Heroes are Deleted
+## 确认英雄已被删除
 
-We can confirm that **after deleting the team** `Wakaland`, the heroes `Black Lion` and `Princess Sure-E` are **also deleted**.
+我们可以确认，在删除了团队 `Wakaland` 后，英雄 `Black Lion` 和 `Princess Sure-E` 也会被**删除**。
 
-If we try to select them from the database, we will **no longer find them**.
+如果我们尝试从数据库中选择它们，我们将**再也找不到**它们。
 
 //// tab | Python 3.10+
 
@@ -437,7 +437,7 @@ If we try to select them from the database, we will **no longer find them**.
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -465,18 +465,18 @@ If we try to select them from the database, we will **no longer find them**.
 
 ///
 
-## Run the Program with `cascade_delete=True` and `ondelete="CASCADE"`
+## 运行启用 `cascade_delete=True` 和 `ondelete="CASCADE"` 的程序
 
-We can confirm everything is working by running the program.
+我们可以通过运行程序来确认一切正常工作。
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate and previous output omitted 😉
+// 一些模板代码和之前的输出已省略 😉
 
-// The team table is created as before
+// 如以前一样，创建团队表
 CREATE TABLE team (
         id INTEGER NOT NULL,
         name VARCHAR NOT NULL,
@@ -484,9 +484,9 @@ CREATE TABLE team (
         PRIMARY KEY (id)
 )
 
-// The hero table is created with the ON DELETE CASCADE 🎉
-// In SQLite, it also includes REFERENCES team (id), this is needed by SQLite to work with the ON DELETE CASCADE properly.
-// SQLAlchemy takes care of setting it up for us to make sure it works 🤓
+// 英雄表被创建，并且带有 ON DELETE CASCADE 🎉
+// 在 SQLite 中，它还包括 REFERENCES team (id)，这是 SQLite 正常使用 ON DELETE CASCADE 所必需的。
+// SQLAlchemy 为我们处理了这个设置，确保它正常工作 🤓
 CREATE TABLE hero (
         id INTEGER NOT NULL,
         name VARCHAR NOT NULL,
@@ -497,41 +497,41 @@ CREATE TABLE hero (
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE CASCADE
 )
 
-// We select the team Wakaland
+// 我们选择团队 Wakaland
 INFO Engine SELECT team.id, team.name, team.headquarters
 FROM team
 WHERE team.name = ?
 INFO Engine [generated in 0.00014s] ('Wakaland',)
 
-// Then, because of cascade_delete, right before deleting Wakaland, SQLAlchemy loads the heroes
+// 然后，因 `cascade_delete`，在删除 Wakaland 之前，SQLAlchemy 加载了相关英雄
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
 FROM hero
 WHERE ? = hero.team_id
 INFO Engine [generated in 0.00020s] (3,)
 
-// Next, before deleting the Wakaland team, it sends a DELETE statement including each related hero: Black Lion and Princess Sure-E, with IDs 4 and 5
+// 接下来，在删除 Wakaland 团队之前，SQLAlchemy 发送 DELETE 语句，包含每个相关的英雄：Black Lion 和 Princess Sure-E，ID 分别为 4 和 5
 INFO Engine DELETE FROM hero WHERE hero.id = ?
 INFO Engine [generated in 0.00022s] [(4,), (5,)]
 
-// After that, it will send the delete for the team Wakaland with ID 3
+// 然后，它将发送删除团队 Wakaland 的 SQL 语句，ID 为 3
 INFO Engine DELETE FROM team WHERE team.id = ?
 INFO Engine [generated in 0.00017s] (3,)
 
-// Print the deleted team
+// 打印已删除的团队
 Deleted team: name='Wakaland' id=3 headquarters='Wakaland Capital City'
 
-// Finally, we try to select the heroes from Wakaland, Black Lion and Princess Sure-E and print them, but they are now deleted
+// 最后，我们尝试选择 Wakaland 的英雄 Black Lion 和 Princess Sure-E 并打印它们，但它们现在已被删除
 Black Lion not found: None
 Princess Sure-E not found: None
 ```
 
 </div>
 
-## `ondelete` with `SET NULL`
+## `ondelete` 配置为 `SET NULL`
 
-We can configure the database to **set the foreign key** (the `team_id` in the `hero` table) to **`NULL`** when the related record (in the `team` table) is deleted.
+我们可以配置数据库，当相关记录（在 `team` 表中的记录）被删除时，**将外键**（在 `hero` 表中的 `team_id`）设置为 **`NULL`**。
 
-In this case, the side with `Relationship()` won't have `cascade_delete`, but the side with `Field()` and a `foreign_key` will have `ondelete="SET NULL"`.
+在这种情况下，使用 `Relationship()` 的一方不会设置 `cascade_delete`，但在有 `Field()` 和 `foreign_key` 的一方会设置 `ondelete="SET NULL"`。
 
 //// tab | Python 3.10+
 
@@ -561,10 +561,9 @@ In this case, the side with `Relationship()` won't have `cascade_delete`, but th
 # Code below omitted 👇
 ```
 
-
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -592,15 +591,15 @@ In this case, the side with `Relationship()` won't have `cascade_delete`, but th
 
 ///
 
-The configuration above is setting the `team_id` column from the `Hero` table to have an `ON DELETE SET NULL`.
+上述配置将 `Hero` 表中的 `team_id` 列设置为具有 `ON DELETE SET NULL`。
 
-This way, when someone deletes a team from the database using SQL directly, the database will go to the heroes for that team and set `team_id` to `NULL` (if the database supports it).
+这样，当有人直接使用 SQL 删除数据库中的团队时，数据库会自动将该团队的英雄记录中的 `team_id` 设置为 `NULL`（如果数据库支持的话）。
 
 /// tip
 
-The foreign key should allow `None` values (`NULL` in the database), otherwise you would end up having an Integrity Error by violating the `NOT NULL` constraint.
+外键应该允许 `None` 值（数据库中的 `NULL`），否则会因为违反 `NOT NULL` 约束而导致完整性错误。
 
-So `team_id` needs to have a type with `None`, like:
+因此，`team_id` 需要有一个支持 `None` 的类型，例如：
 
 ```Python
 team_id: int | None
@@ -608,23 +607,23 @@ team_id: int | None
 
 ///
 
-### Not Using `ondelete="SET NULL"`
+### 不使用 `ondelete="SET NULL"`
 
-What happens if you don't use `ondelete="SET NULL"`, don't set anything on `cascade_delete`, and delete a team?
+如果不使用 `ondelete="SET NULL"`，也不设置任何 `cascade_delete`，然后删除一个团队会发生什么？
 
-The default behavior is that SQLModel (actually SQLAlchemy) will go to the heroes and set their `team_id` to `NULL` from the **Python code**.
+默认行为是，SQLModel（实际上是 SQLAlchemy）会从 **Python 代码** 中去更新英雄的 `team_id` 字段，将其设置为 `NULL`。
 
-So, **by default**, those `team_id` fields will be **set to `NULL`**.
+所以，**默认情况下**，这些 `team_id` 字段会被**设置为 `NULL`**。
 
-But if someone goes to the database and **manually deletes a team**, the heroes could end up with a `team_id` pointing to a non-existing team.
+但是，如果有人进入数据库并**手动删除一个团队**，这些英雄的 `team_id` 可能会指向一个不存在的团队。
 
-Adding the `ondelete="SET NULL"` configures the database itself to also set those fields to `NULL`.
+通过添加 `ondelete="SET NULL"`，可以将数据库本身配置为也将这些字段设置为 `NULL`。
 
-But if you delete a team from code, by default, SQLModel (actually SQLAlchemy) will update those `team_id` fields to `NULL` even before the database `SET NULL` takes effect.
+但是，如果从代码中删除一个团队，默认情况下 SQLModel（实际上是 SQLAlchemy）会在数据库的 `SET NULL` 生效之前，先将这些 `team_id` 字段更新为 `NULL`。
 
-### Removing a Team with `SET NULL`
+### 使用 `SET NULL` 删除团队
 
-Removing a team has the **same code** as before, the only thing that changes is the configuration underneath in the database.
+删除团队的 **代码与之前相同**，唯一不同的是数据库中底层的配置。
 
 //// tab | Python 3.10+
 
@@ -662,7 +661,7 @@ Removing a team has the **same code** as before, the only thing that changes is 
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -690,28 +689,28 @@ Removing a team has the **same code** as before, the only thing that changes is 
 
 ///
 
-The result would be these tables.
+执行以上代码后，结果将是以下表格：
 
-#### Team Table after `SET NULL`
+#### 删除 `SET NULL` 后的 Team 表
 
-| id   | name       | headquarters          |
-| ---- | ---------- | --------------------- |
-| 1    | Z-Force    | Sister Margaret's Bar |
-| 2    | Preventers | Sharp Tower           |
+| id  | name       | headquarters          |
+| --- | ---------- | --------------------- |
+| 1   | Z-Force    | Sister Margaret's Bar |
+| 2   | Preventers | Sharp Tower           |
 
-#### Hero Table after `SET NULL`
+#### 删除 `SET NULL` 后的 Hero 表
 
-| id   | name            | secret_name      | age  | team_id |
-| ---- | --------------- | ---------------- | ---- | ------- |
-| 1    | Deadpond        | Dive WIlson      |      | 1       |
-| 2    | Rusty-Man       | Tommy Sharp      | 48   | 2       |
-| 3    | Spider-Boy      | Pedro Parqueador |      | 2       |
-| 4    | Black Lion      | Trevor Challa    | 35   | NULL    |
-| 5    | Princess Sure-E | Sure-E           |      | NULL    |
+| id  | name            | secret_name      | age | team_id |
+| --- | --------------- | ---------------- | --- | ------- |
+| 1   | Deadpond        | Dive WIlson      |     | 1       |
+| 2   | Rusty-Man       | Tommy Sharp      | 48  | 2       |
+| 3   | Spider-Boy      | Pedro Parqueador |     | 2       |
+| 4   | Black Lion      | Trevor Challa    | 35  | NULL    |
+| 5   | Princess Sure-E | Sure-E           |     | NULL    |
 
-#### Visual Teams and Heroes after `SET NULL`
+#### 删除 `SET NULL` 后的团队和英雄
 
-We could visualize them like this:
+我们可以像这样可视化它们：
 
 ```mermaid
 flowchart TB
@@ -726,20 +725,20 @@ flowchart TB
     p("Princess Sure-E")
 ```
 
-### Run the program with `SET NULL`
+### 使用 `SET NULL` 运行程序
 
-Let's confirm it all works by running the program now:
+现在，让我们通过运行程序来确认一切正常工作：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate and previous output omitted 😉
+// 一些模板代码和之前的输出已省略 😉
 
-// The hero table is created with the ON DELETE SET NULL 🎉
-// In SQLite, it also includes: REFERENCES team (id). This REFERENCES is needed by SQLite to work with the ON DELETE CASCADE properly.
-// SQLModel with SQLAlchemy takes care of setting it up for us to make sure it works 🤓
+// hero 表被创建时带有 ON DELETE SET NULL 🎉
+// 在 SQLite 中，它还包括：REFERENCES team (id)。这个 REFERENCES 是 SQLite 为了正确使用 ON DELETE CASCADE 所需的。
+// SQLModel 和 SQLAlchemy 会为我们设置好，确保它正常工作 🤓
 CREATE TABLE hero (
         id INTEGER NOT NULL,
         name VARCHAR NOT NULL,
@@ -750,48 +749,48 @@ CREATE TABLE hero (
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE SET NULL
 )
 
-// We select the team Wakaland
+// 我们选择团队 Wakaland
 INFO Engine SELECT team.id, team.name, team.headquarters
 FROM team
 WHERE team.id = ?
 INFO Engine [generated in 0.00010s] (3,)
 Team Wakaland: id=3 name='Wakaland' headquarters='Wakaland Capital City'
 
-// Then, right before deleting Wakaland, the heroes are loaded automatically
+// 然后，在删除 Wakaland 之前，英雄们会自动加载
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
 FROM hero
 WHERE ? = hero.team_id
 INFO Engine [generated in 0.00020s] (3,)
 
-// Next, before deleting the Wakaland team, it sends an UPDATE statement including each related hero: Black Lion and Princess Sure-E, with IDs 4 and 5, to set their team_id to NULL. This is not the SET NULL we added, this is just the default SQLModel (SQLAlchemy) behavior.
+// 接下来，在删除 Wakaland 团队之前，它会发送一个 UPDATE 语句，包含每个相关的英雄：Black Lion 和 Princess Sure-E，ID 分别是 4 和 5，将它们的 team_id 设置为 NULL。这不是我们添加的 `SET NULL`，这是 SQLModel（SQLAlchemy）的默认行为。
 INFO Engine UPDATE hero SET team_id=? WHERE hero.id = ?
 INFO Engine [generated in 0.00009s] [(None, 4), (None, 5)]
 
-// After that, it will send the delete for the team Wakaland with ID 3
+// 然后，它会发送删除 ID 为 3 的团队 Wakaland 的语句
 INFO Engine DELETE FROM team WHERE team.id = ?
 INFO Engine [generated in 0.00017s] (3,)
 
-// Print the deleted team
+// 打印已删除的团队
 Deleted team: name='Wakaland' id=3 headquarters='Wakaland Capital City'
 
-// Finally, we select the heroes Black Lion and Princess Sure-E and print them, they no longer have a team
+// 最后，我们选择并打印英雄 Black Lion 和 Princess Sure-E，发现它们不再有团队
 Black Lion has no team: age=35 id=4 name='Black Lion' secret_name='Trevor Challa' team_id=None
 Princess Sure-E has no team: age=None id=5 name='Princess Sure-E' secret_name='Sure-E' team_id=None
 ```
 
 </div>
 
-The team `Wakaland` was deleted and all of its heroes were left without a team, or in other words, with their `team_id` set to `NULL`, but still kept in the database! 🤓
+团队 `Wakaland` 被删除，所有英雄都失去了所属团队，换句话说，它们的 `team_id` 被设置为 `NULL`，但仍然保留在数据库中！ 🤓
 
-## Let the Database Handle it with `passive_deletes`
+## 使用 `passive_deletes` 让数据库处理删除操作
 
-In the previous examples we configured `ondelete` with `CASCADE` and `SET NULL` to configure the database to handle the deletion of related records automatically. But we actually **never used that functionality** ourselves, because SQLModel (SQLAlchemy) **by default loads** the related records and **deletes** them or updates them with **NULL** before sending the `DELETE` for the team.
+在之前的示例中，我们使用 `ondelete` 配置了 `CASCADE` 和 `SET NULL`，目的是让数据库自动处理相关记录的删除操作。但实际上，我们自己 **从未使用过这些功能**，因为 SQLModel（SQLAlchemy）默认会 **加载** 相关记录，并在发送删除请求之前 **删除** 或 **更新为 NULL**。
 
-If you know your database would be able to correctly handle the deletes or updates on its own, just with `ondelete="CASCADE"` or `ondelete="SET NULL"`, you can use `passive_deletes="all"` in the `Relationship()` to tell SQLModel (actually SQLAlchemy) to **not delete or update** those records (for heroes) before sending the `DELETE` for the team.
+如果你知道你的数据库能够正确地处理删除或更新操作（通过 `ondelete="CASCADE"` 或 `ondelete="SET NULL"`），你可以在 `Relationship()` 中使用 `passive_deletes="all"`，告诉 SQLModel（实际上是 SQLAlchemy）**不要在发送删除请求之前删除或更新**这些记录（如英雄）。
 
-### Enable Foreign Key Support in SQLite
+### 在 SQLite 中启用外键支持
 
-To be able to test this out with SQLite, we first need to enable foreign key support.
+为了在 SQLite 中测试这一功能，我们首先需要启用外键支持。
 
 //// tab | Python 3.10+
 
@@ -829,7 +828,7 @@ To be able to test this out with SQLite, we first need to enable foreign key sup
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -859,15 +858,15 @@ To be able to test this out with SQLite, we first need to enable foreign key sup
 
 /// info
 
-You can learn more about SQLite, foreign keys, and this SQL command on the <a href="https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support" class="external-link" target="_blank">SQLAlchemy docs</a>.
+你可以在 <a href="https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support" class="external-link" target="_blank">SQLAlchemy 文档</a> 中了解有关 SQLite、外键和此 SQL 命令的更多信息。
 
 ///
 
-### Use `passive_deletes="all"`
+### 使用 `passive_deletes="all"`
 
-Now let's update the table model for `Team` to use `passive_deletes="all"` in the `Relationship()` for heroes.
+现在，让我们更新 `Team` 表模型，在 `heroes` 的 `Relationship()` 中使用 `passive_deletes="all"`。
 
-We will also use `ondelete="SET NULL"` in the `Hero` model table, in the foreign key `Field()` for the `team_id` to make the database set those fields to `NULL` automatically.
+我们还将在 `Hero` 模型表的外键 `Field()` 中使用 `ondelete="SET NULL"`，以让数据库自动将这些字段设置为 `NULL`。
 
 //// tab | Python 3.10+
 
@@ -899,7 +898,7 @@ We will also use `ondelete="SET NULL"` in the `Hero` model table, in the foreign
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -927,18 +926,18 @@ We will also use `ondelete="SET NULL"` in the `Hero` model table, in the foreign
 
 ///
 
-### Run the Program with `passive_deletes`
+### 使用 `passive_deletes` 运行程序
 
-Now, if we run the program, we will see that SQLModel (SQLAlchemy) is no longer loading and updating the heroes, it just sends the `DELETE` for the team.
+现在，如果我们运行程序，我们将看到 SQLModel（SQLAlchemy）不再加载和更新英雄，而是直接发送 `DELETE` 请求删除队伍。
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate and previous output omitted 😉
+// 一些初始化和先前的输出省略 😉
 
-// The hero table is created with the ON DELETE SET NULL as before
+// 创建英雄表，使用了 `ON DELETE SET NULL` 如之前一样
 CREATE TABLE hero (
         id INTEGER NOT NULL,
         name VARCHAR NOT NULL,
@@ -949,45 +948,45 @@ CREATE TABLE hero (
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE SET NULL
 )
 
-// For SQLite, we also send the custom command to enable foreign key support
+// 对于 SQLite，我们还发送了自定义命令来启用外键支持
 INFO Engine PRAGMA foreign_keys=ON
 
-// We select and print the team Wakaland
+// 选择并打印队伍 Wakaland
 Team Wakaland: id=3 name='Wakaland' headquarters='Wakaland Capital City'
 
-// We won't see another SELECT for the heroes, nor an UPDATE or DELETE. SQLModel (with SQLAlchemy) won't try to load and update (or delete) the related records for heroes, it will just send the DELETE for the team right away.
+// 我们不会再看到对英雄的 SELECT 查询，也不会看到 UPDATE 或 DELETE。SQLModel（使用 SQLAlchemy）不会尝试加载或更新（或删除）英雄相关记录，它会直接发送队伍的 DELETE 请求。
 INFO Engine DELETE FROM team WHERE team.id = ?
 INFO Engine [generated in 0.00013s] (3,)
 
-// At this point, because we enabled foreign key support for SQLite, the database will take care of updating the records for heroes automatically, setting their team_id to NULL
+// 此时，由于我们启用了 SQLite 的外键支持，数据库会自动处理英雄记录的更新，将他们的 team_id 设置为 NULL
 
-// Print the deleted team
+// 打印已删除的队伍
 Deleted team: name='Wakaland' id=3 headquarters='Wakaland Capital City'
 
-// Finally, we select the heroes Black Lion and Princess Sure-E and print them, they no longer have a team
+// 最后，我们选择并打印英雄 Black Lion 和 Princess Sure-E，他们已经没有队伍了
 Black Lion has no team: age=35 id=4 name='Black Lion' secret_name='Trevor Challa' team_id=None
 Princess Sure-E has no team: age=None id=5 name='Princess Sure-E' secret_name='Sure-E' team_id=None
 ```
 
 </div>
 
-## `ondelete` with `RESTRICT`
+## `ondelete` 与 `RESTRICT`
 
-We can also configure the database to **prevent the deletion** of a record (a team) if there are related records (heroes).
+我们还可以配置数据库，在存在相关记录（如英雄）的情况下，**阻止删除**某个记录（如队伍）。
 
-In this case, when someone attempts to **delete a team with heroes** in it, the database will **raise an error**.
+在这种情况下，当有人尝试 **删除包含英雄的队伍** 时，数据库将 **抛出错误**。
 
-And because this is configured in the database, it will happen even if someone **interacts with the database directly using SQL** (if the database supports it).
+而且，因为这是在数据库中配置的，即使有人直接通过 SQL 与数据库交互（如果数据库支持），也会发生此错误。
 
 /// tip
 
-For SQLite, this also needs enabling foreign key support.
+对于 SQLite，这也需要启用外键支持。
 
 ///
 
-### Enable Foreign Key Support in SQLite for `RESTRICT`
+### 为 `RESTRICT` 启用 SQLite 外键支持
 
-As `ondelete="RESTRICT"` is mainly a database-level constraint, let's enable foreign key support in SQLite first to be able to test it.
+由于 `ondelete="RESTRICT"` 主要是数据库级的约束，因此我们需要首先启用 SQLite 的外键支持，以便进行测试。
 
 //// tab | Python 3.10+
 
@@ -1025,7 +1024,7 @@ As `ondelete="RESTRICT"` is mainly a database-level constraint, let's enable for
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -1053,15 +1052,15 @@ As `ondelete="RESTRICT"` is mainly a database-level constraint, let's enable for
 
 ///
 
-### Use `ondelete="RESTRICT"`
+### 使用 `ondelete="RESTRICT"`
 
-Let's set `ondelete="RESTRICT"` in the foreign key `Field()` for the `team_id` in the `Hero` model table.
+我们将在 `Hero` 模型表的 `team_id` 外键 `Field()` 中设置 `ondelete="RESTRICT"`。
 
-And in the `Team` model table, we will use `passive_deletes="all"` in the `Relationship()` for heroes, this way the default behavior of setting foreign keys from deleted models to `NULL` will be disabled, and when we try to delete a team with heroes, the database will **raise an error**.
+在 `Team` 模型表中，我们将在英雄的 `Relationship()` 中使用 `passive_deletes="all"`，这样会禁用默认的行为，即将已删除模型的外键设置为 `NULL`，并且当我们尝试删除带有英雄的队伍时，数据库会 **抛出错误**。
 
 /// tip
 
-Notice that we don't set `cascade_delete` in the `Team` model table.
+请注意，我们没有在 `Team` 模型表中设置 `cascade_delete`。
 
 ///
 
@@ -1095,7 +1094,7 @@ Notice that we don't set `cascade_delete` in the `Team` model table.
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -1123,18 +1122,18 @@ Notice that we don't set `cascade_delete` in the `Team` model table.
 
 ///
 
-### Run the Program with `RESTRICT`, See the Error
+### 使用 `RESTRICT` 运行程序，查看错误
 
-Now, if we run the program and try to delete a team with heroes, we will see an error.
+现在，如果我们运行程序并尝试删除一个带有英雄的队伍，我们将看到一个错误。
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate and previous output omitted 😉
+// 一些初始化和先前的输出省略 😉
 
-// The hero table is created with the ON DELETE RESTRICT
+// 创建英雄表，使用了 `ON DELETE RESTRICT`
 CREATE TABLE hero (
         id INTEGER NOT NULL,
         name VARCHAR NOT NULL,
@@ -1145,14 +1144,13 @@ CREATE TABLE hero (
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE RESTRICT
 )
 
-// Now, when we reach the point of deleting a team with heroes, we will see an error
+// 现在，当我们尝试删除一个带有英雄的队伍时，我们会看到一个错误
 Traceback (most recent call last):
      File "/home/user/code...
 
 sqlite3.IntegrityError: FOREIGN KEY constraint failed
 
-// More error output here...
-
+// 更多错误输出...
 sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) FOREIGN KEY constraint failed
 [SQL: DELETE FROM team WHERE team.id = ?]
 [parameters: (3,)]
@@ -1160,27 +1158,27 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) FOREIGN KEY constraint f
 
 </div>
 
-Great! The database didn't let us commit the mistake of deleting a team with heroes. 🤓
+太棒了！数据库没有让我们犯下删除带有英雄的队伍的错误。🤓
 
 /// tip
 
-If you want to test if the `PRAGMA foreign_keys=ON` is necessary, **comment that line** and run it again, you will **not see an error**. 😱
+如果你想测试是否需要 `PRAGMA foreign_keys=ON`，**注释掉那一行**并再次运行，你将 **不会看到错误**。😱
 
-The same with `passive_deletes="all"`, if you **comment that line**, SQLModel (SQLAlchemy) will load and update the heroes before deleting the team, set their foreign key `team_id` to `NULL` and **the constraint won't work as expected**, you will not see an error. 😅
+同样地，使用 `passive_deletes="all"` 也是如此，如果你 **注释掉那一行**，SQLModel（SQLAlchemy）会在删除队伍之前加载并更新英雄，将他们的外键 `team_id` 设置为 `NULL`，并且 **约束将无法按预期工作**，你将不会看到错误。😅
 
 ///
 
-### Update Heroes Before Deleting the Team
+### 在删除队伍之前更新英雄
 
-After having the `ondelete="RESTRICT"` in place, SQLite configured to support foreign keys, and `passive_deletes="all"` in the `Relationship()`, if we try to delete a team with heroes, we will see an error.
+在配置了 `ondelete="RESTRICT"`，启用了 SQLite 外键支持，并且在 `Relationship()` 中设置了 `passive_deletes="all"` 后，如果我们尝试删除一个带有英雄的队伍，就会看到错误。
 
-If we want to delete the team, we need to **update the heroes first** and set their `team_id` to `None` (or `NULL` in the database).
+如果我们想删除队伍，需要 **先更新英雄**，将他们的 `team_id` 设置为 `None`（或在数据库中为 `NULL`）。
 
-By calling the method `.clear()` from a list, we remove all its items. So, by calling `team.heroes.clear()` and saving that to the database, we disassociate the heroes from the team, that will set their `team_id` to `None`.
+通过调用列表的 `.clear()` 方法，我们可以移除列表中的所有项。所以，通过调用 `team.heroes.clear()` 并保存到数据库，我们可以将英雄从队伍中解除关联，这会将他们的 `team_id` 设置为 `None`。
 
 /// tip
 
-Calling `team.heroes.clear()` is very similar to what SQLModel (actually SQLAlchemy) would have done if we didn't have `passive_deletes="all"` configured.
+调用 `team.heroes.clear()` 与 SQLModel（实际上是 SQLAlchemy）在没有配置 `passive_deletes="all"` 时会做的操作非常相似。
 
 ///
 
@@ -1220,7 +1218,7 @@ Calling `team.heroes.clear()` is very similar to what SQLModel (actually SQLAlch
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -1248,18 +1246,18 @@ Calling `team.heroes.clear()` is very similar to what SQLModel (actually SQLAlch
 
 ///
 
-### Run the Program Deleting Heroes First
+### 运行程序，先删除英雄
 
-Now, if we run the program and delete the heroes first, we will be able to delete the team without any issues.
+现在，如果我们运行程序并先删除英雄，就能够顺利删除队伍了。
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate and previous output omitted 😉
+// 一些初始化和先前的输出省略 😉
 
-// The hero table is created with the ON DELETE RESTRICT
+// 创建英雄表，使用了 `ON DELETE RESTRICT`
 CREATE TABLE hero (
         id INTEGER NOT NULL,
         name VARCHAR NOT NULL,
@@ -1270,35 +1268,35 @@ CREATE TABLE hero (
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE RESTRICT
 )
 
-// We manually disassociate the heroes from the team
+// 我们手动解除英雄与队伍的关联
 INFO Engine UPDATE hero SET team_id=? WHERE hero.id = ?
 INFO Engine [generated in 0.00008s] [(None, 4), (None, 5)]
 
-// We print the team from which we removed heroes
+// 打印已移除英雄的队伍
 Team with removed heroes: name='Wakaland' id=3 headquarters='Wakaland Capital City'
 
-// Now we can delete the team
+// 现在可以删除队伍
 INFO Engine DELETE FROM team WHERE team.id = ?
 INFO Engine [generated in 0.00008s] (3,)
 INFO Engine COMMIT
 Deleted team: name='Wakaland' id=3 headquarters='Wakaland Capital City'
 
-// The heroes Black Lion and Princess Sure-E are no longer associated with the team
+// 英雄 Black Lion 和 Princess Sure-E 已不再与队伍关联
 Black Lion has no team: secret_name='Trevor Challa' name='Black Lion' team_id=None age=35 id=4
 Princess Sure-E has no team: secret_name='Sure-E' name='Princess Sure-E' team_id=None age=None id=5
 ```
 
 </div>
 
-## Conclusion
+## 结论
 
-In many cases, **you don't really need to configure anything**. 😎
+在许多情况下，**你实际上不需要配置任何东西**。😎
 
-In some cases, when you want to **cascade** the delete of a record to its related records automatically (delete a team with its heroes), you can:
+在某些情况下，如果你想要 **级联** 删除一个记录及其相关记录（删除一个带有英雄的队伍），你可以：
 
-* Use `cascade_delete=True` in the `Relationship()` on the side **without a foreign key**
-* And use `ondelete="CASCADE"` in the `Field()` with the **foreign key**
+* 在没有外键的那一侧的 `Relationship()` 中使用 `cascade_delete=True`
+* 并在带有外键的 `Field()` 中使用 `ondelete="CASCADE"`
 
-That will **cover most of the use cases**. 🚀
+这样就可以 **覆盖大多数用例**。🚀
 
-And if you need something else, you can refer the additional options described above. 🤓
+如果你需要其他功能，可以参考上述描述的额外选项。🤓

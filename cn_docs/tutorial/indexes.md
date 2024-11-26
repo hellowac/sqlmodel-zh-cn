@@ -1,26 +1,26 @@
-# Indexes - Optimize Queries
+# 索引 - 优化查询
 
-We just saw how to get some data `WHERE` a **condition** is true. For example, where the hero **name is "Deadpond"**.
+我们刚刚看到了如何获取满足某个 **条件** 的数据。例如，查询英雄 **名字为 "Deadpond"** 的数据。
 
-If we just create the tables and the data as we have been doing, when we `SELECT` some data using `WHERE`, the database would have to **scan** through **each one of the records** to find the ones that **match**. This is not a problem with 3 heroes as in these examples.
+如果我们像之前一样创建表和数据，当我们使用 `WHERE` 查询数据时，数据库必须 **扫描** **每一条记录** 来找到符合条件的记录。在这些示例中，只有 3 个英雄，这个问题不大。
 
-But imagine that your database has **thousands** or **millions** of **records**, if every time you want to find the heroes with the name "Deadpond" it has to scan through **all** of the records to find all the possible matches, then that becomes problematic, as it would be too slow.
+但如果你的数据库有 **成千上万** 条 **记录**，每次查询名字为 "Deadpond" 的英雄时，数据库都需要扫描 **所有** 记录来找到所有可能的匹配项，这就变得很麻烦，因为它会变得非常 **慢**。
 
-I'll show you how to handle it with a database **index**.
+我将向你展示如何通过数据库 **索引** 来处理这个问题。
 
-The change in the code is **extremely small**, but it's useful to understand what's happening behind the scenes, so I'll show you **how it all works** and what it means.
+代码的更改 **非常小**，但理解背后发生了什么非常有用，所以我会向你展示 **它是如何工作的**，以及它意味着什么。
 
 ---
 
-If you already executed the previous examples and have a database with data, **remove the database file** before running each example, that way you won't have duplicate data and you will be able to get the same results.
+如果你已经执行了之前的示例并且有了数据库数据，**在运行每个示例之前删除数据库文件**，这样你就不会有重复的数据，并且可以得到相同的结果。
 
-## No Time to Explain
+## 没时间解释
 
-Are you already a **SQL expert** and don't have time for all my explanations?
+你已经是 **SQL专家**，没有时间看我所有的解释吗？
 
-Fine, in that case, you can **sneak peek** the final code to create indexes here.
+没问题，在这种情况下，你可以 **直接查看** 创建索引的最终代码。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -40,97 +40,97 @@ Fine, in that case, you can **sneak peek** the final code to create indexes here
 
 ///
 
-..but if you are not an expert, **continue reading**, this will probably be useful. 🤓
+...但如果你不是专家， **继续阅读**，这将可能对你有帮助。🤓
 
-## What is an Index
+## 什么是索引
 
-In general, an **index** is just something we can have to help us **find things faster**. It normally works by having things in **order**. Let's think about some real-life examples before even thinking about databases and code.
+通常来说，  **索引** 就是我们可以用来帮助我们 **更快找到东西** 的工具。它通常通过将事物按 **顺序排列** 来工作。在考虑数据库和代码之前，我们可以先想想一些现实生活中的例子。
 
-### An Index and a Dictionary
+### 索引和字典
 
-Imagine a **dictionary**, a book with definitions of words. 📔 ...not a Python `dict`. 😅
+想象一下一个 **字典** ，它是一本包含单词定义的书。📔 ...不是Python中的`dict`。😅
 
-Let's say that you want to **find a word**, for example the word "**database**". You take the dictionary, and open it somewhere, for example in the middle. Maybe you see some definitions of words that start with `m`, like `manual`, so you conclude that you are in the letter `m` in the dictionary.
+假设你想要 **查找一个单词** ，例如“ **database** ”。你翻开字典，可能打开的是字典的中间部分。也许你看到了一些以字母 `m` 开头的单词，比如 `manual`，于是你推测自己正在字母 `m` 的部分。
 
-<img src="/img/tutorial/indexes/dictionary001.svg">
+<img src="../../img/tutorial/indexes/dictionary001.svg">
 
-You know that in the alphabet, the letter `d` for `database` comes **before** the letter `m` for `manual`.
+你知道在字母表中，字母 `d`（比如“database”中的字母）排在字母 `m` 之前。
 
-<img src="/img/tutorial/indexes/dictionary002.svg">
+<img src="../../img/tutorial/indexes/dictionary002.svg">
 
-So, you know you have to search in the dictionary **before** the point you currently are. You still don't know where the word `database` is, because you don't know exactly where the letter `d` is in the dictionary, but you know that **it is not after** that point, you can now **discard the right half** of the dictionary in your search.
+因此，你知道需要在当前所在的位置之前进行查找。你仍然不知道“database”具体在哪个位置，因为你还不清楚字母 `d` 在字典中的确切位置，但你知道它 **不会在** 当前位置之后，因此你可以 **丢弃字典的右半部分** ，不再搜索。
 
-<img src="/img/tutorial/indexes/dictionary003.svg">
+<img src="../../img/tutorial/indexes/dictionary003.svg">
 
-Next, you **open the dictionary again**, but only taking into account the **half of the dictionary** that can contain the word you want, the **left part of the dictionary**. You open it in the middle of that left part and now you arrive maybe at the letter `f`.
+接下来，你 **再次翻开字典** ，但这次只考虑包含你要找的单词的 **字典左半部分** 。你在这个左半部分的中间位置打开字典，也许你停在了字母 `f`。
 
-<img src="/img/tutorial/indexes/dictionary004.svg">
+<img src="../../img/tutorial/indexes/dictionary004.svg">
 
-You know that `d` from `database` comes before `f`. So it has to be **before** that. But now you know that `database` **is not after** that point, and you can discard the dictionary from that point onward.
+你知道字母 `d` 排在 `f` 之前，所以“database”肯定在 **这个位置之前** 。但此时你知道“database” **不会在**这个位置之后，因此你可以丢弃从此位置开始的字典部分。
 
-<img src="/img/tutorial/indexes/dictionary005.svg">
+<img src="../../img/tutorial/indexes/dictionary005.svg">
 
-Now you have a **small section of dictionary** to search (only a **quarter** of dictionary can have your word). You take that **quarter** of the pages at the start of the dictionary that can contain your word, and open it in the middle of that section. Maybe you arrive at the letter `c`.
+现在，你剩下了一个 **小部分字典** 来继续查找（只有字典的 **四分之一** 区域可能包含你要的单词）。你从字典开头的这个四分之一部分中打开，在中间的地方，也许你到达了字母 `c`。
 
-<img src="/img/tutorial/indexes/dictionary006.svg">
+<img src="../../img/tutorial/indexes/dictionary006.svg">
 
-You know the word `database` has to be **after** that and **not before** that point, so you can discard the left part of that block of pages.
+你知道“database”应该在 **字母 `c` 之后**而不是之前，因此你可以丢弃该部分的左边。
 
-<img src="/img/tutorial/indexes/dictionary007.svg">
+<img src="../../img/tutorial/indexes/dictionary007.svg">
 
-You repeat this process **a few more times**, and you finally arrive at the letter `d`, you continue with the same process in that section for the letter `d` and you finally **find the word** `database`. 🎉
+你重复这个过程 **几次** ，最终到达字母 `d`，然后继续在该部分进行查找，最后你 **找到了单词** “database”。🎉
 
-<img src="/img/tutorial/indexes/dictionary008.svg">
+<img src="../../img/tutorial/indexes/dictionary008.svg">
 
-You had to open the dictionary a few times, maybe **5 or 10**. That's actually **very little work** compared to what it could have been.
+你只需要翻开字典几次，可能是 **5次或10次** 。实际上，这相比起你本可能要做的工作来说， **非常少** 。
 
-/// note  | Technical Details
+/// note | 技术细节
 
-Do you like **fancy words**? Cool! Programmers tend to like fancy words. 😅
+你喜欢 **高大上的词** 吗？酷！程序员通常喜欢高大上的词。😅
 
-That <abbr title="a recipe, a sequence of predefined steps that achieve a result">algorithm</abbr> I showed you above is called **Binary Search**.
+我刚才给你展示的那个 **算法** 叫做 **二分查找** 。
 
-It's called that because you **search** something by splitting the dictionary (or any ordered list of things) in **two** ("binary" means "two") parts. And you do that process multiple times until you find what you want.
+之所以叫它“二分查找”，是因为你 **通过将字典** （或任何有序的列表）分成 **两** 部分来查找东西（“二进制”意味着“两个”）。然后你重复这个过程，直到找到你想要的东西。
 
 ///
 
-### An Index and a Novel
+### 索引和小说
 
-Let's now imagine you are reading a **novel book**. And someone told you that at some point, they mention a **database**, and you want to find that chapter.
+现在，假设你在阅读一本 **小说** 。有人告诉你，在某个地方提到了 **数据库** ，而你想要找到那一章。
 
-How do you find the word "*database*" there? You might have to read **the entire book** to find where the word "*database*" is located in the book. So, instead of opening the book 5 or 10 times, you would have to open each of the **500 pages** and read them one by one until you find the word. You might enjoy the book, though. 😅
+你如何在小说中找到“*数据库*”这个词呢？你可能不得不 **阅读整本书** ，才能找到“ *数据库* ”出现的章节。你可能会逐页翻阅， **每一页都读一遍** ，直到找到这个词。虽然你可能会享受这本书，但这显然是 **低效** 的。😅
 
-But if we are only interested in **quickly finding information** (as when working with SQL databases), then reading each of the 500 pages is **too inefficient** when there could be an option to open the book in 5 or 10 places and find what you're looking for.
+但是，如果我们只是想要 **快速找到信息** （就像在处理SQL数据库时），那么逐页翻阅500页就显得 **太低效**了。要是有个办法，能让你在5或10个地方直接找到信息，那就效率高得多了。
 
-### A Technical Book with an Index
+### 一本有索引的技术书
 
-Now let's imagine you are reading a technical book. For example, with several topics about programming. And there's a couple of sections where it talks about a **database**.
+现在，假设你在阅读一本技术书。比如，它包含了关于编程的多个话题。而其中有几节内容提到了 **数据库** 。
 
-This book might have a **book index**: a section in the book that has some **names of topics covered** and the **page numbers** in the book where you can read about them. And the topic names are **sorted** in alphabetic order, pretty much like a dictionary (a book with words, as in the previous example).
+这本书可能有一个 **书籍索引** ：书中的一节，列出了书中 **涵盖的主题名称** 以及这些主题所在的* *页码**。这些主题名称是 **按字母顺序排列** 的，类似字典（就像前面的例子中那本字典）。
 
-In this case, you can open that book in the end (or in the beginning) to find the **book index** section, it would have only a few pages. And then, you can do the same process as with the **dictionary** example above.
+在这种情况下，你可以翻到书的最后一页（或者开头）找到 **书籍索引**部分，这部分通常只有几页。然后，你就可以使用和上面 **字典** 示例相同的方法。
 
-Open the index, and after **5 or 10 steps**, quickly find the topic "**database**" with the page numbers where that is covered, for example "page 253 in Chapter 5". Now you used the dictionary technique to find the **topic**, and that topic gave you a **page number**.
+翻开索引，经过 **5到10步** ，你就能快速找到 **“数据库”** 这个话题，并看到它所在的页码，比如“第253页，第五章”。现在，你用字典中的方法找到了 **主题** ，而这个主题又给了你一个 **页码** 。
 
-Now you know that you need to find "**page 253**". But by looking at the closed book you still don't know where that page is, so you have to **find that page**. To find it, you can do the same process again, but this time, instead of searching for a **topic** in the **index**, you are searching for a **page number** in the **entire book**. And after **5 or 10 more steps**, you find the page 253 in Chapter 5.
+现在你知道需要找到的是 **“第253页”** 。但看着这本合上的书，你还不知道那一页在哪里，所以你得 **找到那一页** 。为了找到那一页，你可以再次使用相同的方法，但这次你不是在 **索引** 中查找 **主题** ，而是在 **整本书** 中查找 **页码** 。经过 **5到10步** ，你就能找到第五章的第253页。
 
-<img src="/img/tutorial/indexes/techbook001.svg">
+<img src="../../img/tutorial/indexes/techbook001.svg">
 
-After this, even though this book is not a dictionary and has some particular content, you were able to **find the section** in the book that talks about a "**database**" in a **few steps** (say 10 or 20, instead of reading all the 500 pages).
+经过这些步骤，虽然这本书不是字典，内容也有所不同，但你还是能 **快速找到** 涉及 **“数据库”** 的部分，整个过程只需要 **几步** （可能是10到20步，而不是翻阅所有500页）。
 
-The main point is that the index is **sorted**, so we can use the same process we used for the **dictionary** to find the topic. And then that gives us a page number, and the **page numbers are also sorted**! 😅
+关键是，索引是 **排序的** ，所以我们可以使用和 **字典** 一样的方法来查找主题。然后，得到的页码也是 **有序的** ！😅
 
-When we have a list of sorted things we can apply the same technique, and that's the whole trick here, we use the same technique first for the **topics** in the index and then for the **page numbers** to find the actual chapter.
+当我们有一个排序的列表时，我们可以应用相同的技术，这就是这里的核心技巧：我们首先在 **索引** 中查找 **主题** ，然后在 **页码** 上应用同样的方法来找到实际的章节。
 
-Such efficiency! 😎
+如此高效！😎
 
-## What are Database Indexes
+## 什么是数据库索引
 
-**Database indexes** are very similar to **book indexes**.
+**数据库索引** 与 **书籍索引**非常相似。
 
-Database indexes store some info, some keys, in a way that makes it **easy and fast to find** (for example sorted), and then for each key they **point to some data somewhere else** in the database.
+数据库索引存储一些信息、键值，并以一种使得查找变得 **快速且简单**的方式进行排序（例如按顺序排列）。然后，对于每个键，它们 **指向数据库中其他地方的数据**。
 
-Let's see a more clear example. Let's say you have this table in a database:
+让我们看一个更清晰的例子。假设你在数据库中有一个这样的表：
 
 <table>
 <tr>
@@ -147,13 +147,13 @@ Let's see a more clear example. Let's say you have this table in a database:
 </tr>
 </table>
 
-And let's imagine you have **many more rows**, many more heroes. Probably **thousands**.
+假设你有 **更多的行**，可能有 **成千上万**的记录。
 
-If you tell the SQL database to get you a hero by a specific name, for example `Spider-Boy` (by using the `name` in the `WHERE` part of the SQL query), the database will have to **scan** all the heroes, checking **one by one** to find all the ones with a name of `Spider-Boy`.
+如果你要求SQL数据库根据特定的名字获取英雄，例如 `Spider-Boy`（使用 `name` 在SQL查询的 `WHERE` 部分），数据库就必须 **扫描**所有的英雄，逐个检查每一行，以找到名字为 `Spider-Boy` 的记录。
 
-In this case, there's only one, but there's nothing limiting the database from having **more records with the same name**. And because of that, the database would **continue searching** and checking each one of the records, which would be very slow.
+在这种情况下，只有一条记录，但并没有任何限制数据库不能有 **更多相同名字的记录**。因此，数据库会 **继续查找**，逐条检查每一条记录，这会非常慢。
 
-But now let's say that the database has an index for the column `name`. The index could look something like this, we could imagine that the index is like an additional special table that the database manages automatically:
+但现在假设数据库已经为 `name` 列创建了索引。这个索引可能像这样，我们可以把它想象成数据库自动管理的一个额外的特殊表：
 
 <table>
 <tr>
@@ -170,11 +170,11 @@ But now let's say that the database has an index for the column `name`. The inde
 </tr>
 </table>
 
-It would have each `name` field from the `hero` table **in order**. It would not be sorted by `id`, but by `name` (in alphabetical order, as the `name` is a string). So, first it would have `Deadpond`, then `Rusty-Man`, and last `Spider-Boy`. It would also include the `id` of each hero. Remember that this could have **thousands** of heroes.
+索引会按 **顺序**列出每个 `name` 字段。它不会按 `id` 排序，而是按 `name` 排序（按字母顺序，因为 `name` 是字符串）。所以，首先是 `Deadpond`，然后是 `Rusty-Man`，最后是 `Spider-Boy`。它还会包含每个英雄的 `id`。记住，这里可能有 **成千上万**个英雄。
 
-Then the database would be able to use more or less the same ideas in the examples above with the **dictionary** and the **book index**.
+然后，数据库就能够使用类似上述 **字典**和 **书籍索引**的方式来查找。
 
-It could start somewhere (for example, in the middle of the index). It could arrive at some hero there in the middle, like `Rusty-Man`. And because the **index** has the `name` fields in order, the database would know that it can **discard all the previous index rows** and **only search** in the following index rows.
+它可以从某个地方开始（例如，从索引的中间）。它可能会找到像 `Rusty-Man` 这样的英雄。因为 **索引**中的 `name` 字段是按顺序排列的，数据库会知道它可以 **丢弃所有之前的索引行**，只在后面的索引行中进行查找。
 
 <table>
 <tr>
@@ -191,7 +191,7 @@ It could start somewhere (for example, in the middle of the index). It could arr
 </tr>
 </table>
 
-And that way, as with the example with the dictionary above, **instead of reading thousands of heroes**, the database would be able to do a few steps, say **5 or 10 steps**, and arrive at the row of the index that has `Spider-Boy`, even if the table (and index) has thousands of rows:
+这样，就像字典的例子一样， **无需读取成千上万的英雄**，数据库可以通过 **5到10步**快速找到包含 `Spider-Boy` 的索引行，即使表格（和索引）有成千上万行：
 
 <table>
 <tr>
@@ -208,79 +208,79 @@ And that way, as with the example with the dictionary above, **instead of readin
 </tr>
 </table>
 
-Then by looking at **this index row**, it would know that the `id` for `Spider-Boy` in the `hero` table is `2`.
+通过查看 **这个索引行**，数据库知道 `Spider-Boy` 在 `hero` 表中的 `id` 是 `2`。
 
-So then it could **search that `id`** in the `hero` table using more or less the **same technique**.
+接下来，它就可以使用 **相同的技术**，通过查找这个 `id` 在 `hero` 表中找到对应的记录。
 
-That way, in the end, instead of reading thousands of records, the database only had to do **a few steps** to find the hero we wanted.
+这样，最终数据库无需读取成千上万的记录，只需要 **几步**就能找到我们需要的英雄。
 
-## Updating the Index
+## 更新索引
 
-As you can imagine, for all this to work, the index would need to be **up to date** with the data in the database.
+正如你所想的，要使这一切正常工作，索引需要与数据库中的数据保持 **最新**。
 
-If you had to update it **manually** in code, it would be very cumbersome and **error-prone**, as it would be easy to end up in a state where the index is not up to date and points to incorrect data. 😱
+如果你需要 **手动**在代码中更新索引，这将非常繁琐且 **容易出错**，因为很容易陷入索引未更新、指向错误数据的状态。 😱
 
-Here's the good news: when you create an index in a **SQL Database**, the database takes care of **updating** it **automatically** whenever it's necessary. 😎🎉
+好消息是：当你在 **SQL数据库**中创建一个索引时，数据库会在需要时 **自动**负责 **更新**它。 😎🎉
 
-If you **add new records** to the `hero` table, the database will **automatically** update the index. It will do the **same process** of **finding** the right place to put the new index data (those **5 or 10 steps** described above), and then it will save the new index information there. The same would happen when you **update** or **delete** data.
+如果你向 `hero` 表中 **添加新记录**，数据库会 **自动**更新索引。它会执行 **相同的过程**来 **查找**正确的位置，将新的索引数据插入进去（就像上面描述的 **5到10步**），然后将新的索引信息保存到那里。同样的过程也会在你 **更新**或 **删除**数据时发生。
 
-Defining and creating an index is very **easy** with SQL databases. And then **using it** is even easier... it's transparent. The database will figure out which index to use automatically, the SQL queries don't even change.
+在SQL数据库中，定义和创建索引是非常 **简单**的。而且 **使用**索引则更加容易……几乎是透明的。数据库会自动判断使用哪个索引，SQL查询甚至不需要改变。
 
-So, in SQL databases **indexes are great**! And are super **easy to use**. Why not just have indexes for everything? .....Because indexes also have a "**cost**" in computation and storage (disk space).
+所以，在SQL数据库中， **索引非常棒**！而且超级 **易于使用**。那为什么不为所有东西都创建索引呢？…..因为索引也有 **计算和存储（磁盘空间）上的“成本”**。
 
-## Index Cost
+## 索引的成本
 
-There's a **cost** associated with **indexes**. 💰
+**索引** 是有 **成本**的。💰
 
-When you don't have an index and add a **new row** to the table `hero`, the database has to perform **1 operation** to add the new hero row at the end of the table.
+当你没有索引，并向 `hero` 表中添加 **新行**时，数据库只需要执行 **1次操作**，将新英雄记录添加到表的末尾。
 
-But if you have an **index** for the **hero names**, now the database has to perform the same **1 operation** to add that row **plus** some extra **5 or 10 operations** in the index, to find the right spot for the name, to then add that **index record** there.
+但如果你有 **英雄名字**的 **索引**，那么数据库就必须执行相同的 **1次操作**来添加这一行 **外加**在索引中进行额外的 **5到10次操作**，来找到正确的位置插入这个名字，然后将该 **索引记录**添加到那里。
 
-And if you have an index for the `name`, one for the `age`, and one for the `secret_name`, now the database has to perform the same **1 operation** to add that row **plus** some extra **5 or 10 operations** in the index **times 3**, for each of the indexes. This means that now adding one row takes something like **31 operations**.
+如果你有一个`name`的索引、一个`age`的索引和一个`secret_name`的索引，那么数据库就需要执行相同的 **1次操作**来添加该行 **外加**在每个索引中进行 **5到10次操作**，这样一来，添加一行就需要大约 **31次操作**。
 
-This also means that you are **exchanging** the time it takes to **read** data for the time it takes to **write** data plus some extra **space** in the database.
+这也意味着你在 **读取**数据时节省的时间，会转变为 **写入**数据所需的时间，再加上一些额外的 **空间**，用于存储索引。
 
-If you have queries that get data out of the database comparing each one of those fields (for example using `WHERE`), then it makes total sense to have indexes for each one of them. Because **31 operations** while creating or updating data (plus the space of the index) is much, much better than the possible **500 or 1000 operations** to read all the rows to be able to compare them using each field.
+如果你的查询需要通过比较每个字段来从数据库中提取数据（例如使用 `WHERE`），那么为每个字段创建索引是非常有意义的。因为在创建或更新数据时，进行 **31次操作**（加上索引的空间）比进行可能的 **500或1000次操作**来读取所有行并通过每个字段进行比较要好得多。
 
-But if you **never** have queries that find records by the `secret_name` (you never use `secret_name` in the `WHERE` part) it probably doesn't make sense to have an index for the `secret_name` field/column, as that will increase the computational and space **cost** of writing and updating the database.
+但是，如果你 **从未**使用 `secret_name` 字段进行查询（例如从未在 `WHERE` 部分使用 `secret_name`），那么为 `secret_name` 字段/列创建索引可能就没有意义，因为这会增加数据库写入和更新的计算和空间 **成本**。
 
-## Create an Index with SQL
+## 使用 SQL 创建索引
 
-Phew, that was a lot of theory and explanations. 😅
+呼，这部分理论和解释挺多的。 😅
 
-The most important thing about indexes is **understanding** them, how, and when to use them.
+理解索引、如何使用以及何时使用它们是最重要的。
 
-Let's now see the **SQL** syntax to create an **index**. It is very simple:
+现在，让我们来看一下创建 **索引** 的 **SQL** 语法。它非常简单：
 
 ```SQL hl_lines="3"
 CREATE INDEX ix_hero_name
 ON hero (name)
 ```
 
-This means, more or less:
+这大致意味着：
 
-> Hey SQL database 👋, please `CREATE` an `INDEX` for me.
+> 嘿，SQL 数据库 👋，请为我 `CREATE` 一个 `INDEX`。
 >
-> I want the name of the index to be `ix_hero_name`.
+> 我希望这个索引的名字是 `ix_hero_name`。
 >
-> This index should be `ON` the table `hero`, it refers to that table.
+> 这个索引应该是 `ON` `hero` 表，指向那个表。
 >
-> The column I want you to use for it is `name`.
+> 我希望你使用 `name` 这一列来创建索引。
 
-## Declare Indexes with SQLModel
+## 使用 SQLModel 声明索引
 
-And now let's see how to define indexes in **SQLModel**.
+接下来，让我们看看如何在 **SQLModel** 中定义索引。
 
-The change in code is underwhelming, it's very simple. 😆
+代码上的变化非常简单，几乎没有变化。 😆
 
-Here's the `Hero` model we had before:
+这是我们之前的 `Hero` 模型：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="6"
 {!./docs_src/tutorial/where/tutorial001_py310.py[ln:1-8]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -290,12 +290,12 @@ Here's the `Hero` model we had before:
 ```Python hl_lines="8"
 {!./docs_src/tutorial/where/tutorial001.py[ln:1-10]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -315,14 +315,14 @@ Here's the `Hero` model we had before:
 
 ///
 
-Let's now update it to tell **SQLModel** to create an index for the `name` field when creating the table:
+现在，我们将其更新，以便在创建表时告诉 **SQLModel** 为 `name` 字段创建一个索引：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="6"
 {!./docs_src/tutorial/indexes/tutorial001_py310.py[ln:1-8]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
@@ -332,12 +332,12 @@ Let's now update it to tell **SQLModel** to create an index for the `name` field
 ```Python hl_lines="8"
 {!./docs_src/tutorial/indexes/tutorial001.py[ln:1-10]!}
 
-# Code below omitted 👇
+# 代码省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -357,34 +357,34 @@ Let's now update it to tell **SQLModel** to create an index for the `name` field
 
 ///
 
-We use the same `Field()` again as we did before, and set `index=True`. That's it! 🚀
+我们再次使用相同的 `Field()`，并设置 `index=True`。就这样！ 🚀
 
-Notice that we didn't set an argument of `default=None` or anything similar. This means that **SQLModel** (thanks to Pydantic) will keep it as a **required** field.
+请注意，我们没有设置 `default=None` 或类似的参数。这意味着 **SQLModel**（借助 Pydantic）将其视为 **必填** 字段。
 
 /// info
 
-SQLModel (actually SQLAlchemy) will **automatically generate the index name** for you.
+SQLModel（实际上是 SQLAlchemy）会为你**自动生成索引名称**。
 
-In this case the generated name would be `ix_hero_name`.
+在这种情况下，生成的名称将是 `ix_hero_name`。
 
 ///
 
-## Query Data
+## 查询数据
 
-Now, to query the data using the field `name` and the new index we don't have to do anything special or different in the code, it's just **the same code**.
+现在，使用字段 `name` 和新索引查询数据时，我们不需要在代码中做任何特殊或不同的处理，依然是**相同的代码**。
 
-The SQL database will figure it out **automatically**. ✨
+SQL 数据库会**自动**处理这一切。✨
 
-This is great because it means that indexes are very **simple to use**. But it might also feel counterintuitive at first, as you are **not doing anything** explicitly in the code to make it obvious that the index is useful, it all happens in the database behind the scenes.
+这非常棒，因为它意味着索引的使用非常**简单**。但一开始可能会感觉有些反直觉，因为你在代码中**没有做任何**显式操作来表明索引是有用的，它的一切都在数据库后台悄悄发生。
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/indexes/tutorial001_py310.py[ln:34-39]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -392,16 +392,16 @@ This is great because it means that indexes are very **simple to use**. But it m
 //// tab | Python 3.7+
 
 ```Python hl_lines="5"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/indexes/tutorial001.py[ln:36-41]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -421,20 +421,20 @@ This is great because it means that indexes are very **simple to use**. But it m
 
 ///
 
-This is exactly the same code as we had before, but now the database will **use the index** underneath.
+这与我们之前的代码完全相同，但现在数据库会在后台 **使用索引**。
 
-## Run the Program
+## 运行程序
 
-If you run the program now, you will see an output like this:
+如果你现在运行程序，你会看到类似这样的输出：
 
 <div class="termy">
 
 ```console
 $ python app.py
 
-// Some boilerplate output omitted 😉
+// 一些样板输出已省略 😉
 
-// Create the table
+// 创建表
 CREATE TABLE hero (
         id INTEGER,
         name VARCHAR NOT NULL,
@@ -443,31 +443,31 @@ CREATE TABLE hero (
         PRIMARY KEY (id)
 )
 
-// Create the index 🤓🎉
+// 创建索引 🤓🎉
 CREATE INDEX ix_hero_name ON hero (name)
 
-// The SELECT with WHERE looks the same
+// 带 WHERE 的 SELECT 看起来一样
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00014s] ('Deadpond',)
 
-// The resulting hero
+// 结果英雄
 secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 ```
 
 </div>
 
-## More Indexes
+## 更多索引
 
-We are going to query the `hero` table doing comparisons on the `age` field too, so we should **define an index** for that one as well:
+我们将查询 `hero` 表，并对 `age` 字段进行比较，因此我们也应该 **为该字段定义一个索引**：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="8"
 {!./docs_src/tutorial/indexes/tutorial002_py310.py[ln:1-8]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -477,12 +477,12 @@ We are going to query the `hero` table doing comparisons on the `age` field too,
 ```Python hl_lines="10"
 {!./docs_src/tutorial/indexes/tutorial002.py[ln:1-10]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -502,24 +502,24 @@ We are going to query the `hero` table doing comparisons on the `age` field too,
 
 ///
 
-In this case, we want the default value of `age` to continue being `None`, so we set `default=None` when using `Field()`.
+在这个例子中，我们希望 `age` 的默认值继续为 `None`，因此在使用 `Field()` 时，我们设置了 `default=None`。
 
-Now when we use **SQLModel** to create the database and tables, it will also create the **indexes** for these two columns in the `hero` table.
+现在，当我们使用 **SQLModel** 创建数据库和表时，它也会为 `hero` 表中的这两列创建 **索引**。
 
-So, when we query the database for the `hero` table and use those **two columns** to define what data we get, the database will be able to **use those indexes** to improve the **reading performance**. 🚀
+因此，当我们查询数据库的 `hero` 表，并使用这 **两列**来定义我们获取的数据时，数据库将能够 **使用这些索引**来提高 **读取性能**。🚀
 
-## Primary Key and Indexes
+## 主键和索引
 
-You probably noticed that we didn't set `index=True` for the `id` field.
+你可能注意到我们没有为 `id` 字段设置 `index=True`。
 
-Because the `id` is already the **primary key**, the database will automatically create an internal **index** for it.
+因为 `id` 已经是 **主键**，数据库会自动为它创建一个内部 **索引**。
 
-The database always creates an internal index for **primary keys** automatically, as those are the primary way to organize, store, and retrieve data. 🤓
+数据库始终会自动为 **主键**创建一个内部索引，因为主键是组织、存储和检索数据的主要方式。🤓
 
-But if you want to be **frequently querying** the SQL database for any **other field** (e.g. using any other field in the `WHERE` section), you will probably want to have at least an **index** for that.
+但是，如果你需要 **频繁查询**SQL数据库中的任何 **其他字段**（例如在 `WHERE` 部分使用其他字段），你可能会希望为这些字段至少创建一个 **索引**。
 
-## Recap
+## 总结
 
-**Indexes** are very important to improve **reading performance** and speed when querying the database. 🏎
+**索引** 对于提高查询数据库时的 **读取性能**和速度非常重要。🏎
 
-Creating and using them is very **simple** and easy. The most important part is to understand **how** they work, **when** to create them, and for **which columns**.
+创建和使用索引非常 **简单**和易于理解。最重要的部分是理解 **它们是如何工作的**， **何时**创建它们，以及为 **哪些列**创建它们。

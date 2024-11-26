@@ -1,10 +1,8 @@
-# Define Relationships Attributes
+# 定义关系属性
 
-Now we are finally in one of the most exciting parts of **SQLModel**.
+现在我们终于来到了 **SQLModel** 中最激动人心的部分之一——关系属性。✨
 
-Relationship Attributes. ✨
-
-We currently have a `team` table:
+我们目前有一个 `team` 表：
 
 <table>
 <tr>
@@ -18,7 +16,7 @@ We currently have a `team` table:
 </tr>
 </table>
 
-And a `hero` table:
+还有一个 `hero` 表：
 
 <table>
 <tr>
@@ -35,11 +33,11 @@ And a `hero` table:
 </tr>
 </table>
 
-Now that you know how these tables work underneath and how the model classes represent them, it's time to add a little convenience that will make many operations in code simpler.
+现在，您已经了解了这些表在底层的工作原理，以及模型类如何表示它们，是时候添加一些便捷的功能了，这将使许多操作变得更加简洁。
 
-## Declare Relationship Attributes
+## 声明关系属性
 
-Up to now, we have only used the `team_id` column to connect the tables when querying with `select()`:
+到目前为止，我们只使用了 `team_id` 列来在查询时连接表格，使用 `select()`：
 
 //// tab | Python 3.10+
 
@@ -61,7 +59,7 @@ Up to now, we have only used the `team_id` column to connect the tables when que
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -81,11 +79,11 @@ Up to now, we have only used the `team_id` column to connect the tables when que
 
 ///
 
-This is a **plain field** like all the others, all representing a **column in the table**.
+这是一个 **普通的字段** ，就像其他所有字段一样，都表示 **表中的一列**。
 
-But now let's add a couple of new special attributes to these model classes, let's add `Relationship` attributes.
+但是现在，让我们向这些模型类添加几个新的特殊属性——即添加 `Relationship` 属性。
 
-First, import `Relationship` from `sqlmodel`:
+首先，从 `sqlmodel` 导入 `Relationship`：
 
 //// tab | Python 3.10+
 
@@ -117,7 +115,7 @@ First, import `Relationship` from `sqlmodel`:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -145,7 +143,7 @@ First, import `Relationship` from `sqlmodel`:
 
 ///
 
-Next, use that `Relationship` to declare a new attribute in the model classes:
+接下来，使用 `Relationship` 来在模型类中声明一个新的属性：
 
 //// tab | Python 3.10+
 
@@ -177,7 +175,7 @@ Next, use that `Relationship` to declare a new attribute in the model classes:
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -205,43 +203,43 @@ Next, use that `Relationship` to declare a new attribute in the model classes:
 
 ///
 
-## What Are These Relationship Attributes
+## 什么是关系属性
 
-These new attributes are not the same as fields, they **don't represent a column** directly in the database, and their value is not a singular value like an integer. Their value is the actual **entire object** that is related.
+这些新属性与字段不同，它们**不直接代表数据库中的一列**，其值也不像整数那样是一个单一的值。它们的值是**与之相关的整个对象**。
 
-So, in the case of a `Hero` instance, if you call `hero.team`, you will get the entire `Team` instance object that this hero belongs to. ✨
+例如，在 `Hero` 实例中，如果你调用 `hero.team`，你将得到这个英雄所属的整个 `Team` 实例对象。✨
 
-For example, you could check if a `hero` belongs to any `team` (if `.team` is not `None`) and then print the team's `name`:
+举个例子，你可以检查一个 `hero` 是否属于某个 `team`（如果 `.team` 不为 `None`），然后打印该队伍的 `name`：
 
 ```Python
 if hero.team:
     print(hero.team.name)
 ```
 
-## Optional Relationship Attributes
+## 可选关系属性
 
-Notice that in the `Hero` class, the type annotation for `team` is `Optional[Team]`.
+请注意，在 `Hero` 类中，`team` 的类型注解是 `Optional[Team]`。
 
-This means that this attribute could be `None`, or it could be a full `Team` object.
+这意味着这个属性可以是 `None`，也可以是一个完整的 `Team` 对象。
 
-This is because the related **`team_id` could also be `None`** (or `NULL` in the database).
+这是因为相关的 **`team_id` 也可以是 `None`**（或者数据库中的 `NULL`）。
 
-If it was required for a `Hero` instance to belong to a `Team`, then the `team_id` would be `int` instead of `Optional[int]`, its `Field` would be `Field(foreign_key="team.id")` instead of `Field(default=None, foreign_key="team.id")` and the `team` attribute would be a `Team` instead of `Optional[Team]`.
+如果要求每个 `Hero` 实例都必须属于一个 `Team`，那么 `team_id` 的类型应该是 `int`，而不是 `Optional[int]`，它的 `Field` 应该是 `Field(foreign_key="team.id")`，而不是 `Field(default=None, foreign_key="team.id")`，而 `team` 属性则应该是 `Team` 类型，而不是 `Optional[Team]`。
 
-## Relationship Attributes With Lists
+## 带列表的关系属性
 
-And in the `Team` class, the `heroes` attribute is annotated as a list of `Hero` objects, because that's what it will have.
+在 `Team` 类中，`heroes` 属性被注解为 `Hero` 对象的列表，因为这正是它所包含的内容。
 
-**SQLModel** (actually SQLAlchemy) is smart enough to know that the relationship is established by the `team_id`, as that's the foreign key that points from the `hero` table to the `team` table, so we don't have to specify that explicitly here.
+**SQLModel**（实际上是 SQLAlchemy）足够智能，能够知道关系是通过 `team_id` 建立的，因为这是从 `hero` 表指向 `team` 表的外键，因此我们不需要在这里显式指定这一点。
 
 /// tip
 
-There's a couple of things we'll check again in some of the next chapters, about the `List["Hero"]` and the `back_populates`.
+在接下来的章节中，我们会再次检查一些关于 `List["Hero"]` 和 `back_populates` 的内容。
 
-But for now, let's first see how to use these relationship attributes.
+但现在，首先让我们看看如何使用这些关系属性。
 
 ///
 
-## Next Steps
+## 下一步
 
-Now let's see some real examples of how to use these new **relationship attributes** in the next chapters. ✨
+现在，让我们在接下来的章节中看看如何使用这些新的**关系属性**的实际例子。✨

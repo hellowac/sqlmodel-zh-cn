@@ -1,6 +1,6 @@
-# Read Data - SELECT
+# 读取数据 - SELECT
 
-We already have a database and a table with some data in it that looks more or less like this:
+我们已经有一个包含一些数据的数据库和表格，看起来大致如下所示：
 
 <table>
 <tr>
@@ -17,13 +17,13 @@ We already have a database and a table with some data in it that looks more or l
 </tr>
 </table>
 
-Things are getting more exciting! Let's now see how to read data from the database! 🤩
+事情变得越来越有趣了！现在让我们来看看如何从数据库中读取数据吧！🤩
 
-## Continue From Previous Code
+## 从上一个代码继续
 
-Let's continue from the last code we used to create some data.
+我们从之前创建数据的代码继续。
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -43,33 +43,33 @@ Let's continue from the last code we used to create some data.
 
 ///
 
-We are creating a **SQLModel** `Hero` class model and creating some records.
+我们正在创建一个 **SQLModel** `Hero` 类模型，并插入一些记录。
 
-We will need the `Hero` model and the **engine**, but we will create a new session to query data in a new function.
+我们需要 `Hero` 模型和 **引擎**，但是我们将创建一个新的会话来查询数据，放在一个新函数里。
 
-## Read Data with SQL
+## 使用 SQL 读取数据
 
-Before writing Python code let's do a quick review of how querying data with SQL looks like:
+在编写 Python 代码之前，让我们快速回顾一下如何用 SQL 查询数据：
 
 ```SQL
 SELECT id, name, secret_name, age
 FROM hero
 ```
 
-It means, more or less:
+它的意思大致是：
 
-> Hey SQL database 👋, please go and `SELECT` some data for me.
+> 嘿 SQL 数据库 👋，请帮我`SELECT`一些数据。
 >
-> I'll first tell you the columns I want:
+> 我首先告诉你我需要哪些列：
 >
 > * `id`
 > * `name`
 > * `secret_name`
 > * `age`
 >
-> And I want you to get them `FROM` the table called `"hero"`.
+> 然后，我希望你从名为 `"hero"` 的表格中获取这些数据。
 
-Then the database will go and get the data and return it to you in a table like this:
+接着，数据库会去获取数据，并以类似下表的形式返回给你：
 
 <table>
 <tr>
@@ -86,43 +86,43 @@ Then the database will go and get the data and return it to you in a table like 
 </tr>
 </table>
 
-You can try that out in **DB Browser for SQLite**:
+你可以在 **DB Browser for SQLite** 中尝试这个操作：
 
-<img class="shadow" src="/img/tutorial/select/image01.png">
+<img class="shadow" src="../../img/tutorial/select/image01.png">
 
 /// warning
 
-Here we are getting all the rows.
+这里我们是获取了所有的行数据。
 
-If you have thousands of rows, that could be expensive to compute for the database.
+如果你的数据表有成千上万行，那么对于数据库来说，计算起来可能会很昂贵。
 
-You would normally want to filter the rows to receive only the ones you want. But we'll learn about that later in the next chapter.
+通常你会想过滤行数据，只获取你需要的那部分。但是我们将在下一章学习如何做到这一点。
 
 ///
 
-### A SQL Shortcut
+### SQL 快捷方式
 
-If we want to get all the columns like in this case above, in SQL there's a shortcut, instead of specifying each of the column names we could write a `*`:
+如果我们想获取所有列，就像上面那个例子，在 SQL 中有一个快捷方式，直接写一个 `*`，而不是指定每个列的名称：
 
 ```SQL
 SELECT *
 FROM hero
 ```
 
-That would end up in the same result. Although we won't use that for **SQLModel**.
+这样会得到相同的结果。尽管如此，我们在 **SQLModel** 中不会使用这个方式。
 
-### `SELECT` Fewer Columns
+### `SELECT` 少量列
 
-We can also `SELECT` fewer columns, for example:
+我们也可以只选择少量列，例如：
 
 ```SQL
 SELECT id, name
 FROM hero
 ```
 
-Here we are only selecting the `id` and `name` columns.
+这里我们只选择了 `id` 和 `name` 列。
 
-And it would result in a table like this:
+这将会返回如下的表格：
 
 <table>
 <tr>
@@ -139,53 +139,53 @@ And it would result in a table like this:
 </tr>
 </table>
 
-And here is something interesting to notice. SQL databases store their data in tables. And they also always communicate their results in **tables**.
+这里有一个有趣的观察。SQL 数据库将数据存储在表中，并且总是以 **表格** 的形式返回结果。
 
-### `SELECT` Variants
+### `SELECT` 变体
 
-The SQL language allows several **variations** in several places.
+SQL 语言允许在多个地方使用不同的 **变体** 。
 
-One of those variations is that in `SELECT` statements you can use the names of the columns directly, or you can prefix them with the name of the table and a dot.
+其中一个变体是，在 `SELECT` 语句中，你可以直接使用列的名称，也可以使用表的名称加上点符号作为前缀。
 
-For example, the same SQL code above could be written as:
+例如，上面的 SQL 代码也可以写成：
 
 ```SQL
 SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 ```
 
-This will be particularly important later when working with multiple tables at the same time that could have the same name for some columns.
+当我们同时处理多个表格时，这一点特别重要，因为多个表格可能会有相同名称的列。
 
-For example `hero.id` and `team.id`, or `hero.name` and `team.name`.
+例如 `hero.id` 和 `team.id`，或者 `hero.name` 和 `team.name`。
 
-Another variation is that most of the SQL keywords like `SELECT` can also be written in lowercase, like `select`.
+另一个变体是，大多数 SQL 关键字，比如 `SELECT`，也可以小写书写，例如 `select`。
 
-### Result Tables Don't Have to Exist
+### 结果表格不一定需要存在
 
-This is the interesting part. The tables returned by SQL databases **don't have to exist** in the database as independent tables. 🧙
+这是一个有趣的部分。SQL 数据库返回的表格 **不需要** 作为独立的表格存在于数据库中。🧙
 
-For example, in our database, we only have one table that has all the columns, `id`, `name`, `secret_name`, `age`. And here we are getting a result table with fewer columns.
+例如，在我们的数据库中，只有一个包含所有列的表，即 `id`、`name`、`secret_name`、`age`。而我们在这里得到的结果表格只有较少的列。
 
-One of the main points of SQL is to be able to keep the data structured in different tables, without repeating data, etc, and then query the database in many ways and get many different tables as a result.
+SQL 的一个主要特点是能够保持数据在不同的表中结构化，避免数据重复等，然后以多种方式查询数据库，并以不同的表格形式返回结果。
 
-## Read Data with **SQLModel**
+## 使用 **SQLModel** 读取数据
 
-Now let's do the same query to read all the heroes, but with **SQLModel**.
+现在，让我们用 **SQLModel** 做相同的查询，读取所有英雄的数据。
 
-## Create a **Session**
+## 创建 **Session**
 
-The first step is to create a **Session**, the same way we did when creating the rows.
+第一步是创建一个 **Session**，就像我们在创建数据行时所做的那样。
 
-We will start with that in a new function `select_heroes()`:
+我们将在一个新的函数 `select_heroes()` 中开始这个过程：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="3-4"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-35]!}
 
-# More code here later 👇
+# 更多代码将在下文 👇
 ```
 
 ////
@@ -193,16 +193,16 @@ We will start with that in a new function `select_heroes()`:
 //// tab | Python 3.7+
 
 ```Python hl_lines="3-4"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial001.py[ln:36-37]!}
 
-# More code here later 👇
+# 更多代码将在下文 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -222,18 +222,18 @@ We will start with that in a new function `select_heroes()`:
 
 ///
 
-## Create a `select` Statement
+## 创建 `select` 语句
 
-Next, pretty much the same way we wrote a SQL `SELECT` statement above, now we'll create a **SQLModel** `select` statement.
+接下来，就像我们上面写 SQL `SELECT` 语句一样，现在我们将创建一个 **SQLModel** 的 `select` 语句。
 
-First we have to import `select` from `sqlmodel` at the top of the file:
+首先，我们需要在文件顶部从 `sqlmodel` 导入 `select`：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="1"
 {!./docs_src/tutorial/select/tutorial001_py310.py[ln:1]!}
 
-# More code below omitted 👇
+# 更多代码已省略 👇
 ```
 
 ////
@@ -243,12 +243,12 @@ First we have to import `select` from `sqlmodel` at the top of the file:
 ```Python hl_lines="3"
 {!./docs_src/tutorial/select/tutorial001.py[ln:1-3]!}
 
-# More code below omitted 👇
+# 更多代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// 详细信息 | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -268,18 +268,18 @@ First we have to import `select` from `sqlmodel` at the top of the file:
 
 ///
 
-And then we will use it to create a `SELECT` statement in Python code:
+然后，我们将使用它在 Python 代码中创建一个 `SELECT` 语句：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="7"
 {!./docs_src/tutorial/select/tutorial001_py310.py[ln:1]!}
 
-# More code here omitted 👈
+# 更多代码已省略 👈
 
 {!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-36]!}
 
-# More code here later 👇
+# 更多代码将在下文 👇
 ```
 
 ////
@@ -289,16 +289,16 @@ And then we will use it to create a `SELECT` statement in Python code:
 ```Python hl_lines="9"
 {!./docs_src/tutorial/select/tutorial001.py[ln:1-3]!}
 
-# More code here omitted 👈
+# 更多代码已省略 👈
 
 {!./docs_src/tutorial/select/tutorial001.py[ln:36-38]!}
 
-# More code here later 👇
+# 更多代码将在下文 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -318,43 +318,43 @@ And then we will use it to create a `SELECT` statement in Python code:
 
 ///
 
-It's a very simple line of code that conveys a lot of information:
+这是一行非常简单的代码，但它传达了很多信息：
 
 ```Python
 statement = select(Hero)
 ```
 
-This is equivalent to the first SQL `SELECT` statement above:
+这等同于上面的第一个 SQL `SELECT` 语句：
 
 ```SQL
 SELECT id, name, secret_name, age
 FROM hero
 ```
 
-We pass the class model `Hero` to the `select()` function. And that tells it that we want to select all the columns necessary for the `Hero` class.
+我们将类模型 `Hero` 传递给 `select()` 函数。这告诉它我们想要选择所有与 `Hero` 类相关的列。
 
-And notice that in the `select()` function we don't explicitly specify the `FROM` part. It is already obvious to **SQLModel** (actually to SQLAlchemy) that we want to select `FROM` the table `hero`, because that's the one associated with the `Hero` class model.
+请注意，在 `select()` 函数中我们并没有明确指定 `FROM` 部分。**SQLModel**（实际上是 SQLAlchemy）已经默认我们要从 `hero` 表中选择，因为 `Hero` 类模型与该表相关联。
 
 /// tip
 
-The value of the `statement` returned by `select()` is a special object that allows us to do other things.
+`select()` 返回的 `statement` 值是一个特殊对象，它允许我们做其他操作。
 
-I'll tell you about that in the next chapters.
+我将在接下来的章节中告诉你更多关于它的信息。
 
 ///
 
-## Execute the Statement
+## 执行语句
 
-Now that we have the `select` statement, we can execute it with the **session**:
+现在我们有了 `select` 语句，可以使用 **session** 来执行它：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="6"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-37]!}
 
-# More code here later 👇
+# 更多代码将在下文 👇
 ```
 
 ////
@@ -362,16 +362,16 @@ Now that we have the `select` statement, we can execute it with the **session**:
 //// tab | Python 3.7+
 
 ```Python hl_lines="6"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial001.py[ln:36-39]!}
 
-# More code here later 👇
+# 更多代码将在下文 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -391,11 +391,11 @@ Now that we have the `select` statement, we can execute it with the **session**:
 
 ///
 
-This will tell the **session** to go ahead and use the **engine** to execute that `SELECT` statement in the database and bring the results back.
+这会告诉 **session** 使用 **engine** 执行数据库中的 `SELECT` 语句，并返回结果。
 
-Because we created the **engine** with `echo=True`, it will show the SQL it executes in the output.
+由于我们在创建 **engine** 时使用了 `echo=True`，它将在输出中显示所执行的 SQL。
 
-This `session.exec(statement)` will generate this output:
+这个 `session.exec(statement)` 将产生以下输出：
 
 ```
 INFO Engine BEGIN (implicit)
@@ -404,7 +404,7 @@ FROM hero
 INFO Engine [no key 0.00032s] ()
 ```
 
-The database returns the table with all the data, just like above when we wrote SQL directly:
+数据库返回了包含所有数据的表格，就像我们直接编写 SQL 时一样：
 
 <table>
 <tr>
@@ -421,20 +421,20 @@ The database returns the table with all the data, just like above when we wrote 
 </tr>
 </table>
 
-## Iterate Through the Results
+## 遍历结果
 
-The `results` object is an <abbr title="Something that can be used in a for loop">iterable</abbr> that can be used to go through each one of the rows.
+`results` 对象是一个 <abbr title="可以在 `for` 循环中使用的对象">可迭代的</abbr> 对象，可以用来遍历每一行数据。
 
-Now we can put it in a `for` loop and print each one of the heroes:
+现在我们可以将它放入一个 `for` 循环中，打印每个英雄：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="7-8"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-39]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -442,16 +442,16 @@ Now we can put it in a `for` loop and print each one of the heroes:
 //// tab | Python 3.7+
 
 ```Python hl_lines="7-8"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial001.py[ln:36-41]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -471,7 +471,7 @@ Now we can put it in a `for` loop and print each one of the heroes:
 
 ///
 
-This will print the output:
+这将打印以下输出：
 
 ```
 id=1 name='Deadpond' age=None secret_name='Dive Wilson'
@@ -479,18 +479,18 @@ id=2 name='Spider-Boy' age=None secret_name='Pedro Parqueador'
 id=3 name='Rusty-Man' age=48 secret_name='Tommy Sharp'
 ```
 
-## Add `select_heroes()` to `main()`
+## 将 `select_heroes()` 添加到 `main()` 函数
 
-Now include a call to `select_heroes()` in the `main()` function so that it is executed when we run the program from the command line:
+现在，在 `main()` 函数中调用 `select_heroes()`，这样当我们从命令行运行程序时，它会被执行：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="14"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-45]!}
 
-# More code here later 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -498,16 +498,16 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 //// tab | Python 3.7+
 
 ```Python hl_lines="14"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial001.py[ln:36-47]!}
 
-# More code here later 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -527,11 +527,11 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 
 ///
 
-## Review The Code
+## 回顾代码
 
-Great, you're now being able to read the data from the database! 🎉
+太好了，你现在可以从数据库中读取数据了！🎉
 
-Let's review the code up to this point:
+让我们回顾一下到目前为止的代码：
 
 //// tab | Python 3.10+
 
@@ -555,44 +555,44 @@ Let's review the code up to this point:
 
 /// tip
 
-Check out the number bubbles to see what is done by each line of code.
+查看数字气泡，看看每行代码做了什么。
 
 ///
 
-Here it starts to become more evident why we should have a single **engine** for the whole application, but different **sessions** for each group of operations.
+这里开始更明显地看出为什么我们应该为整个应用程序使用一个 **engine**，但为每组操作使用不同的 **session**。
 
-This new session we created uses the *same* **engine**, but it's a new and independent **session**.
+我们创建的这个新会话使用的是 *相同的* **engine**，但它是一个新的独立的 **session**。
 
-The code above creating the models could, for example, live in a function handling web API requests and creating models.
+上面的创建模型的代码可以，例如，放在一个处理 Web API 请求并创建模型的函数中。
 
-And the second section reading data from the database could be in another function for other requests.
+而从数据库读取数据的第二部分可以放在另一个函数中处理其他请求。
 
-So, both sections could be in **different places** and would need their own sessions.
+因此，这两部分代码可以放在 **不同的位置**，并且它们需要各自的会话。
 
 /// info
 
-To be fair, in this example all that code could actually share the same **session**, there's actually no need to have two here.
+公平地说，在这个例子中，所有的代码实际上可以共享同一个 **session**，这里其实不需要有两个会话。
 
-But it allows me to show you how they could be separated and to reinforce the idea that you should have **one engine** per application, and **multiple sessions**, one per each group of operations.
+但这样做可以让我向你展示它们是如何分开的，并强调你应该为每个应用程序使用 **一个 engine**，并为每组操作使用 **多个 session**。
 
 ///
 
-## Get a List of `Hero` Objects
+## 获取 `Hero` 对象的列表
 
-Up to now we are using the `results` to iterate over them.
+到目前为止，我们一直在使用 `results` 来进行遍历。
 
-But for different reasons you might want to have the full **list of `Hero`** objects right away instead of just an *iterable*. For example, if you want to return them in a web API.
+但出于不同的原因，你可能希望立即获取完整的 **`Hero`** 对象列表，而不仅仅是一个 *可迭代对象*。例如，如果你想在 Web API 中返回这些数据。
 
-The special `results` object also has a method `results.all()` that returns a list with all the objects:
+这个特殊的 `results` 对象还具有一个方法 `results.all()`，它返回一个包含所有对象的列表：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="7"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial003_py310.py[ln:34-39]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
@@ -600,16 +600,16 @@ The special `results` object also has a method `results.all()` that returns a li
 //// tab | Python 3.7+
 
 ```Python hl_lines="7"
-# Code above omitted 👆
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial003.py[ln:36-41]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -629,9 +629,9 @@ The special `results` object also has a method `results.all()` that returns a li
 
 ///
 
-With this now we have all the heroes in a list in the `heroes` variable.
+这样我们就可以将所有的英雄存储在 `heroes` 变量中的一个列表中。
 
-After printing it, we would see something like:
+打印后，结果会是这样的：
 
 ```
 [
@@ -643,41 +643,41 @@ After printing it, we would see something like:
 
 /// info
 
-It would actually look more compact, I'm formatting it a bit for you to see that it is actually a list with all the data.
+实际显示时会更紧凑，我为了让你看到它实际上是一个包含所有数据的列表，稍微做了格式化。
 
 ///
 
-## Compact Version
+## 简洁版本
 
-I have been creating several variables to be able to explain to you what each thing is doing.
+为了向你解释每个对象的作用，我创建了多个变量。
 
-But knowing what is each object and what it is all doing, we can simplify it a bit and put it in a more compact form:
+但是现在我们了解了每个对象的作用以及它们的功能后，我们可以简化一下，将它们合并成一个更简洁的形式：
 
 //// tab | Python 3.10+
 
-```Python  hl_lines="5"
-# Code above omitted 👆
+```Python hl_lines="5"
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial004_py310.py[ln:34-37]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
 //// tab | Python 3.7+
 
-```Python  hl_lines="5"
-# Code above omitted 👆
+```Python hl_lines="5"
+# 上面的代码已省略 👆
 
 {!./docs_src/tutorial/select/tutorial004.py[ln:36-39]!}
 
-# Code below omitted 👇
+# 下面的代码已省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -697,80 +697,80 @@ But knowing what is each object and what it is all doing, we can simplify it a b
 
 ///
 
-Here we are putting it all on a single line, you will probably put the select statements in a single line like this more often.
+在这里，我们将所有代码放在一行，实际上你以后会更频繁地将 `select` 语句写成一行。
 
-## SQLModel or SQLAlchemy - Technical Details
+## SQLModel 或 SQLAlchemy - 技术细节
 
-**SQLModel** is actually, more or less, just **SQLAlchemy** and **Pydantic** underneath, combined together.
+**SQLModel** 实际上是 **SQLAlchemy** 和 **Pydantic** 的结合体。
 
-It uses and returns the same types of objects and is compatible with both libraries.
+它使用并返回相同类型的对象，并与这两个库兼容。
 
-Nevertheless, **SQLModel** defines a few of its own internal parts to improve the developer experience.
+然而，**SQLModel** 定义了一些自己的内部部分，以改善开发者的体验。
 
-In this chapter we are touching some of them.
+在本章中，我们触及到了一些这些细节。
 
-### SQLModel's `select`
+### SQLModel 的 `select`
 
-When importing from `sqlmodel` the `select()` function, you are using **SQLModel**'s version of `select`.
+当你从 `sqlmodel` 导入 `select()` 函数时，你使用的是 **SQLModel** 版本的 `select`。
 
-SQLAchemy also has its own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
+SQLAlchemy 也有它自己的 `select`，而 SQLModel 的 `select` 在内部使用了 SQLAlchemy 的 `select`。
 
-But SQLModel's version does a lot of **tricks** with type annotations to make sure you get the best **editor support** possible, no matter if you use **VS Code**, **PyCharm**, or something else. ✨
+但是，SQLModel 版本的 `select` 做了很多**技巧**，通过类型注解确保无论你使用 **VS Code**、**PyCharm** 还是其他工具，都能获得最佳的 **编辑器支持**。✨
 
 /// info
 
-There was a lot of work and research, with different versions of the internal code, to improve this as much as possible. 🤓
+为了尽可能提高这一点，内部代码进行了大量工作和研究，使用了不同版本的代码。🤓
 
 ///
 
-### SQLModel's `session.exec`
+### SQLModel 的 `session.exec`
 
-📢 This is one to pay special attention to.
+📢 这个部分需要特别注意。
 
-SQLAlchemy's own `Session` has a method `session.execute()`. It doesn't have a `session.exec()` method.
+SQLAlchemy 自带的 `Session` 有一个方法 `session.execute()`，但没有 `session.exec()` 方法。
 
-If you see SQLAlchemy tutorials, they will always use `session.execute()`.
+如果你查阅 SQLAlchemy 的教程，你会看到它们总是使用 `session.execute()`。
 
-**SQLModel**'s own `Session` inherits directly from SQLAlchemy's `Session`, and adds this additional method `session.exec()`. Underneath, it uses the same `session.execute()`.
+**SQLModel** 自带的 `Session` 直接继承自 SQLAlchemy 的 `Session`，并添加了这个额外的方法 `session.exec()`。在内部，它仍然使用相同的 `session.execute()`。
 
-But `session.exec()` does several **tricks** combined with the tricks in `session()` to give you the **best editor support**, with **autocompletion** and **inline errors** everywhere, even after getting data from a select. ✨
+但是，`session.exec()` 做了很多**技巧**，结合了 `session()` 中的技巧，旨在为你提供**最佳的编辑器支持**，无论是**自动完成**还是**内联错误**，即使是在从 `select` 获取数据之后，也能提供这些功能。✨
 
-For example, in SQLAlchemy you would need to add a `.scalars()` here:
+例如，在 SQLAlchemy 中，你需要在这里添加 `.scalars()`：
 
 ```Python
 heroes = session.execute(select(Hero)).scalars().all()
 ```
 
-But you would have to remove it when selecting multiple things (we'll see that later).
+但是，当你选择多个项目时（稍后我们会看到），你必须移除它。
 
-SQLModel's `session.exec()` takes care of that for you, so you don't have to add the `.scalars()`.
+SQLModel 的 `session.exec()` 会为你处理这些问题，因此你无需添加 `.scalars()`。
 
-This is something that SQLAlchemy currently can't provide, because the regular `session.execute()` supports several other use cases, including legacy ones, so it can't have all the internal type annotations and tricks to support this.
+这是 SQLAlchemy 当前无法提供的功能，因为常规的 `session.execute()` 支持其他多种用例，包括旧版用法，因此它不能拥有所有的内部类型注解和技巧来支持这种方式。
 
-On top of that, **SQLModel**'s `session.exec()` also does some tricks to reduce the amount of code you have to write and to make it as intuitive as possible.
+除此之外，**SQLModel** 的 `session.exec()` 还做了一些优化，减少了你编写代码的数量，并使其尽可能直观。
 
-But SQLModel's `Session` still has access to `session.execute()` too.
+但是 SQLModel 的 `Session` 仍然可以访问 `session.execute()`。
 
 /// tip
 
-Your editor will give you autocompletion for both `session.exec()` and `session.execute()`.
+你的编辑器将为 `session.exec()` 和 `session.execute()` 提供自动完成功能。
 
-📢 Remember to **always use `session.exec()`** to get the best editor support and developer experience.
+📢 记住，**始终使用 `session.exec()`**，以获得最佳的编辑器支持和开发者体验。
 
 ///
 
-### Caveats of **SQLModel** Flavor
+### **SQLModel** 风格的局限性
 
-SQLModel is designed to have the best **developer experience** in a narrow set of **very common use cases**. ✨
+SQLModel 设计的目标是为一些 **非常常见的用例** 提供最佳的 **开发者体验** 。✨
 
-You can still combine it with SQLAlchemy directly and use **all the features** of SQLAlchemy when you need to, including lower level more "pure" SQL constructs, exotic patterns, and even legacy ones. 🤓
+你仍然可以直接与 SQLAlchemy 配合使用，并在需要时使用 SQLAlchemy 的 **所有功能** ，包括更低层次的、更加“纯粹”的 SQL 构造、复杂的模式，甚至是旧版模式。🤓
 
-But **SQLModel**'s design (e.g. type annotations) assume you are using it in the ways I explain here in the documentation.
+但是， **SQLModel** 的设计（例如类型注解）假设你是在按照我在文档中所讲的方式使用它。
 
-Thanks to this, you will get as much **autocompletion** and **inline errors** as possible. 🚀
+因此，通过这种方式，你将获得尽可能多的 **自动完成** 和 **内联错误** 。🚀
 
-But this also means that if you use SQLModel with some more **exotic patterns** from SQLAlchemy, your editor might tell you that *there's an error*, while in fact, the code would still work.
+但这也意味着，如果你使用 SQLModel 与 SQLAlchemy 中的一些 **复杂模式** ，编辑器可能会告诉你 *存在错误*，但实际上代码仍然可以正常工作。
 
-That's the trade-off. 🤷
+这就是取舍。🤷
 
-But for the situations where you need those exotic patterns, you can always use SQLAlchemy directly combined with SQLModel (using the same models, etc).
+但对于需要使用这些复杂模式的情况，你总是可以直接使用 SQLAlchemy，并结合 SQLModel（使用相同的模型等）。

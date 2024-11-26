@@ -1,21 +1,21 @@
-# Remove Relationships
+# 移除关系
 
-Now let's say that **Spider-Boy** tells **Rusty-Man** something like:
+现在假设 **Spider-Boy** 对 **Rusty-Man** 说：
 
-> I don't feel so good Mr. Sharp
+> 我感觉不太好，Sharp先生
 
-And then for some reason needs to leave the **Preventers** for some years. 😭
+然后由于某些原因，他需要离开 **Preventers** 团队几年。😭
 
-We can remove the relationship by setting it to `None`, the same as with the `team_id`, it also works with the new relationship attribute `.team`:
+我们可以通过将关系设置为 `None` 来移除关系，和设置 `team_id` 一样，这也适用于新的关系属性 `.team`：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:103-114]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -23,11 +23,11 @@ We can remove the relationship by setting it to `None`, the same as with the `te
 //// tab | Python 3.9+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py39.py[ln:105-116]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -35,16 +35,16 @@ We can remove the relationship by setting it to `None`, the same as with the `te
 //// tab | Python 3.7+
 
 ```Python hl_lines="9"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py[ln:105-116]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -72,16 +72,16 @@ We can remove the relationship by setting it to `None`, the same as with the `te
 
 ///
 
-And of course, we should remember to add this `update_heroes()` function to `main()` so that it runs when we call this program from the command line:
+当然，我们还需要记得将 `update_heroes()` 函数添加到 `main()` 中，以便在我们从命令行调用这个程序时运行：
 
 //// tab | Python 3.10+
 
 ```Python hl_lines="7"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:117-121]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -89,11 +89,11 @@ And of course, we should remember to add this `update_heroes()` function to `mai
 //// tab | Python 3.9+
 
 ```Python hl_lines="7"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py39.py[ln:119-123]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
@@ -101,16 +101,16 @@ And of course, we should remember to add this `update_heroes()` function to `mai
 //// tab | Python 3.7+
 
 ```Python hl_lines="7"
-# Code above omitted 👆
+# 代码上面部分省略 👆
 
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py[ln:119-123]!}
 
-# Code below omitted 👇
+# 代码下面部分省略 👇
 ```
 
 ////
 
-/// details | 👀 Full file preview
+/// details | 👀 完整文件预览
 
 //// tab | Python 3.10+
 
@@ -138,8 +138,8 @@ And of course, we should remember to add this `update_heroes()` function to `mai
 
 ///
 
-## Recap
+## 小结
 
-This chapter was too short for a recap, wasn't it? 🤔
+这一章实在是太简短了，不是吗？🤔
 
-Anyway, **relationship attributes** make it easy and intuitive to work with relationships stored in the database. 🎉
+无论如何，**关系属性** 使得处理存储在数据库中的关系变得既简单又直观。🎉

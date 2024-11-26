@@ -1,17 +1,17 @@
-# Relationship Attributes - Intro
+# 关系属性 - 介绍
 
-In the previous chapters we discussed how to manage databases with tables that have **relationships** by using fields (columns) with **foreign keys** pointing to other columns.
+在之前的章节中，我们讨论了如何通过使用带有 **外键** 的字段（列）来管理具有 **关系** 的数据库表，这些外键指向其他表的列。
 
-And then we read the data together with `select()` and using `.where()` or `.join()` to connect it.
+然后，我们使用 `select()` 结合 `.where()` 或 `.join()` 来读取数据并将其连接起来。
 
-Now we will see how to use **Relationship Attributes**, an extra feature of **SQLModel** (and SQLAlchemy), to work with the data in the database in a much more familiar way, and closer to normal Python code.
+现在，我们将看到如何使用 **关系属性**，这是 **SQLModel**（以及 SQLAlchemy）的一项额外功能，能够以一种更为熟悉的方式处理数据库中的数据，更接近正常的 Python 代码。
 
 /// info
 
-When I say "**relationship**" I mean the standard dictionary term, of data related to other data.
+当我说 "**关系**" 时，我指的是标准的字典意义上的数据之间的关联。
 
-I'm not using the term "**relation**" that is the technical, academical, SQL term for a single table.
+我并不是在使用术语 "**关系**"，这是学术界和 SQL 中指代单个表的技术术语。
 
 ///
 
-And using those **relationship attributes** is where a tool like **SQLModel** really shines. ✨
+使用这些 **关系属性** 是 **SQLModel** 这一工具真正展现其优势的地方。✨
