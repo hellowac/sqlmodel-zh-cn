@@ -24,7 +24,7 @@
     
     
       
-        <title>Read One Row - SQLModel</title>
+        <title>读取单行数据 - SQLModel</title>
       
     
     
@@ -73,7 +73,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Read One Row - SQLModel" >
+        <meta  property="og:title"  content="读取单行数据 - SQLModel" >
       
         <meta  property="og:description"  content="SQLModel, Python 中的 SQL 数据库，设计简洁、兼容、稳健。" >
       
@@ -89,7 +89,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Read One Row - SQLModel" >
+        <meta  name="twitter:title"  content="读取单行数据 - SQLModel" >
       
         <meta  name="twitter:description"  content="SQLModel, Python 中的 SQL 数据库，设计简洁、兼容、稳健。" >
       
@@ -116,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#read-one-row" class="md-skip">
+        <a href="#_1" class="md-skip">
           Skip to content
         </a>
       
@@ -151,7 +151,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Read One Row
+              读取单行数据
             
           </span>
         </div>
@@ -332,7 +332,7 @@
   
     
   
-  Resources
+  资源
 
         </a>
       </li>
@@ -352,7 +352,7 @@
   
     
   
-  About
+  关于
 
         </a>
       </li>
@@ -370,7 +370,7 @@
   
     
   
-  Release Notes
+  发布说明
 
       </a>
     </li>
@@ -786,7 +786,7 @@
         
   
   <span class="md-ellipsis">
-    Create Rows - Use the Session - INSERT
+    创建数据行 - 使用 Session - 插入（INSERT）
   </span>
   
 
@@ -807,7 +807,7 @@
         
   
   <span class="md-ellipsis">
-    Automatic IDs, None Defaults, and Refreshing Data
+    自动生成的 ID、`None` 默认值和数据刷新
   </span>
   
 
@@ -828,7 +828,7 @@
         
   
   <span class="md-ellipsis">
-    Read Data - SELECT
+    读取数据 - SELECT
   </span>
   
 
@@ -849,7 +849,7 @@
         
   
   <span class="md-ellipsis">
-    Filter Data - WHERE
+    过滤数据 - WHERE
   </span>
   
 
@@ -870,7 +870,7 @@
         
   
   <span class="md-ellipsis">
-    Indexes - Optimize Queries
+    索引 - 优化查询
   </span>
   
 
@@ -900,7 +900,7 @@
           
   
   <span class="md-ellipsis">
-    Read One Row
+    读取单行数据
   </span>
   
 
@@ -911,7 +911,7 @@
         
   
   <span class="md-ellipsis">
-    Read One Row
+    读取单行数据
   </span>
   
 
@@ -933,99 +933,99 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#continue-from-previous-code" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Continue From Previous Code
+      从上一个代码继续
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#read-the-first-row" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Read the First Row
+      读取第一行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#first-or-none" class="md-nav__link">
+  <a href="#none" class="md-nav__link">
     <span class="md-ellipsis">
-      First or None
+      第一个或 None
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exactly-one" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Exactly One
+      精确匹配一行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exactly-one-with-more-data" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Exactly One with More Data
+      精确匹配一行（有更多数据时）
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exactly-one-with-no-data" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Exactly One with No Data
+      精确匹配一行（没有数据时）
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compact-version" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Compact Version
+      简洁版本
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#select-by-id-with-where" class="md-nav__link">
+  <a href="#where-id" class="md-nav__link">
     <span class="md-ellipsis">
-      Select by Id with .where()
+      使用 .where() 根据 Id 进行选择
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#select-by-id-with-get" class="md-nav__link">
+  <a href="#get-id" class="md-nav__link">
     <span class="md-ellipsis">
-      Select by Id with .get()
+      使用 .get() 根据 Id 进行选择
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#select-by-id-with-get-with-no-data" class="md-nav__link">
+  <a href="#get-id_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Select by Id with .get() with No Data
+      使用 .get() 根据 Id 进行选择（无数据）
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#recap" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Recap
+      总结
     </span>
   </a>
   
@@ -1051,7 +1051,7 @@
         
   
   <span class="md-ellipsis">
-    Read a Range of Data - LIMIT and OFFSET
+    读取一范围数据 - LIMIT 和 OFFSET
   </span>
   
 
@@ -1072,7 +1072,7 @@
         
   
   <span class="md-ellipsis">
-    Update Data - UPDATE
+    更新数据 - UPDATE
   </span>
   
 
@@ -1093,7 +1093,7 @@
         
   
   <span class="md-ellipsis">
-    Delete Data - DELETE
+    删除数据 - DELETE
   </span>
   
 
@@ -1145,7 +1145,7 @@
               
   
   <span class="md-ellipsis">
-    Connect Tables - JOIN - Intro
+    连接表格 - JOIN - 简介
   </span>
   
 
@@ -1161,7 +1161,7 @@
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_13_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_7_13">
             <span class="md-nav__icon md-icon"></span>
-            Connect Tables - JOIN - Intro
+            连接表格 - JOIN - 简介
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1178,7 +1178,7 @@
         
   
   <span class="md-ellipsis">
-    Create Connected Tables
+    创建连接表格
   </span>
   
 
@@ -1199,7 +1199,7 @@
         
   
   <span class="md-ellipsis">
-    Create and Connect Rows
+    创建并连接数据行
   </span>
   
 
@@ -1220,7 +1220,7 @@
         
   
   <span class="md-ellipsis">
-    Read Connected Data
+    读取关联数据
   </span>
   
 
@@ -1241,7 +1241,7 @@
         
   
   <span class="md-ellipsis">
-    Update Data Connections
+    更新数据连接
   </span>
   
 
@@ -1262,7 +1262,7 @@
         
   
   <span class="md-ellipsis">
-    Remove Data Connections
+    移除数据连接
   </span>
   
 
@@ -1326,7 +1326,7 @@
               
   
   <span class="md-ellipsis">
-    Relationship Attributes - Intro
+    关系属性 - 介绍
   </span>
   
 
@@ -1342,7 +1342,7 @@
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_14_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_7_14">
             <span class="md-nav__icon md-icon"></span>
-            Relationship Attributes - Intro
+            关系属性 - 介绍
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1359,7 +1359,7 @@
         
   
   <span class="md-ellipsis">
-    Define Relationships Attributes
+    定义关系属性
   </span>
   
 
@@ -1380,7 +1380,7 @@
         
   
   <span class="md-ellipsis">
-    Create and Update Relationships
+    创建和更新关系
   </span>
   
 
@@ -1401,7 +1401,7 @@
         
   
   <span class="md-ellipsis">
-    Read Relationships
+    读取关系
   </span>
   
 
@@ -1422,7 +1422,7 @@
         
   
   <span class="md-ellipsis">
-    Remove Relationships
+    移除关系
   </span>
   
 
@@ -1443,7 +1443,7 @@
         
   
   <span class="md-ellipsis">
-    Relationship back_populates
+    关系 `back_populates`
   </span>
   
 
@@ -1464,7 +1464,7 @@
         
   
   <span class="md-ellipsis">
-    Cascade Delete Relationships
+    级联删除关系
   </span>
   
 
@@ -1485,7 +1485,7 @@
         
   
   <span class="md-ellipsis">
-    Type annotation strings
+    类型注解字符串
   </span>
   
 
@@ -1543,7 +1543,7 @@
               
   
   <span class="md-ellipsis">
-    Many to Many - Intro
+    多对多 - 介绍
   </span>
   
 
@@ -1559,7 +1559,7 @@
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_15_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_7_15">
             <span class="md-nav__icon md-icon"></span>
-            Many to Many - Intro
+            多对多 - 介绍
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1576,7 +1576,7 @@
         
   
   <span class="md-ellipsis">
-    Create Models with a Many-to-Many Link
+    使用多对多关系创建模型
   </span>
   
 
@@ -1597,7 +1597,7 @@
         
   
   <span class="md-ellipsis">
-    Create Data with Many-to-Many Relationships
+    使用多对多关系创建数据
   </span>
   
 
@@ -1618,7 +1618,7 @@
         
   
   <span class="md-ellipsis">
-    Update and Remove Many-to-Many Relationships
+    更新和移除多对多关系
   </span>
   
 
@@ -1639,7 +1639,7 @@
         
   
   <span class="md-ellipsis">
-    Link Model with Extra Fields
+    带有额外字段的连接模型
   </span>
   
 
@@ -1668,7 +1668,7 @@
         
   
   <span class="md-ellipsis">
-    Code Structure and Multiple Files
+    代码结构与多个文件
   </span>
   
 
@@ -1734,7 +1734,7 @@
               
   
   <span class="md-ellipsis">
-    FastAPI and Pydantic - Intro
+    FastAPI 和 Pydantic - 简介
   </span>
   
 
@@ -1750,7 +1750,7 @@
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_17_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_7_17">
             <span class="md-nav__icon md-icon"></span>
-            FastAPI and Pydantic - Intro
+            FastAPI 和 Pydantic - 简介
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1767,7 +1767,7 @@
         
   
   <span class="md-ellipsis">
-    Simple Hero API with FastAPI
+    使用 FastAPI 构建简单的英雄 API
   </span>
   
 
@@ -1788,7 +1788,7 @@
         
   
   <span class="md-ellipsis">
-    FastAPI Response Model with SQLModel
+    FastAPI 响应模型与 SQLModel
   </span>
   
 
@@ -1809,7 +1809,7 @@
         
   
   <span class="md-ellipsis">
-    Multiple Models with FastAPI
+    FastAPI 中的多个模型
   </span>
   
 
@@ -1830,7 +1830,7 @@
         
   
   <span class="md-ellipsis">
-    Read One Model with FastAPI
+    使用 FastAPI 读取单个模型
   </span>
   
 
@@ -1851,7 +1851,7 @@
         
   
   <span class="md-ellipsis">
-    Read Heroes with Limit and Offset with FastAPI
+    使用 FastAPI 获取带限制和偏移量的英雄列表
   </span>
   
 
@@ -1872,7 +1872,7 @@
         
   
   <span class="md-ellipsis">
-    Update Data with FastAPI
+    使用 FastAPI 更新数据
   </span>
   
 
@@ -1893,7 +1893,7 @@
         
   
   <span class="md-ellipsis">
-    Update with Extra Data (Hashed Passwords) with FastAPI
+    使用 FastAPI 更新附加数据（哈希密码）
   </span>
   
 
@@ -1914,7 +1914,7 @@
         
   
   <span class="md-ellipsis">
-    Delete Data with FastAPI
+    使用 FastAPI 删除数据
   </span>
   
 
@@ -1935,7 +1935,7 @@
         
   
   <span class="md-ellipsis">
-    Session with FastAPI Dependency
+    使用 FastAPI 依赖项管理 Session
   </span>
   
 
@@ -1956,7 +1956,7 @@
         
   
   <span class="md-ellipsis">
-    FastAPI Path Operations for Teams - Other Models
+    FastAPI 团队路径操作 - 其他模型
   </span>
   
 
@@ -1977,7 +1977,7 @@
         
   
   <span class="md-ellipsis">
-    Models with Relationships in FastAPI
+    FastAPI 中具有关系的模型
   </span>
   
 
@@ -1998,7 +1998,7 @@
         
   
   <span class="md-ellipsis">
-    Test Applications with FastAPI and SQLModel
+    使用 FastAPI 和 SQLModel 测试应用程序
   </span>
   
 
@@ -2060,7 +2060,7 @@
               
   
   <span class="md-ellipsis">
-    Advanced User Guide
+    高级用户指南
   </span>
   
 
@@ -2076,7 +2076,7 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_8">
             <span class="md-nav__icon md-icon"></span>
-            Advanced User Guide
+            高级用户指南
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2093,7 +2093,7 @@
         
   
   <span class="md-ellipsis">
-    Decimal Numbers
+    十进制数字
   </span>
   
 
@@ -2114,7 +2114,7 @@
         
   
   <span class="md-ellipsis">
-    UUID (Universally Unique Identifiers)
+    UUID（通用唯一标识符）
   </span>
   
 
@@ -2177,7 +2177,7 @@
               
   
   <span class="md-ellipsis">
-    Resources
+    资源
   </span>
   
 
@@ -2193,7 +2193,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Resources
+            资源
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2210,7 +2210,7 @@
         
   
   <span class="md-ellipsis">
-    Help SQLModel - Get Help
+    帮助 SQLModel - 获取帮助
   </span>
   
 
@@ -2231,7 +2231,7 @@
         
   
   <span class="md-ellipsis">
-    Contributing
+    贡献
   </span>
   
 
@@ -2252,7 +2252,7 @@
         
   
   <span class="md-ellipsis">
-    Repository Management Tasks
+    仓库管理任务
   </span>
   
 
@@ -2305,7 +2305,7 @@
               
   
   <span class="md-ellipsis">
-    About
+    关于
   </span>
   
 
@@ -2321,7 +2321,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            About
+            关于
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2338,7 +2338,7 @@
         
   
   <span class="md-ellipsis">
-    Alternatives, Inspiration and Comparisons
+    替代方案、灵感和比较
   </span>
   
 
@@ -2359,7 +2359,7 @@
         
   
   <span class="md-ellipsis">
-    Repository Management
+    仓库管理
   </span>
   
 
@@ -2387,7 +2387,7 @@
         
   
   <span class="md-ellipsis">
-    Release Notes
+    发布说明
   </span>
   
 
@@ -2423,99 +2423,99 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#continue-from-previous-code" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Continue From Previous Code
+      从上一个代码继续
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#read-the-first-row" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Read the First Row
+      读取第一行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#first-or-none" class="md-nav__link">
+  <a href="#none" class="md-nav__link">
     <span class="md-ellipsis">
-      First or None
+      第一个或 None
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exactly-one" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Exactly One
+      精确匹配一行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exactly-one-with-more-data" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Exactly One with More Data
+      精确匹配一行（有更多数据时）
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exactly-one-with-no-data" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Exactly One with No Data
+      精确匹配一行（没有数据时）
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compact-version" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Compact Version
+      简洁版本
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#select-by-id-with-where" class="md-nav__link">
+  <a href="#where-id" class="md-nav__link">
     <span class="md-ellipsis">
-      Select by Id with .where()
+      使用 .where() 根据 Id 进行选择
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#select-by-id-with-get" class="md-nav__link">
+  <a href="#get-id" class="md-nav__link">
     <span class="md-ellipsis">
-      Select by Id with .get()
+      使用 .get() 根据 Id 进行选择
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#select-by-id-with-get-with-no-data" class="md-nav__link">
+  <a href="#get-id_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Select by Id with .get() with No Data
+      使用 .get() 根据 Id 进行选择（无数据）
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#recap" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Recap
+      总结
     </span>
   </a>
   
@@ -2539,16 +2539,16 @@
   
 
 
-<h1 id="read-one-row">Read One Row<a class="headerlink" href="#read-one-row" title="Permanent link">&para;</a></h1>
-<p>You already know how to filter rows to select using <code>.where()</code>.</p>
-<p>And you saw how when executing a <code>select()</code> it normally returns an <strong>iterable</strong> object.</p>
-<p>Or you can call <code>results.all()</code> to get a <strong>list</strong> of all the rows right away, instead of an iterable.</p>
-<p>But in many cases you really just want to read a <strong>single row</strong>, and having to deal with an iterable or a list is not as convenient.</p>
-<p>Let's see the utilities to read a single row.</p>
-<h2 id="continue-from-previous-code">Continue From Previous Code<a class="headerlink" href="#continue-from-previous-code" title="Permanent link">&para;</a></h2>
-<p>We'll continue with the same examples we have been using in the previous chapters to create and select data and we'll keep updating them.</p>
+<h1 id="_1">读取单行数据<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>你已经知道如何使用 <code>.where()</code> 来筛选行进行选择。</p>
+<p>你也看到过，当执行 <code>select()</code> 时，它通常返回一个 <strong>可迭代</strong> 对象。</p>
+<p>或者你可以调用 <code>results.all()</code> 来立即获取所有行的 <strong>列表</strong> ，而不是可迭代对象。</p>
+<p>但是在许多情况下，你只想读取 <strong>单行数据</strong> ，而处理可迭代对象或列表并不那么方便。</p>
+<p>接下来，我们来看一下读取单行数据的实用工具。</p>
+<h2 id="_2">从上一个代码继续<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>我们将继续使用前几章中用来创建和选择数据的相同示例，并继续更新它们。</p>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Python 3.10+</label><label for="__tabbed_1_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2676,9 +2676,9 @@
 </div>
 </div>
 </details>
-<p>If you already executed the previous examples and have a database with data, <strong>remove the database file</strong> before running each example, that way you won't have duplicate data and you will be able to get the same results.</p>
-<h2 id="read-the-first-row">Read the First Row<a class="headerlink" href="#read-the-first-row" title="Permanent link">&para;</a></h2>
-<p>We have been iterating over the rows in a <code>result</code> object like:</p>
+<p>如果你已经执行了之前的示例并且有一个数据库文件， <strong>在运行每个示例之前删除数据库文件</strong> ，这样你就不会有重复数据，并且可以获得相同的结果。</p>
+<h2 id="_3">读取第一行<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>我们一直在遍历 <code>result</code> 对象中的行，像这样：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Python 3.10+</label><label for="__tabbed_2_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2710,7 +2710,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Python 3.10+</label><label for="__tabbed_3_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2838,8 +2838,8 @@
 </div>
 </div>
 </details>
-<p>But let's say that we are not interested in all the rows, just the <strong>first</strong> one.</p>
-<p>We can call the <code>.first()</code> method on the <code>results</code> object to get the first row:</p>
+<p>但假设我们并不关心所有的行，只关心 <strong>第一行</strong>。</p>
+<p>我们可以在 <code>results</code> 对象上调用 <code>.first()</code> 方法来获取第一行：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Python 3.10+</label><label for="__tabbed_4_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2871,7 +2871,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Python 3.10+</label><label for="__tabbed_5_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2999,35 +2999,35 @@
 </div>
 </div>
 </details>
-<p>This will return the first object in the <code>results</code> (if there was any).</p>
-<p>That way, we don't have to deal with an iterable or a list.</p>
+<p>这将返回 <code>results</code> 中的第一行对象（如果有的话）。</p>
+<p>这样，我们就不需要处理可迭代对象或列表了。</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Notice that <code>.first()</code> is a method of the <code>results</code> object, not of the <code>select()</code> statement.</p>
+<p>请注意，<code>.first()</code> 是 <code>results</code> 对象的方法，而不是 <code>select()</code> 语句的方法。</p>
 </div>
-<p>Although this query would find two rows, by using <code>.first()</code> we get only the first row.</p>
-<p>If we run it in the command line it would output:</p>
+<p>虽然这个查询会找到两行数据，但通过使用 <code>.first()</code> 我们只会获得第一行。</p>
+<p>如果我们在命令行中运行它，输出将是：</p>
 <div class="termy">
 
 <div class="highlight"><pre><span></span><code><span id="__span-10-1"><span class="gp">$ </span>python<span class="w"> </span>app.py
 </span><span id="__span-10-2">
-</span><span id="__span-10-3"><span class="go">// Some boilerplate output omitted 😉</span>
+</span><span id="__span-10-3"><span class="go">// 一些初始化输出被省略 😉</span>
 </span><span id="__span-10-4">
-</span><span id="__span-10-5"><span class="go">// The SELECT with WHERE</span>
+</span><span id="__span-10-5"><span class="go">// 带有 WHERE 的 SELECT 查询</span>
 </span><span id="__span-10-6"><span class="go">INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age</span>
 </span><span id="__span-10-7"><span class="go">FROM hero</span>
 </span><span id="__span-10-8"><span class="go">WHERE hero.age &lt;= ?</span>
 </span><span id="__span-10-9"><span class="go">INFO Engine [no key 0.00021s] (35,)</span>
 </span><span id="__span-10-10">
-</span><span id="__span-10-11"><span class="go">// Only print the first item</span>
+</span><span id="__span-10-11"><span class="go">// 只打印第一项</span>
 </span><span id="__span-10-12"><span class="go">Hero: secret_name=&#39;Natalia Roman-on&#39; age=32 id=4 name=&#39;Tarantula&#39;</span>
 </span></code></pre></div>
 
 </div>
 
-<h2 id="first-or-none">First or <code>None</code><a class="headerlink" href="#first-or-none" title="Permanent link">&para;</a></h2>
-<p>It would be possible that the SQL query doesn't find any row.</p>
-<p>In that case, <code>.first()</code> will return <code>None</code>:</p>
+<h2 id="none">第一个或 <code>None</code><a class="headerlink" href="#none" title="Permanent link">&para;</a></h2>
+<p>SQL 查询可能不会找到任何行。</p>
+<p>在这种情况下，<code>.first()</code> 将返回 <code>None</code>：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Python 3.10+</label><label for="__tabbed_6_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3059,7 +3059,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Python 3.10+</label><label for="__tabbed_7_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3187,30 +3187,30 @@
 </div>
 </div>
 </details>
-<p>In this case, as there's no hero with an age less than 25, <code>.first()</code> will return <code>None</code>.</p>
-<p>When we run it in the command line it will output:</p>
+<p>在这种情况下，由于没有年龄小于 25 的英雄，<code>.first()</code> 将返回 <code>None</code>。</p>
+<p>当我们在命令行运行它时，输出将是：</p>
 <div class="termy">
 
 <div class="highlight"><pre><span></span><code><span id="__span-15-1"><span class="gp">$ </span>python<span class="w"> </span>app.py
 </span><span id="__span-15-2">
-</span><span id="__span-15-3"><span class="go">// Some boilerplate output omitted 😉</span>
+</span><span id="__span-15-3"><span class="go">// 一些初始化输出被省略 😉</span>
 </span><span id="__span-15-4">
-</span><span id="__span-15-5"><span class="go">// The SELECT with WHERE</span>
+</span><span id="__span-15-5"><span class="go">// 带有 WHERE 的 SELECT 查询</span>
 </span><span id="__span-15-6"><span class="go">INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age</span>
 </span><span id="__span-15-7"><span class="go">FROM hero</span>
 </span><span id="__span-15-8"><span class="go">WHERE hero.age &lt;= ?</span>
 </span><span id="__span-15-9"><span class="go">INFO Engine [no key 0.00021s] (35,)</span>
 </span><span id="__span-15-10">
-</span><span id="__span-15-11"><span class="go">// Now rows found, first is None</span>
+</span><span id="__span-15-11"><span class="go">// 没有找到行，第一行是 None</span>
 </span><span id="__span-15-12"><span class="go">Hero: None</span>
 </span></code></pre></div>
 
 </div>
 
-<h2 id="exactly-one">Exactly One<a class="headerlink" href="#exactly-one" title="Permanent link">&para;</a></h2>
-<p>There might be cases where we want to ensure that there's exactly <strong>one</strong> row matching the query.</p>
-<p>And if there was more than one, it would mean that there's an error in the system, and we should terminate with an error.</p>
-<p>In that case, instead of <code>.first()</code> we can use <code>.one()</code>:</p>
+<h2 id="_4">精确匹配一行<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>有时我们希望确保查询结果中只有 <strong>一行</strong> 数据。</p>
+<p>如果查询结果中多于一行，则意味着系统出现了错误，我们应该终止并抛出一个错误。</p>
+<p>在这种情况下，我们可以使用 <code>.one()</code>，而不是 <code>.first()</code>：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Python 3.10+</label><label for="__tabbed_8_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3242,7 +3242,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Python 3.10+</label><label for="__tabbed_9_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3370,52 +3370,52 @@
 </div>
 </div>
 </details>
-<p>Here we know that there's only one <code>"Deadpond"</code>, and there shouldn't be any more than one.</p>
-<p>If we run it once will output:</p>
+<p>在这里，我们知道 <code>"Deadpond"</code> 只有一行，而且不应该有多于一行的记录。</p>
+<p>如果我们运行一次，输出将会是：</p>
 <div class="termy">
 
 <div class="highlight"><pre><span></span><code><span id="__span-20-1"><span class="gp">$ </span>python<span class="w"> </span>app.py
 </span><span id="__span-20-2">
-</span><span id="__span-20-3"><span class="go">// Some boilerplate output omitted 😉</span>
+</span><span id="__span-20-3"><span class="go">// 一些初始化输出被省略 😉</span>
 </span><span id="__span-20-4">
-</span><span id="__span-20-5"><span class="go">// The SELECT with WHERE</span>
+</span><span id="__span-20-5"><span class="go">// 带有 WHERE 的 SELECT 查询</span>
 </span><span id="__span-20-6"><span class="go">INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age</span>
 </span><span id="__span-20-7"><span class="go">FROM hero</span>
 </span><span id="__span-20-8"><span class="go">WHERE hero.name = ?</span>
 </span><span id="__span-20-9"><span class="go">INFO Engine [no key 0.00015s] (&#39;Deadpond&#39;,)</span>
 </span><span id="__span-20-10">
-</span><span id="__span-20-11"><span class="go">// Only one row found, we&#39;re good ✅</span>
+</span><span id="__span-20-11"><span class="go">// 只找到了一行，没问题 ✅</span>
 </span><span id="__span-20-12"><span class="go">Hero: secret_name=&#39;Dive Wilson&#39; age=None id=1 name=&#39;Deadpond&#39;</span>
 </span></code></pre></div>
 
 </div>
 
-<p>But if we run it again, as it will create and insert all the heroes in the database again, they will be duplicated, and there will be more than one <code>"Deadpond"</code>. 😱</p>
-<p>So, running it again, without first deleting the file <code>database.db</code> will output:</p>
+<p>但如果我们再次运行，由于它会重新创建并插入所有英雄记录到数据库中，这会导致重复的记录，并且会有多个 <code>"Deadpond"</code>。 😱</p>
+<p>因此，如果我们没有先删除 <code>database.db</code> 文件，直接运行它，将会输出：</p>
 <div class="termy">
 
 <div class="highlight"><pre><span></span><code><span id="__span-21-1"><span class="gp">$ </span>python<span class="w"> </span>app.py
 </span><span id="__span-21-2">
-</span><span id="__span-21-3"><span class="go">// Some boilerplate output omitted 😉</span>
+</span><span id="__span-21-3"><span class="go">// 一些初始化输出被省略 😉</span>
 </span><span id="__span-21-4">
-</span><span id="__span-21-5"><span class="go">// The SELECT with WHERE</span>
+</span><span id="__span-21-5"><span class="go">// 带有 WHERE 的 SELECT 查询</span>
 </span><span id="__span-21-6"><span class="go">INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age</span>
 </span><span id="__span-21-7"><span class="go">FROM hero</span>
 </span><span id="__span-21-8"><span class="go">WHERE hero.name = ?</span>
 </span><span id="__span-21-9"><span class="go">INFO Engine [no key 0.00015s] (&#39;Deadpond&#39;,)</span>
 </span><span id="__span-21-10">
-</span><span id="__span-21-11"><span class="go">// Oh, no, the database is in a broken state, with duplicates! 🚨</span>
+</span><span id="__span-21-11"><span class="go">// 哎呀，数据库处于损坏状态，有重复记录！ 🚨</span>
 </span><span id="__span-21-12"><span class="go">Traceback (most recent call last):</span>
 </span><span id="__span-21-13">
-</span><span id="__span-21-14"><span class="go">// Some details about the error omitted</span>
+</span><span id="__span-21-14"><span class="go">// 错误的详细信息省略</span>
 </span><span id="__span-21-15">
 </span><span id="__span-21-16"><span class="go">sqlalchemy.exc.MultipleResultsFound: Multiple rows were found when exactly one was required</span>
 </span></code></pre></div>
 
 </div>
 
-<h2 id="exactly-one-with-more-data">Exactly One with More Data<a class="headerlink" href="#exactly-one-with-more-data" title="Permanent link">&para;</a></h2>
-<p>Of course, even if we don't duplicate the data, we could get the same error if we send a query that finds more than one row and expect exactly one with <code>.one()</code>:</p>
+<h2 id="_5">精确匹配一行（有更多数据时）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>当然，即使我们没有重复数据，如果发送一个查询返回多于一行的结果，并且仍然期望 <code>.one()</code> 返回正好一行，我们也会遇到相同的错误：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Python 3.10+</label><label for="__tabbed_10_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3447,7 +3447,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Python 3.10+</label><label for="__tabbed_11_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3575,9 +3575,9 @@
 </div>
 </div>
 </details>
-<p>That would find 2 rows, and would end up with the same error.</p>
-<h2 id="exactly-one-with-no-data">Exactly One with No Data<a class="headerlink" href="#exactly-one-with-no-data" title="Permanent link">&para;</a></h2>
-<p>And also, if we get no rows at all with <code>.one()</code>, it will also raise an error:</p>
+<p>这个查询将会找到 2 行数据，最终也会抛出相同的错误。</p>
+<h2 id="_6">精确匹配一行（没有数据时）<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>如果我们使用 <code>.one()</code> 但查询没有返回任何行，它也会抛出一个错误：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Python 3.10+</label><label for="__tabbed_12_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3609,7 +3609,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Python 3.10+</label><label for="__tabbed_13_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3737,8 +3737,8 @@
 </div>
 </div>
 </details>
-<p>In this case, as there are no heroes with an age less than 25, <code>.one()</code> will raise an error.</p>
-<p>This is what we would get if we run it in the command line:</p>
+<p>在这种情况下，由于没有年龄小于 25 的英雄，<code>.one()</code> 会抛出一个错误。</p>
+<p>如果我们在命令行运行它，输出会是这样的：</p>
 <div class="termy">
 
 <div class="highlight"><pre><span></span><code><span id="__span-30-1"><span class="gp">$ </span>python<span class="w"> </span>app.py
@@ -3751,18 +3751,18 @@
 </span><span id="__span-30-8"><span class="go">WHERE hero.age &lt; ?</span>
 </span><span id="__span-30-9"><span class="go">INFO Engine [no key 0.00014s] (25,)</span>
 </span><span id="__span-30-10">
-</span><span id="__span-30-11"><span class="go">// Oh, no, we expected one row but there aren&#39;t any! 🚨</span>
+</span><span id="__span-30-11"><span class="go">// 哎呀，我们期望有一行数据，但没有找到任何！🚨</span>
 </span><span id="__span-30-12"><span class="go">Traceback (most recent call last):</span>
 </span><span id="__span-30-13">
-</span><span id="__span-30-14"><span class="go">// Some details about the error omitted</span>
+</span><span id="__span-30-14"><span class="go">// 一些错误的详细信息被省略</span>
 </span><span id="__span-30-15">
 </span><span id="__span-30-16"><span class="go">sqlalchemy.exc.NoResultFound: No row was found when one was required</span>
 </span></code></pre></div>
 
 </div>
 
-<h2 id="compact-version">Compact Version<a class="headerlink" href="#compact-version" title="Permanent link">&para;</a></h2>
-<p>Of course, with <code>.first()</code> and <code>.one()</code> you would also probably write all that in a more compact form most of the time, all in a single line (or at least a single Python statement):</p>
+<h2 id="_7">简洁版本<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>当然，使用 <code>.first()</code> 和 <code>.one()</code> 时，通常你会将代码写得更加简洁，大多数情况下可以将其写成一行（或者至少是一条 Python 语句）：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Python 3.10+</label><label for="__tabbed_14_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3790,7 +3790,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Python 3.10+</label><label for="__tabbed_15_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3914,10 +3914,10 @@
 </div>
 </div>
 </details>
-<p>That would result in the same as some examples above.</p>
-<h2 id="select-by-id-with-where">Select by Id with <code>.where()</code><a class="headerlink" href="#select-by-id-with-where" title="Permanent link">&para;</a></h2>
-<p>In many cases you might want to select a single row by its Id column with the <strong>primary key</strong>.</p>
-<p>You could do it the same way we have been doing with a <code>.where()</code> and then getting the first item with <code>.first()</code>:</p>
+<p>这将与上面的例子得到相同的结果。</p>
+<h2 id="where-id">使用 <code>.where()</code> 根据 Id 进行选择<a class="headerlink" href="#where-id" title="Permanent link">&para;</a></h2>
+<p>在许多情况下，你可能想通过 <strong>主键</strong> 的 Id 列选择单行数据。</p>
+<p>你可以像我们之前做的那样，使用 <code>.where()</code> 然后用 <code>.first()</code> 获取第一项：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="16:2"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">Python 3.10+</label><label for="__tabbed_16_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3949,7 +3949,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">Python 3.10+</label><label for="__tabbed_17_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -4077,9 +4077,9 @@
 </div>
 </div>
 </details>
-<p>That would work correctly, as expected. But there's a shorter version. 👇</p>
-<h2 id="select-by-id-with-get">Select by Id with <code>.get()</code><a class="headerlink" href="#select-by-id-with-get" title="Permanent link">&para;</a></h2>
-<p>As selecting a single row by its Id column with the <strong>primary key</strong> is a common operation, there's a shortcut for it:</p>
+<p>这将按预期正常工作。但其实有一个更简洁的版本。👇</p>
+<h2 id="get-id">使用 <code>.get()</code> 根据 Id 进行选择<a class="headerlink" href="#get-id" title="Permanent link">&para;</a></h2>
+<p>由于根据 <strong>主键</strong> 的 Id 列选择单行数据是一个常见操作，因此有一个简便的方法来实现：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="18:2"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">Python 3.10+</label><label for="__tabbed_18_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -4107,7 +4107,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">Python 3.10+</label><label for="__tabbed_19_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -4231,13 +4231,13 @@
 </div>
 </div>
 </details>
-<p><code>session.get(Hero, 1)</code> is an equivalent to creating a <code>select()</code>, then filtering by Id using <code>.where()</code>, and then getting the first item with <code>.first()</code>.</p>
-<p>If you run it, it will output:</p>
+<p><code>session.get(Hero, 1)</code> 等效于创建一个 <code>select()</code> 查询，使用 <code>.where()</code> 根据 Id 进行筛选，然后使用 <code>.first()</code> 获取第一项。</p>
+<p>如果你运行它，输出将是：</p>
 <div class="termy">
 
 <div class="highlight"><pre><span></span><code><span id="__span-43-1"><span class="gp">$ </span>python<span class="w"> </span>app.py
 </span><span id="__span-43-2">
-</span><span id="__span-43-3"><span class="go">// Some boilerplate output omitted 😉</span>
+</span><span id="__span-43-3"><span class="go">// 一些基本输出被省略 😉</span>
 </span><span id="__span-43-4">
 </span><span id="__span-43-5"><span class="go">// SELECT with WHERE</span>
 </span><span id="__span-43-6"><span class="go">INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age</span>
@@ -4245,14 +4245,14 @@
 </span><span id="__span-43-8"><span class="go">WHERE hero.id = ?</span>
 </span><span id="__span-43-9"><span class="go">INFO Engine [generated in 0.00021s] (1,)</span>
 </span><span id="__span-43-10">
-</span><span id="__span-43-11"><span class="go">// The printed result</span>
+</span><span id="__span-43-11"><span class="go">// 打印结果</span>
 </span><span id="__span-43-12"><span class="go">Hero: secret_name=&#39;Dive Wilson&#39; age=None id=1 name=&#39;Deadpond&#39;</span>
 </span></code></pre></div>
 
 </div>
 
-<h2 id="select-by-id-with-get-with-no-data">Select by Id with <code>.get()</code> with No Data<a class="headerlink" href="#select-by-id-with-get-with-no-data" title="Permanent link">&para;</a></h2>
-<p><code>.get()</code> behaves similar to <code>.first()</code>, if there's no data it will simply return <code>None</code> (instead of raising an error):</p>
+<h2 id="get-id_1">使用 <code>.get()</code> 根据 Id 进行选择（无数据）<a class="headerlink" href="#get-id_1" title="Permanent link">&para;</a></h2>
+<p><code>.get()</code> 的行为类似于 <code>.first()</code>，如果没有数据，它将返回 <code>None</code>（而不是抛出错误）：</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">Python 3.10+</label><label for="__tabbed_20_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -4280,7 +4280,7 @@
 </div>
 </div>
 <details>
-<summary>👀 Full file preview</summary>
+<summary>👀 完整文件预览</summary>
 <div class="tabbed-set tabbed-alternate" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">Python 3.10+</label><label for="__tabbed_21_2">Python 3.7+</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -4404,12 +4404,12 @@
 </div>
 </div>
 </details>
-<p>Running that will output:</p>
+<p>运行这段代码将输出：</p>
 <div class="termy">
 
 <div class="highlight"><pre><span></span><code><span id="__span-48-1"><span class="gp">$ </span>python<span class="w"> </span>app.py
 </span><span id="__span-48-2">
-</span><span id="__span-48-3"><span class="go">// Some boilerplate output omitted 😉</span>
+</span><span id="__span-48-3"><span class="go">// 一些基本输出被省略 😉</span>
 </span><span id="__span-48-4">
 </span><span id="__span-48-5"><span class="go">// SELECT with WHERE</span>
 </span><span id="__span-48-6"><span class="go">INFO Engine BEGIN (implicit)</span>
@@ -4418,14 +4418,14 @@
 </span><span id="__span-48-9"><span class="go">WHERE hero.id = ?</span>
 </span><span id="__span-48-10"><span class="go">INFO Engine [generated in 0.00024s] (9001,)</span>
 </span><span id="__span-48-11">
-</span><span id="__span-48-12"><span class="go">// No data found, so the value is None</span>
+</span><span id="__span-48-12"><span class="go">// 没有找到数据，因此值为 None</span>
 </span><span id="__span-48-13"><span class="go">Hero: None</span>
 </span></code></pre></div>
 
 </div>
 
-<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
-<p>As querying the SQL database for a single row is a common operation, you now have several tools to do it in a short and simple way. 🎉</p>
+<h2 id="_8">总结<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>由于查询 SQL 数据库中的单行数据是一个常见操作，现在你有了几种工具，可以以简洁的方式实现这一功能。🎉</p>
 
 
 
@@ -4508,7 +4508,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../indexes/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Indexes - Optimize Queries">
+          <a href="../indexes/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 索引 - 优化查询">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -4518,20 +4518,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Indexes - Optimize Queries
+                索引 - 优化查询
               </div>
             </div>
           </a>
         
         
           
-          <a href="../limit-and-offset/" class="md-footer__link md-footer__link--next" aria-label="Next: Read a Range of Data - LIMIT and OFFSET">
+          <a href="../limit-and-offset/" class="md-footer__link md-footer__link--next" aria-label="Next: 读取一范围数据 - LIMIT 和 OFFSET">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Read a Range of Data - LIMIT and OFFSET
+                读取一范围数据 - LIMIT 和 OFFSET
               </div>
             </div>
             <div class="md-footer__button md-icon">
